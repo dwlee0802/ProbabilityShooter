@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=11 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/state_machine.gd" id="2_us0md"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/States/move_state.gd" id="4_jlt6l"]
 [ext_resource type="Script" path="res://Scenes/States/aim_state.gd" id="5_8ylnj"]
 [ext_resource type="Script" path="res://Scenes/States/attack_state.gd" id="6_3pdj6"]
+[ext_resource type="Script" path="res://Scenes/reload_state.gd" id="7_tgkgy"]
 
 [sub_resource type="Gradient" id="Gradient_w1uqg"]
 offsets = PackedFloat32Array(0.123377, 0.649351)
@@ -46,10 +47,11 @@ vertical_alignment = 1
 script = ExtResource("2_us0md")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "aim_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "aim_state", "reload_state")]
 script = ExtResource("3_2iym7")
 move_state = NodePath("../Move")
 aim_state = NodePath("../Aim")
+reload_state = NodePath("../Reload")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "aim_state")]
 script = ExtResource("4_jlt6l")
@@ -61,18 +63,20 @@ script = ExtResource("5_8ylnj")
 idle_state = NodePath("../Idle")
 action_1_state = NodePath("../Action1")
 
-[node name="Action1" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
+[node name="Action1" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "move_state")]
 script = ExtResource("6_3pdj6")
 idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
 
 [node name="Timer" type="Timer" parent="StateMachine/Action1"]
 process_callback = 0
 one_shot = true
 
-[node name="Action2" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
-script = ExtResource("6_3pdj6")
+[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "move_state")]
+script = ExtResource("7_tgkgy")
 idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
 
-[node name="Timer" type="Timer" parent="StateMachine/Action2"]
+[node name="Timer" type="Timer" parent="StateMachine/Reload"]
 process_callback = 0
 one_shot = true

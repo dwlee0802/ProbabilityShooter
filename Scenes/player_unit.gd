@@ -10,6 +10,9 @@ var state_machine: StateMachine = $StateMachine
 @export
 var movement_speed: float = 100
 
+@export
+var action_1_available: bool = false
+
 
 func _ready() -> void:
 	state_machine.init(self)

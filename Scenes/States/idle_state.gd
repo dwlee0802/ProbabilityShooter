@@ -4,6 +4,8 @@ extends State
 var move_state: State
 @export
 var aim_state: State
+@export
+var reload_state: State
 
 
 func enter() -> void:
@@ -16,8 +18,12 @@ func process_input(_event: InputEvent) -> State:
 		return move_state
 	# pressed action 1. go to action 1 aim mode
 	if Input.is_action_just_pressed("action_1"):
-		aim_state.action = Action.One
-		return aim_state
+		if parent.action_1_available:
+			aim_state.action = Action.One
+			return aim_state
+		else:
+			reload_state.action = Action.One
+			return reload_state
 		
 	return null
 	
