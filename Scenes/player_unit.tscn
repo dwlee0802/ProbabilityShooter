@@ -22,6 +22,7 @@ fill_from = Vector2(0.5, 0.5)
 size = Vector2(128, 128)
 
 [node name="PlayerUnit" type="CharacterBody2D"]
+position = Vector2(560, 312)
 motion_mode = 1
 script = ExtResource("1_b776y")
 
@@ -32,7 +33,7 @@ texture = SubResource("GradientTexture2D_745rb")
 shape = SubResource("RectangleShape2D_0kanb")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
-[node name="Label" type="Label" parent="."]
+[node name="StateLabel" type="Label" parent="."]
 offset_left = -61.0
 offset_top = -98.0
 offset_right = 58.0
@@ -41,8 +42,9 @@ text = "State: Idle"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StateMachine" type="Node" parent="."]
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_us0md")
+starting_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "aim_state")]
 script = ExtResource("3_2iym7")
@@ -51,12 +53,17 @@ aim_state = NodePath("../Aim")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("4_jlt6l")
-idle_state = NodePath(".")
+idle_state = NodePath("../Idle")
 
-[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_state")]
+[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_1_state")]
 script = ExtResource("5_8ylnj")
-attack_state = NodePath("../Idle")
+idle_state = NodePath("../Idle")
+action_1_state = NodePath("../Action1")
 
-[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
+[node name="Action1" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("6_3pdj6")
 idle_state = NodePath("../Idle")
+
+[node name="Timer" type="Timer" parent="StateMachine/Action1"]
+process_callback = 0
+one_shot = true

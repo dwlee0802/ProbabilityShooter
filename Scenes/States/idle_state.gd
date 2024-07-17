@@ -8,10 +8,18 @@ var aim_state: State
 
 func enter() -> void:
 	super()
-
-
+	parent.state_label.text = "Idle"
+	
 func process_input(event: InputEvent) -> State:
+	# right clicking when Idle is move order
+	if Input.is_action_just_pressed('right_click'):
+		return move_state
+	# pressed action 1. go to action 1 aim mode
+	if Input.is_action_just_pressed("action_1"):
+		aim_state.action = Action.One
+		return aim_state
+		
 	return null
-
+	
 func process_physics(delta: float) -> State:
 	return null
