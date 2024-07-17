@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxvs0ubbipl35"]
+
+[ext_resource type="Script" path="res://Scenes/player_unit.gd" id="1_b776y"]
+
+[sub_resource type="Gradient" id="Gradient_w1uqg"]
+offsets = PackedFloat32Array(0.123377, 0.649351)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_745rb"]
+gradient = SubResource("Gradient_w1uqg")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kanb"]
+size = Vector2(128, 128)
+
+[node name="PlayerUnit" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_b776y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_745rb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0kanb")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -61.0
+offset_top = -98.0
+offset_right = 58.0
+offset_bottom = -75.0
+text = "State: Idle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="StateMachine"]
+
+[node name="Move" type="Node" parent="StateMachine"]
+
+[node name="Aim" type="Node" parent="StateMachine"]
+
+[node name="Attack" type="Node" parent="StateMachine"]
