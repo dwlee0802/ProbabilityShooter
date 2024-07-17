@@ -20,6 +20,8 @@ func process_input(_event: InputEvent) -> State:
 				push_error("No action index in aim state.")
 				return idle_state
 			Action.One:
+				action_1_state.mouse_position = parent.get_local_mouse_position()
+				print(action_1_state.mouse_position)
 				return action_1_state
 				
 	if Input.is_action_just_pressed("ui_cancel"):

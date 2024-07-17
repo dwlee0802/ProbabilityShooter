@@ -1,5 +1,10 @@
 extends State
 
+var mouse_position: Vector2
+
+@export
+var projectile_speed: float = 1000
+
 @export
 var idle_state: State
 @export
@@ -28,8 +33,14 @@ func process_frame(_delta: float) -> State:
 	
 func process_physics(_delta: float) -> State:
 	if timer.is_stopped():
-		print("action activated")
 		parent.action_1_available = false
+		
+		var bullet: Projectile = parent.bullet_scene.instantiate()
+		bullet.Launch(mouse_position.normalized(), projectile_speed)
+		bullet.global_position = parent.global_position
+		
+		get_tree().root.add_child(bullet)
+		
 		return idle_state
 	
 	return null

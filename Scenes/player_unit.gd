@@ -11,7 +11,9 @@ var state_machine: StateMachine = $StateMachine
 var movement_speed: float = 100
 
 @export
-var action_1_available: bool = false
+var action_1_available: bool = true
+
+var bullet_scene = preload("res://Scenes/projectile.tscn")
 
 
 func _ready() -> void:
