@@ -12,7 +12,7 @@ func enter() -> void:
 	parent.state_label.text = "Action1"
 	timer.start(2)
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
 		 

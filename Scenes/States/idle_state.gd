@@ -10,7 +10,7 @@ func enter() -> void:
 	super()
 	parent.state_label.text = "Idle"
 	
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	# right clicking when Idle is move order
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
@@ -21,5 +21,5 @@ func process_input(event: InputEvent) -> State:
 		
 	return null
 	
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	return null

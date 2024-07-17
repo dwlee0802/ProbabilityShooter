@@ -7,6 +7,9 @@ var state_label: Label = $StateLabel
 @onready
 var state_machine: StateMachine = $StateMachine
 
+@export
+var movement_speed: float = 100
+
 
 func _ready() -> void:
 	state_machine.init(self)

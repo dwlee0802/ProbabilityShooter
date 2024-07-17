@@ -8,14 +8,14 @@ var action_1_state: State
 @export
 var action_2_state: State
 
-var action: Action = 0
+var action: Action = Action.None
 
 
 func enter() -> void:
 	super()
 	parent.state_label.text = "Aim"
 
-func process_input(event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed('left_click'):
 		match action:
 			Action.None:
