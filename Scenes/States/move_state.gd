@@ -2,6 +2,8 @@ extends State
 
 @export
 var idle_state: State
+@export
+var aim_state: State
 
 var destination: Vector2
 
@@ -19,6 +21,10 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("right_click"):
 		destination = parent.get_global_mouse_position()
 		print(destination)
+	# pressed action 1. go to action 1 aim mode
+	if Input.is_action_just_pressed("action_1"):
+		aim_state.action = Action.One
+		return aim_state
 		
 	return null
 

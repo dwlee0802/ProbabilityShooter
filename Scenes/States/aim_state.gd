@@ -23,8 +23,6 @@ func process_input(_event: InputEvent) -> State:
 				return idle_state
 			Action.One:
 				return action_1_state
-			Action.Two:
-				return action_2_state
 				
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
