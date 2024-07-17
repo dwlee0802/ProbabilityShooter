@@ -12,7 +12,6 @@ config_version=5
 
 config/name="ProbabilityShooter"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
 
 [rendering]
 
