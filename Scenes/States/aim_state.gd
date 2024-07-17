@@ -5,8 +5,6 @@ var idle_state: State
 
 @export
 var action_1_state: State
-@export
-var action_2_state: State
 
 var action: Action = Action.None
 
