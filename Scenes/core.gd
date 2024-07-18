@@ -1,6 +1,7 @@
 extends Area2D
 class_name Core
 
+## Amount of damage Core can handle before being killed
 @export
 var health_points: int = 300
 
@@ -14,8 +15,6 @@ func _ready():
 	health_label.text = str(health_points)
 	
 func _on_body_entered(body):
-	print("core hit!")
-	
 	if body is EnemyUnit:
 		# reduce core health
 		receive_hit(body.health_points)
@@ -26,6 +25,8 @@ func _on_body_entered(body):
 			
 		body.queue_free()
 
-func receive_hit(amount):
+func receive_hit(amount: int) -> void:
 	health_points -= amount
 	health_label.text = str(health_points)
+	print("core hit by " + str(amount))
+	

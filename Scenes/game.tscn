@@ -16,4 +16,7 @@ position = Vector2(658, 384)
 position = Vector2(6, 0)
 zoom = Vector2(0.5, 0.5)
 
+[node name="SpawnTimer" type="Timer" parent="."]
+process_callback = 0
+
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
