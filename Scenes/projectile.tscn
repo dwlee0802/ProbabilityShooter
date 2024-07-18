@@ -17,9 +17,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.788991, 0.211009)
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="Area2D"]
 position = Vector2(267, 145)
-gravity_scale = 0.0
 script = ExtResource("1_g0oia")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -28,3 +27,5 @@ debug_color = Color(0, 0.6, 0.701961, 0.168627)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_th7mi")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

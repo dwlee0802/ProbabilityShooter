@@ -9,7 +9,7 @@ var enemy_scene = preload("res://Scenes/enemy_unit.tscn")
 func _ready():
 	EnemyUnit.core_position = core.global_position
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
-	newEnemy.global_position = Vector2.RIGHT * 500
+	newEnemy.global_position = Vector2.RIGHT * 1000
 	newEnemy.on_spawn(100)
 	add_child(newEnemy)
 

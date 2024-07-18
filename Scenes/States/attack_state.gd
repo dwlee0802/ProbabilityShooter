@@ -36,7 +36,7 @@ func process_physics(_delta: float) -> State:
 		parent.action_1_available = false
 		
 		var bullet: Projectile = parent.bullet_scene.instantiate()
-		bullet.Launch(mouse_position.normalized(), projectile_speed)
+		bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(1, 100))
 		bullet.global_position = parent.global_position
 		
 		get_tree().root.add_child(bullet)
