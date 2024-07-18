@@ -9,13 +9,21 @@ var movement_speed: float = 0
 
 var adjust_modifier: float = 4
 
+@onready
+var health_label: Label = $HealthLabel
+
+
 func on_spawn(speed):
 	var core_dir = global_position.direction_to(EnemyUnit.core_position)
 	apply_central_impulse(core_dir * speed)
 	movement_speed = speed
 
+func _ready():
+	health_label.text = str(health_points)
+	
 func receive_hit(damage_amount: int):
 	health_points -= damage_amount
+	health_label.text = str(health_points)
 	print("Received damage: " + str(damage_amount))
 	if health_points <= 0:
 		queue_free()

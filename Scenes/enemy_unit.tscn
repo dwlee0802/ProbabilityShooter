@@ -26,3 +26,12 @@ texture = SubResource("GradientTexture2D_2b5le")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_kbun0")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -43.0
+offset_top = -95.0
+offset_right = 41.0
+offset_bottom = -72.0
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
