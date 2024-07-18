@@ -8,9 +8,12 @@
 script = ExtResource("1_entdd")
 
 [node name="Core" parent="." instance=ExtResource("1_i48ud")]
-position = Vector2(559, 319)
 
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
-position = Vector2(1030, 424)
+position = Vector2(658, 384)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(6, 0)
+zoom = Vector2(0.5, 0.5)
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

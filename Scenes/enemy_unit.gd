@@ -7,6 +7,8 @@ var health_points: int = 100
 
 var movement_speed: float = 0
 
+var adjust_modifier: float = 4
+
 func on_spawn(speed):
 	var core_dir = global_position.direction_to(EnemyUnit.core_position)
 	apply_central_impulse(core_dir * speed)
@@ -28,11 +30,11 @@ func _physics_process(delta):
 	
 	var adjustment_force: Vector2 = target_direction - current_direction
 	
-	apply_central_impulse(adjustment_force)
+	apply_central_impulse(adjustment_force * adjust_modifier)
 	
 	# bring speed back to normal
 	if current_speed > movement_speed:
-		apply_central_impulse(-current_direction * delta)
+		apply_central_impulse(abs(current_speed - movement_speed) * -current_direction * delta)
 	else:
-		apply_central_impulse(current_direction * delta)
+		apply_central_impulse(abs(current_speed - movement_speed) * current_direction * delta)
 	
