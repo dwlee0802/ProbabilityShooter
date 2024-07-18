@@ -8,12 +8,12 @@
 [ext_resource type="Script" path="res://Scenes/States/attack_state.gd" id="6_3pdj6"]
 [ext_resource type="Script" path="res://Scenes/reload_state.gd" id="7_tgkgy"]
 
-[sub_resource type="Gradient" id="Gradient_c2ki5"]
+[sub_resource type="Gradient" id="Gradient_r6gn1"]
 offsets = PackedFloat32Array(0.123377, 0.649351)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+colors = PackedColorArray(0.317647, 0.454902, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_745rb"]
-gradient = SubResource("Gradient_c2ki5")
+gradient = SubResource("Gradient_r6gn1")
 width = 128
 height = 128
 fill = 1

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bml325a55htb3"]
+
+[ext_resource type="Script" path="res://Scenes/enemy_unit.gd" id="1_wmq3m"]
+
+[sub_resource type="Gradient" id="Gradient_c2ki5"]
+offsets = PackedFloat32Array(0.123377, 0.649351)
+colors = PackedColorArray(0.580392, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2b5le"]
+gradient = SubResource("Gradient_c2ki5")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kbun0"]
+radius = 64.0
+
+[node name="EnemyUnit" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_wmq3m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_2b5le")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kbun0")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
