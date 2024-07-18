@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c23cvo0viwxq4"]
+
+[ext_resource type="Script" path="res://Scenes/core.gd" id="1_fth6d"]
+
+[sub_resource type="Gradient" id="Gradient_6m47m"]
+offsets = PackedFloat32Array(0, 0.649351)
+colors = PackedColorArray(0.54659, 0.382826, 0.817119, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vhfn1"]
+gradient = SubResource("Gradient_6m47m")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjiim"]
+radius = 128.0
+
+[node name="Core" type="Area2D"]
+script = ExtResource("1_fth6d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_vhfn1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kjiim")

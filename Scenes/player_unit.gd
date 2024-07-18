@@ -7,9 +7,11 @@ var state_label: Label = $StateLabel
 @onready
 var state_machine: StateMachine = $StateMachine
 
+@export_category("Unit Stats")
 @export
 var movement_speed: float = 100
 
+@export_category("Action Availability")
 @export
 var action_1_available: bool = true
 

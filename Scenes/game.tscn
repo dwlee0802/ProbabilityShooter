@@ -1,3 +1,14 @@
-[gd_scene format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=3 format=3 uid="uid://dxjkqbl8aq56s"]
+
+[ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/core.tscn" id="1_i48ud"]
+[ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/player_unit.tscn" id="2_jg501"]
 
 [node name="Game" type="Node2D"]
+
+[node name="Core" parent="." instance=ExtResource("1_i48ud")]
+position = Vector2(559, 319)
+
+[node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
+position = Vector2(1030, 424)
+
+[connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
