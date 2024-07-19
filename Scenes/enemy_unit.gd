@@ -26,6 +26,7 @@ func receive_hit(damage_amount: int):
 	health_label.text = str(health_points)
 	print("Received damage: " + str(damage_amount))
 	if health_points <= 0:
+		get_parent().remove_child(self)
 		queue_free()
 
 func _physics_process(delta):

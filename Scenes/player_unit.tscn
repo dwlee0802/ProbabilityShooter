@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/States/move_state.gd" id="4_jlt6l"]
 [ext_resource type="Script" path="res://Scenes/States/aim_state.gd" id="5_8ylnj"]
 [ext_resource type="Script" path="res://Scenes/States/attack_state.gd" id="6_3pdj6"]
-[ext_resource type="Script" path="res://Scenes/reload_state.gd" id="7_tgkgy"]
+[ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="7_tgkgy"]
 
 [sub_resource type="Gradient" id="Gradient_r6gn1"]
 offsets = PackedFloat32Array(0.123377, 0.649351)

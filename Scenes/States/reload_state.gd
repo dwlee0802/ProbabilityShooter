@@ -4,6 +4,8 @@ extends State
 var idle_state: State
 @export
 var move_state: State
+@export
+var reload_time: float = 1.0
 
 var action: Action = Action.None
 
@@ -14,12 +16,12 @@ var timer: Timer = $Timer
 func enter() -> void:
 	super()
 	parent.state_label.text = "Reloading " + str(action)
-	timer.start(2)
+	timer.start(reload_time)
 
 func process_frame(_delta: float) -> State:
 	parent.state_label.text = "Reloading in " + str(int(timer.time_left + 1))
 	
-	if timer.is_stopped():
+	if timer.time_left <= 0:
 		print("reload complete")
 		parent.action_1_available = true
 		return idle_state

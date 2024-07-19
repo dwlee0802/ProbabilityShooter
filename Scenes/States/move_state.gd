@@ -12,7 +12,6 @@ func enter() -> void:
 	super()
 	parent.state_label.text = "Move"
 	destination = parent.get_global_mouse_position()
-	print(destination)
 
 func process_input(_event: InputEvent) -> State:
 	# right clicking when Idle is move order
@@ -20,7 +19,6 @@ func process_input(_event: InputEvent) -> State:
 		return idle_state
 	if Input.is_action_just_pressed("right_click"):
 		destination = parent.get_global_mouse_position()
-		print(destination)
 	# pressed action 1. go to action 1 aim mode
 	if Input.is_action_just_pressed("action_1"):
 		aim_state.action = Action.One
@@ -29,8 +27,7 @@ func process_input(_event: InputEvent) -> State:
 	return null
 
 func process_physics(_delta: float) -> State:
-	if destination.distance_to(parent.global_position) < 1:
-		print("arrived")
+	if destination.distance_to(parent.global_position) < 1 * parent.movement_speed/100:
 		return idle_state
 	
 	var direction: Vector2 = parent.global_position.direction_to(destination)

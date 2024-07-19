@@ -3,7 +3,9 @@ extends State
 var mouse_position: Vector2
 
 @export
-var projectile_speed: float = 1000
+var projectile_speed: float = 8000
+@export
+var wait_time: float = 1
 
 @export
 var idle_state: State
@@ -17,7 +19,7 @@ var timer: Timer = $Timer
 func enter() -> void:
 	super()
 	parent.state_label.text = "Action1"
-	timer.start(2)
+	timer.start(wait_time)
 
 func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -36,7 +38,7 @@ func process_physics(_delta: float) -> State:
 		parent.action_1_available = false
 		
 		var bullet: Projectile = parent.bullet_scene.instantiate()
-		bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(1, 100))
+		bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(1, 201))
 		bullet.global_position = parent.global_position
 		
 		get_tree().root.add_child(bullet)

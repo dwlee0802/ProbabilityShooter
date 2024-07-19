@@ -6,17 +6,24 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
+spawn_cooldown = 5.0
+spawn_radius = 3000
+no_game_over = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(6, 0)
+zoom = Vector2(0.3, 0.3)
+process_callback = 0
 
 [node name="Core" parent="." instance=ExtResource("1_i48ud")]
 
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 position = Vector2(658, 384)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(6, 0)
-zoom = Vector2(0.5, 0.5)
+movement_speed = 500.0
 
 [node name="SpawnTimer" type="Timer" parent="."]
 process_callback = 0
+
+[node name="Enemies" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
