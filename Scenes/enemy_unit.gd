@@ -7,7 +7,8 @@ var health_points: int = 100
 
 var movement_speed: float = 0
 
-var adjust_modifier: float = 4
+var adjust_modifier: float = 8
+var speed_adjust_modifier: float = 4
 
 @onready
 var health_label: Label = $HealthLabel
@@ -46,5 +47,5 @@ func _physics_process(delta):
 	if current_speed > movement_speed:
 		apply_central_impulse(abs(current_speed - movement_speed) * -current_direction * delta)
 	else:
-		apply_central_impulse(abs(current_speed - movement_speed) * current_direction * delta)
+		apply_central_impulse(abs(current_speed - movement_speed) * speed_adjust_modifier * current_direction * delta)
 	

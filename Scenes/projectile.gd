@@ -6,7 +6,7 @@ var speed: float
 
 var damage_amount: int = 0
 
-var knock_back_amount: float = 300
+var knock_back_amount: float = 800
 
 func launch(direction: Vector2, _speed: float, amount: int) -> void:
 	dir = direction

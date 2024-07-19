@@ -23,7 +23,7 @@ script = ExtResource("2_iduqg")
 [node name="Core" parent="." instance=ExtResource("1_i48ud")]
 
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
-position = Vector2(658, 384)
+position = Vector2(202, 491)
 movement_speed = 500.0
 
 [node name="Enemies" type="Node2D" parent="."]
@@ -31,46 +31,9 @@ movement_speed = 500.0
 [node name="UserInterface" type="CanvasLayer" parent="."]
 script = ExtResource("5_cic1u")
 
-[node name="GameState" type="VBoxContainer" parent="UserInterface"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -25.0
-offset_top = 15.0
-offset_right = 25.0
-offset_bottom = 65.0
-grow_horizontal = 2
-alignment = 1
-
-[node name="TimeLabel" type="Label" parent="UserInterface/GameState"]
-layout_mode = 2
-text = "00:00"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KillCountLabel" type="Label" parent="UserInterface/GameState"]
-layout_mode = 2
-text = "Kills: 0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="UnitState" type="HBoxContainer" parent="UserInterface"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -74.5
-offset_top = -40.0
-offset_right = 74.5
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
-
-[node name="ReloadLabel" type="Label" parent="UserInterface/UnitState"]
-layout_mode = 2
-text = "Reloading: 0"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ReloadLabel" type="Label" parent="UserInterface"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "asdf"
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

@@ -34,6 +34,8 @@ func process_input(_event: InputEvent) -> State:
 		return idle_state
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
+	if Input.is_action_just_pressed("action_one"):
+		enter()
 		 
 	return null
 
