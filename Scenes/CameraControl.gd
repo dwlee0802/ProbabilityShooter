@@ -1,4 +1,5 @@
 extends Camera2D
+class_name CameraControl
 
 @export
 var zoomSpeed: float = 10.0
@@ -39,3 +40,6 @@ func pan_camera():
 	if dragging:
 		var offset_vector: Vector2 = get_viewport().get_mouse_position() - mouse_pos_init
 		position = camera_pos_init - offset_vector * 1 / zoom.x
+
+func center_camera(at_pos: Vector2) -> void:
+	position = at_pos

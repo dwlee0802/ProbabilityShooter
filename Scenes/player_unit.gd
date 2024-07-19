@@ -10,6 +10,8 @@ var state_machine: StateMachine = $StateMachine
 
 @export_category("Unit Stats")
 @export
+var selected: bool = false
+@export
 var movement_speed: float = 100
 
 @export_category("Action Availability")
@@ -41,6 +43,9 @@ func _ready() -> void:
 	attack_line.default_color = attack_color
 	
 func _unhandled_input(event: InputEvent) -> void:
+	if !selected:
+		return
+		
 	state_machine.process_input(event)
 	
 	if Input.is_action_just_pressed("action_one") and !action_one_available:

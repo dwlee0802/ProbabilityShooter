@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=7 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/core.tscn" id="1_i48ud"]
 [ext_resource type="Script" path="res://Scenes/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/player_unit.tscn" id="2_jg501"]
+[ext_resource type="Script" path="res://Scenes/input_manager.gd" id="2_webe7"]
 [ext_resource type="Script" path="res://Scenes/user_interface.gd" id="5_cic1u"]
 
 [node name="Game" type="Node2D"]
@@ -15,7 +16,12 @@ no_game_over = true
 [node name="SpawnTimer" type="Timer" parent="."]
 process_callback = 0
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("unit_one", "unit_two")]
+script = ExtResource("2_webe7")
+unit_one = NodePath("../PlayerUnit")
+unit_two = NodePath("../PlayerUnit2")
+
+[node name="Camera2D" type="Camera2D" parent="InputManager"]
 zoom = Vector2(0.3, 0.3)
 process_callback = 0
 script = ExtResource("2_iduqg")
@@ -25,6 +31,12 @@ script = ExtResource("2_iduqg")
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 position = Vector2(202, 491)
 movement_speed = 500.0
+action_one_reload_time = 0.5
+
+[node name="PlayerUnit2" parent="." instance=ExtResource("2_jg501")]
+position = Vector2(-521, -470)
+movement_speed = 500.0
+action_one_reload_time = 0.5
 
 [node name="Enemies" type="Node2D" parent="."]
 
