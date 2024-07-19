@@ -36,7 +36,7 @@ func _physics_process(delta):
 	var current_speed: float = linear_velocity.length()
 	
 	var angle_to_core: float = global_position.angle_to_point(core_position)
-	var target_direction: Vector2 = linear_velocity.from_angle(angle_to_core)
+	var target_direction: Vector2 = Vector2.from_angle(angle_to_core)
 	
 	var adjustment_force: Vector2 = target_direction - current_direction
 	

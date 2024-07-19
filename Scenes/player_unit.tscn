@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/States/move_state.gd" id="4_jlt6l"]
 [ext_resource type="Script" path="res://Scenes/States/aim_state.gd" id="5_8ylnj"]
 [ext_resource type="Script" path="res://Scenes/States/attack_state.gd" id="6_3pdj6"]
-[ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="7_tgkgy"]
+[ext_resource type="Script" path="res://Scenes/reload_timer.gd" id="8_ikoyw"]
 
 [sub_resource type="Gradient" id="Gradient_r6gn1"]
 offsets = PackedFloat32Array(0.123377, 0.649351)
@@ -47,36 +47,41 @@ vertical_alignment = 1
 script = ExtResource("2_us0md")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "aim_state", "reload_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "action_one_state")]
 script = ExtResource("3_2iym7")
 move_state = NodePath("../Move")
-aim_state = NodePath("../Aim")
-reload_state = NodePath("../Reload")
+action_one_state = NodePath("../ActionOne")
 
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "aim_state")]
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state")]
 script = ExtResource("4_jlt6l")
 idle_state = NodePath("../Idle")
-aim_state = NodePath("../Aim")
+action_one_state = NodePath("../ActionOne")
 
 [node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_1_state")]
 script = ExtResource("5_8ylnj")
 idle_state = NodePath("../Idle")
-action_1_state = NodePath("../Action1")
+action_1_state = NodePath("../ActionOne")
 
-[node name="Action1" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "move_state")]
+[node name="ActionOne" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "move_state")]
 script = ExtResource("6_3pdj6")
 idle_state = NodePath("../Idle")
 move_state = NodePath("../Move")
 
-[node name="Timer" type="Timer" parent="StateMachine/Action1"]
+[node name="Timer" type="Timer" parent="StateMachine/ActionOne"]
 process_callback = 0
 one_shot = true
 
-[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "move_state")]
-script = ExtResource("7_tgkgy")
-idle_state = NodePath("../Idle")
-move_state = NodePath("../Move")
+[node name="AimLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 100, 0)
+antialiased = true
 
-[node name="Timer" type="Timer" parent="StateMachine/Reload"]
+[node name="AttackLine" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 100, 0)
+antialiased = true
+
+[node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0
 one_shot = true
+script = ExtResource("8_ikoyw")
+action_number = 1

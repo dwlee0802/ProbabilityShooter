@@ -19,8 +19,16 @@ var timer: Timer = $Timer
 func enter() -> void:
 	super()
 	parent.state_label.text = "Action1"
+	mouse_position = parent.get_local_mouse_position()
 	timer.start(wait_time)
+	parent.aim_line.default_color = parent.disabled_color
+	parent.attack_line.visible = true
+	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
 
+func exit() -> void:
+	super()
+	parent.attack_line.visible = false
+	
 func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
@@ -35,14 +43,13 @@ func process_frame(_delta: float) -> State:
 	
 func process_physics(_delta: float) -> State:
 	if timer.is_stopped():
-		parent.action_1_available = false
+		parent.action_one_available = false
 		
 		var bullet: Projectile = parent.bullet_scene.instantiate()
 		bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(1, 201))
 		bullet.global_position = parent.global_position
 		
 		get_tree().root.add_child(bullet)
-		
 		return idle_state
 	
 	return null

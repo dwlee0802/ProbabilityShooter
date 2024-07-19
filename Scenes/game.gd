@@ -1,5 +1,8 @@
 extends Node2D
 
+@onready
+var user_interface: UserInterface = $UserInterface
+
 var enemy_scene = preload("res://Scenes/enemy_unit.tscn")
 
 @onready var core: Core = $Core
@@ -22,6 +25,9 @@ var enemies: Node2D = $Enemies
 @export
 var no_game_over: bool = false
 
+@onready
+var selected_unit: PlayerUnit = $PlayerUnit
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +36,9 @@ func _ready():
 	spawn_timer.timeout.connect(spawn_enemy_unit)
 	spawn_timer.start(spawn_cooldown)
 
+func _process(_delta):
+	user_interface.update_reload_label(selected_unit.action_one_reload_timer.time_left)
+	
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
 	newEnemy.on_spawn(randi_range(100, 300), randi_range(50, 150))
