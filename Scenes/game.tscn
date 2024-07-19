@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=5 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/core.tscn" id="1_i48ud"]
+[ext_resource type="Script" path="res://Scenes/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/player_unit.tscn" id="2_jg501"]
 
 [node name="Game" type="Node2D"]
@@ -10,10 +11,13 @@ spawn_cooldown = 5.0
 spawn_radius = 3000
 no_game_over = true
 
+[node name="SpawnTimer" type="Timer" parent="."]
+process_callback = 0
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(6, 0)
 zoom = Vector2(0.3, 0.3)
 process_callback = 0
+script = ExtResource("2_iduqg")
 
 [node name="Core" parent="." instance=ExtResource("1_i48ud")]
 
@@ -21,9 +25,31 @@ process_callback = 0
 position = Vector2(658, 384)
 movement_speed = 500.0
 
-[node name="SpawnTimer" type="Timer" parent="."]
-process_callback = 0
-
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 15.0
+offset_right = 25.0
+offset_bottom = 65.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KillCountLabel" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Kills: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

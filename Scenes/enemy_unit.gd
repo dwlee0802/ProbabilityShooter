@@ -13,9 +13,10 @@ var adjust_modifier: float = 4
 var health_label: Label = $HealthLabel
 
 
-func on_spawn(speed: float, health: int):
+func on_spawn(speed: float, health: int) -> void:
 	var core_dir = global_position.direction_to(EnemyUnit.core_position)
 	apply_central_impulse(core_dir * speed)
+	health_points = health
 	movement_speed = speed
 
 func _ready():
