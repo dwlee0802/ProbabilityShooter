@@ -25,7 +25,7 @@ func _physics_process(_delta):
 	if unit_index > 0 and unit_index <= game.units.size():
 		var selected_now: PlayerUnit = game.units[unit_index - 1]
 		if selected_now != null:
-			selected_unit = selected_now
+			_select_unit(selected_now)
 	
 	# distance function to find our next unit
 	var in_slice = func(origin: Vector2, target: Vector2, _range: Vector2) -> bool:
@@ -67,7 +67,7 @@ func _physics_process(_delta):
 						new_selected = unit
 			
 			if new_selected != null:
-				selected_unit = new_selected
+				_select_unit(new_selected)
 	
 	if Input.is_action_pressed("center_camera"):
 		if selected_unit:
@@ -75,3 +75,12 @@ func _physics_process(_delta):
 
 static func IsSelected(unit: PlayerUnit) -> bool:
 	return selected_unit == unit
+
+func _select_unit(unit: PlayerUnit) -> void:
+	if selected_unit != null:
+		selected_unit.deselected.emit()
+		
+	selected_unit = unit
+	
+	if unit != null:
+		unit.was_selected.emit()

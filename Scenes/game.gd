@@ -8,14 +8,16 @@ var enemy_scene = preload("res://Scenes/enemy_unit.tscn")
 @onready var core: Core = $Core
 @export var core_health: int = 1000
 
-@export
 var units = []
 
 @export_category("Wave Setting")
 var time_since_start: float = 0
+## number of units per wave
+@export
+var wave_unit_count: int = 1
 ## time in seconds between enemy unit spawns
 @export
-var spawn_cooldown: float = 2.0
+var time_between_waves: float = 5
 @onready
 var spawn_timer: Timer = $SpawnTimer
 ## distance from core where enemy units spawn at
@@ -41,9 +43,10 @@ func _ready():
 	EnemyUnit.core_position = core.global_position
 	core.core_killed.connect(game_over)
 	core.health_points = core_health
-	spawn_timer.timeout.connect(spawn_enemy_unit)
-	spawn_timer.start(spawn_cooldown)
+	spawn_timer.timeout.connect(spawn_wave)
+	spawn_timer.start(time_between_waves)
 	
+	user_interface.update_unit_portraits(units)
 	user_interface.restart_button.pressed.connect(start)
 	
 
@@ -55,7 +58,11 @@ func _process(_delta):
 	user_interface.core_health_label.text = "Core Health: " + str(core.health_points)
 	
 	time_since_start += _delta
-	
+
+func spawn_wave() -> void:
+	for i in range(wave_unit_count):
+		spawn_enemy_unit()
+		
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
 	var time: int = int(time_since_start)
@@ -79,7 +86,7 @@ func game_over() -> void:
 
 func start() -> void:
 	print("***START GAME***")
-	spawn_timer.start(spawn_cooldown)
+	spawn_timer.start(time_between_waves)
 	core.health_points = core_health
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0

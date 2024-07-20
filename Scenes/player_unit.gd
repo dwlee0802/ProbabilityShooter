@@ -39,6 +39,9 @@ var attack_line: Line2D = $AttackLine
 @onready
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 
+signal was_selected
+signal deselected
+
 
 func _ready() -> void:
 	$ActionOneReloadTimer.reload_finished.connect(reload_action)

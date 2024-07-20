@@ -12,9 +12,6 @@ var current_state: State
 func init(parent: Unit) -> void:
 	for child in get_children():
 		child.parent = parent
-		
-	print("initialized parent to: " + parent.name)
-
 	# Initialize to the default state
 	change_state(starting_state)
 	

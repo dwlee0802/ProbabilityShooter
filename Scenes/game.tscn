@@ -9,8 +9,9 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-spawn_cooldown = 5.0
-spawn_radius = 3000
+wave_unit_count = 5
+time_between_waves = 10.0
+spawn_radius = 6000
 no_game_over = true
 
 [node name="SpawnTimer" type="Timer" parent="."]

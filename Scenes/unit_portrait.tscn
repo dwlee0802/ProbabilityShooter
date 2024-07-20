@@ -1,0 +1,157 @@
+[gd_scene load_steps=6 format=3 uid="uid://4ly04duxj5fu"]
+
+[ext_resource type="Script" path="res://Scenes/unit_portrait.gd" id="1_5p2e6"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Scenes/Art/32x32_white_square.png" id="1_yonm2"]
+
+[sub_resource type="Animation" id="Animation_m4y84"]
+resource_name = "portrait_select"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(165, 50), Vector2(180, 50)]
+}
+
+[sub_resource type="Animation" id="Animation_ei3io"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(165, 50)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0hqsc"]
+_data = {
+"RESET": SubResource("Animation_ei3io"),
+"portrait_select": SubResource("Animation_m4y84")
+}
+
+[node name="UnitPortrait" type="Control"]
+custom_minimum_size = Vector2(165, 50)
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -36.0
+offset_right = 50.0
+offset_bottom = 14.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("1_5p2e6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0hqsc")
+}
+speed_scale = 10.0
+
+[node name="PanelContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = -35.5
+offset_bottom = 35.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+custom_minimum_size = Vector2(160, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -29.5
+offset_right = 81.5
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Image" type="TextureRect" parent="PanelContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 7.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 25.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("1_yonm2")
+expand_mode = 1
+
+[node name="ShortCutLabel" type="Label" parent="PanelContainer/Image"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 14
+text = "1"
+
+[node name="WeaponImage" type="TextureRect" parent="PanelContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -15.0
+offset_right = -5.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_yonm2")
+expand_mode = 1
+
+[node name="SkillIcons" type="HBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(100, 15)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 22.0
+offset_right = -5.0
+offset_bottom = 11.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/SkillIcons"]
+custom_minimum_size = Vector2(15, 5)
+layout_mode = 2
+texture = ExtResource("1_yonm2")
+expand_mode = 1
