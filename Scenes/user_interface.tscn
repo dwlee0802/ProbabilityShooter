@@ -36,7 +36,8 @@ text = "asdf"
 layout_mode = 2
 text = "asdf"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="GameOver" type="VBoxContainer" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -50,12 +51,12 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="GameOver"]
 self_modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 text = "GAME OVER"
 horizontal_alignment = 1
 
-[node name="RestartButton" type="Button" parent="VBoxContainer"]
+[node name="RestartButton" type="Button" parent="GameOver"]
 layout_mode = 2
 text = "RESTART"

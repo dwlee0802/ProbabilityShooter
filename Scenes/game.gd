@@ -42,7 +42,7 @@ func _ready():
 	core.core_killed.connect(game_over)
 	core.health_points = core_health
 	spawn_timer.timeout.connect(spawn_enemy_unit)
-	spawn_timer.start(spawn_cooldown - time_since_start / 10)
+	spawn_timer.start(spawn_cooldown)
 	
 	user_interface.restart_button.pressed.connect(start)
 	
@@ -58,7 +58,8 @@ func _process(_delta):
 	
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
-	newEnemy.on_spawn(randi_range(100, 300), randi_range(50, 150))
+	var time: int = int(time_since_start)
+	newEnemy.on_spawn(randi_range(100 + time, 300 + time), randi_range(50 + time, 150 + time))
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 

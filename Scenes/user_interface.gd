@@ -4,9 +4,9 @@ class_name UserInterface
 var reload_labels = []
 
 @onready
-var restart_button: Button = $VBoxContainer/RestartButton
+var restart_button: Button = $GameOver/RestartButton
 @onready
-var game_over_ui = $VBoxContainer
+var game_over_ui = $GameOver
 @onready
 var core_health_label: Label = $CoreHealthLabel
 
