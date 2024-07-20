@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://4ly04duxj5fu"]
 
-[ext_resource type="Script" path="res://Scenes/unit_portrait.gd" id="1_5p2e6"]
-[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Scenes/Art/32x32_white_square.png" id="1_yonm2"]
+[ext_resource type="Script" path="res://Scenes/Interface/unit_portrait.gd" id="1_5p2e6"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_yonm2"]
 
 [sub_resource type="Animation" id="Animation_m4y84"]
 resource_name = "portrait_select"

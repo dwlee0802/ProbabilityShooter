@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bml325a55htb3"]
 
-[ext_resource type="Script" path="res://Scenes/enemy_unit.gd" id="1_wmq3m"]
-[ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Scenes/Art/slime_body.png" id="2_boqnw"]
-[ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Scenes/Art/slime_eye.png" id="3_0onek"]
+[ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_wmq3m"]
+[ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_boqnw"]
+[ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Art/slime_eye.png" id="3_0onek"]
 
 [sub_resource type="Animation" id="Animation_mtwn4"]
 resource_name = "hit_animation"

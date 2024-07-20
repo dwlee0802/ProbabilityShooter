@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dcn2if5g8chpm"]
 
-[ext_resource type="Script" path="res://Scenes/user_interface.gd" id="1_vjhkg"]
-[ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/unit_portrait.tscn" id="2_mqlrt"]
+[ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
+[ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
 
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
