@@ -69,7 +69,7 @@ func _physics_process(_delta):
 			if new_selected != null:
 				selected_unit = new_selected
 	
-	if Input.is_physical_key_pressed(KEY_SPACE):
+	if Input.is_action_pressed("center_camera"):
 		if selected_unit:
 			camera.center_camera_on(selected_unit.position)
 
