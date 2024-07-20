@@ -29,16 +29,16 @@ script = ExtResource("2_iduqg")
 [node name="PlayerUnits" type="Node2D" parent="."]
 
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(273, 552)
+position = Vector2(545, -145)
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(624, 561)
 
 [node name="PlayerUnit3" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(1006, 581)
+position = Vector2(192, 779)
 
 [node name="PlayerUnit4" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(1320, 564)
+position = Vector2(1312, 978)
 
 [node name="Enemies" type="Node2D" parent="."]
 

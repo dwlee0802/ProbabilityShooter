@@ -32,9 +32,6 @@ func process_physics(_delta: float) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
-	if InputManager.selected_unit:
-		print("parent: " + parent.name, " selected: " + InputManager.selected_unit.name)
-	
 	# auto reload
 	if parent.action_one_available == false:
 		if parent.action_one_reload_timer.is_stopped():

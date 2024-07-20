@@ -8,10 +8,11 @@ var camera: CameraControl = $Camera2D
 
 static var selected_unit: PlayerUnit = null
 
+var slice_angle_size: float = PI/2
+
 
 func _physics_process(_delta):
 	var unit_index: int = 0
-	var center_camera: bool = Input.is_physical_key_pressed(KEY_SHIFT)
 	if Input.is_action_just_pressed("select_unit_one"):
 		unit_index = 1
 	if Input.is_action_just_pressed("select_unit_two"):
@@ -25,47 +26,52 @@ func _physics_process(_delta):
 		var selected_now: PlayerUnit = game.units[unit_index - 1]
 		if selected_now != null:
 			selected_unit = selected_now
-			if center_camera:
-				camera.center_camera_on(selected_unit.position)
 	
 	# distance function to find our next unit
-	var dist_func = func() -> float:
-		return 0
+	var in_slice = func(origin: Vector2, target: Vector2, range: Vector2) -> bool:
+		var angle: float = origin.angle_to_point(target)
+		if angle < 0:
+			angle += TAU
+		return (range.x <= angle) and (range.y >= angle)
+		
 	var spacial_selection: bool = false
+	var slice_range: Vector2 = Vector2(TAU - slice_angle_size/2, slice_angle_size/2)
 	
 	if Input.is_action_just_pressed("select_right"):
 		spacial_selection = true
-		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
-			return target.position.x - origin.position.x
-	if Input.is_action_just_pressed("select_left"):
-		spacial_selection = true
-		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
-			return origin.position.x - target.position.x
-	if Input.is_action_just_pressed("select_up"):
-		spacial_selection = true
-		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
-			return origin.position.y - target.position.y
+		in_slice = func(origin: Vector2, target: Vector2, range: Vector2) -> bool:
+			var angle: float = origin.angle_to_point(target)
+			angle += TAU
+			return (TAU - slice_angle_size/2) <= angle and (TAU + slice_angle_size/2) >= angle
 	if Input.is_action_just_pressed("select_down"):
 		spacial_selection = true
-		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
-			return target.position.y - origin.position.y
+		slice_range = Vector2(PI/2 - slice_angle_size / 2, PI/2 + slice_angle_size / 2)
+	if Input.is_action_just_pressed("select_left"):
+		spacial_selection = true
+		slice_range = Vector2(PI - slice_angle_size / 2, PI + slice_angle_size / 2)
+	if Input.is_action_just_pressed("select_up"):
+		spacial_selection = true
+		slice_range = Vector2(3*PI/2 - slice_angle_size / 2, 3*PI/2 + slice_angle_size / 2)
 	
+	# find unit that is closest within slice
 	if spacial_selection:
-		# find unit closest in some direction
+		# find unit closest among units that are inside slice
 		if selected_unit:
 			var min_value: float = INF
 			var new_selected: PlayerUnit
 			for unit: PlayerUnit in game.units:
+				var new_dist: float = selected_unit.position.distance_to(unit.position)
 				if selected_unit != unit:
-					var new_dist = dist_func.call(selected_unit, unit)
-					if new_dist >= 0 and min_value > new_dist:
+					if in_slice.call(selected_unit.position, unit.position, slice_range) and min_value > new_dist:
 						min_value = new_dist
 						new_selected = unit
 			
 			if new_selected != null:
 				selected_unit = new_selected
-				camera.center_camera_on(new_selected.position)
-			
+	
+	if Input.is_physical_key_pressed(KEY_SPACE):
+		if selected_unit:
+			camera.center_camera_on(selected_unit.position)
 
 static func IsSelected(unit: PlayerUnit) -> bool:
 	return selected_unit == unit
