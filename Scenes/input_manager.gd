@@ -28,18 +28,18 @@ func _physics_process(_delta):
 			selected_unit = selected_now
 	
 	# distance function to find our next unit
-	var in_slice = func(origin: Vector2, target: Vector2, range: Vector2) -> bool:
+	var in_slice = func(origin: Vector2, target: Vector2, _range: Vector2) -> bool:
 		var angle: float = origin.angle_to_point(target)
 		if angle < 0:
 			angle += TAU
-		return (range.x <= angle) and (range.y >= angle)
+		return (_range.x <= angle) and (_range.y >= angle)
 		
 	var spacial_selection: bool = false
 	var slice_range: Vector2 = Vector2(TAU - slice_angle_size/2, slice_angle_size/2)
 	
 	if Input.is_action_just_pressed("select_right"):
 		spacial_selection = true
-		in_slice = func(origin: Vector2, target: Vector2, range: Vector2) -> bool:
+		in_slice = func(origin: Vector2, target: Vector2, _range: Vector2) -> bool:
 			var angle: float = origin.angle_to_point(target)
 			angle += TAU
 			return (TAU - slice_angle_size/2) <= angle and (TAU + slice_angle_size/2) >= angle

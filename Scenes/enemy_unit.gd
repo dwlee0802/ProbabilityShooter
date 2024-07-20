@@ -16,6 +16,9 @@ var health_label: Label = $HealthLabel
 @onready
 var sprite: Sprite2D = $Sprite2D/Sprite2D
 
+var death_effect = preload("res://Scenes/death_effect.tscn")
+
+
 func on_spawn(speed: float, health: int) -> void:
 	var core_dir = global_position.direction_to(EnemyUnit.core_position)
 	apply_central_impulse(core_dir * speed)
@@ -30,6 +33,9 @@ func receive_hit(damage_amount: int):
 	health_label.text = str(health_points)
 	print("Received damage: " + str(damage_amount))
 	if health_points <= 0:
+		var new_effect: CPUParticles2D = death_effect.instantiate()
+		new_effect.global_position = global_position
+		get_tree().root.add_child(new_effect)
 		get_parent().remove_child(self)
 		queue_free()
 	$Sprite2D/AnimationPlayer.play("hit_animation")
