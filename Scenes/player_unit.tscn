@@ -113,6 +113,7 @@ points = PackedVector2Array(0, 0, 100, 0)
 antialiased = true
 
 [node name="AttackLine" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 500, 0)
 antialiased = true
 

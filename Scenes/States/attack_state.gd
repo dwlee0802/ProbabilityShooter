@@ -25,12 +25,13 @@ func enter() -> void:
 	parent.attack_line.visible = true
 	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
 	parent.attack_line_anim.speed_scale = parent.action_one_aim_time
+	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 
 func exit() -> void:
 	super()
 	parent.attack_line.visible = false
-	parent.attack_line_anim.play("RESET")
+	parent.attack_line_anim.stop()
 	
 func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
