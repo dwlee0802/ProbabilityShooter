@@ -10,8 +10,6 @@ var state_machine: StateMachine = $StateMachine
 
 @export_category("Unit Stats")
 @export
-var selected: bool = false
-@export
 var movement_speed: float = 100
 
 @export_category("Action Availability")
@@ -24,7 +22,7 @@ var action_one_reload_timer: Timer = $ActionOneReloadTimer
 
 @export_category("Aim Line")
 @export
-var default_color: Color = Color.YELLOW
+var default_color: Color = Color.DIM_GRAY
 @export
 var attack_color: Color = Color.RED
 @export
@@ -43,7 +41,7 @@ func _ready() -> void:
 	attack_line.default_color = attack_color
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if !selected:
+	if !InputManager.IsSelected(self):
 		return
 		
 	state_machine.process_input(event)
@@ -55,7 +53,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
 	# make aim line follow mouse cursor
-	aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
+	aim_line.visible = InputManager.IsSelected(self)
+	if InputManager.IsSelected(self):
+		aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)

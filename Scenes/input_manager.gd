@@ -1,43 +1,33 @@
 extends Node
+class_name InputManager
 
-@export_category("Units")
-@export
-var unit_one: PlayerUnit
-@export
-var unit_two: PlayerUnit
-@export
-var unit_three: PlayerUnit
-@export
-var unit_four: PlayerUnit
+var game
 
 @onready
 var camera: CameraControl = $Camera2D
 
+static var selected_unit: PlayerUnit = null
+
 
 func _physics_process(delta):
+	var unit_index: int = 0
+	var center_camera: bool = Input.is_physical_key_pressed(KEY_SHIFT)
 	if Input.is_action_just_pressed("select_unit_one"):
-		if unit_one != null:
-			unit_one.selected = !unit_one.selected
+		unit_index = 1
 	if Input.is_action_just_pressed("select_unit_two"):
-		if unit_two != null:
-			unit_two.selected = !unit_two.selected
+		unit_index = 2
 	if Input.is_action_just_pressed("select_unit_three"):
-		if unit_three != null:
-			unit_three.selected = !unit_three.selected
+		unit_index = 3
 	if Input.is_action_just_pressed("select_unit_four"):
-		if unit_four != null:
-			unit_four.selected = !unit_four.selected
-		
-	# center camera onto unit
-	if Input.is_action_just_pressed("center_unit_one"):
-		if unit_one != null:
-			camera.center_camera(unit_one.position)
-	if Input.is_action_just_pressed("center_unit_two"):
-		if unit_two != null:
-			camera.center_camera(unit_two.position)
-	if Input.is_action_just_pressed("center_unit_three"):
-		if unit_three != null:
-			camera.center_camera(unit_three.position)
-	if Input.is_action_just_pressed("center_unit_four"):
-		if unit_four != null:
-			camera.center_camera(unit_four.position)
+		unit_index = 4
+	
+	if unit_index > 0 and unit_index <= game.units.size():
+		var selected_now: PlayerUnit = game.units[unit_index - 1]
+		if selected_now != null:
+			selected_unit = selected_now
+			if center_camera:
+				camera.center_camera_on(selected_unit.position)
+	
+
+static func IsSelected(unit: PlayerUnit) -> bool:
+	return selected_unit == unit

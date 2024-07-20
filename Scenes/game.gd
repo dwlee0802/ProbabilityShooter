@@ -7,6 +7,9 @@ var enemy_scene = preload("res://Scenes/enemy_unit.tscn")
 
 @onready var core: Core = $Core
 
+@export
+var units = []
+
 @export_category("Wave Setting")
 ## time in seconds between enemy unit spawns
 @export
@@ -25,19 +28,24 @@ var enemies: Node2D = $Enemies
 @export
 var no_game_over: bool = false
 
-@onready
-var selected_unit: PlayerUnit = $PlayerUnit
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# delegate front end management to input manager
+	$InputManager.game = self
+	
+	units = $PlayerUnits.get_children()
+	
 	EnemyUnit.core_position = core.global_position
 	core.core_killed.connect(game_over)
 	spawn_timer.timeout.connect(spawn_enemy_unit)
 	spawn_timer.start(spawn_cooldown)
 
 func _process(_delta):
-	user_interface.update_reload_label(selected_unit.action_one_reload_timer.time_left)
+	var reload_times = []
+	for unit: PlayerUnit in units:
+		reload_times.append(unit.action_one_reload_timer.time_left)
+	user_interface.update_reload_labels(reload_times)
 	
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()

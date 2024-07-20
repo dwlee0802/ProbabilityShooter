@@ -16,10 +16,8 @@ no_game_over = true
 [node name="SpawnTimer" type="Timer" parent="."]
 process_callback = 0
 
-[node name="InputManager" type="Node" parent="." node_paths=PackedStringArray("unit_one", "unit_two")]
+[node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
-unit_one = NodePath("../PlayerUnit")
-unit_two = NodePath("../PlayerUnit2")
 
 [node name="Camera2D" type="Camera2D" parent="InputManager"]
 zoom = Vector2(0.3, 0.3)
@@ -28,13 +26,15 @@ script = ExtResource("2_iduqg")
 
 [node name="Core" parent="." instance=ExtResource("1_i48ud")]
 
-[node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
-position = Vector2(202, 491)
+[node name="PlayerUnits" type="Node2D" parent="."]
+
+[node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+position = Vector2(252, 546)
 movement_speed = 500.0
 action_one_reload_time = 0.5
 
-[node name="PlayerUnit2" parent="." instance=ExtResource("2_jg501")]
-position = Vector2(-521, -470)
+[node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+position = Vector2(801, 203)
 movement_speed = 500.0
 action_one_reload_time = 0.5
 
@@ -43,9 +43,30 @@ action_one_reload_time = 0.5
 [node name="UserInterface" type="CanvasLayer" parent="."]
 script = ExtResource("5_cic1u")
 
-[node name="ReloadLabel" type="Label" parent="UserInterface"]
+[node name="TempBugfix" type="Label" parent="UserInterface"]
 offset_right = 40.0
 offset_bottom = 23.0
+text = " "
+
+[node name="ReloadState" type="VBoxContainer" parent="UserInterface"]
+offset_right = 323.0
+offset_bottom = 324.0
+alignment = 1
+
+[node name="ReloadLabel" type="Label" parent="UserInterface/ReloadState"]
+layout_mode = 2
+text = "asdf"
+
+[node name="ReloadLabel2" type="Label" parent="UserInterface/ReloadState"]
+layout_mode = 2
+text = "asdf"
+
+[node name="ReloadLabel3" type="Label" parent="UserInterface/ReloadState"]
+layout_mode = 2
+text = "asdf"
+
+[node name="ReloadLabel4" type="Label" parent="UserInterface/ReloadState"]
+layout_mode = 2
 text = "asdf"
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
