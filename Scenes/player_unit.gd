@@ -16,6 +16,8 @@ var movement_speed: float = 100
 @export
 var action_one_available: bool = true
 @export
+var action_one_aim_time: float = 1
+@export
 var action_one_reload_time: float = 1
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
@@ -32,6 +34,8 @@ var disabled_color: Color = Color.DIM_GRAY
 var aim_line: Line2D = $AimLine
 @onready
 var attack_line: Line2D = $AttackLine
+@onready
+var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 
 
 func _ready() -> void:

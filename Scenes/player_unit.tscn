@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=14 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/state_machine.gd" id="2_us0md"]
@@ -21,6 +21,42 @@ fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbu37"]
 radius = 64.0
+
+[sub_resource type="Animation" id="Animation_nwfdx"]
+resource_name = "aim_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackLine:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_t56vo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackLine:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7runw"]
+_data = {
+"RESET": SubResource("Animation_t56vo"),
+"aim_animation": SubResource("Animation_nwfdx")
+}
 
 [node name="PlayerUnit" type="CharacterBody2D"]
 collision_layer = 0
@@ -72,13 +108,19 @@ process_callback = 0
 one_shot = true
 
 [node name="AimLine" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 100, 0)
 antialiased = true
 
 [node name="AttackLine" type="Line2D" parent="."]
-visible = false
-points = PackedVector2Array(0, 0, 100, 0)
+points = PackedVector2Array(0, 0, 500, 0)
 antialiased = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AttackLine"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_7runw")
+}
 
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0

@@ -20,14 +20,17 @@ func enter() -> void:
 	super()
 	parent.state_label.text = "Action1"
 	mouse_position = parent.get_local_mouse_position()
-	timer.start(wait_time)
+	timer.start(parent.action_one_aim_time)
 	parent.aim_line.default_color = parent.disabled_color
 	parent.attack_line.visible = true
 	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
+	parent.attack_line_anim.speed_scale = parent.action_one_aim_time
+	parent.attack_line_anim.play("aim_animation")
 
 func exit() -> void:
 	super()
 	parent.attack_line.visible = false
+	parent.attack_line_anim.play("RESET")
 	
 func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -52,6 +55,7 @@ func process_physics(_delta: float) -> State:
 		bullet.global_position = parent.global_position
 		
 		get_tree().root.add_child(bullet)
+		
 		return idle_state
 	
 	return null
