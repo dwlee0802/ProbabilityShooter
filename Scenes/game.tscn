@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=7 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/core.tscn" id="1_i48ud"]
@@ -6,17 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/input_manager.gd" id="2_webe7"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/user_interface.tscn" id="6_tejxs"]
-
-[sub_resource type="Gradient" id="Gradient_r6gn1"]
-offsets = PackedFloat32Array(0.123377, 0.649351)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_y1c1r"]
-gradient = SubResource("Gradient_r6gn1")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.5)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -40,27 +29,19 @@ script = ExtResource("2_iduqg")
 [node name="PlayerUnits" type="Node2D" parent="."]
 
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(252, 546)
-movement_speed = 500.0
-action_one_reload_time = 0.5
-
-[node name="Sprite2D" parent="PlayerUnits/PlayerUnit" index="0"]
-self_modulate = Color(0, 0.733333, 0.6, 1)
+position = Vector2(273, 552)
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(801, 203)
-movement_speed = 500.0
-action_one_reload_time = 0.5
+position = Vector2(624, 561)
 
-[node name="Sprite2D" parent="PlayerUnits/PlayerUnit2" index="0"]
-self_modulate = Color(0, 0.54902, 1, 1)
-texture = SubResource("GradientTexture2D_y1c1r")
+[node name="PlayerUnit3" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+position = Vector2(1006, 581)
+
+[node name="PlayerUnit4" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+position = Vector2(1320, 564)
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
-
-[editable path="PlayerUnits/PlayerUnit"]
-[editable path="PlayerUnits/PlayerUnit2"]

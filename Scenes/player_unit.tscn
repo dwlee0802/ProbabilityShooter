@@ -22,21 +22,6 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbu37"]
 radius = 64.0
 
-[sub_resource type="Animation" id="Animation_nwfdx"]
-resource_name = "aim_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackLine:width")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [15.0, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_t56vo"]
 length = 0.001
 tracks/0/type = "value"
@@ -50,6 +35,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [10.0]
+}
+
+[sub_resource type="Animation" id="Animation_nwfdx"]
+resource_name = "aim_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackLine:width")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7runw"]
@@ -110,6 +110,7 @@ one_shot = true
 [node name="AimLine" type="Line2D" parent="."]
 visible = false
 points = PackedVector2Array(0, 0, 100, 0)
+width = 15.0
 antialiased = true
 
 [node name="AttackLine" type="Line2D" parent="."]

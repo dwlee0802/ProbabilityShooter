@@ -16,6 +16,9 @@ func exit() -> void:
 		parent.action_one_reload_timer.stop()
 		
 func process_input(_event: InputEvent) -> State:
+	if !InputManager.IsSelected(parent):
+		return null
+		
 	# right clicking when Idle is move order
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
@@ -29,6 +32,9 @@ func process_physics(_delta: float) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
+	if InputManager.selected_unit:
+		print("parent: " + parent.name, " selected: " + InputManager.selected_unit.name)
+	
 	# auto reload
 	if parent.action_one_available == false:
 		if parent.action_one_reload_timer.is_stopped():

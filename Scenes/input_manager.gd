@@ -28,6 +28,44 @@ func _physics_process(_delta):
 			if center_camera:
 				camera.center_camera_on(selected_unit.position)
 	
+	# distance function to find our next unit
+	var dist_func = func() -> float:
+		return 0
+	var spacial_selection: bool = false
+	
+	if Input.is_action_just_pressed("select_right"):
+		spacial_selection = true
+		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
+			return target.position.x - origin.position.x
+	if Input.is_action_just_pressed("select_left"):
+		spacial_selection = true
+		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
+			return origin.position.x - target.position.x
+	if Input.is_action_just_pressed("select_up"):
+		spacial_selection = true
+		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
+			return origin.position.y - target.position.y
+	if Input.is_action_just_pressed("select_down"):
+		spacial_selection = true
+		dist_func = func(origin: PlayerUnit, target: PlayerUnit):
+			return target.position.y - origin.position.y
+	
+	if spacial_selection:
+		# find unit closest in some direction
+		if selected_unit:
+			var min_value: float = INF
+			var new_selected: PlayerUnit
+			for unit: PlayerUnit in game.units:
+				if selected_unit != unit:
+					var new_dist = dist_func.call(selected_unit, unit)
+					if new_dist >= 0 and min_value > new_dist:
+						min_value = new_dist
+						new_selected = unit
+			
+			if new_selected != null:
+				selected_unit = new_selected
+				camera.center_camera_on(new_selected.position)
+			
 
 static func IsSelected(unit: PlayerUnit) -> bool:
 	return selected_unit == unit

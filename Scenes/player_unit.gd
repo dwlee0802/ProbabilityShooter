@@ -39,10 +39,10 @@ var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 
 
 func _ready() -> void:
-	state_machine.init(self)
 	$ActionOneReloadTimer.reload_finished.connect(reload_action)
 	aim_line.default_color = default_color
 	attack_line.default_color = attack_color
+	state_machine.init(self)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if !InputManager.IsSelected(self):
