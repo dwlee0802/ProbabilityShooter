@@ -10,6 +10,11 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = " "
 
+[node name="CoreHealthLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = " Core Health: 0"
+
 [node name="ReloadState" type="VBoxContainer" parent="."]
 offset_right = 656.0
 offset_bottom = 432.0
@@ -30,3 +35,27 @@ text = "asdf"
 [node name="ReloadLabel4" type="Label" parent="ReloadState"]
 layout_mode = 2
 text = "asdf"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -29.0
+offset_right = 46.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "RESTART"

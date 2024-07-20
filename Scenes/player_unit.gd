@@ -11,6 +11,8 @@ var state_machine: StateMachine = $StateMachine
 @export_category("Unit Stats")
 @export
 var movement_speed: float = 100
+@export
+var temp_color: Color = Color.WHITE
 
 @export_category("Action Availability")
 @export
@@ -43,6 +45,7 @@ func _ready() -> void:
 	aim_line.default_color = default_color
 	attack_line.default_color = attack_color
 	state_machine.init(self)
+	$Sprite2D.self_modulate = temp_color
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if !InputManager.IsSelected(self):

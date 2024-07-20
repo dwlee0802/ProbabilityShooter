@@ -13,6 +13,8 @@ var speed_adjust_modifier: float = 4
 @onready
 var health_label: Label = $HealthLabel
 
+@onready
+var sprite: Sprite2D = $Sprite2D/Sprite2D
 
 func on_spawn(speed: float, health: int) -> void:
 	var core_dir = global_position.direction_to(EnemyUnit.core_position)
@@ -30,6 +32,7 @@ func receive_hit(damage_amount: int):
 	if health_points <= 0:
 		get_parent().remove_child(self)
 		queue_free()
+	$Sprite2D/AnimationPlayer.play("hit_animation")
 
 func _physics_process(delta):
 	# adjust velocity to go towards core
@@ -48,3 +51,6 @@ func _physics_process(delta):
 	else:
 		apply_central_impulse(abs(current_speed - movement_speed) * speed_adjust_modifier * current_direction * delta)
 	
+	# flip sprite based on movement
+	# right is false
+	sprite.flip_h = linear_velocity.x <= 0

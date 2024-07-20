@@ -3,9 +3,17 @@ class_name UserInterface
 
 var reload_labels = []
 
+@onready
+var restart_button: Button = $VBoxContainer/RestartButton
+@onready
+var game_over_ui = $VBoxContainer
+@onready
+var core_health_label: Label = $CoreHealthLabel
+
 
 func _ready():
 	reload_labels = $ReloadState.get_children()
+	game_over_ui.visible = false
 
 ## reload the reload labels texts
 func update_reload_labels(times) -> void:
