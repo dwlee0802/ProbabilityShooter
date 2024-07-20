@@ -9,7 +9,7 @@ var camera: CameraControl = $Camera2D
 static var selected_unit: PlayerUnit = null
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var unit_index: int = 0
 	var center_camera: bool = Input.is_physical_key_pressed(KEY_SHIFT)
 	if Input.is_action_just_pressed("select_unit_one"):

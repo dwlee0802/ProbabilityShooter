@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcn2if5g8chpm"]
+
+[ext_resource type="Script" path="res://Scenes/user_interface.gd" id="1_vjhkg"]
+
+[node name="UserInterface" type="CanvasLayer"]
+script = ExtResource("1_vjhkg")
+
+[node name="TempBugfix" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = " "
+
+[node name="ReloadState" type="VBoxContainer" parent="."]
+offset_right = 656.0
+offset_bottom = 432.0
+alignment = 1
+
+[node name="ReloadLabel" type="Label" parent="ReloadState"]
+layout_mode = 2
+text = "asdf"
+
+[node name="ReloadLabel2" type="Label" parent="ReloadState"]
+layout_mode = 2
+text = "asdf"
+
+[node name="ReloadLabel3" type="Label" parent="ReloadState"]
+layout_mode = 2
+text = "asdf"
+
+[node name="ReloadLabel4" type="Label" parent="ReloadState"]
+layout_mode = 2
+text = "asdf"

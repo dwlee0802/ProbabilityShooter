@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Scenes/enemy_unit.gd" id="1_wmq3m"]
 
-[sub_resource type="Gradient" id="Gradient_c2ki5"]
+[sub_resource type="Gradient" id="Gradient_tvgo7"]
 offsets = PackedFloat32Array(0.123377, 0.649351)
-colors = PackedColorArray(0.580392, 0, 0, 1, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2b5le"]
-gradient = SubResource("Gradient_c2ki5")
+gradient = SubResource("Gradient_tvgo7")
 width = 128
 height = 128
 fill = 1
@@ -22,6 +22,7 @@ lock_rotation = true
 script = ExtResource("1_wmq3m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.658824, 0, 0, 1)
 texture = SubResource("GradientTexture2D_2b5le")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
