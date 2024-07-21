@@ -15,6 +15,8 @@ var shortcut_label: Label = $ShortcutLabel
 var movement_speed: float = 100
 @export
 var temp_color: Color = Color.WHITE
+@export
+var damage_range: Vector2 = Vector2(10, 150)
 
 @export_category("Action Availability")
 @export

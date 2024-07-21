@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=8 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -6,10 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
+[ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/crosshair.tscn" id="7_xccla"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-wave_unit_count = 5
+wave_unit_count = 2
 time_between_waves = 10.0
 spawn_radius = 6000
 
@@ -51,5 +52,8 @@ temp_color = Color(0, 1, 0.564706, 1)
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
+
+[node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
+position = Vector2(718, 279)
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

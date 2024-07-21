@@ -56,7 +56,6 @@ func _process(_delta):
 	var reload_times = []
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)
-	user_interface.update_reload_labels(reload_times)
 	InputManager.camera.scale_unit_shortcut_label(units)
 	user_interface.core_health_label.text = "Core Health: " + str(core.health_points)
 	
