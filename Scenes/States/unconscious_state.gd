@@ -5,6 +5,7 @@ var idle_state: State
 
 func enter() -> void:
 	super()
+	print(parent.name + " knocked out")
 
 func process_frame(_delta: float) -> State:
 	if parent.health_points > 0:

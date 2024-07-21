@@ -23,6 +23,8 @@ var health_points: int = 500
 var max_health_points: int = 500
 @onready
 var health_bar: DelayedProgressBar = $HealthBar
+@onready
+var revive_time: float = 5.0
 
 @export_category("Action Availability")
 @export
@@ -107,8 +109,4 @@ func is_unconscious() -> bool:
 func _on_body_entered(body):
 	if body is EnemyUnit:
 		receive_hit(body.health_points)
-		
-		if health_points <= 0:
-			print("player unit knocked out!")
-			
 		body.die()

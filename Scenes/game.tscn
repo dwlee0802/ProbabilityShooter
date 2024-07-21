@@ -12,6 +12,7 @@
 script = ExtResource("1_entdd")
 time_between_waves = 10.0
 spawn_radius = 6000
+no_game_over = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 process_callback = 0
@@ -32,11 +33,15 @@ script = ExtResource("2_iduqg")
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
+health_points = 1
+max_health_points = 1
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(678, -4)
 movement_speed = 500.0
 temp_color = Color(1, 0.482353, 1, 1)
+health_points = 1
+max_health_points = 1
 
 [node name="Enemies" type="Node2D" parent="."]
 
