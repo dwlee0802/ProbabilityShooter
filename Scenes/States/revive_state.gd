@@ -12,9 +12,13 @@ var unconscious_state: State
 @onready
 var timer: Timer = $Timer
 
+var target: PlayerUnit
+
+
 func enter() -> void:
 	super()
 	parent.state_label.text = "Reviving"
+	print("reviving")
 	timer.start(parent.revive_time)
 	parent.attack_line.visible = false
 	
@@ -23,12 +27,15 @@ func process_frame(_delta: float) -> State:
 	if parent.health_points <= 0:
 		return unconscious_state
 		
+	if target == null:
+		push_error("Revive state has no target")
+		return idle_state
+		
 	return null
 
 func exit() -> void:
 	super()
-	parent.attack_line.visible = false
-	parent.attack_line_anim.stop()
+	target = null
 
 func process_input(_event: InputEvent) -> State:
 	if !InputManager.IsSelected(parent):
@@ -46,6 +53,8 @@ func process_input(_event: InputEvent) -> State:
 func process_physics(_delta: float) -> State:
 	if timer.is_stopped():
 		print("revive complete")
+		if target:
+			target.add_health(1)
 		return idle_state
 	
 	return null

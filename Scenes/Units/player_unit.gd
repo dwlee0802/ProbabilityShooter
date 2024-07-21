@@ -51,6 +51,10 @@ var attack_line: Line2D = $AttackLine
 @onready
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 
+# interaction
+@onready
+var interaction_area: Area2D = $InteractionArea
+
 signal was_selected
 signal deselected
 
@@ -97,6 +101,10 @@ func reload_action(num: int) -> void:
 
 func receive_hit(amount: int) -> void:
 	health_points -= amount
+	health_bar.change_value(health_points)
+	
+func add_health(amount: int) -> void:
+	health_points += amount
 	health_bar.change_value(health_points)
 
 func reset_health() -> void:

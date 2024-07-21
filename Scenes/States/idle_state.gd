@@ -6,6 +6,8 @@ var move_state: State
 var action_one_state: State
 @export
 var unconscious_state: State
+@export
+var revive_state: State
 
 
 func enter() -> void:
@@ -27,7 +29,22 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("action_one"):
 		if parent.action_one_available:
 			return action_one_state
-		
+	if Input.is_action_just_pressed("interact"):
+		# if its player unit and they're downed, revive
+		var items = parent.interaction_area.get_overlapping_areas()
+		# get closest thing inside interaction area
+		var target
+		var dist = INF
+		for interactable in items:
+			if dist > interactable.global_position.distance_to(parent.global_position):
+				dist = interactable.global_position.distance_to(parent.global_position)
+				target = interactable
+		target = target.get_parent()
+		if target is PlayerUnit:
+			if target.is_unconscious():
+				revive_state.target = target
+				return revive_state
+			
 	return null
 	
 func process_physics(_delta: float) -> State:

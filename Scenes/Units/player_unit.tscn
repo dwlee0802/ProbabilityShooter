@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=18 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -61,6 +61,9 @@ _data = {
 "aim_animation": SubResource("Animation_nwfdx")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qovf"]
+radius = 128.0
+
 [node name="PlayerUnit" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_b776y")
@@ -69,11 +72,12 @@ script = ExtResource("1_b776y")
 script = ExtResource("2_us0md")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "action_one_state", "unconscious_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "action_one_state", "unconscious_state", "revive_state")]
 script = ExtResource("3_2iym7")
 move_state = NodePath("../Move")
 action_one_state = NodePath("../ActionOne")
 unconscious_state = NodePath("../Unconscious")
+revive_state = NodePath("../Revive")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state", "unconscious_state")]
 script = ExtResource("4_jlt6l")
@@ -163,5 +167,11 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 
 [node name="HealthBar" parent="." instance=ExtResource("8_mxokv")]
+
+[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_6qovf")
+debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
