@@ -30,6 +30,6 @@ func process_physics(_delta: float) -> State:
 		return idle_state
 	
 	var direction: Vector2 = parent.global_position.direction_to(destination)
-	parent.move_and_collide(direction * parent.movement_speed * _delta)
+	parent.position += direction * parent.movement_speed * _delta
 	
 	return null

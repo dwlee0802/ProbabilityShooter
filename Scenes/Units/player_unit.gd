@@ -17,6 +17,12 @@ var movement_speed: float = 100
 var temp_color: Color = Color.WHITE
 @export
 var damage_range: Vector2 = Vector2(10, 150)
+@export
+var health_points: int = 500
+@export
+var max_health_points: int = 500
+@onready
+var health_bar: DelayedProgressBar = $HealthBar
 
 @export_category("Action Availability")
 @export
@@ -53,6 +59,11 @@ func _ready() -> void:
 	attack_line.default_color = attack_color
 	state_machine.init(self)
 	$Sprite2D.self_modulate = temp_color
+	
+	# unit health
+	health_points = max_health_points
+	health_bar.set_max(max_health_points)
+	health_bar.change_value(health_points)
 
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
@@ -82,3 +93,15 @@ func reload_action(num: int) -> void:
 		1:
 			action_one_available = true
 
+func receive_hit(amount: int) -> void:
+	health_points -= amount
+	health_bar.change_value(health_points)
+
+func _on_body_entered(body):
+	if body is EnemyUnit:
+		receive_hit(body.health_points)
+		
+		if health_points <= 0:
+			print("player unit knocked out!")
+			
+		body.die()

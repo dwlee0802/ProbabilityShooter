@@ -35,14 +35,17 @@ func receive_hit(damage_amount: int):
 	health_label.text = str(health_points)
 	print("Received damage: " + str(damage_amount))
 	if health_points <= 0:
-		var new_effect: CPUParticles2D = death_effect.instantiate()
-		new_effect.global_position = global_position
-		get_tree().root.add_child(new_effect)
-		get_parent().remove_child(self)
-		on_death.emit()
-		queue_free()
+		die()
 	$Sprite2D/AnimationPlayer.play("hit_animation")
 
+func die():
+	var new_effect: CPUParticles2D = death_effect.instantiate()
+	new_effect.global_position = global_position
+	get_tree().root.add_child(new_effect)
+	get_parent().remove_child(self)
+	on_death.emit()
+	queue_free()
+	
 func _physics_process(delta):
 	# adjust velocity to go towards core
 	var current_direction: Vector2 = linear_velocity.normalized()
