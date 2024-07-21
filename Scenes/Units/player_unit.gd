@@ -7,6 +7,8 @@ static var bullet_scene = preload("res://Scenes/Units/projectile.tscn")
 var state_label: Label = $StateLabel
 @onready
 var state_machine: StateMachine = $StateMachine
+@onready
+var shortcut_label: Label = $ShortcutLabel
 
 @export_category("Unit Stats")
 @export

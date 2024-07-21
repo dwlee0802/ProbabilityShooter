@@ -57,3 +57,9 @@ func _center_camera(delta) -> void:
 func center_camera_on(target_pos: Vector2) -> void:
 	moving = true
 	move_target = target_pos
+
+# sets the size of unit shortcut labels
+func scale_unit_shortcut_label(units):
+	for unit: PlayerUnit in units:
+		var label: Label = unit.shortcut_label
+		label.scale = Vector2(1 / zoom.x, 1/zoom.y)
