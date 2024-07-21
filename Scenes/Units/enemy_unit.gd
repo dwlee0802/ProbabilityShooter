@@ -12,6 +12,7 @@ var speed_adjust_modifier: float = 4
 
 @onready
 var health_label: Label = $HealthLabel
+var health_bar: DelayedProgressBar
 
 @onready
 var sprite: Sprite2D = $Sprite2D/Sprite2D
@@ -26,12 +27,16 @@ func on_spawn(speed: float, health: int) -> void:
 	apply_central_impulse(core_dir * speed)
 	health_points = health
 	movement_speed = speed
+	health_bar = $HealthBar
+	health_bar.set_max(health)
+	health_bar.change_value(health, true)
 
 func _ready():
 	health_label.text = str(health_points)
 	
 func receive_hit(damage_amount: int):
 	health_points -= damage_amount
+	health_bar.change_value(health_points, true)
 	health_label.text = str(health_points)
 	print("Received damage: " + str(damage_amount))
 	if health_points <= 0:

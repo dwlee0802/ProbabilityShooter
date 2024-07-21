@@ -97,6 +97,10 @@ func receive_hit(amount: int) -> void:
 	health_points -= amount
 	health_bar.change_value(health_points)
 
+func reset_health() -> void:
+	health_points = max_health_points
+	health_bar.change_value(max_health_points, true)
+	
 func _on_body_entered(body):
 	if body is EnemyUnit:
 		receive_hit(body.health_points)

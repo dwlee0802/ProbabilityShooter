@@ -9,6 +9,8 @@ var damage_bar: ProgressBar = $DamageBar
 var delay_time: float = 1
 
 func set_max(val: int):
+	health_bar = $HealthBar
+	damage_bar = $DamageBar
 	health_bar.max_value = val
 	damage_bar.max_value = val
 
