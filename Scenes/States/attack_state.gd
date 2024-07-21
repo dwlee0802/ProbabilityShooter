@@ -27,8 +27,6 @@ func enter() -> void:
 	parent.attack_line_anim.speed_scale = parent.action_one_aim_time
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
-	
-	print("attack state")
 
 func exit() -> void:
 	super()

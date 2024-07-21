@@ -18,6 +18,10 @@ var wave_unit_count: int = 1
 ## time in seconds between enemy unit spawns
 @export
 var time_between_waves: float = 5
+@export
+var enemy_health_range: Vector2i = Vector2i(50, 150)
+@export
+var enemy_speed_range: Vector2i = Vector2i(25, 100)
 @onready
 var spawn_timer: Timer = $SpawnTimer
 ## distance from core where enemy units spawn at
@@ -74,7 +78,9 @@ func spawn_wave() -> void:
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
 	var time: int = int(time_since_start)
-	newEnemy.on_spawn(randi_range(100 + time, 300 + time), randi_range(50 + time, 150 + time))
+	newEnemy.on_spawn(
+		randi_range(enemy_health_range.x + time, enemy_health_range.y + time),
+		randi_range(enemy_speed_range.x + time, enemy_speed_range.y + time))
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
