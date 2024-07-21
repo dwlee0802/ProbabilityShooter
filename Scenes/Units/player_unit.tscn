@@ -130,3 +130,13 @@ process_callback = 0
 one_shot = true
 script = ExtResource("8_ikoyw")
 action_number = 1
+
+[node name="ShortcutLabel" type="Label" parent="."]
+offset_left = -99.0
+offset_top = -111.0
+offset_right = -59.0
+offset_bottom = -56.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 40
+text = "1"

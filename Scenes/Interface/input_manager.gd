@@ -3,14 +3,16 @@ class_name InputManager
 
 var game
 
-@onready
-var camera: CameraControl = $Camera2D
+static var camera: CameraControl
 
 static var selected_unit: PlayerUnit = null
 
 var slice_angle_size: float = PI/2
 
 
+func _ready():
+	InputManager.camera = $Camera2D
+	
 func _physics_process(_delta):
 	var unit_index: int = 0
 	if Input.is_action_just_pressed("select_unit_one"):
@@ -56,13 +58,13 @@ func _physics_process(_delta):
 	# find unit that is closest within slice
 	if spacial_selection:
 		# find unit closest among units that are inside slice
-		if selected_unit:
+		if InputManager.selected_unit:
 			var min_value: float = INF
 			var new_selected: PlayerUnit
 			for unit: PlayerUnit in game.units:
-				var new_dist: float = selected_unit.position.distance_to(unit.position)
-				if selected_unit != unit:
-					if in_slice.call(selected_unit.position, unit.position, slice_range) and min_value > new_dist:
+				var new_dist: float = InputManager.selected_unit.position.distance_to(unit.position)
+				if InputManager.selected_unit != unit:
+					if in_slice.call(InputManager.selected_unit.position, unit.position, slice_range) and min_value > new_dist:
 						min_value = new_dist
 						new_selected = unit
 			
@@ -70,17 +72,17 @@ func _physics_process(_delta):
 				_select_unit(new_selected)
 	
 	if Input.is_action_pressed("center_camera"):
-		if selected_unit:
-			camera.center_camera_on(selected_unit.position)
+		if InputManager.selected_unit:
+			camera.center_camera_on(InputManager.selected_unit.position)
 
 static func IsSelected(unit: PlayerUnit) -> bool:
 	return selected_unit == unit
 
 func _select_unit(unit: PlayerUnit) -> void:
-	if selected_unit != null:
-		selected_unit.deselected.emit()
+	if InputManager.selected_unit != null:
+		InputManager.selected_unit.deselected.emit()
 		
-	selected_unit = unit
+	InputManager.selected_unit = unit
 	
 	if unit != null:
 		unit.was_selected.emit()

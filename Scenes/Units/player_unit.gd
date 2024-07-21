@@ -1,7 +1,7 @@
 extends Unit
 class_name PlayerUnit
 
-static var bullet_scene = preload("res://Scenes/projectile.tscn")
+static var bullet_scene = preload("res://Scenes/Units/projectile.tscn")
 
 @onready
 var state_label: Label = $StateLabel
@@ -49,6 +49,9 @@ func _ready() -> void:
 	attack_line.default_color = attack_color
 	state_machine.init(self)
 	$Sprite2D.self_modulate = temp_color
+
+func set_shortcut_label(num: int) -> void:
+	$ShortcutLabel.text = str(num)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if !InputManager.IsSelected(self):

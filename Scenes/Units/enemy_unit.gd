@@ -16,7 +16,9 @@ var health_label: Label = $HealthLabel
 @onready
 var sprite: Sprite2D = $Sprite2D/Sprite2D
 
-var death_effect = preload("res://Scenes/death_effect.tscn")
+var death_effect = preload("res://Scenes/Units/death_effect.tscn")
+
+signal on_death
 
 
 func on_spawn(speed: float, health: int) -> void:
@@ -37,6 +39,7 @@ func receive_hit(damage_amount: int):
 		new_effect.global_position = global_position
 		get_tree().root.add_child(new_effect)
 		get_parent().remove_child(self)
+		on_death.emit()
 		queue_free()
 	$Sprite2D/AnimationPlayer.play("hit_animation")
 

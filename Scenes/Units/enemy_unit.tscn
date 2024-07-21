@@ -1,23 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bml325a55htb3"]
 
-[ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_wmq3m"]
-[ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_boqnw"]
-[ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Art/slime_eye.png" id="3_0onek"]
-
-[sub_resource type="Animation" id="Animation_mtwn4"]
-resource_name = "hit_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 1), Color(0.658824, 0, 0, 1)]
-}
+[ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
+[ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_ao2hf"]
+[ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Art/slime_eye.png" id="3_146dn"]
 
 [sub_resource type="Animation" id="Animation_eonp3"]
 length = 0.001
@@ -34,6 +19,21 @@ tracks/0/keys = {
 "values": [Color(0.658824, 0, 0, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_mtwn4"]
+resource_name = "hit_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(0.658824, 0, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m6kw4"]
 _data = {
 "RESET": SubResource("Animation_eonp3"),
@@ -44,18 +44,19 @@ _data = {
 radius = 64.0
 
 [node name="EnemyUnit" type="RigidBody2D"]
+mass = 0.5
 gravity_scale = 0.0
 lock_rotation = true
-script = ExtResource("1_wmq3m")
+script = ExtResource("1_gjxg1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.658824, 0, 0, 1)
 position = Vector2(0.999998, -1.5)
 scale = Vector2(2.44, 2.42)
-texture = ExtResource("2_boqnw")
+texture = ExtResource("2_ao2hf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
-texture = ExtResource("3_0onek")
+texture = ExtResource("3_146dn")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {
