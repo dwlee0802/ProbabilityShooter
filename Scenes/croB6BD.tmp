@@ -29,9 +29,8 @@ theme_override_constants/outline_size = 7
 text = "0 - 100"
 
 [node name="SelectedUnitPointer" type="Node2D" parent="."]
-visible = false
+rotation = 2.87281
 
 [node name="Arrow" type="Polygon2D" parent="SelectedUnitPointer"]
 self_modulate = Color(1, 1, 0, 1)
-rotation = 3.14159
 polygon = PackedVector2Array(72, -5, 72, 5, 103, 0)

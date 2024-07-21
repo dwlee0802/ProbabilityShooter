@@ -4,6 +4,8 @@ extends Node2D
 var info_label: Label = $InfoLabel
 @onready
 var image: RadialProgress = $RadialProgress
+@onready
+var selected_unit_pointer: Node2D = $SelectedUnitPointer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,3 +26,7 @@ func _process(_delta):
 			var timer: Timer = InputManager.selected_unit.action_one_reload_timer
 			#info_label.text = str(int(InputManager.selected_unit.action_one_reload_timer.time_left * 10)/10.0)
 			image.progress = int((timer.wait_time - timer.time_left) * 100)
+		
+		# rotate pointer
+		var direction_to_cursor: Vector2 = InputManager.selected_unit.get_local_mouse_position()
+		selected_unit_pointer.rotation = direction_to_cursor.angle()
