@@ -2,6 +2,8 @@ extends State
 
 @export
 var idle_state: State
+@export
+var unconscious_state: State
 
 @export
 var action_1_state: State
@@ -27,4 +29,9 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
 		
+	return null
+
+func process_frame(_delta: float) -> State:
+	if parent.is_unconscious():
+		return unconscious_state
 	return null

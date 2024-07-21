@@ -100,6 +100,9 @@ func receive_hit(amount: int) -> void:
 func reset_health() -> void:
 	health_points = max_health_points
 	health_bar.change_value(max_health_points, true)
+
+func is_unconscious() -> bool:
+	return health_points <= 0
 	
 func _on_body_entered(body):
 	if body is EnemyUnit:

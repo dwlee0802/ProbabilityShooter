@@ -4,6 +4,8 @@ extends State
 var move_state: State
 @export
 var action_one_state: State
+@export
+var unconscious_state: State
 
 
 func enter() -> void:
@@ -37,4 +39,8 @@ func process_frame(_delta: float) -> State:
 		if parent.action_one_reload_timer.is_stopped():
 			parent.action_one_reload_timer.start(parent.action_one_reload_time)
 	
+	# knocked out
+	if parent.health_points <= 0:
+		return unconscious_state
+		
 	return null

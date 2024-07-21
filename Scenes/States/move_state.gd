@@ -4,6 +4,8 @@ extends State
 var idle_state: State
 @export
 var action_one_state: State
+@export
+var unconscious_state: State
 
 var destination: Vector2
 
@@ -32,4 +34,9 @@ func process_physics(_delta: float) -> State:
 	var direction: Vector2 = parent.global_position.direction_to(destination)
 	parent.position += direction * parent.movement_speed * _delta
 	
+	return null
+	
+func process_frame(_delta: float) -> State:
+	if parent.is_unconscious():
+		return unconscious_state
 	return null

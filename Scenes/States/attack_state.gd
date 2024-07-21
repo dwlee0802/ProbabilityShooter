@@ -11,6 +11,8 @@ var wait_time: float = 1
 var idle_state: State
 @export
 var move_state: State
+@export
+var unconscious_state: State
 
 @onready
 var timer: Timer = $Timer
@@ -45,6 +47,10 @@ func process_input(_event: InputEvent) -> State:
 
 func process_frame(_delta: float) -> State:
 	parent.state_label.text = "Action1 in " + str(int(timer.time_left + 1))
+	
+	if parent.is_unconscious():
+		return unconscious_state
+		
 	return null
 	
 func process_physics(_delta: float) -> State:
