@@ -1,7 +1,7 @@
 extends Unit
 class_name PlayerUnit
 
-static var bullet_scene = preload("res://Scenes/Units/projectile.tscn")
+static var bullet_scene = preload("res://Scenes/deathray.tscn")
 
 @onready
 var state_label: Label = $StateLabel
