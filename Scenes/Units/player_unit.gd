@@ -59,6 +59,9 @@ var interaction_area: Area2D = $InteractionArea
 signal was_selected
 signal deselected
 signal health_changed
+signal was_attacked
+signal knocked_out
+signal revived
 
 
 func _ready() -> void:
@@ -104,10 +107,17 @@ func reload_action(num: int) -> void:
 func receive_hit(amount: int) -> void:
 	health_points -= amount
 	health_points = max(health_points, 0)
+	if health_points <= 0:
+		knocked_out.emit()
+		
 	health_bar.change_value(health_points)
 	health_changed.emit()
+	was_attacked.emit()
 	
 func add_health(amount: int) -> void:
+	if health_points <= 0 and amount > 0:
+		revived.emit()
+		
 	health_points += amount
 	health_bar.change_value(health_points)
 	health_changed.emit()

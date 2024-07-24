@@ -36,9 +36,17 @@ func set_unit(unit: PlayerUnit) -> void:
 	target_unit.deselected.connect(animation_player.play.bind("RESET"))
 	target_unit.health_changed.connect(update_healthbar)
 	target_unit.action_one_reload_timer.timeout.connect(reload_complete_animation_player.play.bind("reload_finished_animation"))
+	target_unit.was_attacked.connect($PanelContainer/Image/HitShadow/AnimationPlayer.play.bind("hit_portrait_animation"))
+	target_unit.knocked_out.connect(on_unit_knocked_out)
+	target_unit.revived.connect(on_unit_revived)
 
 func update_healthbar():
 	health_bar.change_value(target_unit.health_points)
+
+func on_unit_knocked_out():
+	$PanelContainer/Image/UnconsciousShadow.visible = true
+func on_unit_revived():
+	$PanelContainer/Image/UnconsciousShadow.visible = false
 	
 func _process(_delta):
 	if target_unit != null:
