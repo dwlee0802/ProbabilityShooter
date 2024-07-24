@@ -67,7 +67,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.356863)]
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4vrfe"]
@@ -117,10 +117,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.5
-offset_top = -29.5
-offset_right = 81.5
-offset_bottom = 39.5
+offset_left = -80.0
+offset_top = -30.0
+offset_right = 80.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -155,7 +155,7 @@ text = "1"
 vertical_alignment = 2
 
 [node name="WeaponImage" type="TextureRect" parent="PanelContainer"]
-self_modulate = Color(0.649287, 0.538579, 1, 1)
+self_modulate = Color(1, 0, 1, 1)
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 1
 anchors_preset = -1
@@ -189,13 +189,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.356863)
+color = Color(1, 1, 1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainer/WeaponImage/ReadyTint"]
 libraries = {
 "": SubResource("AnimationLibrary_4vrfe")
 }
-speed_scale = 2.0
+speed_scale = 3.0
 
 [node name="SkillIcons" type="HBoxContainer" parent="PanelContainer"]
 custom_minimum_size = Vector2(100, 15)
