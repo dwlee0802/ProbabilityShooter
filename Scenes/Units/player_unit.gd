@@ -117,6 +117,7 @@ func receive_hit(amount: int) -> void:
 func add_health(amount: int) -> void:
 	if health_points <= 0 and amount > 0:
 		revived.emit()
+		$CollisionShape2D.disabled = false
 		
 	health_points += amount
 	health_bar.change_value(health_points)
@@ -125,6 +126,7 @@ func add_health(amount: int) -> void:
 func reset_health() -> void:
 	health_points = max_health_points
 	health_bar.change_value(max_health_points, true)
+	disable_enemy_collision()
 	health_changed.emit()
 
 func is_unconscious() -> bool:
@@ -134,3 +136,8 @@ func _on_body_entered(body):
 	if body is EnemyUnit:
 		receive_hit(body.health_points)
 		body.die()
+
+func disable_enemy_collision():
+	$CollisionShape2D.disabled = true
+func enable_enemy_collision():
+	$CollisionShape2D.disabled = false
