@@ -79,8 +79,8 @@ func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
 	var time: int = int(time_since_start)
 	newEnemy.on_spawn(
-		randi_range(enemy_health_range.x + time, enemy_health_range.y + time),
-		randi_range(enemy_speed_range.x + time, enemy_speed_range.y + time))
+		randi_range(enemy_speed_range.x + time, enemy_speed_range.y + time),
+		randi_range(enemy_health_range.x + time, enemy_health_range.y + time))
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
