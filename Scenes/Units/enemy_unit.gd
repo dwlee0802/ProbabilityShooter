@@ -36,7 +36,7 @@ func _ready():
 	
 func receive_hit(damage_amount: int):
 	health_points -= damage_amount
-	health_bar.change_value(health_points, true)
+	health_bar.change_value(health_points)
 	health_label.text = str(health_points)
 	print("Received damage: " + str(damage_amount))
 	if health_points <= 0:

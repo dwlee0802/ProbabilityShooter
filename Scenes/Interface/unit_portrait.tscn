@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://4ly04duxj5fu"]
+[gd_scene load_steps=7 format=3 uid="uid://4ly04duxj5fu"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/unit_portrait.gd" id="1_5p2e6"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_yonm2"]
+[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_o2cqk"]
 
 [sub_resource type="Animation" id="Animation_ei3io"]
 length = 0.001
@@ -156,3 +157,14 @@ custom_minimum_size = Vector2(15, 5)
 layout_mode = 2
 texture = ExtResource("1_yonm2")
 expand_mode = 1
+
+[node name="HealthBar" parent="PanelContainer" instance=ExtResource("3_o2cqk")]
+layout_mode = 1
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -77.5
+offset_top = -5.0
+offset_right = 79.5
+offset_bottom = 1.0
+grow_vertical = 0

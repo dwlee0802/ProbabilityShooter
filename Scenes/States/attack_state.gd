@@ -26,7 +26,7 @@ func enter() -> void:
 	parent.aim_line.default_color = parent.disabled_color
 	parent.attack_line.visible = true
 	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
-	parent.attack_line_anim.speed_scale = parent.action_one_aim_time
+	parent.attack_line_anim.speed_scale = 1/parent.action_one_aim_time
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 

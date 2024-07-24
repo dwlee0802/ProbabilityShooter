@@ -33,15 +33,14 @@ script = ExtResource("2_iduqg")
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
-health_points = 0
-max_health_points = 1
+action_one_aim_time = 2.0
+action_one_reload_time = 5.0
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(678, -4)
 movement_speed = 500.0
 temp_color = Color(1, 0.482353, 1, 1)
-health_points = 1
-max_health_points = 1
+action_one_reload_time = 3.0
 
 [node name="Enemies" type="Node2D" parent="."]
 

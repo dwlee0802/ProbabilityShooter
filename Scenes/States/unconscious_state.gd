@@ -11,7 +11,6 @@ func enter() -> void:
 func process_frame(_delta: float) -> State:
 	if !parent.is_unconscious():
 		return idle_state
-	print(parent.health_points)
 	return null
 
 func process_input(_event: InputEvent) -> State:

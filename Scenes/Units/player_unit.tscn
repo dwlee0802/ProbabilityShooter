@@ -1,15 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=17 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
 [ext_resource type="Script" path="res://Scenes/States/idle_state.gd" id="3_2iym7"]
 [ext_resource type="Script" path="res://Scenes/States/move_state.gd" id="4_jlt6l"]
-[ext_resource type="Script" path="res://Scenes/States/aim_state.gd" id="5_8ylnj"]
 [ext_resource type="Script" path="res://Scenes/States/attack_state.gd" id="6_3pdj6"]
 [ext_resource type="Script" path="res://Scenes/States/unconscious_state.gd" id="6_yjtio"]
 [ext_resource type="Script" path="res://Scenes/States/revive_state.gd" id="8_5ttnm"]
 [ext_resource type="Script" path="res://Scenes/reload_timer.gd" id="8_ikoyw"]
-[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/health_bar.tscn" id="8_mxokv"]
+[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 
 [sub_resource type="Gradient" id="Gradient_r6gn1"]
 offsets = PackedFloat32Array(0.123377, 0.649351)
@@ -85,12 +84,6 @@ idle_state = NodePath("../Idle")
 action_one_state = NodePath("../ActionOne")
 unconscious_state = NodePath("../Unconscious")
 
-[node name="Aim" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "unconscious_state", "action_1_state")]
-script = ExtResource("5_8ylnj")
-idle_state = NodePath("../Idle")
-unconscious_state = NodePath("../Unconscious")
-action_1_state = NodePath("../ActionOne")
-
 [node name="Unconscious" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
 script = ExtResource("6_yjtio")
 idle_state = NodePath("../Idle")
@@ -114,15 +107,6 @@ unconscious_state = NodePath("../Unconscious")
 
 [node name="Timer" type="Timer" parent="StateMachine/Revive"]
 one_shot = true
-
-[node name="StateLabel" type="Label" parent="."]
-offset_left = -61.0
-offset_top = -98.0
-offset_right = 58.0
-offset_bottom = -75.0
-text = "State: Idle"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_745rb")
@@ -155,20 +139,38 @@ script = ExtResource("8_ikoyw")
 action_number = 1
 
 [node name="ShortcutLabel" type="Label" parent="."]
-offset_left = -99.0
-offset_top = -111.0
-offset_right = -59.0
-offset_bottom = -56.0
+offset_left = -65.0
+offset_top = -64.0
+offset_right = -25.0
+offset_bottom = -9.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 20
 text = "1"
 
-[node name="HealthBar" parent="." instance=ExtResource("8_mxokv")]
+[node name="HealthBar" parent="." instance=ExtResource("9_hb35g")]
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = 60.0
+offset_right = 60.0
+offset_bottom = 72.0
+grow_vertical = 0
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -61.0
+offset_top = -98.0
+offset_right = 58.0
+offset_bottom = -75.0
+text = "State: Idle"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="InteractionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(2, 6)
 shape = SubResource("CircleShape2D_6qovf")
 debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
 

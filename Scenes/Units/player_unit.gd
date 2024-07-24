@@ -7,6 +7,7 @@ static var bullet_scene = preload("res://Scenes/Units/projectile.tscn")
 var state_label: Label = $StateLabel
 @onready
 var state_machine: StateMachine = $StateMachine
+
 @onready
 var shortcut_label: Label = $ShortcutLabel
 
@@ -57,6 +58,7 @@ var interaction_area: Area2D = $InteractionArea
 
 signal was_selected
 signal deselected
+signal health_changed
 
 
 func _ready() -> void:
@@ -80,9 +82,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	state_machine.process_input(event)
 	
-	if Input.is_action_just_pressed("action_one") and !action_one_available:
-		if action_one_reload_timer.is_stopped():
-			action_one_reload_timer.start(action_one_reload_time)
+	#if Input.is_action_just_pressed("action_one") and !action_one_available:
+		#if action_one_reload_timer.is_stopped():
+			#action_one_reload_timer.start(action_one_reload_time)
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
@@ -103,14 +105,17 @@ func receive_hit(amount: int) -> void:
 	health_points -= amount
 	health_points = max(health_points, 0)
 	health_bar.change_value(health_points)
+	health_changed.emit()
 	
 func add_health(amount: int) -> void:
 	health_points += amount
 	health_bar.change_value(health_points)
+	health_changed.emit()
 
 func reset_health() -> void:
 	health_points = max_health_points
 	health_bar.change_value(max_health_points, true)
+	health_changed.emit()
 
 func is_unconscious() -> bool:
 	return health_points <= 0

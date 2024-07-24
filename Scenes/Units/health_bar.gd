@@ -21,6 +21,7 @@ func change_value(new_val: int, immediate: bool = false) -> void:
 	if !immediate:
 		var tween = get_tree().create_tween()
 		tween.tween_property(damage_bar, "value", new_val, delay_time)
+		tween.bind_node(health_bar)
 	else:
 		damage_bar.value = new_val
 		
