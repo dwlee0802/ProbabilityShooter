@@ -11,6 +11,11 @@ var target_unit: PlayerUnit
 @onready
 var health_bar: DelayedProgressBar = $PanelContainer/HealthBar
 
+@onready
+var cooldown_shadow: Control = $PanelContainer/WeaponImage/CooldownShadow
+@onready
+var reload_complete_animation_player: AnimationPlayer = $PanelContainer/WeaponImage/ReadyTint/AnimationPlayer
+
 
 func set_shortcut_label(num: int) -> void:
 	shortcut_label.text = str(num)
@@ -30,6 +35,12 @@ func set_unit(unit: PlayerUnit) -> void:
 	target_unit.was_selected.connect(animation_player.play.bind("portrait_select"))
 	target_unit.deselected.connect(animation_player.play.bind("RESET"))
 	target_unit.health_changed.connect(update_healthbar)
+	target_unit.action_one_reload_timer.timeout.connect(reload_complete_animation_player.play.bind("reload_finished_animation"))
 
 func update_healthbar():
 	health_bar.change_value(target_unit.health_points)
+	
+func _process(_delta):
+	if target_unit != null:
+		if !target_unit.action_one_reload_timer.is_stopped():
+			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.action_one_reload_timer.wait_time)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://4ly04duxj5fu"]
+[gd_scene load_steps=10 format=3 uid="uid://4ly04duxj5fu"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/unit_portrait.gd" id="1_5p2e6"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_yonm2"]
@@ -38,6 +38,42 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_ei3io"),
 "portrait_select": SubResource("Animation_m4y84")
+}
+
+[sub_resource type="Animation" id="Animation_qalq6"]
+resource_name = "reload_finished_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wkcdt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.356863)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4vrfe"]
+_data = {
+"RESET": SubResource("Animation_wkcdt"),
+"reload_finished_animation": SubResource("Animation_qalq6")
 }
 
 [node name="UnitPortrait" type="Control"]
@@ -84,7 +120,7 @@ anchor_bottom = 0.5
 offset_left = -80.5
 offset_top = -29.5
 offset_right = 81.5
-offset_bottom = 30.5
+offset_bottom = 39.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -119,6 +155,7 @@ text = "1"
 vertical_alignment = 2
 
 [node name="WeaponImage" type="TextureRect" parent="PanelContainer"]
+self_modulate = Color(0.649287, 0.538579, 1, 1)
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 1
 anchors_preset = -1
@@ -136,6 +173,29 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("1_yonm2")
 expand_mode = 1
+
+[node name="CooldownShadow" type="ColorRect" parent="PanelContainer/WeaponImage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.635294)
+
+[node name="ReadyTint" type="ColorRect" parent="PanelContainer/WeaponImage"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.356863)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainer/WeaponImage/ReadyTint"]
+libraries = {
+"": SubResource("AnimationLibrary_4vrfe")
+}
+speed_scale = 2.0
 
 [node name="SkillIcons" type="HBoxContainer" parent="PanelContainer"]
 custom_minimum_size = Vector2(100, 15)
