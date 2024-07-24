@@ -139,6 +139,8 @@ func _on_body_entered(body):
 		body.die()
 
 func disable_enemy_collision():
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.call_deferred("set_disabled", true)
+	print("disabled collision")
 func enable_enemy_collision():
-	$CollisionShape2D.disabled = false
+	$CollisionShape2D.call_deferred("set_disabled", false)
+	print("enabled collision")
