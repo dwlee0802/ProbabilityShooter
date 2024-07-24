@@ -71,4 +71,3 @@ libraries = {
 "": SubResource("AnimationLibrary_j0cgd")
 }
 autoplay = "deathray_animation"
-speed_scale = 4.0

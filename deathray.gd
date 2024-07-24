@@ -4,6 +4,8 @@ extends Projectile
 # queue free when animation is done
 func launch(direction: Vector2, _speed: float, amount: int) -> void:
 	var collision_shape: CollisionShape2D = $CollisionShape2D
+	damage_amount = amount
+	damage_amount = 100
 	# set size of collision shape
 	collision_shape.shape.size = Vector2(100000, 32)
 	collision_shape.position = Vector2(collision_shape.shape.size.x/2, 0)
@@ -13,8 +15,10 @@ func launch(direction: Vector2, _speed: float, amount: int) -> void:
 	sprite.position = Vector2(32 * sprite.scale.x / 2, 0)
 	rotate(direction.angle())
 	
+
+func _process(delta):
 	var hit_units = get_overlapping_bodies()
 	for unit in hit_units:
 		if unit is EnemyUnit:
-			unit.receive_hit(amount)
+			unit.receive_hit(100*delta)
 	print(hit_units.size())
