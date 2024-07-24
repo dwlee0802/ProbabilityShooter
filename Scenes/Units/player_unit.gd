@@ -101,6 +101,7 @@ func reload_action(num: int) -> void:
 
 func receive_hit(amount: int) -> void:
 	health_points -= amount
+	health_points = max(health_points, 0)
 	health_bar.change_value(health_points)
 	
 func add_health(amount: int) -> void:

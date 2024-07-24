@@ -17,9 +17,10 @@ var target: PlayerUnit
 
 func enter() -> void:
 	super()
-	parent.state_label.text = "Reviving"
-	print("reviving")
+	parent.state_label.text = "Reviving " + str(target.name)
+	print("Reviving " + str(target.name))
 	timer.start(parent.revive_time)
+	timer.timeout.connect(parent.add_health.bind(1))
 	parent.attack_line.visible = false
 	
 func process_frame(_delta: float) -> State:
@@ -35,6 +36,7 @@ func process_frame(_delta: float) -> State:
 
 func exit() -> void:
 	super()
+	timer.timeout.disconnect(parent.add_health.bind(1))
 	target = null
 
 func process_input(_event: InputEvent) -> State:
@@ -52,9 +54,13 @@ func process_input(_event: InputEvent) -> State:
 	
 func process_physics(_delta: float) -> State:
 	if timer.is_stopped():
+		if target == null:
+			push_error("Revive state has no target")
+			return idle_state
+			
 		print("revive complete")
-		if target:
-			target.add_health(1)
+		target.add_health(1)
+		
 		return idle_state
 	
 	return null

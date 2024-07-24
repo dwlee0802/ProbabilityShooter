@@ -113,11 +113,9 @@ move_state = NodePath("../Move")
 unconscious_state = NodePath("../Unconscious")
 
 [node name="Timer" type="Timer" parent="StateMachine/Revive"]
-process_callback = 0
 one_shot = true
 
 [node name="StateLabel" type="Label" parent="."]
-visible = false
 offset_left = -61.0
 offset_top = -98.0
 offset_right = 58.0

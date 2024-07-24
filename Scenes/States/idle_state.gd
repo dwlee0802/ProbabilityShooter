@@ -57,7 +57,7 @@ func process_frame(_delta: float) -> State:
 			parent.action_one_reload_timer.start(parent.action_one_reload_time)
 	
 	# knocked out
-	if parent.health_points <= 0:
+	if parent.is_unconscious():
 		return unconscious_state
 		
 	return null
