@@ -47,6 +47,7 @@ func on_unit_knocked_out():
 	$PanelContainer/Image/UnconsciousShadow.visible = true
 func on_unit_revived():
 	$PanelContainer/Image/UnconsciousShadow.visible = false
+	health_bar.change_value(target_unit.health_points)
 	
 func _process(_delta):
 	if target_unit != null:
