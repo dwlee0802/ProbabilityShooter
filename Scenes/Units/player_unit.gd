@@ -114,6 +114,8 @@ func _process(delta: float) -> void:
 func reload_action() -> void:
 	if current_equipped_index < equipments.size():
 		equipments[current_equipped_index].ready = true
+		if equipments[current_equipped_index] is Gun:
+			equipments[current_equipped_index].reload()
 	else:
 		push_error("Reload equipment index out of bounds!")
 

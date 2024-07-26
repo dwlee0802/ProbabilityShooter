@@ -37,6 +37,9 @@ movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
 equipments = [ExtResource("6_v26fp"), ExtResource("7_q4351")]
 
+[node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+equipments = [ExtResource("7_q4351")]
+
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]

@@ -3,11 +3,14 @@
 [ext_resource type="Script" path="res://Scenes/Equipment/gun.gd" id="1_m6s7m"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_m6s7m")
-magazine_size = 1
+magazine_size = 5
+current_magazine_count = 5
 projectile_speed = 8000.0
 damage_range = Vector2i(50, 200)
 knock_back_force = 800.0
 equipment_name = "Rifle"
-reload_time = 3.0
 aim_time = 1.0
+reload_time = 3.0
+ready = true
