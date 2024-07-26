@@ -12,9 +12,9 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-enemy_speed_range = Vector2i(200, 200)
+enemy_health_range = Vector2i(50, 100)
+enemy_speed_range = Vector2i(150, 200)
 spawn_radius = 6000
-no_game_over = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 process_callback = 0
