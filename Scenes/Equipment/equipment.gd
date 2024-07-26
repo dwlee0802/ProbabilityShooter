@@ -17,5 +17,5 @@ var reload_time: float
 @export
 var aim_time: float
 
-func on_activation(unit: Unit, direction: Vector2):
+func on_activation(_unit: Unit, _direction: Vector2):
 	pass

@@ -68,6 +68,7 @@ signal health_changed
 signal was_attacked
 signal knocked_out
 signal revived
+signal equipment_changed
 
 
 func _ready() -> void:

@@ -2,7 +2,7 @@ extends Projectile
 
 # damage everything inside on spawn
 # queue free when animation is done
-func launch(direction: Vector2, _speed: float, amount: int, knock_back: float = 0) -> void:
+func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	var collision_shape: CollisionShape2D = $CollisionShape2D
 	damage_amount = amount
 	damage_amount = 100

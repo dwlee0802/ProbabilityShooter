@@ -8,7 +8,8 @@ var damage_amount: int = 0
 
 var knock_back_amount: float = 800
 
-func launch(direction: Vector2, _speed: float, amount: int, knock_back: float = 0) -> void:
+func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
+	knock_back_amount = _knock_back
 	dir = direction
 	speed = _speed
 	damage_amount = amount
