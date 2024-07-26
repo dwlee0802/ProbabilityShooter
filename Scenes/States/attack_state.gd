@@ -21,6 +21,11 @@ func enter() -> void:
 	parent.state_label.text = "Action1"
 	mouse_position = parent.get_local_mouse_position()
 	timer.start(parent.get_current_equipment().aim_time)
+	if !parent.equipment_changed.is_connected(timer.stop):
+		parent.equipment_changed.connect(timer.stop)
+	if !timer.timeout.is_connected(on_aim_finished):
+		timer.timeout.connect(on_aim_finished)
+	
 	parent.aim_line.default_color = parent.disabled_color
 	parent.attack_line.visible = true
 	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
@@ -52,10 +57,10 @@ func process_frame(_delta: float) -> State:
 	return null
 	
 func process_physics(_delta: float) -> State:
-	if timer.is_stopped():
-		parent.get_current_equipment().on_activation(parent, mouse_position)
-		if !parent.get_current_equipment().have_bullets():
-			parent.get_current_equipment().ready = false
-		return idle_state
-	
 	return null
+
+func on_aim_finished():
+	parent.get_current_equipment().on_activation(parent, mouse_position)
+	if !parent.get_current_equipment().have_bullets():
+		parent.get_current_equipment().ready = false
+	return idle_state
