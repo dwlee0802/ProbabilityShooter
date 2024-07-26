@@ -39,6 +39,7 @@ func set_unit(unit: PlayerUnit) -> void:
 	target_unit.was_attacked.connect($PanelContainer/Image/HitShadow/AnimationPlayer.play.bind("hit_portrait_animation"))
 	target_unit.knocked_out.connect(on_unit_knocked_out)
 	target_unit.revived.connect(on_unit_revived)
+	target_unit.equipment_changed.connect(on_unit_equipment_changed)
 
 func update_healthbar():
 	health_bar.change_value(target_unit.health_points)
@@ -52,4 +53,15 @@ func on_unit_revived():
 func _process(_delta):
 	if target_unit != null:
 		if !target_unit.action_one_reload_timer.is_stopped():
-			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.action_one_reload_timer.wait_time)
+			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.get_current_equipment().reload_time)
+			
+func on_unit_equipment_changed() -> void:
+	if target_unit == null:
+		return
+		
+	var current_equipment: Equipment = target_unit.get_current_equipment()
+	if current_equipment.ready:
+		cooldown_shadow.anchor_bottom = 0
+	else:
+		cooldown_shadow.anchor_bottom = 1
+		
