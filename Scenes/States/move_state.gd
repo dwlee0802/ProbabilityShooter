@@ -23,7 +23,7 @@ func process_input(_event: InputEvent) -> State:
 		destination = parent.get_global_mouse_position()
 	# pressed action 1. go to action 1 aim mode
 	if Input.is_action_just_pressed("action_one"):
-		if parent.action_one_available:
+		if parent.get_current_equipment().ready:
 			return action_one_state
 		
 	return null

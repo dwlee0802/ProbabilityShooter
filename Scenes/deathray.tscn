@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_gx4dt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pq6wq"]
-size = Vector2(100000, 32)
+size = Vector2(100000, 128)
 
 [sub_resource type="Animation" id="Animation_v4rhi"]
 length = 0.001

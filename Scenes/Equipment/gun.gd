@@ -1,7 +1,7 @@
 extends Equipment
 class_name Gun
 
-static var projectile_scene = preload("res://Scenes/Units/projectile.tscn")
+var projectile_scene = preload("res://Scenes/Units/projectile.tscn")
 
 ## Number of times the gun can be used before needing to reload.
 @export
@@ -16,11 +16,12 @@ var damage_range: Vector2i
 @export
 var knock_back_force: float
 
+	
 func on_activation(unit: Unit, mouse_position: Vector2):
 	# make new projectile
 	var new_bullet: Projectile = projectile_scene.instantiate()
 	# set stats
-	new_bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(1, 201))
+	new_bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(damage_range.x, damage_range.y))
 	new_bullet.global_position = unit.global_position
 	
 	# add to scene

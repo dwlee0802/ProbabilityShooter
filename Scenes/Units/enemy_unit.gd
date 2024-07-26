@@ -3,7 +3,7 @@ class_name EnemyUnit
 
 static var core_position: Vector2
 
-var health_points: int = 100
+var health_points: float = 100
 
 var movement_speed: float = 0
 
@@ -34,10 +34,10 @@ func on_spawn(speed: float, health: int) -> void:
 func _ready():
 	health_label.text = str(health_points)
 	
-func receive_hit(damage_amount: int):
+func receive_hit(damage_amount: float):
 	health_points -= damage_amount
-	health_bar.change_value(health_points)
-	health_label.text = str(health_points)
+	health_bar.change_value(int(health_points))
+	health_label.text = str(int(health_points))
 	print("Received damage: " + str(damage_amount))
 	if health_points <= 0:
 		die()

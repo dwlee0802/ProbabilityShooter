@@ -4,10 +4,12 @@
 
 [resource]
 script = ExtResource("1_pdlt2")
+duration = 1.0
 magazine_size = 1
 projectile_speed = 0.0
-damage_range = Vector2i(100, 100)
+damage_range = Vector2i(150, 150)
 knock_back_force = 0.0
 equipment_name = "Laser Rifle"
-reload_time = 5.0
-aim_time = 3.0
+aim_time = 2.0
+reload_time = 4.0
+ready = true

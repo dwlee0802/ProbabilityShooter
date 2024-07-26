@@ -3,8 +3,6 @@ extends State
 var mouse_position: Vector2
 
 @export
-var projectile_speed: float = 8000
-@export
 var wait_time: float = 1
 
 @export

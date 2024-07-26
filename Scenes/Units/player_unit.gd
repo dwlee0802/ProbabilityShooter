@@ -67,6 +67,7 @@ signal equipment_changed
 func _ready() -> void:
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)
+	print("equipped " + get_current_equipment().equipment_name)
 	
 	aim_line.default_color = default_color
 	attack_line.default_color = attack_color
@@ -98,6 +99,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		current_equipped_index += 1
 		current_equipped_index = current_equipped_index % equipments.size()
 		equipment_changed.emit()
+		print("current equipment: " + get_current_equipment().equipment_name)
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)

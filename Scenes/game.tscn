@@ -12,7 +12,6 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-time_between_waves = 1.0
 enemy_speed_range = Vector2i(200, 200)
 spawn_radius = 6000
 no_game_over = true

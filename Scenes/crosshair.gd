@@ -11,18 +11,17 @@ var selected_unit_pointer: Node2D = $SelectedUnitPointer
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	global_position = get_global_mouse_position()
 	
 	# depending on attack available, change infolabel content
 	if InputManager.selected_unit != null:
-		if InputManager.selected_unit.get_current_equipment().ready:
-			# show damage range
-			image.progress = 100
-			info_label.text = str(InputManager.selected_unit.damage_range.x) + "-" + str(InputManager.selected_unit.damage_range.y)
-		else:
+		# show damage range
+		image.progress = 100
+		var current_eq: Equipment = InputManager.selected_unit.get_current_equipment()
+		info_label.text = str(current_eq.damage_range.x) + "-" + str(current_eq.damage_range.y)
+		if !InputManager.selected_unit.get_current_equipment().ready:
 			var timer: Timer = InputManager.selected_unit.action_one_reload_timer
 			#info_label.text = str(int(InputManager.selected_unit.action_one_reload_timer.time_left * 10)/10.0)
 			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
