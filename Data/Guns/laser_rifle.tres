@@ -5,7 +5,8 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_pdlt2")
-duration = 1.0
+duration = 3.0
+width = 128
 magazine_size = 2
 current_magazine_count = 2
 projectile_speed = 0.0

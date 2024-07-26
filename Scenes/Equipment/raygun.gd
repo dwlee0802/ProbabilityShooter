@@ -5,13 +5,16 @@ class_name RayGun
 ## damage is applied per second
 @export
 var duration: float = 1.0
+## width of the ray
+@export
+var width: int = 128
 
 func _init():
 	projectile_scene = preload("res://Scenes/deathray.tscn")
-	
+
 func on_activation(unit: Unit, mouse_position: Vector2):
 	# make new projectile
-	var new_bullet: Projectile = projectile_scene.instantiate()
+	var new_bullet: Ray = projectile_scene.instantiate()
 	# set stats
 	new_bullet.duration = duration
 	new_bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(damage_range.x, damage_range.y))
