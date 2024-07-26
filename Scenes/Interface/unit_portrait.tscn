@@ -40,21 +40,6 @@ _data = {
 "portrait_select": SubResource("Animation_m4y84")
 }
 
-[sub_resource type="Animation" id="Animation_qalq6"]
-resource_name = "reload_finished_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_wkcdt"]
 length = 0.001
 tracks/0/type = "value"
@@ -83,6 +68,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 0, 0, 0.419608), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qalq6"]
+resource_name = "reload_finished_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4vrfe"]
@@ -253,10 +253,34 @@ grow_horizontal = 0
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/SkillIcons"]
-custom_minimum_size = Vector2(15, 5)
+self_modulate = Color(0.443137, 1, 1, 1)
+custom_minimum_size = Vector2(40, 5)
 layout_mode = 2
 texture = ExtResource("1_yonm2")
 expand_mode = 1
+
+[node name="CooldownShadow" type="ColorRect" parent="PanelContainer/SkillIcons/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.635294)
+
+[node name="ReadyTint" type="ColorRect" parent="PanelContainer/SkillIcons/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainer/SkillIcons/TextureRect/ReadyTint"]
+libraries = {
+"": SubResource("AnimationLibrary_4vrfe")
+}
+speed_scale = 3.0
 
 [node name="HealthBar" parent="PanelContainer" instance=ExtResource("3_o2cqk")]
 layout_mode = 1

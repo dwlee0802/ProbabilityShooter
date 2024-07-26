@@ -55,6 +55,8 @@ func _process(_delta):
 		if !target_unit.action_one_reload_timer.is_stopped():
 			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.get_current_equipment().reload_time)
 			
+			# do it for the other equipment too
+			
 func on_unit_equipment_changed() -> void:
 	if target_unit == null:
 		return
@@ -65,3 +67,9 @@ func on_unit_equipment_changed() -> void:
 	else:
 		cooldown_shadow.anchor_bottom = 1
 		
+	var other_eq: Equipment = target_unit.get_other_equipment()
+	if other_eq.ready:
+		$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 0
+	else:
+		$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 1
+	

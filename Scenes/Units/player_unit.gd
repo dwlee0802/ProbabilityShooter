@@ -163,3 +163,8 @@ func enable_enemy_collision():
 func get_current_equipment():
 	if current_equipped_index < equipments.size():
 		return equipments[current_equipped_index]
+func get_other_equipment():
+	if current_equipped_index + 1 < equipments.size():
+		return equipments[current_equipped_index + 1]
+	else:
+		return equipments[current_equipped_index - 1]
