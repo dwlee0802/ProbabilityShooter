@@ -4,6 +4,12 @@ class_name Equipment
 ## name of the equipment
 @export
 var equipment_name: String
+## ui image of equipment
+@export
+var equipment_texture: Texture2D
+## actual in-game image
+@export
+var equipment_sprite: Texture2D
 ## How long it takes to reload the action after use
 @export
 var reload_time: float
@@ -11,5 +17,5 @@ var reload_time: float
 @export
 var aim_time: float
 
-func on_activation():
+func on_activation(unit: Unit, direction: Vector2):
 	pass

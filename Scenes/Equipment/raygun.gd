@@ -1,7 +1,7 @@
 extends Equipment
-class_name Gun
+class_name RayGun
 
-static var projectile_scene = preload("res://Scenes/Units/projectile.tscn")
+static var projectile_scene = preload("res://Scenes/deathray.tscn")
 
 ## Number of times the gun can be used before needing to reload.
 @export

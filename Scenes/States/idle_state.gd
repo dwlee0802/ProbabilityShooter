@@ -54,7 +54,7 @@ func process_frame(_delta: float) -> State:
 	# auto reload
 	if parent.action_one_available == false:
 		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.action_one_reload_time)
+			parent.action_one_reload_timer.start(parent.get_current_equipment().reload_time)
 	
 	# knocked out
 	if parent.is_unconscious():

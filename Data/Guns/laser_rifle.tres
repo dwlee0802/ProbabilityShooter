@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RayGun" load_steps=2 format=3 uid="uid://c1er6y2h88ydn"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/raygun.gd" id="1_pdlt2"]
+
+[resource]
+script = ExtResource("1_pdlt2")
+magazine_size = 1
+projectile_speed = 0.0
+damage_range = Vector2i(100, 100)
+knock_back_force = 0.0
+equipment_name = "Laser Rifle"
+reload_time = 5.0
+aim_time = 3.0

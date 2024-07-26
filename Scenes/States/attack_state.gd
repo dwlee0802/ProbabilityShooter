@@ -22,11 +22,11 @@ func enter() -> void:
 	super()
 	parent.state_label.text = "Action1"
 	mouse_position = parent.get_local_mouse_position()
-	timer.start(parent.action_one_aim_time)
+	timer.start(parent.get_current_equipment().aim_time)
 	parent.aim_line.default_color = parent.disabled_color
 	parent.attack_line.visible = true
 	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
-	parent.attack_line_anim.speed_scale = 1/parent.action_one_aim_time
+	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().aim_time
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 
@@ -56,13 +56,7 @@ func process_frame(_delta: float) -> State:
 func process_physics(_delta: float) -> State:
 	if timer.is_stopped():
 		parent.action_one_available = false
-		
-		var bullet: Projectile = parent.bullet_scene.instantiate()
-		bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(1, 201))
-		bullet.global_position = parent.global_position
-		
-		get_tree().root.add_child(bullet)
-		
+		parent.get_current_equipment().on_activation(parent, mouse_position)
 		return idle_state
 	
 	return null

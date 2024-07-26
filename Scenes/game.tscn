@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=10 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
+[ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="6_v26fp"]
+[ext_resource type="Resource" uid="uid://c1er6y2h88ydn" path="res://Data/Guns/laser_rifle.tres" id="7_q4351"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/crosshair.tscn" id="7_xccla"]
 
 [node name="Game" type="Node2D"]
@@ -34,15 +36,17 @@ script = ExtResource("2_iduqg")
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
+equipments = [ExtResource("6_v26fp")]
 action_one_aim_time = 2.0
 action_one_reload_time = 5.0
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(678, -4)
+position = Vector2(-273, -435)
 movement_speed = 500.0
-temp_color = Color(1, 0.482353, 1, 1)
-max_health_points = 1
-action_one_reload_time = 3.0
+temp_color = Color(0.356863, 1, 1, 1)
+equipments = [ExtResource("7_q4351")]
+action_one_aim_time = 2.0
+action_one_reload_time = 5.0
 
 [node name="Enemies" type="Node2D" parent="."]
 

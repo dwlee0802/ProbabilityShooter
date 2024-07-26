@@ -27,6 +27,12 @@ var health_bar: DelayedProgressBar = $HealthBar
 @onready
 var revive_time: float = 5.0
 
+@export_category("Equipment")
+@export
+var current_equipped_index: int = 0
+@export
+var equipments = []
+
 @export_category("Action Availability")
 @export
 var action_one_available: bool = true
@@ -144,3 +150,7 @@ func disable_enemy_collision():
 func enable_enemy_collision():
 	$CollisionShape2D.call_deferred("set_disabled", false)
 	print("enabled collision")
+
+func get_current_equipment():
+	if current_equipped_index < equipments.size():
+		return equipments[current_equipped_index]
