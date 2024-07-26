@@ -20,7 +20,7 @@ func enter() -> void:
 	super()
 	parent.state_label.text = "Action1"
 	mouse_position = parent.get_local_mouse_position()
-	timer.start(parent.get_current_equipment().aim_time)
+	timer.start(parent.get_current_equipment().data.aim_time)
 	if !parent.equipment_changed.is_connected(timer.stop):
 		parent.equipment_changed.connect(timer.stop)
 	if !timer.timeout.is_connected(on_aim_finished):
@@ -29,7 +29,7 @@ func enter() -> void:
 	parent.aim_line.default_color = parent.disabled_color
 	parent.attack_line.visible = true
 	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
-	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().aim_time
+	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().data.aim_time
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 
@@ -63,4 +63,5 @@ func on_aim_finished():
 	parent.get_current_equipment().on_activation(parent, mouse_position)
 	if !parent.get_current_equipment().have_bullets():
 		parent.get_current_equipment().ready = false
+	
 	return idle_state

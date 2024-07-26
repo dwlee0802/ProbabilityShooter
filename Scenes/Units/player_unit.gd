@@ -1,8 +1,6 @@
 extends Unit
 class_name PlayerUnit
 
-static var bullet_scene = preload("res://Scenes/deathray.tscn")
-
 @onready
 var state_label: Label = $StateLabel
 @onready
@@ -32,6 +30,8 @@ var revive_time: float = 5.0
 var current_equipped_index: int = 0
 @export
 var equipments = []
+@export
+var starting_equipment: Resource
 
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
@@ -65,9 +65,12 @@ signal equipment_changed
 
 
 func _ready() -> void:
+	# instantiate gun objects
+	equipments.append(Gun.new(starting_equipment))
+	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)
-	print("equipped " + get_current_equipment().equipment_name)
+	print("equipped " + get_current_equipment().data.equipment_name)
 	
 	aim_line.default_color = default_color
 	attack_line.default_color = attack_color
@@ -78,6 +81,7 @@ func _ready() -> void:
 	health_points = max_health_points
 	health_bar.set_max(max_health_points)
 	health_bar.change_value(health_points)
+	
 
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
@@ -93,13 +97,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		if get_current_equipment() != null and !get_current_equipment().ready:
 			# start reload
 			if action_one_reload_timer.is_stopped():
-				action_one_reload_timer.start(get_current_equipment().reload_time)
+				action_one_reload_timer.start(get_current_equipment().data.reload_time)
 			
 	if Input.is_action_just_pressed("switch_equipment"):
 		current_equipped_index += 1
 		current_equipped_index = current_equipped_index % equipments.size()
 		equipment_changed.emit()
-		print("current equipment: " + get_current_equipment().equipment_name)
+		print("current equipment: " + get_current_equipment().data.equipment_name)
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)

@@ -1,23 +1,12 @@
 extends Gun
 class_name RayGun
 
-## How long the ray exists for in game world
-## damage is applied per second
-@export
-var duration: float = 1.0
-## width of the ray
-@export
-var width: int = 128
-
-func _init():
-	projectile_scene = preload("res://Scenes/deathray.tscn")
-
 func on_activation(unit: Unit, mouse_position: Vector2):
 	# make new projectile
-	var new_bullet: Ray = projectile_scene.instantiate()
+	var new_bullet: Ray = data.projectile_scene.instantiate()
 	# set stats
-	new_bullet.duration = duration
-	new_bullet.launch(mouse_position.normalized(), projectile_speed, randi_range(damage_range.x, damage_range.y))
+	new_bullet.duration = data.duration
+	new_bullet.launch(data.mouse_position.normalized(), data.projectile_speed, randi_range(data.damage_range.x, data.damage_range.y))
 	new_bullet.global_position = unit.global_position
 	
 	# add to scene

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b8d4g0epnu685"]
 
-[ext_resource type="Script" path="res://Scenes/crosshair.gd" id="1_4pkdk"]
+[ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
 
 [node name="Crosshair" type="Node2D"]
@@ -19,11 +19,20 @@ thickness = 5.0
 bar_color = Color(0.226392, 0.983773, 0.225722, 1)
 ring = true
 
-[node name="InfoLabel" type="Label" parent="."]
-offset_left = 16.0
+[node name="MagazineLabel" type="Label" parent="."]
+offset_left = 15.0
 offset_top = 12.0
-offset_right = 67.0
+offset_right = 66.0
 offset_bottom = 35.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+text = "0 / 0"
+
+[node name="InfoLabel" type="Label" parent="."]
+offset_left = 15.0
+offset_top = 32.0
+offset_right = 66.0
+offset_bottom = 55.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 text = "0 - 100"

@@ -1,18 +1,16 @@
-[gd_resource type="Resource" script_class="RayGun" load_steps=2 format=3 uid="uid://c1er6y2h88ydn"]
+[gd_resource type="Resource" script_class="RayGunData" load_steps=2 format=3 uid="uid://c1er6y2h88ydn"]
 
-[ext_resource type="Script" path="res://Scenes/Equipment/raygun.gd" id="1_pdlt2"]
+[ext_resource type="Script" path="res://Scenes/Equipment/raygun_data.gd" id="1_set1x"]
 
 [resource]
 resource_local_to_scene = true
-script = ExtResource("1_pdlt2")
-duration = 3.0
+script = ExtResource("1_set1x")
+duration = 1.0
 width = 128
 magazine_size = 2
-current_magazine_count = 2
 projectile_speed = 0.0
 damage_range = Vector2i(150, 150)
 knock_back_force = 0.0
 equipment_name = "Laser Rifle"
-aim_time = 2.0
-reload_time = 4.0
-ready = true
+aim_time = 1.0
+reload_time = 1.0

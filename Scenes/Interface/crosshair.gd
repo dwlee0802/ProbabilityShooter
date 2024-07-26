@@ -3,6 +3,8 @@ extends Node2D
 @onready
 var info_label: Label = $InfoLabel
 @onready
+var mag_label: Label = $MagazineLabel
+@onready
 var image: RadialProgress = $RadialProgress
 @onready
 var selected_unit_pointer: Node2D = $SelectedUnitPointer
@@ -20,14 +22,19 @@ func _process(_delta):
 		# show damage range
 		image.progress = 100
 		var current_eq: Equipment = InputManager.selected_unit.get_current_equipment()
-		info_label.text = str(current_eq.damage_range.x) + "-" + str(current_eq.damage_range.y)
-		if !InputManager.selected_unit.get_current_equipment().ready:
+		info_label.text = str(current_eq.data.damage_range.x) + "-" + str(current_eq.data.damage_range.y)
+		if !current_eq.ready:
 			var timer: Timer = InputManager.selected_unit.action_one_reload_timer
 			#info_label.text = str(int(InputManager.selected_unit.action_one_reload_timer.time_left * 10)/10.0)
 			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
 			if timer.is_stopped():
 				image.progress = 0
-		
+			if current_eq is Gun:
+				mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
+		else:
+			if current_eq is Gun:
+				mag_label.text = str(current_eq.current_magazine_count) + " / " + str(current_eq.data.magazine_size)
+				
 		# rotate pointer
 		var direction_to_cursor: Vector2 = InputManager.selected_unit.get_local_mouse_position()
 		selected_unit_pointer.rotation = direction_to_cursor.angle()

@@ -17,15 +17,36 @@ var dragging: bool = false
 var mouse_pos_init: Vector2
 var camera_pos_init: Vector2
 
+var noise = FastNoiseLite.new()
+var noise_i: float = 0.0
+
+var SHAKE_DECAY_RATE: float = 2.0
+var NOISE_SHAKE_SPEED: float = 30.0
+var NOISE_SHAKE_STRENGTH: float = 60.0
+var shake_strength: float = 0
+
+static var camera
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	zoom_target = zoom
+	
+	noise.frequency = 2
+	noise.fractal_octaves = 3
+	
+	CameraControl.camera = self
 
 func _process(delta):
 	_zoom_camera(delta)
 	_pan_camera()
 	_center_camera(delta)
+	
+	#shake_strength = lerp(shake_strength, 0.0, SHAKE_DECAY_RATE * delta)
+	shake_strength -= delta * (SHAKE_DECAY_RATE)
+	if shake_strength < 2:
+		shake_strength = 0
+		
+	offset = get_noise_offset(delta)
 	
 func _zoom_camera(delta):
 	if Input.is_action_just_pressed("camera_zoom_in"):
@@ -63,3 +84,16 @@ func scale_unit_shortcut_label(units):
 	for unit: PlayerUnit in units:
 		var label: Label = unit.shortcut_label
 		label.scale = Vector2(1 / zoom.x, 1/zoom.y)
+		
+func ShakeScreen(intensity, duration):
+	noise_i = 0
+	shake_strength = intensity / zoom.x
+	SHAKE_DECAY_RATE = duration
+
+func get_noise_offset(delta: float):
+	noise_i += delta * NOISE_SHAKE_SPEED
+	var output: Vector2 = Vector2(
+		noise.get_noise_2d(1, noise_i) * shake_strength,
+		noise.get_noise_2d(100, noise_i) * shake_strength
+	)
+	return output

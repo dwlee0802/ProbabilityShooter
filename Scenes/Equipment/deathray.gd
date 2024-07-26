@@ -19,6 +19,8 @@ func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float =
 	rotate(direction.angle())
 	
 	$Sprite2D/AnimationPlayer.speed_scale = 1/duration
+	
+	CameraControl.camera.ShakeScreen(30,10)
 
 func _physics_process(delta):
 	var hit_units = get_overlapping_bodies()

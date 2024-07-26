@@ -1,16 +1,14 @@
-[gd_resource type="Resource" script_class="Gun" load_steps=2 format=3 uid="uid://bdcy44ox5wdf6"]
+[gd_resource type="Resource" script_class="GunData" load_steps=2 format=3 uid="uid://bdcy44ox5wdf6"]
 
-[ext_resource type="Script" path="res://Scenes/Equipment/gun.gd" id="1_m6s7m"]
+[ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="1_boncp"]
 
 [resource]
 resource_local_to_scene = true
-script = ExtResource("1_m6s7m")
+script = ExtResource("1_boncp")
 magazine_size = 5
-current_magazine_count = 5
-projectile_speed = 8000.0
-damage_range = Vector2i(50, 200)
+projectile_speed = 3000.0
+damage_range = Vector2i(50, 150)
 knock_back_force = 800.0
 equipment_name = "Rifle"
 aim_time = 1.0
-reload_time = 3.0
-ready = true
+reload_time = 1.0

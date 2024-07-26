@@ -53,7 +53,7 @@ func on_unit_revived():
 func _process(_delta):
 	if target_unit != null:
 		if !target_unit.action_one_reload_timer.is_stopped():
-			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.get_current_equipment().reload_time)
+			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.get_current_equipment().data.reload_time)
 			
 			# do it for the other equipment too
 			
