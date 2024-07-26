@@ -27,7 +27,7 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
 	if Input.is_action_just_pressed("action_one"):
-		if parent.action_one_available:
+		if parent.get_current_equipment().ready:
 			return action_one_state
 	if Input.is_action_just_pressed("interact"):
 		# if its player unit and they're downed, revive
@@ -52,7 +52,7 @@ func process_physics(_delta: float) -> State:
 
 func process_frame(_delta: float) -> State:
 	# auto reload
-	if parent.action_one_available == false:
+	if parent.get_current_equipment().ready == false:
 		if parent.action_one_reload_timer.is_stopped():
 			parent.action_one_reload_timer.start(parent.get_current_equipment().reload_time)
 	

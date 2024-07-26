@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=16 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://Scenes/States/attack_state.gd" id="6_3pdj6"]
 [ext_resource type="Script" path="res://Scenes/States/unconscious_state.gd" id="6_yjtio"]
 [ext_resource type="Script" path="res://Scenes/States/revive_state.gd" id="8_5ttnm"]
-[ext_resource type="Script" path="res://Scenes/reload_timer.gd" id="8_ikoyw"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 
 [sub_resource type="Gradient" id="Gradient_r6gn1"]
@@ -135,8 +134,6 @@ libraries = {
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0
 one_shot = true
-script = ExtResource("8_ikoyw")
-action_number = 1
 
 [node name="ShortcutLabel" type="Label" parent="."]
 offset_left = -65.0

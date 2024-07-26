@@ -18,7 +18,7 @@ func _process(_delta):
 	
 	# depending on attack available, change infolabel content
 	if InputManager.selected_unit != null:
-		if InputManager.selected_unit.action_one_available:
+		if InputManager.selected_unit.get_current_equipment().ready:
 			# show damage range
 			image.progress = 100
 			info_label.text = str(InputManager.selected_unit.damage_range.x) + "-" + str(InputManager.selected_unit.damage_range.y)

@@ -33,13 +33,6 @@ var current_equipped_index: int = 0
 @export
 var equipments = []
 
-@export_category("Action Availability")
-@export
-var action_one_available: bool = true
-@export
-var action_one_aim_time: float = 1
-@export
-var action_one_reload_time: float = 1
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
 
@@ -72,7 +65,9 @@ signal equipment_changed
 
 
 func _ready() -> void:
-	$ActionOneReloadTimer.reload_finished.connect(reload_action)
+	$ActionOneReloadTimer.timeout.connect(reload_action)
+	equipment_changed.connect($ActionOneReloadTimer.stop)
+	
 	aim_line.default_color = default_color
 	attack_line.default_color = attack_color
 	state_machine.init(self)
@@ -92,9 +87,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	state_machine.process_input(event)
 	
-	#if Input.is_action_just_pressed("action_one") and !action_one_available:
-		#if action_one_reload_timer.is_stopped():
-			#action_one_reload_timer.start(action_one_reload_time)
+	if Input.is_action_just_pressed("action_one"):
+		# do we need to reload?
+		if get_current_equipment() != null and !get_current_equipment().ready:
+			# start reload
+			if action_one_reload_timer.is_stopped():
+				action_one_reload_timer.start(get_current_equipment().reload_time)
+			
+	if Input.is_action_just_pressed("switch_equipment"):
+		current_equipped_index += 1
+		current_equipped_index = current_equipped_index % equipments.size()
+		equipment_changed.emit()
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
@@ -106,10 +109,11 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 	
-func reload_action(num: int) -> void:
-	match num:
-		1:
-			action_one_available = true
+func reload_action() -> void:
+	if current_equipped_index < equipments.size():
+		equipments[current_equipped_index].ready = true
+	else:
+		push_error("Reload equipment index out of bounds!")
 
 func receive_hit(amount: int) -> void:
 	health_points -= amount

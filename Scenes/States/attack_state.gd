@@ -55,7 +55,7 @@ func process_frame(_delta: float) -> State:
 	
 func process_physics(_delta: float) -> State:
 	if timer.is_stopped():
-		parent.action_one_available = false
+		parent.get_current_equipment().ready = false
 		parent.get_current_equipment().on_activation(parent, mouse_position)
 		return idle_state
 	
