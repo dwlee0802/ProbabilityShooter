@@ -39,11 +39,14 @@ func process_input(_event: InputEvent) -> State:
 			if dist > interactable.global_position.distance_to(parent.global_position):
 				dist = interactable.global_position.distance_to(parent.global_position)
 				target = interactable
-		target = target.get_parent()
-		if target is PlayerUnit:
-			if target.is_unconscious():
-				revive_state.target = target
-				return revive_state
+		if target:
+			target = target.get_parent()
+			if target is PlayerUnit:
+				if target.is_unconscious():
+					revive_state.target = target
+					return revive_state
+			if target is Interactable:
+				print("interact")
 			
 	return null
 	

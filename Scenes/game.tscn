@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=13 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -9,8 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="7_lwaic"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
+[ext_resource type="PackedScene" uid="uid://bm512i2htsjrl" path="res://Scenes/Units/interactable.tscn" id="10_uh5oo"]
 
-[sub_resource type="Resource" id="Resource_chsiq"]
+[sub_resource type="Resource" id="Resource_pmv2l"]
 resource_local_to_scene = true
 script = ExtResource("6_8fdi6")
 duration = 1.0
@@ -23,7 +24,7 @@ equipment_name = "Laser Rifle"
 aim_time = 1.0
 reload_time = 1.0
 
-[sub_resource type="Resource" id="Resource_yk416"]
+[sub_resource type="Resource" id="Resource_1wlix"]
 resource_local_to_scene = true
 script = ExtResource("7_lwaic")
 magazine_size = 5
@@ -61,13 +62,13 @@ script = ExtResource("2_iduqg")
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
-starting_equipment = SubResource("Resource_chsiq")
+starting_equipment = SubResource("Resource_pmv2l")
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(-591, 27)
+position = Vector2(576, -192)
 movement_speed = 500.0
-temp_color = Color(0.356863, 1, 1, 1)
-starting_equipment = SubResource("Resource_yk416")
+temp_color = Color(0.729412, 0.305882, 1, 1)
+starting_equipment = SubResource("Resource_1wlix")
 
 [node name="Enemies" type="Node2D" parent="."]
 
@@ -75,5 +76,8 @@ starting_equipment = SubResource("Resource_yk416")
 
 [node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
 position = Vector2(718, 279)
+
+[node name="Interactable" parent="." instance=ExtResource("10_uh5oo")]
+position = Vector2(-249, -448)
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
