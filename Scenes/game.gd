@@ -14,16 +14,17 @@ var units = []
 var time_since_start: float = 0
 ## number of units per wave
 @export
-var wave_unit_count: int = 1
+var wave_unit_count: int = 10
 ## time in seconds between enemy unit spawns
 @export
-var time_between_waves: float = 5
+var time_between_waves: float = 30
 @export
 var enemy_health_range: Vector2i = Vector2i(50, 150)
 @export
 var enemy_speed_range: Vector2i = Vector2i(25, 100)
+## timer for resting periods between waves
 @onready
-var spawn_timer: Timer = $SpawnTimer
+var wave_timer: Timer = $WaveTimer
 ## distance from core where enemy units spawn at
 @export
 var spawn_radius: int = 1000
@@ -48,8 +49,12 @@ func _ready():
 	EnemyUnit.core_position = core.global_position
 	core.core_killed.connect(game_over)
 	core.health_points = core_health
-	spawn_timer.timeout.connect(spawn_wave)
-	spawn_timer.start(time_between_waves)
+	
+	# spawn first wave
+	spawn_wave()
+	
+	wave_timer.timeout.connect(spawn_wave)
+	wave_timer.start(time_between_waves)
 	
 	user_interface.update_unit_portraits(units)
 	user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
@@ -79,8 +84,8 @@ func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
 	var time: int = int(time_since_start)
 	newEnemy.on_spawn(
-		randi_range(enemy_speed_range.x + time, enemy_speed_range.y + time),
-		randi_range(enemy_health_range.x + time, enemy_health_range.y + time))
+		randi_range(enemy_speed_range.x + time/2, enemy_speed_range.y + time/2),
+		randi_range(enemy_health_range.x + time/2, enemy_health_range.y + time/2))
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
@@ -90,7 +95,7 @@ func game_over() -> void:
 		return
 		
 	print("***GAME OVER***")
-	spawn_timer.stop()
+	wave_timer.stop()
 	
 	# remove all remaining enemy units
 	remove_child(enemies)
@@ -102,7 +107,7 @@ func game_over() -> void:
 
 func start() -> void:
 	print("***START GAME***")
-	spawn_timer.start(time_between_waves)
+	wave_timer.start(time_between_waves)
 	core.health_points = core_health
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
