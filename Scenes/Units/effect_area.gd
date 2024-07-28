@@ -18,7 +18,7 @@ func _physics_process(_delta) -> void:
 	areas = get_overlapping_areas()
 
 ## sets size of collider and sprite
-func set_size(radius: int) -> void:
+func set_size(radius: float) -> void:
 	var shape: CircleShape2D = $CollisionShape2D.shape
 	shape.set_radius(radius)
 	var sprite: Sprite2D = $Sprite2D

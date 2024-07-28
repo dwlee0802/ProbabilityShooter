@@ -68,7 +68,12 @@ signal equipment_changed
 
 func _ready() -> void:
 	# instantiate gun objects
-	equipments.append(Gun.new(starting_equipment))
+	if starting_equipment is RayGunData:
+		equipments.append(RayGun.new(starting_equipment))
+	elif starting_equipment is GrenadeData:
+		equipments.append(Grenade.new(starting_equipment))
+	else:
+		equipments.append(Gun.new(starting_equipment))
 	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)

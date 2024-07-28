@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="RayGunData" load_steps=2 format=3 uid="uid://c1er6y2h88ydn"]
+[gd_resource type="Resource" script_class="RayGunData" load_steps=3 format=3 uid="uid://c1er6y2h88ydn"]
 
+[ext_resource type="PackedScene" uid="uid://dw4teyccanvpd" path="res://Scenes/Equipment/deathray.tscn" id="1_7ohgy"]
 [ext_resource type="Script" path="res://Scenes/Equipment/raygun_data.gd" id="1_set1x"]
 
 [resource]
 script = ExtResource("1_set1x")
-duration = 1.0
+duration = 5.0
 width = 128
+projectile_scene = ExtResource("1_7ohgy")
 magazine_size = 2
 projectile_speed = 0.0
 damage_range = Vector2i(150, 150)

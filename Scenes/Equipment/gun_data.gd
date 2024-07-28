@@ -1,6 +1,7 @@
 extends EquipmentData
 class_name GunData
 
+@export
 var projectile_scene = preload("res://Scenes/Units/projectile.tscn")
 
 ## Number of times the gun can be used before needing to reload.

@@ -38,7 +38,7 @@ func receive_hit(damage_amount: float):
 	health_points -= damage_amount
 	health_bar.change_value(int(health_points))
 	health_label.text = str(int(health_points))
-	print("Received damage: " + str(damage_amount))
+	#print("Received damage: " + str(damage_amount))
 	if health_points <= 0:
 		die()
 	$Sprite2D/AnimationPlayer.play("hit_animation")

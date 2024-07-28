@@ -1,6 +1,7 @@
 extends Projectile
 class_name Ray
 
+@export
 var duration: float = 1
 
 # damage everything inside on spawn
@@ -19,7 +20,7 @@ func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float =
 	
 	$Sprite2D/AnimationPlayer.speed_scale = 1/duration
 	
-	CameraControl.camera.ShakeScreen(30,10)
+	#CameraControl.camera.ShakeScreen(30,10)
 
 func _physics_process(delta):
 	var hit_units = get_overlapping_bodies()
