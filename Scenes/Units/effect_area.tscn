@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://nfx1d80eet3s"]
+
+[ext_resource type="Script" path="res://Scenes/Units/effect_area.gd" id="1_4nbms"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_ytjo2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yp8is"]
+radius = 256.0
+
+[node name="EffectArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_4nbms")
+duration = 2.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ytjo2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yp8is")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+autostart = true

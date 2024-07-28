@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://6jctdedknl22"]
+
+[ext_resource type="Script" path="res://Scenes/Units/damage_area.gd" id="1_m6031"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_eqyb4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yp8is"]
+radius = 256.0
+
+[node name="DamageArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_m6031")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_eqyb4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yp8is")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+autostart = true

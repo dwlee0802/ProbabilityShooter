@@ -59,6 +59,9 @@ func exit() -> void:
 	parent.attack_line.visible = false
 	parent.attack_line_anim.stop()
 	attack_direction_queue.clear()
+	for item in queued_attack_lines:
+		item.queue_free()
+	queued_attack_lines.clear()
 	timer.stop()
 	
 func process_input(_event: InputEvent) -> State:
@@ -85,6 +88,7 @@ func process_frame(_delta: float) -> State:
 				for item in queued_attack_lines:
 					item.queue_free()
 				queued_attack_lines.clear()
+				
 				save_mouse_position()
 				start_attack_process()
 			else:
