@@ -14,7 +14,7 @@ func set_max(val: int):
 	health_bar.max_value = val
 	damage_bar.max_value = val
 
-func change_value(new_val: int, immediate: bool = false) -> void:
+func change_value(new_val: float, immediate: bool = false) -> void:
 	health_bar.value = new_val
 	# gradually change damage bar
 	if !immediate:

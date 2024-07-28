@@ -80,7 +80,7 @@ func _ready() -> void:
 	$Sprite2D.self_modulate = temp_color
 	
 	# unit health
-	health_points = max_health_points / 2
+	health_points = int(max_health_points / 2.0)
 	health_bar.set_max(max_health_points)
 	health_bar.change_value(health_points)
 	
