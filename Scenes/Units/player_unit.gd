@@ -42,6 +42,8 @@ var default_color: Color = Color.DIM_GRAY
 @export
 var attack_color: Color = Color.RED
 @export
+var queued_color: Color = Color.ORANGE
+@export
 var disabled_color: Color = Color.DIM_GRAY
 
 @onready

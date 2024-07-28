@@ -1,6 +1,7 @@
 extends State
 
 var attack_direction_queue = []
+var queued_attack_lines = []
 
 @export
 var wait_time: float = 1
@@ -41,6 +42,7 @@ func start_attack_process() -> void:
 	parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
+	queued_attack_lines.front().visible = false
 
 func exit() -> void:
 	super()
@@ -58,21 +60,26 @@ func process_input(_event: InputEvent) -> State:
 	return null
 
 func process_frame(_delta: float) -> State:
-	if !is_first_frame and Input.is_action_just_pressed("action_one"):
-		if !Input.is_physical_key_pressed(KEY_SHIFT):
-			# empty attack queue
-			attack_direction_queue.clear()
-			save_mouse_position()
-			start_attack_process()
-		else:
-			save_mouse_position()
-			
 	if parent.is_unconscious():
 		return unconscious_state
 	
 	if attack_direction_queue.is_empty():
 		return idle_state
 	
+	## action queue input
+	if InputManager.IsSelected(parent):
+		if !is_first_frame and Input.is_action_just_pressed("action_one"):
+			if !Input.is_physical_key_pressed(KEY_SHIFT):
+				# empty attack queue
+				attack_direction_queue.clear()
+				for item in queued_attack_lines:
+					item.queue_free()
+				queued_attack_lines.clear()
+				save_mouse_position()
+				start_attack_process()
+			else:
+				save_mouse_position()
+			
 	is_first_frame = false
 	return null
 	
@@ -82,6 +89,7 @@ func on_aim_finished() -> void:
 	else:
 		parent.get_current_equipment().on_activation(parent, attack_direction_queue.pop_front())
 		print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
+		queued_attack_lines.pop_front().queue_free()
 	
 	if !parent.get_current_equipment().have_bullets():
 		parent.get_current_equipment().ready = false
@@ -102,5 +110,19 @@ func on_aim_finished() -> void:
 # save local mouse position vector to attack dir queue
 func save_mouse_position() -> void:
 	attack_direction_queue.push_back(parent.get_local_mouse_position())
+	make_queued_attack_line(attack_direction_queue.back())
 	print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
 	print(attack_direction_queue)
+
+## makes one queued attack line
+func make_queued_attack_line(dir: Vector2) -> void:
+	var new_line: Line2D = Line2D.new()
+	var points: PackedVector2Array = PackedVector2Array()
+	points.resize(2)
+	points[0] = Vector2.ZERO
+	points[1] = dir * 100000
+	new_line.points = points
+	new_line.width = 10
+	new_line.default_color = parent.queued_color
+	parent.add_child(new_line)
+	queued_attack_lines.append(new_line)
