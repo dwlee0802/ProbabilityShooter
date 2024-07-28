@@ -16,7 +16,7 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
 enemy_health_range = Vector2i(50, 100)
-enemy_speed_range = Vector2i(100, 150)
+enemy_speed_range = Vector2i(500, 500)
 spawn_radius = 6000
 no_game_over = true
 
@@ -71,6 +71,6 @@ add_projectile_speed = 1000
 [node name="DamageArea" parent="." instance=ExtResource("12_sf6mf")]
 position = Vector2(-504, -1089)
 damage_per_second = 10.0
-duration = 10.0
+duration = 60.0
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
