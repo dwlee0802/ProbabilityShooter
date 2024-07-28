@@ -15,21 +15,30 @@ var unconscious_state: State
 @onready
 var timer: Timer = $Timer
 
+var is_first_frame: bool = false
 
 func enter() -> void:
 	super()
+	is_first_frame = true
 	parent.state_label.text = "Action1"
 	save_mouse_position()
-	timer.start(parent.get_current_equipment().data.aim_time)
+	start_attack_process()
+	
 	if !parent.equipment_changed.is_connected(timer.stop):
 		parent.equipment_changed.connect(timer.stop)
 	if !timer.timeout.is_connected(on_aim_finished):
 		timer.timeout.connect(on_aim_finished)
-	
-	parent.aim_line.default_color = parent.disabled_color
-	parent.attack_line.visible = true
-	parent.attack_line.set_point_position(1, parent.get_local_mouse_position().normalized() * 10000)
+
+func start_attack_process() -> void:
+	if attack_direction_queue.is_empty():
+		return
+	# back end
+	timer.stop()
+	timer.start(parent.get_current_equipment().data.aim_time)
+	# front end
+	parent.attack_line.set_point_position(1, attack_direction_queue.front().normalized() * 10000)
 	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().data.aim_time
+	parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 
@@ -45,35 +54,53 @@ func process_input(_event: InputEvent) -> State:
 		return idle_state
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
-	if Input.is_action_just_pressed("action_one"):
-		enter()
-	if Input.is_action_just_pressed("queue_attack"):
-		save_mouse_position()
+	
 	return null
 
 func process_frame(_delta: float) -> State:
-	parent.state_label.text = "Action1 in " + str(int(timer.time_left + 1))
-	
+	if !is_first_frame and Input.is_action_just_pressed("action_one"):
+		if !Input.is_physical_key_pressed(KEY_SHIFT):
+			# empty attack queue
+			attack_direction_queue.clear()
+			save_mouse_position()
+			start_attack_process()
+		else:
+			save_mouse_position()
+			
 	if parent.is_unconscious():
 		return unconscious_state
 	
 	if attack_direction_queue.is_empty():
 		return idle_state
-		
+	
+	is_first_frame = false
 	return null
 	
-func process_physics(_delta: float) -> State:
-	return null
-
 func on_aim_finished() -> void:
 	if attack_direction_queue.size() == 0:
 		push_error("Aim finished but no attack direction.")
 	else:
 		parent.get_current_equipment().on_activation(parent, attack_direction_queue.pop_front())
-		
+		print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
+	
 	if !parent.get_current_equipment().have_bullets():
 		parent.get_current_equipment().ready = false
+	
+	# if attack direction queue has stuff in it, start next attack process
+	# reload if we are out of bullets
+	if !attack_direction_queue.is_empty():
+		if parent.get_current_equipment().ready:
+			start_attack_process()
+		else:
+			# start reload process
+			if parent.action_one_reload_timer.is_stopped():
+				parent.action_one_reload_timer.start(parent.get_current_equipment().data.reload_time)
+			if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
+				# start attack process when reload is done
+				parent.action_one_reload_timer.timeout.connect(start_attack_process)
 
 # save local mouse position vector to attack dir queue
 func save_mouse_position() -> void:
 	attack_direction_queue.push_back(parent.get_local_mouse_position())
+	print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
+	print(attack_direction_queue)

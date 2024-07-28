@@ -10,9 +10,11 @@ enum Action {None, One, Two}
 
 
 func enter() -> void:
+	print("\n***Enter " + name + "***")
 	return
 
 func exit() -> void:
+	print("***Exit " + name + "***\n")
 	pass
 
 func process_input(_event: InputEvent) -> State:
