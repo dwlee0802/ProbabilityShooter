@@ -59,7 +59,12 @@ position = Vector2(718, 279)
 [node name="HealStation" parent="Interactables" instance=ExtResource("10_5tay6")]
 position = Vector2(-385, -506)
 
-[node name="FabricationBench" parent="." instance=ExtResource("11_jiksj")]
+[node name="DamageFabricationBench" parent="." instance=ExtResource("11_jiksj")]
 position = Vector2(-88, -680)
+add_damage = 15
+
+[node name="SpeedFabricationBench" parent="." instance=ExtResource("11_jiksj")]
+position = Vector2(106, -696)
+add_projectile_speed = 1000
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

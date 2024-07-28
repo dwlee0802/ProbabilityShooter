@@ -22,7 +22,7 @@ func _process(_delta):
 		# show damage range
 		image.progress = 100
 		var current_eq: Equipment = InputManager.selected_unit.get_current_equipment()
-		info_label.text = str(current_eq.data.damage_range.x) + "-" + str(current_eq.data.damage_range.y)
+		info_label.text = str(current_eq.get_damage_range().x) + "-" + str(current_eq.get_damage_range().y)
 		if !current_eq.ready:
 			var timer: Timer = InputManager.selected_unit.action_one_reload_timer
 			#info_label.text = str(int(InputManager.selected_unit.action_one_reload_timer.time_left * 10)/10.0)
