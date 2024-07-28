@@ -6,8 +6,6 @@ var parent: PlayerUnit
 
 var animation_name: String
 
-enum Action {None, One, Two}
-
 
 func enter() -> void:
 	print("\n***Enter " + name + "***")

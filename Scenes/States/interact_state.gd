@@ -14,9 +14,13 @@ var target: Interactable
 
 func enter() -> void:
 	super()
+	if target == null:
+		push_error("Interact state has no target.")
+		
 	parent.state_label.text = "Interacting with " + str(target.name)
 	print("Interacting with " + str(target.name))
 	parent.attack_line.visible = false
+	target.on_activate()
 	
 func process_frame(_delta: float) -> State:
 	# knocked out
@@ -26,11 +30,16 @@ func process_frame(_delta: float) -> State:
 	if target == null:
 		push_error("Interact state has no target")
 		return idle_state
+	
+	# return to idle state if interaction is finished
+	if !target.active(_delta, parent):
+		return idle_state
 		
 	return null
 
 func exit() -> void:
 	super()
+	target.on_exit()
 	target = null
 
 func process_input(_event: InputEvent) -> State:

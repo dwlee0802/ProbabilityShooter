@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck3odqtieabpc"]
+
+[ext_resource type="Script" path="res://Scenes/Units/heal_station.gd" id="1_wcuou"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_qw0o8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0fldd"]
+radius = 64.0
+
+[node name="HealStation" type="Node2D"]
+script = ExtResource("1_wcuou")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0fldd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.563709, 0.500924, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("2_qw0o8")

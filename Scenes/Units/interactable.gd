@@ -3,7 +3,7 @@ class_name Interactable
 
 # called every frame by the interactor
 # returns false if process is finished
-func active() -> bool:
+func active(_dela: float, user: PlayerUnit) -> bool:
 	return false
 	
 func on_activate():

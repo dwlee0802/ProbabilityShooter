@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=17 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scenes/States/attack_state.gd" id="6_3pdj6"]
 [ext_resource type="Script" path="res://Scenes/States/unconscious_state.gd" id="6_yjtio"]
 [ext_resource type="Script" path="res://Scenes/States/revive_state.gd" id="8_5ttnm"]
+[ext_resource type="Script" path="res://Scenes/States/interact_state.gd" id="8_voe6n"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 
 [sub_resource type="Gradient" id="Gradient_y7id6"]
@@ -70,12 +71,13 @@ script = ExtResource("1_b776y")
 script = ExtResource("2_us0md")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "action_one_state", "unconscious_state", "revive_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "action_one_state", "unconscious_state", "revive_state", "interact_state")]
 script = ExtResource("3_2iym7")
 move_state = NodePath("../Move")
 action_one_state = NodePath("../ActionOne")
 unconscious_state = NodePath("../Unconscious")
 revive_state = NodePath("../Revive")
+interact_state = NodePath("../Interact")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state", "unconscious_state")]
 script = ExtResource("4_jlt6l")
@@ -107,6 +109,13 @@ unconscious_state = NodePath("../Unconscious")
 
 [node name="Timer" type="Timer" parent="StateMachine/Revive"]
 one_shot = true
+
+[node name="Interact" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state", "move_state", "unconscious_state")]
+script = ExtResource("8_voe6n")
+idle_state = NodePath("../Idle")
+action_one_state = NodePath("../ActionOne")
+move_state = NodePath("../Move")
+unconscious_state = NodePath("../Unconscious")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("GradientTexture2D_745rb")

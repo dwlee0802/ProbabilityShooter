@@ -17,7 +17,7 @@ var temp_color: Color = Color.WHITE
 @export
 var damage_range: Vector2 = Vector2(10, 150)
 @export
-var health_points: int = 500
+var health_points: float = 500
 @export
 var max_health_points: int = 500
 @onready
@@ -80,7 +80,7 @@ func _ready() -> void:
 	$Sprite2D.self_modulate = temp_color
 	
 	# unit health
-	health_points = max_health_points
+	health_points = max_health_points / 2
 	health_bar.set_max(max_health_points)
 	health_bar.change_value(health_points)
 	
@@ -125,7 +125,7 @@ func reload_action() -> void:
 	else:
 		push_error("Reload equipment index out of bounds!")
 
-func receive_hit(amount: int) -> void:
+func receive_hit(amount: float) -> void:
 	health_points -= amount
 	health_points = max(health_points, 0)
 	if health_points <= 0:
@@ -135,14 +135,15 @@ func receive_hit(amount: int) -> void:
 	health_bar.change_value(health_points)
 	health_changed.emit()
 	was_attacked.emit()
-	
-func add_health(amount: int) -> void:
+
+func add_health(amount: float) -> void:
 	if health_points <= 0 and amount > 0:
 		revived.emit()
 		$CollisionShape2D.disabled = false
 		enable_enemy_collision()
 		
 	health_points += amount
+	health_points = min(max_health_points, health_points)
 	health_bar.change_value(health_points)
 	health_changed.emit()
 

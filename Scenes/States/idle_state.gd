@@ -8,6 +8,8 @@ var action_one_state: State
 var unconscious_state: State
 @export
 var revive_state: State
+@export
+var interact_state: State
 
 var keep_reloading: bool = false
 
@@ -49,7 +51,8 @@ func process_input(_event: InputEvent) -> State:
 					revive_state.target = target
 					return revive_state
 			if target is Interactable:
-				print("interact")
+				interact_state.target = target
+				return interact_state
 			
 	return null
 	
