@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=12 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="7_6osww"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
+[ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -57,5 +58,8 @@ position = Vector2(718, 279)
 
 [node name="HealStation" parent="Interactables" instance=ExtResource("10_5tay6")]
 position = Vector2(-385, -506)
+
+[node name="FabricationBench" parent="." instance=ExtResource("11_jiksj")]
+position = Vector2(-88, -680)
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
