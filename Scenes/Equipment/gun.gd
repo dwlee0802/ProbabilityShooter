@@ -5,6 +5,9 @@ class_name Gun
 var current_magazine_count: int = 5
 ## Speed of the projectile produced by this gun
 
+func _init(_data: EquipmentData):
+	super(_data)
+	current_magazine_count = data.magazine_size
 	
 func on_activation(unit: Unit, mouse_position: Vector2):
 	# make new projectile
