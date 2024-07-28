@@ -15,6 +15,8 @@ var unconscious_state: State
 @onready
 var timer: Timer = $Timer
 
+var finished: bool = false
+
 
 func enter() -> void:
 	super()
@@ -53,15 +55,21 @@ func process_frame(_delta: float) -> State:
 	
 	if parent.is_unconscious():
 		return unconscious_state
+	
+	if finished:
+		print("yes")
+		finished = false
+		return idle_state
 		
 	return null
 	
 func process_physics(_delta: float) -> State:
 	return null
 
-func on_aim_finished():
+func on_aim_finished() -> void:
 	parent.get_current_equipment().on_activation(parent, mouse_position)
 	if !parent.get_current_equipment().have_bullets():
 		parent.get_current_equipment().ready = false
+	print("done attacking")
 	
-	return idle_state
+	finished = true
