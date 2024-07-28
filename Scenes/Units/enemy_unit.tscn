@@ -71,23 +71,6 @@ speed_scale = 4.0
 shape = SubResource("CircleShape2D_kbun0")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
-[node name="HealthLabel" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -60.0
-offset_top = 60.0
-offset_right = 60.0
-offset_bottom = 115.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 40
-text = "100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="HealthBar" parent="." instance=ExtResource("4_s1jtq")]
 anchors_preset = 7
 anchor_top = 1.0
@@ -97,5 +80,15 @@ offset_top = 60.0
 offset_right = 60.0
 offset_bottom = 72.0
 grow_vertical = 0
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -65.0
+offset_top = -64.0
+offset_right = -25.0
+offset_bottom = -9.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "1"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

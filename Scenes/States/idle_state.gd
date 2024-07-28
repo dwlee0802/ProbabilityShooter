@@ -9,6 +9,8 @@ var unconscious_state: State
 @export
 var revive_state: State
 
+var keep_reloading: bool = false
+
 
 func enter() -> void:
 	super()
@@ -16,8 +18,9 @@ func enter() -> void:
 
 func exit() -> void:
 	super()
-	if parent.action_one_reload_timer.is_stopped() == false:
+	if parent.action_one_reload_timer.is_stopped() == false and !keep_reloading:
 		parent.action_one_reload_timer.stop()
+	keep_reloading = false
 		
 func process_input(_event: InputEvent) -> State:
 	if !InputManager.IsSelected(parent):
@@ -27,8 +30,8 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
 	if Input.is_action_just_pressed("action_one"):
-		if parent.get_current_equipment().ready:
-			return action_one_state
+		keep_reloading = true
+		return action_one_state
 	if Input.is_action_just_pressed("interact"):
 		# if its player unit and they're downed, revive
 		var items = parent.interaction_area.get_overlapping_areas()

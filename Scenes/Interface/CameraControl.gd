@@ -84,6 +84,11 @@ func scale_unit_shortcut_label(units):
 	for unit: PlayerUnit in units:
 		var label: Label = unit.shortcut_label
 		label.scale = Vector2(1 / zoom.x, 1/zoom.y)
+
+func scale_health_label(units):
+	for unit: EnemyUnit in units:
+		var label: Label = unit.health_label
+		label.scale = Vector2(1 / zoom.x, 1/zoom.y)
 		
 func ShakeScreen(intensity, duration):
 	noise_i = 0

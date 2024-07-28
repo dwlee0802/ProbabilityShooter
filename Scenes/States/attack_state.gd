@@ -23,7 +23,17 @@ func enter() -> void:
 	is_first_frame = true
 	parent.state_label.text = "Action1"
 	save_mouse_position()
-	start_attack_process()
+	
+	print(parent.get_current_equipment().data.equipment_name + " " + str(parent.get_current_equipment().data.reload_time))
+	if parent.get_current_equipment().ready:
+		start_attack_process()
+	else:
+		# start reload process
+		if parent.action_one_reload_timer.is_stopped():
+			parent.action_one_reload_timer.start(parent.get_current_equipment().data.reload_time)
+		if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
+			# start attack process when reload is done
+			parent.action_one_reload_timer.timeout.connect(start_attack_process)
 	
 	if !parent.equipment_changed.is_connected(timer.stop):
 		parent.equipment_changed.connect(timer.stop)
@@ -88,7 +98,7 @@ func on_aim_finished() -> void:
 		push_error("Aim finished but no attack direction.")
 	else:
 		parent.get_current_equipment().on_activation(parent, attack_direction_queue.pop_front())
-		print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
+		#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
 		queued_attack_lines.pop_front().queue_free()
 	
 	if !parent.get_current_equipment().have_bullets():
@@ -101,6 +111,7 @@ func on_aim_finished() -> void:
 			start_attack_process()
 		else:
 			# start reload process
+			print(parent.get_current_equipment().data.equipment_name + " " + str(parent.get_current_equipment().data.reload_time))
 			if parent.action_one_reload_timer.is_stopped():
 				parent.action_one_reload_timer.start(parent.get_current_equipment().data.reload_time)
 			if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
@@ -111,8 +122,8 @@ func on_aim_finished() -> void:
 func save_mouse_position() -> void:
 	attack_direction_queue.push_back(parent.get_local_mouse_position())
 	make_queued_attack_line(attack_direction_queue.back())
-	print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
-	print(attack_direction_queue)
+	#print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
+	#print(attack_direction_queue)
 
 ## makes one queued attack line
 func make_queued_attack_line(dir: Vector2) -> void:

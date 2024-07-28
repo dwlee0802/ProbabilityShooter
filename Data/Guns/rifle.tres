@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="1_boncp"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_boncp")
 magazine_size = 5
 projectile_speed = 3000.0
@@ -11,4 +10,4 @@ damage_range = Vector2i(50, 150)
 knock_back_force = 800.0
 equipment_name = "Rifle"
 aim_time = 1.0
-reload_time = 1.0
+reload_time = 2.0

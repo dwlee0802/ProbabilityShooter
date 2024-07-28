@@ -8,7 +8,6 @@ var duration: float = 1
 func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	var collision_shape: CollisionShape2D = $CollisionShape2D
 	damage_amount = amount
-	print(damage_amount)
 	# set size of collision shape
 	collision_shape.shape.size = Vector2(100000, 128)
 	collision_shape.position = Vector2(collision_shape.shape.size.x/2, 0)

@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Scenes/Equipment/raygun_data.gd" id="1_set1x"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_set1x")
 duration = 1.0
 width = 128
@@ -13,4 +12,4 @@ damage_range = Vector2i(150, 150)
 knock_back_force = 0.0
 equipment_name = "Laser Rifle"
 aim_time = 1.0
-reload_time = 1.0
+reload_time = 5.0

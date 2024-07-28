@@ -95,6 +95,7 @@ unconscious_state = NodePath("../Unconscious")
 
 [node name="Timer" type="Timer" parent="StateMachine/ActionOne"]
 process_callback = 0
+wait_time = 2.0
 one_shot = true
 
 [node name="Revive" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state", "move_state", "unconscious_state")]
@@ -133,6 +134,7 @@ libraries = {
 
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0
+wait_time = 2.0
 one_shot = true
 
 [node name="ShortcutLabel" type="Label" parent="."]

@@ -66,6 +66,7 @@ func _process(_delta):
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)
 	InputManager.camera.scale_unit_shortcut_label(units)
+	InputManager.camera.scale_health_label(enemies.get_children())
 	user_interface.core_health_label.text = "Core Health: " + str(core.health_points)
 	
 	time_since_start += _delta
