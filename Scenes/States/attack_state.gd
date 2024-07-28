@@ -1,6 +1,6 @@
 extends State
 
-var mouse_position: Vector2
+var attack_direction_queue = []
 
 @export
 var wait_time: float = 1
@@ -15,13 +15,11 @@ var unconscious_state: State
 @onready
 var timer: Timer = $Timer
 
-var finished: bool = false
-
 
 func enter() -> void:
 	super()
 	parent.state_label.text = "Action1"
-	mouse_position = parent.get_local_mouse_position()
+	save_mouse_position()
 	timer.start(parent.get_current_equipment().data.aim_time)
 	if !parent.equipment_changed.is_connected(timer.stop):
 		parent.equipment_changed.connect(timer.stop)
@@ -39,6 +37,8 @@ func exit() -> void:
 	super()
 	parent.attack_line.visible = false
 	parent.attack_line_anim.stop()
+	attack_direction_queue.clear()
+	timer.stop()
 	
 func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -47,7 +47,8 @@ func process_input(_event: InputEvent) -> State:
 		return move_state
 	if Input.is_action_just_pressed("action_one"):
 		enter()
-		 
+	if Input.is_action_just_pressed("queue_attack"):
+		save_mouse_position()
 	return null
 
 func process_frame(_delta: float) -> State:
@@ -56,9 +57,7 @@ func process_frame(_delta: float) -> State:
 	if parent.is_unconscious():
 		return unconscious_state
 	
-	if finished:
-		print("yes")
-		finished = false
+	if attack_direction_queue.is_empty():
 		return idle_state
 		
 	return null
@@ -67,9 +66,14 @@ func process_physics(_delta: float) -> State:
 	return null
 
 func on_aim_finished() -> void:
-	parent.get_current_equipment().on_activation(parent, mouse_position)
+	if attack_direction_queue.size() == 0:
+		push_error("Aim finished but no attack direction.")
+	else:
+		parent.get_current_equipment().on_activation(parent, attack_direction_queue.pop_front())
+		
 	if !parent.get_current_equipment().have_bullets():
 		parent.get_current_equipment().ready = false
-	print("done attacking")
-	
-	finished = true
+
+# save local mouse position vector to attack dir queue
+func save_mouse_position() -> void:
+	attack_direction_queue.push_back(parent.get_local_mouse_position())

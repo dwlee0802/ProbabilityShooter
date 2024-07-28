@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="7_lwaic"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 
-[sub_resource type="Resource" id="Resource_u0gql"]
+[sub_resource type="Resource" id="Resource_cav1r"]
 resource_local_to_scene = true
 script = ExtResource("6_8fdi6")
 duration = 1.0
@@ -23,7 +23,7 @@ equipment_name = "Laser Rifle"
 aim_time = 1.0
 reload_time = 1.0
 
-[sub_resource type="Resource" id="Resource_mm7eg"]
+[sub_resource type="Resource" id="Resource_vcmiw"]
 resource_local_to_scene = true
 script = ExtResource("7_lwaic")
 magazine_size = 5
@@ -61,13 +61,13 @@ script = ExtResource("2_iduqg")
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
-starting_equipment = SubResource("Resource_u0gql")
+starting_equipment = SubResource("Resource_cav1r")
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
-starting_equipment = SubResource("Resource_mm7eg")
+starting_equipment = SubResource("Resource_vcmiw")
 
 [node name="Enemies" type="Node2D" parent="."]
 
