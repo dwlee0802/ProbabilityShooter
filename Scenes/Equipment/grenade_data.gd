@@ -3,6 +3,8 @@ class_name GrenadeData
 
 @export
 var slow_amount: float = 0
+@export
+var damage_per_second: float = 0
 
 @export
 var radius: float = 100

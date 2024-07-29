@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("2_8x071")
 slow_amount = 0.0
+damage_per_second = 100.0
 radius = 100.0
 duration = 60.0
 projectile_scene = ExtResource("1_5ixr1")
@@ -15,4 +16,4 @@ damage_range = Vector2i(50, 50)
 knock_back_force = 0.0
 equipment_name = "Incendiary Grenade"
 aim_time = 1.0
-reload_time = 1.0
+reload_time = 5.0
