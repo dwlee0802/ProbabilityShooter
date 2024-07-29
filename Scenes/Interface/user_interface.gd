@@ -17,6 +17,10 @@ var unit_shortcut_labels: Control = $UnitShortcutLabels
 var game_time_label: Label = $GameState/GameTimeLabel
 @onready
 var kill_count_label: Label = $GameState/KillsLabel
+@onready
+var core_health_bar: DelayedProgressBar = $GameState/CoreHealthBar
+@onready
+var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
 
 
 func _ready():

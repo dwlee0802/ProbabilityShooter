@@ -9,6 +9,7 @@ var health_points: int = 300
 var health_label: Label = $HealthLabel
 
 signal core_killed
+signal received_hit
 
 
 func _ready():
@@ -29,4 +30,5 @@ func receive_hit(amount: int) -> void:
 	health_points -= amount
 	health_label.text = str(health_points)
 	print("core hit by " + str(amount))
+	received_hit.emit()
 	

@@ -48,7 +48,10 @@ func _ready():
 	
 	EnemyUnit.core_position = core.global_position
 	core.core_killed.connect(game_over)
+	core.received_hit.connect(on_core_hit)
 	core.health_points = core_health
+	user_interface.core_health_bar.set_max(core_health)
+	user_interface.core_health_bar.change_value(core_health)
 	
 	# spawn first wave
 	spawn_wave()
@@ -105,7 +108,6 @@ func game_over() -> void:
 	add_child(enemies)
 	user_interface.game_over_ui.visible = true
 	
-
 func start() -> void:
 	print("***START GAME***")
 	wave_timer.start(time_between_waves)
@@ -115,4 +117,8 @@ func start() -> void:
 	kill_count = 0
 	for unit: PlayerUnit in units:
 		unit.reset_health()
-	
+
+func on_core_hit() -> void:
+	user_interface.core_health_bar.change_value(core.health_points)
+	user_interface.core_hit_effect.play("RESET")
+	user_interface.core_hit_effect.play("core_hit_animation")
