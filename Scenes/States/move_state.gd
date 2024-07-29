@@ -29,11 +29,11 @@ func process_input(_event: InputEvent) -> State:
 	return null
 
 func process_physics(_delta: float) -> State:
-	if destination.distance_to(parent.global_position) < 1 * parent.movement_speed/100:
+	if destination.distance_to(parent.global_position) < 1 * parent.get_movement_speed()/100:
 		return idle_state
 	
 	var direction: Vector2 = parent.global_position.direction_to(destination)
-	parent.position += direction * parent.movement_speed * _delta
+	parent.position += direction * parent.get_movement_speed() * _delta
 	
 	if parent.is_unconscious():
 		return unconscious_state

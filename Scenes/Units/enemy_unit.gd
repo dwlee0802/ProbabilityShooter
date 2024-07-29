@@ -6,6 +6,7 @@ static var core_position: Vector2
 var health_points: float = 100
 
 var movement_speed: float = 0
+var movement_speed_modifier: float = 0
 
 var adjust_modifier: float = 8
 var speed_adjust_modifier: float = 4
@@ -63,11 +64,14 @@ func _physics_process(delta):
 	apply_central_impulse(adjustment_force * adjust_modifier)
 	
 	# bring speed back to normal
-	if current_speed > movement_speed:
-		apply_central_impulse(abs(current_speed - movement_speed) * -current_direction * delta)
+	if current_speed > get_movement_speed():
+		apply_central_impulse(abs(current_speed - get_movement_speed()) * -current_direction * speed_adjust_modifier * delta)
 	else:
-		apply_central_impulse(abs(current_speed - movement_speed) * speed_adjust_modifier * current_direction * delta)
+		apply_central_impulse(abs(current_speed - get_movement_speed()) * speed_adjust_modifier * current_direction * delta)
 	
 	# flip sprite based on movement
 	# right is false
 	sprite.flip_h = linear_velocity.x <= 0
+
+func get_movement_speed() -> float:
+	return movement_speed + movement_speed_modifier

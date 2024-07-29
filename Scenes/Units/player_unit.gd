@@ -12,6 +12,7 @@ var shortcut_label: Label = $ShortcutLabel
 @export_category("Unit Stats")
 @export
 var movement_speed: float = 100
+var movement_speed_modifier: float = 0
 @export
 var temp_color: Color = Color.WHITE
 @export
@@ -180,3 +181,6 @@ func get_other_equipment():
 		return equipments[current_equipped_index + 1]
 	else:
 		return equipments[current_equipped_index - 1]
+
+func get_movement_speed() -> float:
+	return movement_speed + movement_speed_modifier
