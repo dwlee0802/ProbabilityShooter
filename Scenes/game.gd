@@ -28,6 +28,9 @@ var wave_timer: Timer = $WaveTimer
 ## distance from core where enemy units spawn at
 @export
 var spawn_radius: int = 1000
+## how much stronger enemies get with time
+@export
+var time_difficulty_modifier: float = 1.0
 
 ## node to hold enemy units
 @onready
@@ -86,7 +89,7 @@ func spawn_wave() -> void:
 		
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
-	var time_difficulty: int = int(time_since_start / 2)
+	var time_difficulty: int = int(time_since_start * time_difficulty_modifier)
 	newEnemy.on_spawn(
 		randi_range(enemy_speed_range.x + time_difficulty, enemy_speed_range.y + time_difficulty),
 		randi_range(enemy_health_range.x + time_difficulty, enemy_health_range.y + time_difficulty))

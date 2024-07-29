@@ -53,6 +53,16 @@ lock_rotation = true
 contact_monitor = true
 script = ExtResource("1_gjxg1")
 
+[node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
+lifetime = 2.0
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color = Color(1, 1, 1, 0.396078)
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.658824, 0, 0, 1)
 position = Vector2(0.999998, -1.5)
@@ -91,12 +101,3 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 20
 text = "1"
-
-[node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
-emission_shape = 1
-emission_sphere_radius = 10.0
-direction = Vector2(0, 0)
-gravity = Vector2(0, 0)
-scale_amount_min = 5.0
-scale_amount_max = 10.0
-color = Color(1, 1, 1, 0.568627)
