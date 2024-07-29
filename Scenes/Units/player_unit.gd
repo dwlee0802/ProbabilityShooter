@@ -33,6 +33,8 @@ var current_equipped_index: int = 0
 var equipments = []
 @export
 var starting_equipment: Resource
+@export
+var starting_equipments = []
 
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
@@ -69,12 +71,13 @@ signal equipment_changed
 
 func _ready() -> void:
 	# instantiate gun objects
-	if starting_equipment is RayGunData:
-		equipments.append(RayGun.new(starting_equipment))
-	elif starting_equipment is GrenadeData:
-		equipments.append(Grenade.new(starting_equipment))
-	else:
-		equipments.append(Gun.new(starting_equipment))
+	for eq: EquipmentData in starting_equipments:
+		if eq is RayGunData:
+			equipments.append(RayGun.new(eq))
+		elif eq is GrenadeData:
+			equipments.append(Grenade.new(eq))
+		else:
+			equipments.append(Gun.new(eq))
 	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)
