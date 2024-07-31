@@ -40,6 +40,7 @@ func set_unit(unit: PlayerUnit) -> void:
 	target_unit.knocked_out.connect(on_unit_knocked_out)
 	target_unit.revived.connect(on_unit_revived)
 	target_unit.equipment_changed.connect(on_unit_equipment_changed)
+	on_unit_equipment_changed()
 
 func update_healthbar():
 	health_bar.change_value(target_unit.health_points)
@@ -67,9 +68,18 @@ func on_unit_equipment_changed() -> void:
 	else:
 		cooldown_shadow.anchor_bottom = 1
 		
+		
 	var other_eq: Equipment = target_unit.get_other_equipment()
 	if other_eq.ready:
 		$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 0
 	else:
 		$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 1
+	
+	update_equipment_name_label(current_equipment.data.equipment_name, other_eq.data.equipment_name)
+	
+		
+func update_equipment_name_label(main_name: String, other_name: String) -> void:
+	# update name label
+	$PanelContainer/SkillIcons/TextureRect/WeaponNameLabel.text = other_name
+	$PanelContainer/WeaponImage/ReadyTint/WeaponNameLabel.text = main_name
 	

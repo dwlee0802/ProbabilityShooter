@@ -237,6 +237,13 @@ libraries = {
 }
 speed_scale = 3.0
 
+[node name="WeaponNameLabel" type="Label" parent="PanelContainer/WeaponImage/ReadyTint"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 10
+text = "Name Here"
+
 [node name="SkillIcons" type="HBoxContainer" parent="PanelContainer"]
 custom_minimum_size = Vector2(100, 15)
 layout_mode = 1
@@ -281,6 +288,12 @@ libraries = {
 "": SubResource("AnimationLibrary_4vrfe")
 }
 speed_scale = 3.0
+
+[node name="WeaponNameLabel" type="Label" parent="PanelContainer/SkillIcons/TextureRect"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 6
+text = "Name Here"
 
 [node name="HealthBar" parent="PanelContainer" instance=ExtResource("3_o2cqk")]
 layout_mode = 1
