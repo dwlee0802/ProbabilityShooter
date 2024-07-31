@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShotgunData" load_steps=3 format=3 uid="uid://bp3ddkwwligma"]
+
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_377jg"]
+[ext_resource type="Script" path="res://Scenes/Equipment/shotgun_data.gd" id="2_ysb4a"]
+
+[resource]
+script = ExtResource("2_ysb4a")
+projectile_count = 5
+spread = 30.0
+projectile_scene = ExtResource("1_377jg")
+magazine_size = 5
+projectile_speed = 5000.0
+damage_range = Vector2i(20, 50)
+knock_back_force = 200.0
+equipment_name = "Shotgun"
+aim_time = 1.0
+reload_time = 1.0

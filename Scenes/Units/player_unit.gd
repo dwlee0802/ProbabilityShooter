@@ -76,6 +76,8 @@ func _ready() -> void:
 			equipments.append(RayGun.new(eq))
 		elif eq is GrenadeData:
 			equipments.append(Grenade.new(eq))
+		elif eq is ShotgunData:
+			equipments.append(Shotgun.new(eq))
 		else:
 			equipments.append(Gun.new(eq))
 	
@@ -89,7 +91,7 @@ func _ready() -> void:
 	$Sprite2D.self_modulate = temp_color
 	
 	# unit health
-	health_points = int(max_health_points / 2.0)
+	health_points = int(max_health_points)
 	health_bar.set_max(max_health_points)
 	health_bar.change_value(health_points)
 	
