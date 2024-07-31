@@ -6,12 +6,12 @@
 [resource]
 script = ExtResource("2_ysb4a")
 projectile_count = 5
-spread = 30.0
+spread = 15.0
 projectile_scene = ExtResource("1_377jg")
 magazine_size = 2
 projectile_speed = 5000.0
-damage_range = Vector2i(20, 50)
+damage_range = Vector2i(10, 20)
 knock_back_force = 200.0
 equipment_name = "Shotgun"
 aim_time = 0.5
-reload_time = 3.0
+reload_time = 2.0

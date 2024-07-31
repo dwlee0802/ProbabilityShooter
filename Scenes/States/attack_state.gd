@@ -37,6 +37,7 @@ func enter() -> void:
 	
 	if !parent.equipment_changed.is_connected(timer.stop):
 		parent.equipment_changed.connect(timer.stop)
+		parent.equipment_changed.connect(clear_attack_queues)
 	if !timer.timeout.is_connected(on_aim_finished):
 		timer.timeout.connect(on_aim_finished)
 
@@ -58,10 +59,7 @@ func exit() -> void:
 	super()
 	parent.attack_line.visible = false
 	parent.attack_line_anim.stop()
-	attack_direction_queue.clear()
-	for item in queued_attack_lines:
-		item.queue_free()
-	queued_attack_lines.clear()
+	clear_attack_queues()
 	timer.stop()
 	
 func process_input(_event: InputEvent) -> State:
@@ -84,10 +82,7 @@ func process_frame(_delta: float) -> State:
 		if !is_first_frame and Input.is_action_just_pressed("action_one"):
 			if !Input.is_physical_key_pressed(KEY_SHIFT):
 				# empty attack queue
-				attack_direction_queue.clear()
-				for item in queued_attack_lines:
-					item.queue_free()
-				queued_attack_lines.clear()
+				clear_attack_queues()
 				
 				save_mouse_position()
 				start_attack_process()
@@ -141,3 +136,10 @@ func make_queued_attack_line(dir: Vector2) -> void:
 	new_line.default_color = parent.queued_color
 	parent.add_child(new_line)
 	queued_attack_lines.append(new_line)
+
+func clear_attack_queues():
+	attack_direction_queue.clear()
+	for item in queued_attack_lines:
+		item.queue_free()
+	queued_attack_lines.clear()
+	
