@@ -19,6 +19,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		new_bullet.damage_per_second = data.damage_per_second
 	if new_bullet is SlowArea:
 		new_bullet.slow_amount = data.slow_amount
+		new_bullet.slow_ratio = data.slow_ratio
 		
 	#new_bullet.launch(data.mouse_position.normalized(), data.projectile_speed, randi_range(data.damage_range.x, data.damage_range.y))
 	new_bullet.global_position = unit.global_position + mouse_position

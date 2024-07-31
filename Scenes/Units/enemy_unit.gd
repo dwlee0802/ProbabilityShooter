@@ -7,6 +7,7 @@ var health_points: float = 100
 
 var movement_speed: float = 0
 var movement_speed_modifier: float = 0
+var movement_speed_multiplier: float = 1.0
 
 var adjust_modifier: float = 8
 var speed_adjust_modifier: float = 4
@@ -74,4 +75,4 @@ func _physics_process(delta):
 	sprite.flip_h = linear_velocity.x <= 0
 
 func get_movement_speed() -> float:
-	return movement_speed + movement_speed_modifier
+	return movement_speed * movement_speed_multiplier + movement_speed_modifier
