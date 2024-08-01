@@ -20,6 +20,7 @@ var health_bar: DelayedProgressBar
 var sprite: Sprite2D = $Sprite2D/Sprite2D
 
 var death_effect = preload("res://Scenes/Units/death_effect.tscn")
+var damage_popup = preload("res://Scenes/damage_popup.tscn")
 
 signal on_death
 
@@ -41,6 +42,11 @@ func receive_hit(damage_amount: float):
 	health_bar.change_value(int(health_points))
 	health_label.text = str(int(health_points))
 	#print("Received damage: " + str(damage_amount))
+	var new_popup = damage_popup.instantiate()
+	new_popup.set_label(str(int(damage_amount)))
+	new_popup.global_position = global_position
+	get_tree().root.add_child(new_popup)
+	
 	if health_points <= 0:
 		die()
 	$Sprite2D/AnimationPlayer.play("hit_animation")

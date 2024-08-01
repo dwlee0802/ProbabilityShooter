@@ -38,3 +38,4 @@ func update_unit_portraits(units) -> void:
 func update_unit_shortcut_labels(_camera_pos: Vector2, units) -> void:
 	for i in range(units.size()):
 		units[i].set_shortcut_label(i + 1)
+
