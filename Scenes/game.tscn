@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
+[ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="6_3xgyk"]
 [ext_resource type="Resource" uid="uid://becu5sj0v260d" path="res://Data/Guns/incendiary_grenade.tres" id="6_crpyd"]
-[ext_resource type="Resource" uid="uid://c1er6y2h88ydn" path="res://Data/Guns/laser_rifle.tres" id="6_f8u1o"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="Resource" uid="uid://cxl8mxjntbg5" path="res://Data/Guns/gravity_grenade.tres" id="7_5e138"]
 [ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="7_8ws6r"]
@@ -42,15 +42,14 @@ script = ExtResource("2_iduqg")
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
-starting_equipment = ExtResource("6_crpyd")
+starting_equipment = ExtResource("6_3xgyk")
 starting_equipments = [ExtResource("7_8ws6r"), ExtResource("6_crpyd")]
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(576, -192)
 movement_speed = 500.0
 temp_color = Color(0.729412, 0.305882, 1, 1)
-starting_equipment = ExtResource("7_5e138")
-starting_equipments = [ExtResource("6_f8u1o"), ExtResource("7_5e138")]
+starting_equipments = [ExtResource("6_3xgyk"), ExtResource("7_5e138")]
 
 [node name="Enemies" type="Node2D" parent="."]
 

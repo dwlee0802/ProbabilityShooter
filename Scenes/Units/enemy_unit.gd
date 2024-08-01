@@ -5,6 +5,9 @@ static var core_position: Vector2
 
 var health_points: float = 100
 
+## percentage of radius that is considered a critical hit
+var critical_hit_ratio: float = 0.2
+
 var movement_speed: float = 0
 var movement_speed_modifier: float = 0
 var movement_speed_multiplier: float = 1.0
@@ -82,3 +85,14 @@ func _physics_process(delta):
 
 func get_movement_speed() -> float:
 	return movement_speed * movement_speed_multiplier + movement_speed_modifier
+
+## determines if the received hit is a critical hit
+## a hit is critical when its trajectory line's shortest distance from the center is smaller than crit hit range
+## can get that number by multiplying radius with sin(bullet direction and hit direction)
+func determine_critical_hit(bullet_dir: Vector2, hit_pos: Vector2) -> bool:
+	var radius: float = $CollisionShape2D.shape.radius
+	var angle: float = bullet_dir.angle_to(global_position - hit_pos)
+	print(radius)
+	print(angle * PI)
+	print(radius * critical_hit_ratio)
+	return radius * sin(angle) < radius * critical_hit_ratio

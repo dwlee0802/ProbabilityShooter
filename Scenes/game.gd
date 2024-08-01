@@ -66,7 +66,6 @@ func _ready():
 	user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
 	
-
 func _process(_delta):
 	var reload_times = []
 	for unit: PlayerUnit in units:
