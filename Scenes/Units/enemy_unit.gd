@@ -96,7 +96,19 @@ func get_movement_speed() -> float:
 ## can get that number by multiplying radius with sin(bullet direction and hit direction)
 func determine_critical_hit(bullet_dir: Vector2, hit_pos: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(hit_pos, hit_pos + bullet_dir.normalized() * 100)
+	var query = PhysicsRayQueryParameters2D.create(hit_pos, hit_pos + bullet_dir.normalized() * 1000, 16)
+	query.collide_with_areas = true
 	var result = space_state.intersect_ray(query)
+	var hit_line: Line2D = $HitLine
+	hit_line.set_point_position(0, hit_pos - global_position)
+	hit_line.set_point_position(1, hit_pos + bullet_dir.normalized() * 1000 - global_position)
+	
 	print(result)
+		
+	if result.is_empty():
+		hit_line.default_color = Color.WHITE
+	else:
+		print(result.collider.name)
+		hit_line.default_color = Color.YELLOW
+	
 	return !result.is_empty()
