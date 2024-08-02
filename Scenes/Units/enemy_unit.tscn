@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=13 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_ao2hf"]
@@ -42,9 +42,6 @@ _data = {
 "hit_animation": SubResource("Animation_mtwn4")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kbun0"]
-radius = 64.0
-
 [sub_resource type="Animation" id="Animation_s2tin"]
 resource_name = "crit_hit_animation"
 tracks/0/type = "value"
@@ -57,7 +54,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 0, 0.447059)]
+"values": [Color(0.411765, 0, 0, 1), Color(1, 1, 0, 0.447059)]
 }
 
 [sub_resource type="Animation" id="Animation_i51dn"]
@@ -82,7 +79,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6diiq"]
-radius = 15.0
+radius = 30.0
 
 [node name="EnemyUnit" type="RigidBody2D"]
 collision_layer = 8
@@ -106,7 +103,7 @@ color = Color(1, 1, 1, 0.396078)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.658824, 0, 0, 1)
 position = Vector2(0.999998, -1.5)
-scale = Vector2(2.44, 2.42)
+scale = Vector2(5, 4.959)
 texture = ExtResource("2_ao2hf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
@@ -118,9 +115,8 @@ libraries = {
 }
 speed_scale = 4.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_kbun0")
-debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(103, 84, -103, 82, -123, 30, -119, -31, -72, -90, -13, -112, 22, -112, 75, -90, 114, -39, 127, -1, 121, 40)
 
 [node name="HealthBar" parent="." instance=ExtResource("4_s1jtq")]
 anchors_preset = 7
@@ -146,13 +142,13 @@ text = "1"
 wait_time = 0.5
 
 [node name="CritArea" type="Area2D" parent="."]
-position = Vector2(32, -9)
+position = Vector2(61, -10)
 collision_layer = 16
 collision_mask = 0
 
 [node name="Sprite2D2" type="Sprite2D" parent="CritArea"]
 self_modulate = Color(1, 1, 0, 0.447059)
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_e5dnx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CritArea/Sprite2D2"]
