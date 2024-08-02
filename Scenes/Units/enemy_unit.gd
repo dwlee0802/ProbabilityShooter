@@ -45,9 +45,10 @@ func receive_hit(damage_amount: float):
 	health_bar.change_value(int(health_points))
 	health_label.text = str(int(health_points))
 	#print("Received damage: " + str(damage_amount))
+	
 	var new_popup = damage_popup.instantiate()
 	new_popup.set_label(str(int(damage_amount)))
-	new_popup.global_position = global_position
+	new_popup.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
 	get_tree().root.add_child(new_popup)
 	
 	if health_points <= 0:

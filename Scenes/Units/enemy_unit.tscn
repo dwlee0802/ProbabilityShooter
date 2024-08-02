@@ -101,3 +101,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 20
 text = "1"
+
+[node name="DamagePopupTimer" type="Timer" parent="."]
+wait_time = 0.5
