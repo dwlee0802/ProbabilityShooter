@@ -40,7 +40,11 @@ func on_spawn(speed: float, health: int) -> void:
 func _ready():
 	health_label.text = str(health_points)
 	
-func receive_hit(damage_amount: float):
+func receive_hit(damage_amount: float, critical: bool = false):
+	if critical:
+		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
+		damage_amount *= 2
+		
 	health_points -= damage_amount
 	health_bar.change_value(int(health_points))
 	health_label.text = str(int(health_points))
@@ -91,9 +95,8 @@ func get_movement_speed() -> float:
 ## a hit is critical when its trajectory line's shortest distance from the center is smaller than crit hit range
 ## can get that number by multiplying radius with sin(bullet direction and hit direction)
 func determine_critical_hit(bullet_dir: Vector2, hit_pos: Vector2) -> bool:
-	var radius: float = $CollisionShape2D.shape.radius
-	var angle: float = bullet_dir.angle_to(global_position - hit_pos)
-	print(radius)
-	print(angle * PI)
-	print(radius * critical_hit_ratio)
-	return radius * sin(angle) < radius * critical_hit_ratio
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsRayQueryParameters2D.create(hit_pos, hit_pos + bullet_dir.normalized() * 100)
+	var result = space_state.intersect_ray(query)
+	print(result)
+	return !result.is_empty()

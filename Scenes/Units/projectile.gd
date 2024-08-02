@@ -27,10 +27,8 @@ func _physics_process(delta):
 # hit something
 func _on_body_entered(body) -> void:
 	if body is EnemyUnit:
-		# determine critical hit
-		print(body.determine_critical_hit(dir, global_position))
 		# apply damage
-		body.receive_hit(damage_amount)
+		body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position))
 		# apply knock-back
 		body.apply_central_impulse(dir.normalized() * knock_back_amount)
 		
