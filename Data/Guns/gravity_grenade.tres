@@ -16,5 +16,5 @@ projectile_speed = 0.0
 damage_range = Vector2i(0, 0)
 knock_back_force = 0.0
 equipment_name = "Gravity Grenade"
-aim_time = 1.0
-reload_time = 5.0
+aim_time = 2.0
+reload_time = 10.0

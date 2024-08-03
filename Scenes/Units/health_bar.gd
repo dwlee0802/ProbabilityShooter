@@ -1,6 +1,9 @@
 extends Control
 class_name DelayedProgressBar
 
+@export
+var bar_color: Color = Color.BLUE
+
 @onready
 var health_bar: ProgressBar = $HealthBar
 @onready
@@ -8,6 +11,9 @@ var damage_bar: ProgressBar = $DamageBar
 @export
 var delay_time: float = 1
 
+func _ready():
+	$HealthBar.self_modulate = bar_color
+	
 func set_max(val: int):
 	health_bar = $HealthBar
 	damage_bar = $DamageBar

@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://fx2a5bqenlp6"]
+
+[ext_resource type="Script" path="res://Scenes/resource.gd" id="1_f6d7r"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_t8hdn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fkifd"]
+radius = 100.0
+
+[node name="Resource" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_f6d7r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.572549, 1, 0.686275)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_t8hdn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fkifd")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector2(0, -100)
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color = Color(1, 1, 1, 0.321569)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

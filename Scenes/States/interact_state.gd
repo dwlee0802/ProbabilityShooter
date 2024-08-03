@@ -50,7 +50,6 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
 	if Input.is_action_just_pressed("action_one"):
-		if parent.action_one_available:
-			return action_one_state
+		return action_one_state
 		
 	return null

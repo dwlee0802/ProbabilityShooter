@@ -1,4 +1,5 @@
 extends Node2D
+class_name Game
 
 @onready
 var user_interface: UserInterface = $UserInterface
@@ -37,6 +38,9 @@ var time_difficulty_modifier: float = 1.0
 var enemies: Node2D = $Enemies
 var kill_count: int = 0
 
+## resource system
+var resource_stock: int = 0
+
 @export_category("Debugging")
 @export
 var no_game_over: bool = false
@@ -53,8 +57,14 @@ func _ready():
 	core.core_killed.connect(game_over)
 	core.received_hit.connect(on_core_hit)
 	core.health_points = core_health
+	core.progressed.connect(on_core_progress)
+	core.activation_complete.connect(victory)
+	
 	user_interface.core_health_bar.set_max(core_health)
 	user_interface.core_health_bar.change_value(core_health)
+	
+	user_interface.core_progress_bar.set_max(100)
+	user_interface.core_progress_bar.change_value(0, true)
 	
 	# spawn first wave
 	spawn_wave()
@@ -88,6 +98,7 @@ func spawn_wave() -> void:
 		
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit = enemy_scene.instantiate()
+	newEnemy.game_ref = self
 	var time_difficulty: int = int(time_since_start * time_difficulty_modifier)
 	newEnemy.on_spawn(
 		randi_range(enemy_speed_range.x + time_difficulty, enemy_speed_range.y + time_difficulty),
@@ -108,12 +119,29 @@ func game_over() -> void:
 	enemies.queue_free()
 	enemies = Node2D.new()
 	add_child(enemies)
-	user_interface.game_over_ui.visible = true
+	user_interface.show_game_over_screen(false)
+
+func victory() -> void:
+	if no_game_over:
+		return
+		
+	print("***VICTORY***")
+	wave_timer.stop()
+	
+	# remove all remaining enemy units
+	remove_child(enemies)
+	enemies.queue_free()
+	enemies = Node2D.new()
+	add_child(enemies)
+	user_interface.show_game_over_screen(true)
 	
 func start() -> void:
 	print("***START GAME***")
 	wave_timer.start(time_between_waves)
 	core.health_points = core_health
+	core.activation_progress = 0
+	user_interface.core_health_bar.change_value(core_health, true)
+	user_interface.core_progress_bar.change_value(0, true)
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
 	kill_count = 0
@@ -124,3 +152,16 @@ func on_core_hit() -> void:
 	user_interface.core_health_bar.change_value(core.health_points)
 	user_interface.core_hit_effect.play("RESET")
 	user_interface.core_hit_effect.play("core_hit_animation")
+
+func on_core_progress() -> void:
+	user_interface.core_progress_bar.change_value(core.activation_progress)
+	user_interface.core_progress_label.text = "Progress: " + str(
+		DW_ToolBox.TrimDecimalPoints(core.activation_progress / core.activation_max, 4) * 100) + "%"
+	
+func change_resource(amount: int) -> void:
+	resource_stock += amount
+	resource_stock = max(resource_stock, 0)
+	print("changed resource by " + str(amount))
+	user_interface.resource_label.text = "Resource: " + str(resource_stock)
+	
+

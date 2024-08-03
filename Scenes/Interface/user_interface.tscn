@@ -87,10 +87,16 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="GameOver"]
+[node name="Fail" type="Label" parent="GameOver"]
+visible = false
 self_modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Victory" type="Label" parent="GameOver"]
+layout_mode = 2
+text = "VICTORY"
 horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="GameOver"]
@@ -199,6 +205,25 @@ grow_horizontal = 2
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 
+[node name="CoreHealthLabel" type="Label" parent="GameState/CoreHealthBar"]
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8
+text = " Core Health: 0"
+
+[node name="CoreActivationBar" parent="GameState" instance=ExtResource("3_038ea")]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+bar_color = Color(0.294339, 0.495578, 1, 1)
+
+[node name="CoreProgressLabel" type="Label" parent="GameState/CoreActivationBar"]
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8
+text = "Progress: 0"
+
 [node name="GameTimeLabel" type="Label" parent="GameState"]
 layout_mode = 2
 text = "00:00"
@@ -209,11 +234,9 @@ layout_mode = 2
 text = "0 Kills"
 horizontal_alignment = 1
 
-[node name="CoreHealthLabel" type="Label" parent="."]
-offset_right = 114.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 8
-text = " Core Health: 0"
+[node name="ResourceLabel" type="Label" parent="GameState"]
+layout_mode = 2
+text = "Resource: 0"
 
 [node name="CoreHitEffect" type="ColorRect" parent="."]
 visible = false

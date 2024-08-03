@@ -1,6 +1,8 @@
 extends RigidBody2D
 class_name EnemyUnit
 
+var game_ref: Game
+
 static var core_position: Vector2
 
 var health_points: float = 100
@@ -24,6 +26,8 @@ var sprite: Sprite2D = $Sprite2D/Sprite2D
 
 var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
+
+var resource_drop = preload("res://Scenes/resource.tscn")
 
 signal on_death
 
@@ -63,6 +67,13 @@ func die():
 	var new_effect: CPUParticles2D = death_effect.instantiate()
 	new_effect.global_position = global_position
 	get_tree().root.add_child(new_effect)
+	
+	var new_drop: ResourceDrop = resource_drop.instantiate()
+	new_drop.amount = randi_range(1, 5)
+	new_drop.global_position = global_position
+	new_drop.picked_up.connect(game_ref.change_resource)
+	get_tree().root.call_deferred("add_child", new_drop)
+	
 	get_parent().remove_child(self)
 	on_death.emit()
 	queue_free()
@@ -102,13 +113,10 @@ func determine_critical_hit(bullet_dir: Vector2, hit_pos: Vector2) -> bool:
 	var hit_line: Line2D = $HitLine
 	hit_line.set_point_position(0, hit_pos - global_position)
 	hit_line.set_point_position(1, hit_pos + bullet_dir.normalized() * 1000 - global_position)
-	
-	print(result)
 		
 	if result.is_empty():
 		hit_line.default_color = Color.WHITE
 	else:
-		print(result.collider.name)
 		hit_line.default_color = Color.YELLOW
 	
 	return !result.is_empty()
