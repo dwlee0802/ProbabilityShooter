@@ -195,7 +195,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.635294)
 
 [node name="WeaponImage" type="TextureRect" parent="PanelContainer"]
-self_modulate = Color(1, 0, 1, 1)
+self_modulate = Color(0.271793, 4.9695e-05, 0.271791, 1)
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 1
 anchors_preset = -1
@@ -260,7 +260,7 @@ grow_horizontal = 0
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/SkillIcons"]
-self_modulate = Color(0.443137, 1, 1, 1)
+self_modulate = Color(0, 0.362987, 0.364418, 1)
 custom_minimum_size = Vector2(40, 5)
 layout_mode = 2
 texture = ExtResource("1_yonm2")
@@ -290,6 +290,7 @@ libraries = {
 speed_scale = 3.0
 
 [node name="WeaponNameLabel" type="Label" parent="PanelContainer/SkillIcons/TextureRect"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 6

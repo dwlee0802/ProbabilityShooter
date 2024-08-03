@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=8 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
+[ext_resource type="Script" path="res://Scenes/Interface/TemporaryTutorial.gd" id="4_vhvr1"]
 
 [sub_resource type="Animation" id="Animation_dcoc7"]
 length = 0.001
@@ -252,3 +253,79 @@ libraries = {
 "": SubResource("AnimationLibrary_upd2j")
 }
 speed_scale = 3.0
+
+[node name="TemporaryTutorial" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 301.0
+offset_top = 122.0
+offset_right = 902.0
+offset_bottom = 573.0
+mouse_filter = 2
+script = ExtResource("4_vhvr1")
+
+[node name="Panel" type="Panel" parent="TemporaryTutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="English" type="Label" parent="TemporaryTutorial"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tutorial
+
+Activate the Core
+Collect Resources that Enemies drop on death
+Use it at the Console to increase Core Activation (Blue Bar)
+Game over when Core health reaches zero
+
+Mouse Wheele Button to move camera
+Left Click to shoot
+Shift + Left Click to queue to Shoot when ready
+Right Click to move
+1,2,3,4 to select unit
+Space to center camera on selected unit
+Press Q to swap weapons
+Press E to interact with core to use resources
+Can revive fallen units by pressing E"
+
+[node name="Korean" type="Label" parent="TemporaryTutorial"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "튜토리얼
+
+코어를 활성화하는 것이 목표
+적을 죽이면 나오는 자원을 모아 코어 콘에서 사용
+화면 상단 파란색 칸이 다 차면 승리
+코어 체력이 0이 되면 패배
+
+휠 버튼으로 카메라 이동
+죄클릭 - 공격
+Shift 좌클릭 - 공격 예약
+우클릭 - 이동
+1,2,3,4 - 유닛 선택
+스페이스 - 카메라 유닛에 맞춤
+Q - 무기 교체
+E - 콘솔 등 사용"
+
+[node name="Button" type="Button" parent="TemporaryTutorial"]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 404.0
+offset_right = 325.0
+offset_bottom = 435.0
+text = "OK"
+
+[connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

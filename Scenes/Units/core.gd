@@ -1,7 +1,11 @@
 extends Area2D
 class_name Core
 
+@export
+var game_ref: Game
+
 ## player wins the game when core activation reaches 100
+## corresponds one on one to resource units
 @export
 var activation_progress: float = 0
 var activation_max: int = 100

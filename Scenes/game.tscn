@@ -27,6 +27,8 @@ time_difficulty_modifier = 0.25
 process_callback = 0
 wait_time = 30.0
 
+[node name="GameDurationTimer" type="Timer" parent="."]
+
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
 
@@ -35,11 +37,29 @@ zoom = Vector2(0.3, 0.3)
 process_callback = 0
 script = ExtResource("2_iduqg")
 
-[node name="Core" parent="." instance=ExtResource("1_i48ud")]
+[node name="Core" parent="." node_paths=PackedStringArray("game_ref") instance=ExtResource("1_i48ud")]
+game_ref = NodePath("..")
 
 [node name="Core Console" parent="Core" node_paths=PackedStringArray("core") instance=ExtResource("15_5cnel")]
 position = Vector2(-178, 102)
 core = NodePath("..")
+
+[node name="Label" type="Label" parent="Core/Core Console"]
+offset_left = -95.0
+offset_top = -96.0
+offset_right = 98.0
+offset_bottom = -27.0
+theme_override_font_sizes/font_size = 50
+text = "Console"
+
+[node name="Label" type="Label" parent="Core"]
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 146.0
+offset_bottom = -67.0
+theme_override_font_sizes/font_size = 60
+text = "Core"
+horizontal_alignment = 1
 
 [node name="PlayerUnits" type="Node2D" parent="."]
 
@@ -68,15 +88,40 @@ position = Vector2(718, 279)
 [node name="HealStation" parent="Interactables" instance=ExtResource("10_5tay6")]
 position = Vector2(-385, -506)
 
+[node name="Label" type="Label" parent="Interactables/HealStation"]
+offset_left = -145.0
+offset_top = -114.0
+offset_right = 151.0
+offset_bottom = -45.0
+theme_override_font_sizes/font_size = 50
+text = "Heal Station"
+
 [node name="DamageFabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
 position = Vector2(-88, -680)
 add_damage = 10
+
+[node name="Label" type="Label" parent="Interactables/DamageFabricationBench"]
+offset_left = -190.0
+offset_top = -121.0
+offset_right = 228.0
+offset_bottom = -52.0
+theme_override_font_sizes/font_size = 50
+text = "Damage Increase"
 
 [node name="SpeedFabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
 position = Vector2(-478, 410)
 add_projectile_speed = 500
 
+[node name="Label" type="Label" parent="Interactables/SpeedFabricationBench"]
+offset_left = -237.0
+offset_top = -124.0
+offset_right = 283.0
+offset_bottom = -55.0
+theme_override_font_sizes/font_size = 50
+text = "Bullet Speed Increase"
+
 [node name="Resource" parent="." instance=ExtResource("14_ced38")]
 position = Vector2(-190, 870)
+amount = 10
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

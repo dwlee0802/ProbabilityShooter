@@ -13,6 +13,7 @@ var units = []
 
 @export_category("Wave Setting")
 var time_since_start: float = 0
+var pause: bool = false
 ## number of units per wave
 @export
 var wave_unit_count: int = 10
@@ -84,7 +85,9 @@ func _process(_delta):
 	InputManager.camera.scale_health_label(enemies.get_children())
 	user_interface.core_health_label.text = "Core Health: " + str(core.health_points)
 	
-	time_since_start += _delta
+	if !pause:
+		time_since_start += _delta
+		
 	user_interface.game_time_label.text = str(int(time_since_start)) + " s"
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
 
@@ -120,6 +123,7 @@ func game_over() -> void:
 	enemies = Node2D.new()
 	add_child(enemies)
 	user_interface.show_game_over_screen(false)
+	pause = true
 
 func victory() -> void:
 	if no_game_over:
@@ -134,6 +138,7 @@ func victory() -> void:
 	enemies = Node2D.new()
 	add_child(enemies)
 	user_interface.show_game_over_screen(true)
+	pause = true
 	
 func start() -> void:
 	print("***START GAME***")
@@ -145,6 +150,7 @@ func start() -> void:
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
 	kill_count = 0
+	pause = false
 	for unit: PlayerUnit in units:
 		unit.reset_health()
 
