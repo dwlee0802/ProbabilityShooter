@@ -16,3 +16,9 @@ var damage_range: Vector2i
 ## Force of the knock-back to the target hit by the projectile
 @export
 var knock_back_force: float
+
+@export
+var spread: float = 0
+
+func get_spread() -> float:
+	return spread / 180.0

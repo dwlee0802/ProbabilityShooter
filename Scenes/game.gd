@@ -104,8 +104,8 @@ func spawn_enemy_unit() -> void:
 	newEnemy.game_ref = self
 	var time_difficulty: int = int(time_since_start * time_difficulty_modifier)
 	newEnemy.on_spawn(
-		randi_range(enemy_speed_range.x + time_difficulty, enemy_speed_range.y + time_difficulty),
-		randi_range(enemy_health_range.x + time_difficulty, enemy_health_range.y + time_difficulty))
+		randi_range(enemy_speed_range.x, enemy_speed_range.y + time_difficulty),
+		randi_range(enemy_health_range.x, enemy_health_range.y + time_difficulty))
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
@@ -124,6 +124,7 @@ func game_over() -> void:
 	add_child(enemies)
 	user_interface.show_game_over_screen(false)
 	pause = true
+	resource_stock = 0
 
 func victory() -> void:
 	if no_game_over:
@@ -139,6 +140,7 @@ func victory() -> void:
 	add_child(enemies)
 	user_interface.show_game_over_screen(true)
 	pause = true
+	resource_stock = 0
 	
 func start() -> void:
 	print("***START GAME***")
