@@ -14,17 +14,26 @@ func enter() -> void:
 	super()
 	parent.state_label.text = "Move"
 	destination = parent.get_global_mouse_position()
+	
+	# cancel reload
+	if !parent.action_one_reload_timer.is_stopped():
+		parent.action_one_reload_timer.stop()
 
+func exit() -> void:
+	super()
+	destination = parent.global_position
+	
 func process_input(_event: InputEvent) -> State:
 	# right clicking when Idle is move order
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
 	if Input.is_action_just_pressed("right_click"):
 		destination = parent.get_global_mouse_position()
+		if !parent.action_one_reload_timer.is_stopped():
+			parent.action_one_reload_timer.stop()
 	# pressed action 1. go to action 1 aim mode
 	if Input.is_action_just_pressed("action_one"):
-		if parent.get_current_equipment().ready:
-			return action_one_state
+		return action_one_state
 		
 	return null
 

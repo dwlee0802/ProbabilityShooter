@@ -30,6 +30,7 @@ func process_input(_event: InputEvent) -> State:
 		
 	# right clicking when Idle is move order
 	if Input.is_action_just_pressed('right_click'):
+		keep_reloading = false
 		return move_state
 	if Input.is_action_just_pressed("action_one"):
 		keep_reloading = true
