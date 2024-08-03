@@ -56,6 +56,8 @@ var aim_line: Line2D = $AimLine
 var attack_line: Line2D = $AttackLine
 @onready
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
+@onready
+var move_line: Line2D = $MoveLine
 
 # interaction
 @onready
@@ -190,3 +192,9 @@ func get_other_equipment():
 
 func get_movement_speed() -> float:
 	return movement_speed * movement_speed_multiplier + movement_speed_modifier
+
+func set_movement_line(points) -> void:
+	move_line.clear_points()
+	move_line.add_point(Vector2.ZERO)
+	for pt: Vector2 in points:
+		move_line.add_point(pt)

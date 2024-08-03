@@ -185,4 +185,6 @@ position = Vector2(2, 6)
 shape = SubResource("CircleShape2D_6qovf")
 debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
 
+[node name="MoveLine" type="Line2D" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
