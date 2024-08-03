@@ -7,12 +7,11 @@ var explosion_area: Area2D = $ExplosionArea
 
 func _physics_process(delta):
 	super._physics_process(delta)
-	speed += delta * 1000
+	speed += delta * 2000
 		
 # hit something
 func _on_body_entered(_body) -> void:
 	var enemies = explosion_area.get_overlapping_bodies()
-	var players = explosion_area.get_overlapping_areas()
 	
 	$ExplosionSprite.visible = true
 	

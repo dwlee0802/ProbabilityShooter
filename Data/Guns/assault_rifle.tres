@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="GunData" load_steps=3 format=3 uid="uid://kssrnd4lvva1"]
+
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_jeba0"]
+[ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="2_gctm3"]
+
+[resource]
+script = ExtResource("2_gctm3")
+projectile_scene = ExtResource("1_jeba0")
+magazine_size = 20
+projectile_speed = 3000.0
+damage_range = Vector2i(50, 150)
+knock_back_force = 800.0
+equipment_name = "Assault Rifle"
+aim_time = 0.2
+reload_time = 3.0
