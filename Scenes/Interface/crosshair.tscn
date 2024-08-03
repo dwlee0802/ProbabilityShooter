@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
 
 [node name="Crosshair" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_4pkdk")
 
 [node name="RadialProgress" type="Control" parent="."]

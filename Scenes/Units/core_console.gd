@@ -28,8 +28,12 @@ func active(_delta: float, _user: PlayerUnit) -> bool:
 	
 	return true
 
-func _on_area_2d_area_entered(area):
+func _on_area_2d_area_entered(_area):
 	interaction_label.visible = true
+	if core.game_ref.resource_stock <= 0:
+		interaction_label.text = "Not enough resources"
+	else:
+		interaction_label.text = "E"
 
-func _on_area_2d_area_exited(area):
+func _on_area_2d_area_exited(_area):
 	interaction_label.visible = false

@@ -23,12 +23,21 @@ shape = SubResource("CircleShape2D_0fldd")
 texture = SubResource("PlaceholderTexture2D_x6nhi")
 
 [node name="InteractionLabel" type="Label" parent="."]
-offset_left = -17.0
-offset_top = -147.0
-offset_right = 23.0
-offset_bottom = -78.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -269.0
+offset_top = -34.5
+offset_right = 269.0
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 50
-text = "E"
+text = "Not enough resources"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
