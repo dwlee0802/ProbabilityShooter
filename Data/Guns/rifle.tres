@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="GunData" load_steps=3 format=3 uid="uid://bdcy44ox5wdf6"]
 
-[ext_resource type="PackedScene" uid="uid://b3hslux1ftcub" path="res://Scenes/Units/rocket.tscn" id="1_51jna"]
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="1_boncp"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_i7hjx"]
 
 [resource]
 script = ExtResource("1_boncp")
-projectile_scene = ExtResource("1_51jna")
+projectile_scene = ExtResource("1_i7hjx")
 magazine_size = 5
 projectile_speed = 3000.0
 damage_range = Vector2i(50, 150)

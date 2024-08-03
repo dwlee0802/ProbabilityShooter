@@ -8,9 +8,9 @@
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="6_3xgyk"]
 [ext_resource type="Resource" uid="uid://becu5sj0v260d" path="res://Data/Guns/incendiary_grenade.tres" id="6_crpyd"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
-[ext_resource type="Resource" uid="uid://cxl8mxjntbg5" path="res://Data/Guns/gravity_grenade.tres" id="7_5e138"]
 [ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="7_8ws6r"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
+[ext_resource type="Resource" uid="uid://dkekbbsc0cnu" path="res://Data/Guns/rocket_launcher.tres" id="10_3dsys"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="PackedScene" uid="uid://fx2a5bqenlp6" path="res://Scenes/resource.tscn" id="14_ced38"]
@@ -74,7 +74,7 @@ starting_equipments = [ExtResource("7_8ws6r"), ExtResource("6_crpyd")]
 position = Vector2(576, -192)
 movement_speed = 500.0
 temp_color = Color(0.729412, 0.305882, 1, 1)
-starting_equipments = [ExtResource("6_3xgyk"), ExtResource("7_5e138")]
+starting_equipments = [ExtResource("6_3xgyk"), ExtResource("10_3dsys")]
 
 [node name="Enemies" type="Node2D" parent="."]
 
