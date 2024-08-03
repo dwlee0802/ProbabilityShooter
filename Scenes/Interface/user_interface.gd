@@ -28,6 +28,9 @@ var core_progress_label: Label = $GameState/CoreActivationBar/CoreProgressLabel
 @onready
 var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
 
+@onready
+var interaction_label: Label = $InteractionLabel
+
 
 func _ready():
 	game_over_ui.visible = false

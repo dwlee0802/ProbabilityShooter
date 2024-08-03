@@ -255,6 +255,7 @@ libraries = {
 speed_scale = 3.0
 
 [node name="TemporaryTutorial" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 301.0
@@ -327,5 +328,21 @@ offset_top = 404.0
 offset_right = 325.0
 offset_bottom = 435.0
 text = "OK"
+
+[node name="InteractionLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.795
+anchor_right = 0.5
+anchor_bottom = 0.795
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Press E to [Action Name]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
