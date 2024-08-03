@@ -170,4 +170,7 @@ func change_resource(amount: int) -> void:
 	print("changed resource by " + str(amount))
 	user_interface.resource_label.text = "Resource: " + str(resource_stock)
 	
-
+func pause_time(duration: float) -> void:
+	get_tree().paused = true
+	await get_tree().create_timer(duration).timeout
+	get_tree().paused = false

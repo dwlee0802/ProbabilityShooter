@@ -78,6 +78,7 @@ func die():
 	
 	get_parent().remove_child(self)
 	on_death.emit()
+	game_ref.pause_time(0.1)
 	queue_free()
 	
 func _physics_process(delta):

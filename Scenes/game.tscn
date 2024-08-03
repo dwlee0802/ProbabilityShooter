@@ -44,7 +44,7 @@ game_ref = NodePath("..")
 position = Vector2(-178, 102)
 core = NodePath("..")
 
-[node name="Label" type="Label" parent="Core/Core Console"]
+[node name="Label2" type="Label" parent="Core/Core Console"]
 offset_left = -95.0
 offset_top = -96.0
 offset_right = 98.0

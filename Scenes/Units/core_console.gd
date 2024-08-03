@@ -7,6 +7,10 @@ var core: Core
 var consumption_speed: float = 1
 var time_holder: float = 0
 
+@onready
+var interaction_label: Label = $InteractionLabel
+
+
 # called every frame by the interactor
 # returns false if process is finished
 func active(_delta: float, _user: PlayerUnit) -> bool:
@@ -23,3 +27,9 @@ func active(_delta: float, _user: PlayerUnit) -> bool:
 		return !core.increase_activation(1)
 	
 	return true
+
+func _on_area_2d_area_entered(area):
+	interaction_label.visible = true
+
+func _on_area_2d_area_exited(area):
+	interaction_label.visible = false

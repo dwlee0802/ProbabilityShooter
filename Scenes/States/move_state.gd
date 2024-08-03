@@ -46,7 +46,6 @@ func process_input(_event: InputEvent) -> State:
 
 func process_physics(_delta: float) -> State:
 	if destination.distance_to(parent.global_position) < 1 * parent.get_movement_speed()/100:
-		print(move_points_queue.size())
 		if move_points_queue.is_empty():
 			return idle_state
 		else:

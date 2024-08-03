@@ -255,7 +255,6 @@ libraries = {
 speed_scale = 3.0
 
 [node name="TemporaryTutorial" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 301.0
