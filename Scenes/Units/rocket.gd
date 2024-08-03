@@ -5,6 +5,10 @@ class_name Rocket
 var explosion_area: Area2D = $ExplosionArea
 
 
+func _physics_process(delta):
+	super._physics_process(delta)
+	speed += delta * 1000
+		
 # hit something
 func _on_body_entered(_body) -> void:
 	var enemies = explosion_area.get_overlapping_bodies()

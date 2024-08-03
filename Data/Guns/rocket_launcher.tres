@@ -7,7 +7,7 @@
 script = ExtResource("2_fxkqy")
 projectile_scene = ExtResource("1_1lcnt")
 magazine_size = 1
-projectile_speed = 1500.0
+projectile_speed = 200.0
 damage_range = Vector2i(50, 150)
 knock_back_force = 800.0
 equipment_name = "Rocket Launcher"
