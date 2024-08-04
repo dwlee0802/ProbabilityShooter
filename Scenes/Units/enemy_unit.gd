@@ -52,15 +52,17 @@ func _ready():
 func receive_hit(damage_amount: float, critical: bool = false, projectile_info = null):
 	var new_popup = damage_popup.instantiate()
 	
-	if projectile_info:
-		make_blood_splatter_eff(projectile_info.dir, 5)
 		
 	if critical:
 		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
 		damage_amount *= 2
 		new_popup.modulate = Color.YELLOW
 		crit_sound_player.play()
+		if projectile_info:
+			make_blood_splatter_eff(projectile_info.dir, 15)
 	else:
+		if projectile_info:
+			make_blood_splatter_eff(projectile_info.dir, 5)
 		hit_sound_player.play()
 		
 	health_points -= damage_amount
@@ -71,6 +73,8 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_info =
 	new_popup.set_label(str(int(damage_amount)))
 	new_popup.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
 	get_tree().root.add_child(new_popup)
+	
+	CameraControl.camera.shake_screen(10,200)
 	
 	if health_points <= 0:
 		die()
