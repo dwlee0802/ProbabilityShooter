@@ -6,7 +6,7 @@ var amount: int = 0
 
 @onready
 var timer: Timer = $Timer
-static var resource_lifetime: float = 5
+static var resource_lifetime: float = 60
 var half_life_passed: bool = false
 
 var pickup_effect = preload("res://Scenes/resource_pickup_effect.tscn")
@@ -18,7 +18,7 @@ func _ready():
 	timer.start(resource_lifetime)
 	timer.timeout.connect(queue_free)
 
-func _process(delta):
+func _process(_delta):
 	if !half_life_passed and timer.time_left / resource_lifetime < 0.5:
 		$CPUParticles2D.amount = 20
 		$CPUParticles2D.scale_amount_max = 0.1

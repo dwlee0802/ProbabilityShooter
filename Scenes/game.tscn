@@ -99,7 +99,6 @@ theme_override_font_sizes/font_size = 50
 text = "Heal Station"
 
 [node name="DamageFabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
-visible = false
 position = Vector2(-88, -680)
 add_damage = 10
 

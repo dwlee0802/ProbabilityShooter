@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxlw2ixu3j4bd"]
+[gd_scene load_steps=5 format=3 uid="uid://cxlw2ixu3j4bd"]
 
 [ext_resource type="Script" path="res://Scenes/Units/fabrication_bench.gd" id="1_tq0q7"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_3c13f"]
+[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_jpl4k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0fldd"]
 radius = 64.0
@@ -20,3 +21,10 @@ shape = SubResource("CircleShape2D_0fldd")
 self_modulate = Color(0.686275, 0.662745, 1, 1)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3c13f")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_jpl4k")]
+offset_left = -36.0
+offset_top = -59.0
+offset_right = 38.0
+offset_bottom = -48.0
+bar_color = Color(0.874469, 0.919946, 1, 1)
