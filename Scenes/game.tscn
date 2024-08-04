@@ -22,6 +22,7 @@ wave_unit_count = 15
 enemy_health_range = Vector2i(50, 100)
 spawn_radius = 6000
 time_difficulty_modifier = 0.5
+resource_stock = 10
 
 [node name="WaveTimer" type="Timer" parent="."]
 process_callback = 0
@@ -97,6 +98,7 @@ theme_override_font_sizes/font_size = 50
 text = "Heal Station"
 
 [node name="DamageFabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
+visible = false
 position = Vector2(-88, -680)
 add_damage = 10
 
@@ -109,6 +111,7 @@ theme_override_font_sizes/font_size = 50
 text = "Damage Increase"
 
 [node name="SpeedFabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
+visible = false
 position = Vector2(-478, 410)
 add_projectile_speed = 500
 

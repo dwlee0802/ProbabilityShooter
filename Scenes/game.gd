@@ -40,6 +40,7 @@ var enemies: Node2D = $Enemies
 var kill_count: int = 0
 
 ## resource system
+@export
 var resource_stock: int = 0
 @onready
 var resource_node: Node2D = $Resources
@@ -126,7 +127,7 @@ func game_over() -> void:
 	add_child(enemies)
 	user_interface.show_game_over_screen(false)
 	pause = true
-	resource_stock = 0
+	change_resource(0)
 
 func victory() -> void:
 	if no_game_over:
@@ -142,7 +143,7 @@ func victory() -> void:
 	add_child(enemies)
 	user_interface.show_game_over_screen(true)
 	pause = true
-	resource_stock = 0
+	change_resource(0)
 	
 func start() -> void:
 	print("***START GAME***")
@@ -161,7 +162,7 @@ func start() -> void:
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
 	kill_count = 0
-	resource_stock = 0
+	change_resource(0)
 	pause = false
 	for unit: PlayerUnit in units:
 		unit.reset_health()

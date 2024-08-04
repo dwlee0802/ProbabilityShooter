@@ -1,29 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://c23cvo0viwxq4"]
+[gd_scene load_steps=6 format=3 uid="uid://c23cvo0viwxq4"]
 
 [ext_resource type="Script" path="res://Scenes/Units/core.gd" id="1_fth6d"]
-
-[sub_resource type="Gradient" id="Gradient_6m47m"]
-offsets = PackedFloat32Array(0, 0.649351)
-colors = PackedColorArray(0.54659, 0.382826, 0.817119, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vhfn1"]
-gradient = SubResource("Gradient_6m47m")
-width = 256
-height = 256
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_dyirl"]
+[ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="3_fv0cm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kjiim"]
 radius = 128.0
+
+[sub_resource type="Gradient" id="Gradient_cshq8"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Core" type="Area2D"]
 collision_mask = 8
 script = ExtResource("1_fth6d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_vhfn1")
+self_modulate = Color(0.709804, 0.835294, 1, 1)
+position = Vector2(3.8743e-06, -1.23978e-05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dyirl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_kjiim")
 
 [node name="HealthLabel" type="Label" parent="."]
@@ -34,3 +32,27 @@ offset_bottom = -138.0
 text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RadialProgress" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_right = 100.0
+offset_bottom = 100.0
+grow_vertical = 2
+script = ExtResource("3_fv0cm")
+radius = 100.0
+bar_color = Color(9.62615e-07, 0.341386, 0.52996, 1)
+ring = true
+
+[node name="ActiveParticleEffect" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+emission_shape = 1
+emission_sphere_radius = 90.0
+gravity = Vector2(0, -500)
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+color = Color(0, 0.533333, 1, 1)
+color_ramp = SubResource("Gradient_cshq8")

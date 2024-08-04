@@ -17,6 +17,12 @@ var health_points: int = 300
 @onready
 var health_label: Label = $HealthLabel
 
+var active: bool = false
+@onready
+var active_particle_effect: CPUParticles2D = $ActiveParticleEffect
+@onready
+var progress_radial_progress: RadialProgress = $RadialProgress
+
 signal core_killed
 signal received_hit
 signal progressed
@@ -24,6 +30,7 @@ signal activation_complete
 
 func _ready():
 	health_label.text = str(health_points)
+	progress_radial_progress.max_value = activation_max
 	
 func _on_body_entered(body):
 	if body is EnemyUnit:
@@ -36,6 +43,9 @@ func _on_body_entered(body):
 			
 		body.queue_free()
 
+func _process(_delta):
+	active_particle_effect.emitting = active
+		
 func receive_hit(amount: int) -> void:
 	health_points -= amount
 	health_label.text = str(health_points)
