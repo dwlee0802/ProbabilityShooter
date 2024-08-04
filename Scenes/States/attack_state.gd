@@ -85,7 +85,8 @@ func process_frame(_delta: float) -> State:
 				clear_attack_queues()
 				
 				save_mouse_position()
-				start_attack_process()
+				if parent.get_current_equipment().ready:
+					start_attack_process()
 			else:
 				save_mouse_position()
 			

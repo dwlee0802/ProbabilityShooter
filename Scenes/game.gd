@@ -152,6 +152,7 @@ func start() -> void:
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
 	kill_count = 0
+	resource_stock = 0
 	pause = false
 	for unit: PlayerUnit in units:
 		unit.reset_health()
