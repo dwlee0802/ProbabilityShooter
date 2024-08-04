@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx15f5vk52cmq"]
+[gd_scene load_steps=4 format=3 uid="uid://bmj6m20oeruo1"]
 
 [sub_resource type="Animation" id="Animation_mfy72"]
 resource_name = "dead_enemy_effect"

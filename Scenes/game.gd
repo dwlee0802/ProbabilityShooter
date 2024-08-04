@@ -39,6 +39,8 @@ var time_difficulty_modifier: float = 1.0
 @onready
 var enemies: Node2D = $Enemies
 var kill_count: int = 0
+@onready
+var blood_splatter: Node2D = $BloodSplatter
 
 ## resource system
 @export

@@ -144,5 +144,5 @@ func make_blood_splatter_eff(direction, count: int = 50) -> void:
 	new_dead_eff.get_node("CPUParticles2D").direction = direction
 	new_dead_eff.get_node("CPUParticles2D").amount = count
 	new_dead_eff.get_node("CPUParticles2D").emitting = true
-	game_ref.call_deferred("add_child", new_dead_eff)
+	game_ref.blood_splatter.call_deferred("add_child", new_dead_eff)
 	

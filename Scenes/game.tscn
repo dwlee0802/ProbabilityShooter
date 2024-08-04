@@ -37,6 +37,8 @@ zoom = Vector2(0.3, 0.3)
 process_callback = 0
 script = ExtResource("2_iduqg")
 
+[node name="BloodSplatter" type="Node2D" parent="."]
+
 [node name="Core" parent="." node_paths=PackedStringArray("game_ref") instance=ExtResource("1_i48ud")]
 game_ref = NodePath("..")
 
