@@ -14,7 +14,7 @@ var delay_time: float = 1
 func _ready():
 	$HealthBar.self_modulate = bar_color
 	
-func set_max(val: int):
+func set_max(val: float):
 	health_bar = $HealthBar
 	damage_bar = $DamageBar
 	health_bar.max_value = val

@@ -36,6 +36,8 @@ var equipments = []
 var starting_equipment: Resource
 @export
 var starting_equipments = []
+@export
+var items = {}
 
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
@@ -104,6 +106,8 @@ func _ready() -> void:
 	health_bar.set_max(max_health_points)
 	health_bar.change_value(health_points)
 	
+	# testing
+	add_item(load("res://Data/Items/magnet.tres"))
 
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
@@ -147,6 +151,14 @@ func reload_action() -> void:
 	else:
 		push_error("Reload equipment index out of bounds!")
 
+func add_item(item: ItemData) -> void:
+	if items.find_key(item):
+		items[item].level += 1
+	else:
+		if item is MagnetItemData:
+			items[item] = MagnetItem.new(item)
+		items[item].on_enter(self)
+	
 func receive_hit(amount: float) -> void:
 	health_points -= amount
 	health_points = max(health_points, 0)

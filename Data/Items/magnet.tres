@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MagnetItemData" load_steps=2 format=3 uid="uid://cdk6cd0mdnovj"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/magnet_data.gd" id="1_iyxad"]
+
+[resource]
+script = ExtResource("1_iyxad")
+range_increase_per_level = 50
+item_name = "Magnet"
+description = "Increase resource pick up range"

@@ -28,3 +28,8 @@ offset_top = -59.0
 offset_right = 38.0
 offset_bottom = -48.0
 bar_color = Color(0.874469, 0.919946, 1, 1)
+
+[node name="ItemSprite" type="Sprite2D" parent="."]
+position = Vector2(1, -141)
+scale = Vector2(4, 4)
+texture = ExtResource("2_3c13f")

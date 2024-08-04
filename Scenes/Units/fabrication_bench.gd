@@ -12,6 +12,10 @@ var add_projectile_speed: int = 0
 @onready
 var progress_bar: DelayedProgressBar = $HealthBar
 
+@onready
+var icon_sprite: Sprite2D = $ItemSprite
+
+
 func _ready():
 	progress_bar.set_max(wait_time)
 	progress_bar.change_value(0, true)
@@ -24,10 +28,8 @@ func active(_delta: float, _user: PlayerUnit) -> bool:
 	time_holder += _delta
 	if time_holder >= wait_time:
 		print("complete")
-		var eq: Equipment = _user.get_current_equipment()
-		eq.add_bonus_damage(add_damage)
-		if eq is Gun:
-			eq.add_bonus_projectile_speed(add_projectile_speed)
+		start_slot_machine()
+		
 		return false
 	return true
 	
@@ -39,3 +41,6 @@ func on_activate():
 func on_exit():
 	time_holder = 0
 	progress_bar.visible = false
+
+func start_slot_machine():
+	icon_sprite.visible = true
