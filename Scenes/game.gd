@@ -4,6 +4,7 @@ class_name Game
 @onready
 var user_interface: UserInterface = $UserInterface
 
+var pulse_enemy_scene = preload("res://Scenes/Units/pulse_enemy_unit.tscn")
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
 @onready var core: Core = $Core

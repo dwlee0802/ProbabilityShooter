@@ -17,7 +17,6 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-core_health = 1
 wave_unit_count = 15
 enemy_health_range = Vector2i(50, 100)
 spawn_radius = 6000

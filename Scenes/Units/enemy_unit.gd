@@ -13,6 +13,7 @@ var critical_hit_ratio: float = 0.2
 var movement_speed: float = 0
 var movement_speed_modifier: float = 0
 var movement_speed_multiplier: float = 1.0
+var acceleration: float = 0
 
 var adjust_modifier: float = 8
 var speed_adjust_modifier: float = 4
@@ -87,6 +88,8 @@ func die():
 	queue_free()
 	
 func _physics_process(delta):
+	movement_speed_multiplier += delta * acceleration
+	
 	# adjust velocity to go towards core
 	var current_direction: Vector2 = linear_velocity.normalized()
 	var current_speed: float = linear_velocity.length()

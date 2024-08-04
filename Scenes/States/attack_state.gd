@@ -99,6 +99,7 @@ func on_aim_finished() -> void:
 	else:
 		var target: Vector2 = attack_direction_queue.pop_front()
 		parent.get_current_equipment().on_activation(parent, target)
+		parent.gunshot_sfx.stream = parent.get_current_equipment().data.equipment_use_sound
 		parent.gunshot_sfx.play()
 		parent.arm.rotation = target.angle()
 		#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))

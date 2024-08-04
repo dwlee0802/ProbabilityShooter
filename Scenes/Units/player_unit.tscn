@@ -194,7 +194,7 @@ debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
 stream = ExtResource("10_2kui5")
 pitch_scale = 0.8
 max_distance = 10000.0
-max_polyphony = 5
+max_polyphony = 10
 
 [node name="Arm" type="Node2D" parent="."]
 
