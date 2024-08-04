@@ -41,6 +41,8 @@ var kill_count: int = 0
 
 ## resource system
 var resource_stock: int = 0
+@onready
+var resource_node: Node2D = $Resources
 
 @export_category("Debugging")
 @export
@@ -144,7 +146,14 @@ func victory() -> void:
 	
 func start() -> void:
 	print("***START GAME***")
+	
+	# remove leftover resources
+	DW_ToolBox.RemoveAllChildren(resource_node)
+	
+	# spawn first wave
+	spawn_wave()
 	wave_timer.start(time_between_waves)
+	
 	core.health_points = core_health
 	core.activation_progress = 0
 	user_interface.core_health_bar.change_value(core_health, true)

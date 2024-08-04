@@ -25,6 +25,7 @@ var health_bar: DelayedProgressBar
 var sprite: Sprite2D = $Sprite2D/Sprite2D
 
 @onready var hit_sound_player: AudioStreamPlayer2D = $HitSoundPlayer
+@onready var crit_sound_player: AudioStreamPlayer2D = $CritSoundPlayer
 
 var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
@@ -48,12 +49,14 @@ func _ready():
 	
 func receive_hit(damage_amount: float, critical: bool = false):
 	var new_popup = damage_popup.instantiate()
-	hit_sound_player.play()
 	
 	if critical:
 		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
 		damage_amount *= 2
 		new_popup.modulate = Color.YELLOW
+		crit_sound_player.play()
+	else:
+		hit_sound_player.play()
 		
 	health_points -= damage_amount
 	health_bar.change_value(int(health_points))
@@ -77,7 +80,7 @@ func die():
 	new_drop.amount = randi_range(1, 5)
 	new_drop.global_position = global_position
 	new_drop.picked_up.connect(game_ref.change_resource)
-	get_tree().root.call_deferred("add_child", new_drop)
+	game_ref.resource_node.call_deferred("add_child", new_drop)
 	
 	get_parent().remove_child(self)
 	on_death.emit()

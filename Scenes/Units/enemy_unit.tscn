@@ -1,11 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=18 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_ao2hf"]
 [ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Art/slime_eye.png" id="3_146dn"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="4_s1jtq"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_e5dnx"]
-[ext_resource type="AudioStream" uid="uid://c48misgwb17va" path="res://Sound/SFX_Hit04.ogg" id="6_wsds4"]
+[ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
+[ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
 
 [sub_resource type="Animation" id="Animation_eonp3"]
 length = 0.001
@@ -209,7 +210,13 @@ libraries = {
 }
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_wsds4")
+stream = ExtResource("6_yhwah")
+volume_db = -10.0
+pitch_scale = 0.5
+max_distance = 10000.0
+
+[node name="CritSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_lmjx8")
 volume_db = -10.0
 pitch_scale = 0.5
 max_distance = 10000.0

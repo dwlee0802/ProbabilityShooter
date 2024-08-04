@@ -80,7 +80,7 @@ _data = {
 [node name="HitEffect" type="Node2D"]
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-amount = 10
+amount = 15
 lifetime = 0.5
 explosiveness = 1.0
 emission_shape = 1
