@@ -27,4 +27,7 @@ func _on_body_entered(_body) -> void:
 	await get_tree().create_timer(0.1).timeout
 	
 	$ExplosionSprite.visible = false
+	
+	CameraControl.camera.shake_screen(20,200)
+	
 	queue_free()

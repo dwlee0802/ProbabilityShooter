@@ -166,10 +166,10 @@ polygon = PackedVector2Array(103, 84, -103, 82, -123, 30, -119, -31, -72, -90, -
 anchors_preset = 7
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -60.0
-offset_top = 60.0
-offset_right = 60.0
-offset_bottom = 72.0
+offset_left = -118.0
+offset_top = 110.0
+offset_right = 142.0
+offset_bottom = 135.0
 grow_vertical = 0
 
 [node name="HealthLabel" type="Label" parent="."]
@@ -216,12 +216,12 @@ libraries = {
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_rq1ar")
-volume_db = -10.0
+volume_db = -5.0
 pitch_scale = 0.5
 max_distance = 10000.0
 
 [node name="CritSoundPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_8sgjc")
-volume_db = -10.0
+volume_db = -5.0
 pitch_scale = 0.5
 max_distance = 10000.0

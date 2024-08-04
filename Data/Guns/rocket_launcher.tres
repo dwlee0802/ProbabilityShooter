@@ -10,6 +10,7 @@ magazine_size = 1
 projectile_speed = 10.0
 damage_range = Vector2i(50, 150)
 knock_back_force = 800.0
+spread = 0.0
 equipment_name = "Rocket Launcher"
 aim_time = 1.0
 reload_time = 3.0
