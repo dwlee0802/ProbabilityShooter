@@ -21,12 +21,14 @@ texture = ExtResource("1_t8hdn")
 shape = SubResource("CircleShape2D_fkifd")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 5
+texture = ExtResource("1_t8hdn")
 emission_shape = 1
 emission_sphere_radius = 20.0
 gravity = Vector2(0, -100)
-scale_amount_min = 5.0
-scale_amount_max = 10.0
-color = Color(1, 1, 1, 0.321569)
+scale_amount_min = 0.03
+scale_amount_max = 0.07
+color = Color(0.8, 1, 1, 0.243137)
 
 [node name="Timer" type="Timer" parent="."]
 
