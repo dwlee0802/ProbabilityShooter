@@ -25,3 +25,7 @@ func _on_area_entered(_area):
 	new_eff.get_node("CPUParticles2D").emitting = true
 	get_tree().root.add_child(new_eff)
 	queue_free()
+
+
+func _on_mouse_entered():
+	_on_area_entered(null)

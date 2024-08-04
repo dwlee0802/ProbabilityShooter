@@ -7,7 +7,7 @@
 radius = 100.0
 
 [node name="Resource" type="Area2D"]
-collision_layer = 0
+collision_layer = 128
 collision_mask = 4
 script = ExtResource("1_f6d7r")
 
@@ -30,3 +30,4 @@ color = Color(1, 1, 1, 0.321569)
 [node name="Timer" type="Timer" parent="."]
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

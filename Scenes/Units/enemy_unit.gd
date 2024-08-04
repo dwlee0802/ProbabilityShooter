@@ -30,6 +30,7 @@ var sprite: Sprite2D = $Sprite2D/Sprite2D
 
 var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
+var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
 var resource_drop = preload("res://Scenes/resource.tscn")
 
@@ -48,9 +49,12 @@ func on_spawn(speed: float, health: int) -> void:
 func _ready():
 	health_label.text = str(health_points)
 	
-func receive_hit(damage_amount: float, critical: bool = false):
+func receive_hit(damage_amount: float, critical: bool = false, projectile_info = null):
 	var new_popup = damage_popup.instantiate()
 	
+	if projectile_info:
+		make_blood_splatter_eff(projectile_info.dir, 5)
+		
 	if critical:
 		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
 		damage_amount *= 2
@@ -70,6 +74,8 @@ func receive_hit(damage_amount: float, critical: bool = false):
 	
 	if health_points <= 0:
 		die()
+		if projectile_info:
+			make_blood_splatter_eff(projectile_info.dir, 50)
 	$Sprite2D/AnimationPlayer.play("hit_animation")
 
 func die():
@@ -131,3 +137,12 @@ func determine_critical_hit(bullet_dir: Vector2, hit_pos: Vector2) -> bool:
 		hit_line.default_color = Color.YELLOW
 	
 	return !result.is_empty()
+
+func make_blood_splatter_eff(direction, count: int = 50) -> void:
+	var new_dead_eff = dead_enemy_effect.instantiate()
+	new_dead_eff.global_position = global_position
+	new_dead_eff.get_node("CPUParticles2D").direction = direction
+	new_dead_eff.get_node("CPUParticles2D").amount = count
+	new_dead_eff.get_node("CPUParticles2D").emitting = true
+	game_ref.call_deferred("add_child", new_dead_eff)
+	
