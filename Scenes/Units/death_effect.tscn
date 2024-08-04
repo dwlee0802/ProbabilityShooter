@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dug2x3gsvoq70"]
+[gd_scene load_steps=6 format=3 uid="uid://dug2x3gsvoq70"]
+
+[ext_resource type="AudioStream" uid="uid://nss251c08igh" path="res://Sound/SFX_Boom08.ogg" id="1_4kamy"]
 
 [sub_resource type="Gradient" id="Gradient_hpko3"]
 colors = PackedColorArray(0.854902, 0, 0, 1, 1, 1, 0, 0)
@@ -74,3 +76,10 @@ libraries = {
 }
 autoplay = "death_particle_animation"
 speed_scale = 4.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_4kamy")
+volume_db = -5.0
+autoplay = true
+max_distance = 10000.0
+max_polyphony = 5

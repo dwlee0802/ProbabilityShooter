@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=17 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_ao2hf"]
 [ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Art/slime_eye.png" id="3_146dn"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="4_s1jtq"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_e5dnx"]
+[ext_resource type="AudioStream" uid="uid://c48misgwb17va" path="res://Sound/SFX_Hit04.ogg" id="6_wsds4"]
 
 [sub_resource type="Animation" id="Animation_eonp3"]
 length = 0.001
@@ -127,7 +128,7 @@ contact_monitor = true
 script = ExtResource("1_gjxg1")
 
 [node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
-lifetime = 2.0
+lifetime = 4.0
 emission_shape = 1
 emission_sphere_radius = 10.0
 direction = Vector2(0, 0)
@@ -152,6 +153,7 @@ libraries = {
 speed_scale = 4.0
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(103, 84, -103, 82, -123, 30, -119, -31, -72, -90, -13, -112, 22, -112, 75, -90, 114, -39, 127, -1, 121, 40)
 
 [node name="HealthBar" parent="." instance=ExtResource("4_s1jtq")]
@@ -205,3 +207,9 @@ points = PackedVector2Array(0, 0, 0, 0)
 libraries = {
 "": SubResource("AnimationLibrary_3j8tj")
 }
+
+[node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_wsds4")
+volume_db = -10.0
+pitch_scale = 0.5
+max_distance = 10000.0

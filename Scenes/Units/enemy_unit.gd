@@ -24,6 +24,8 @@ var health_bar: DelayedProgressBar
 @onready
 var sprite: Sprite2D = $Sprite2D/Sprite2D
 
+@onready var hit_sound_player: AudioStreamPlayer2D = $HitSoundPlayer
+
 var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
 
@@ -46,6 +48,7 @@ func _ready():
 	
 func receive_hit(damage_amount: float, critical: bool = false):
 	var new_popup = damage_popup.instantiate()
+	hit_sound_player.play()
 	
 	if critical:
 		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")

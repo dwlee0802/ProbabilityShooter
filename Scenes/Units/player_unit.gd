@@ -63,6 +63,10 @@ var move_line: Line2D = $MoveLine
 @onready
 var interaction_area: Area2D = $InteractionArea
 
+## sound
+@onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
+
+
 signal was_selected
 signal deselected
 signal health_changed
