@@ -1,0 +1,108 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgfso00awxt3v"]
+
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_6c752"]
+
+[sub_resource type="Animation" id="Animation_e6a1p"]
+resource_name = "projectile_hit_effect_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.15, 0.15)]
+}
+
+[sub_resource type="Animation" id="Animation_tqbkv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eoqdt"]
+_data = {
+"RESET": SubResource("Animation_tqbkv"),
+"projectile_hit_effect_animation": SubResource("Animation_e6a1p")
+}
+
+[node name="HitEffect" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+lifetime = 0.5
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 30.0
+direction = Vector2(-1, 0)
+spread = 20.0
+gravity = Vector2(0, 10)
+initial_velocity_min = 100.0
+initial_velocity_max = 500.0
+damping_min = 1000.0
+damping_max = 1000.0
+scale_amount_min = 10.0
+scale_amount_max = 25.0
+color = Color(1, 0, 0, 0.756863)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.968627, 0, 0, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_6c752")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eoqdt")
+}
+autoplay = "projectile_hit_effect_animation"

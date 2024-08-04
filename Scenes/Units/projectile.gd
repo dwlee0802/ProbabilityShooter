@@ -12,6 +12,11 @@ var lifetime: float = 0
 # deletes self after this time
 var lifetime_limit: float = 10
 
+var on_hit_effect = preload("res://Scenes/projectile_hit_effect.tscn")
+
+var exit_effect = preload("res://Scenes/enemy_hit_effect.tscn")
+
+
 func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	knock_back_amount = _knock_back
 	dir = direction
@@ -31,5 +36,17 @@ func _on_body_entered(body) -> void:
 		body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position))
 		# apply knock-back
 		body.apply_central_impulse(dir.normalized() * knock_back_amount)
-		
+	
+	var new_eff: Node2D = on_hit_effect.instantiate()
+	new_eff.global_position = global_position
+	new_eff.rotation = dir.angle()
+	new_eff.get_node("CPUParticles2D").emitting = true
+	get_tree().root.add_child(new_eff)
+	
+	var new_exit_eff: Node2D = exit_effect.instantiate()
+	new_exit_eff.global_position = global_position
+	new_exit_eff.rotation = dir.angle()
+	new_exit_eff.get_node("CPUParticles2D").emitting = true
+	get_tree().root.add_child(new_exit_eff)
+	
 	queue_free()

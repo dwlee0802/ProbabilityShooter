@@ -1,0 +1,76 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5cmo6kvwell6"]
+
+[sub_resource type="Animation" id="Animation_tqbkv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e6a1p"]
+resource_name = "projectile_hit_effect_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eoqdt"]
+_data = {
+"RESET": SubResource("Animation_tqbkv"),
+"projectile_hit_effect_animation": SubResource("Animation_e6a1p")
+}
+
+[node name="EnemyHitEffect" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 15
+lifetime = 0.5
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 20.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 1000.0
+initial_velocity_max = 2000.0
+damping_min = 200.0
+damping_max = 1000.0
+scale_amount_min = 30.0
+scale_amount_max = 50.0
+color = Color(1, 0, 0, 0.756863)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eoqdt")
+}
+autoplay = "projectile_hit_effect_animation"

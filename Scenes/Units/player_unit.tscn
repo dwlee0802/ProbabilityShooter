@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=20 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://Scenes/States/interact_state.gd" id="8_voe6n"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="12_nk6uj"]
 
 [sub_resource type="Gradient" id="Gradient_y7id6"]
 offsets = PackedFloat32Array(0.123377, 0.649351)
@@ -193,5 +195,43 @@ stream = ExtResource("10_2kui5")
 pitch_scale = 0.8
 max_distance = 10000.0
 max_polyphony = 5
+
+[node name="Arm" type="Node2D" parent="."]
+visible = false
+
+[node name="ArmSprite" type="Sprite2D" parent="Arm"]
+position = Vector2(63, 30)
+scale = Vector2(2.8125, 1)
+texture = ExtResource("11_cpb60")
+
+[node name="SmokeParticle" type="CPUParticles2D" parent="Arm"]
+position = Vector2(105, 29)
+explosiveness = 0.9
+texture = ExtResource("12_nk6uj")
+spread = 90.0
+gravity = Vector2(0, -600)
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+damping_min = 1000.0
+damping_max = 1000.0
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+color = Color(0.385493, 0.385492, 0.385492, 0.411765)
+
+[node name="FlashParticle" type="CPUParticles2D" parent="Arm"]
+position = Vector2(105, 29)
+amount = 3
+lifetime = 0.1
+explosiveness = 0.9
+texture = ExtResource("12_nk6uj")
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+damping_min = 1000.0
+damping_max = 1000.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+color = Color(1, 1, 0, 1)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
