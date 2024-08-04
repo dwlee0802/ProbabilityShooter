@@ -153,6 +153,8 @@ func start() -> void:
 	
 	# remove leftover resources
 	DW_ToolBox.RemoveAllChildren(resource_node)
+	# remove blood splatter
+	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	
 	# spawn first wave
 	spawn_wave()

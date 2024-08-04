@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bmj6m20oeruo1"]
+[gd_scene load_steps=5 format=3 uid="uid://bmj6m20oeruo1"]
+
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_dbelg"]
 
 [sub_resource type="Animation" id="Animation_jw041"]
 length = 0.001
@@ -40,11 +42,11 @@ _data = {
 [node name="dead_enemy_effect" type="Node2D"]
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-emitting = false
 amount = 50
 lifetime = 100000.0
 one_shot = true
 explosiveness = 1.0
+texture = ExtResource("1_dbelg")
 emission_shape = 1
 emission_sphere_radius = 128.0
 gravity = Vector2(0, 0)
@@ -53,8 +55,8 @@ initial_velocity_max = 1000.0
 angular_velocity_max = 100.0
 damping_min = 1000.0
 damping_max = 1000.0
-scale_amount_min = 5.0
-scale_amount_max = 50.0
+scale_amount_min = 0.01
+scale_amount_max = 0.1
 color = Color(0.780392, 0, 0, 0.776471)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CPUParticles2D"]

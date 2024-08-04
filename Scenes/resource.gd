@@ -26,6 +26,5 @@ func _on_area_entered(_area):
 	get_tree().root.add_child(new_eff)
 	queue_free()
 
-
 func _on_mouse_entered():
 	_on_area_entered(null)
