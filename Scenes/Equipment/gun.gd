@@ -31,7 +31,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	
 	current_magazine_count -= 1
 	
-	#CameraControl.camera.ShakeScreen(10,200)
+	CameraControl.camera.shake_screen(20,200)
 
 func have_bullets() -> bool:
 	return current_magazine_count > 0

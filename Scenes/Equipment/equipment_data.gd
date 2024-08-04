@@ -13,6 +13,8 @@ var equipment_texture: Texture2D
 var equipment_sprite: Texture2D
 @export
 var equipment_use_sound: Resource
+@export
+var reload_sound: Resource
 
 @export_category("Stats")
 ## How long it takes for the action to fire after use

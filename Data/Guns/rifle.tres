@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="GunData" load_steps=4 format=3 uid="uid://bdcy44ox5wdf6"]
+[gd_resource type="Resource" script_class="GunData" load_steps=5 format=3 uid="uid://bdcy44ox5wdf6"]
 
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="1_21dl5"]
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="1_boncp"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_i7hjx"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="3_21bjx"]
 
 [resource]
 script = ExtResource("1_boncp")
@@ -14,5 +15,6 @@ knock_back_force = 800.0
 spread = 0.0
 equipment_name = "Rifle"
 equipment_use_sound = ExtResource("1_21dl5")
+reload_sound = ExtResource("3_21bjx")
 aim_time = 1.0
 reload_time = 2.0

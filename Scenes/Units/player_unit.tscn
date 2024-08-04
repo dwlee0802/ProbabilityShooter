@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=22 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -10,7 +10,9 @@
 [ext_resource type="Script" path="res://Scenes/States/interact_state.gd" id="8_voe6n"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
+[ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="12_nk6uj"]
 
 [sub_resource type="Gradient" id="Gradient_y7id6"]
@@ -192,6 +194,17 @@ debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
 
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_2kui5")
+pitch_scale = 0.8
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_vvwcf")
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_7sg32")
 pitch_scale = 0.8
 max_distance = 10000.0
 max_polyphony = 10

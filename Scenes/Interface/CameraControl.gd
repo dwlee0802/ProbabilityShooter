@@ -90,10 +90,10 @@ func scale_health_label(units):
 		var label: Label = unit.health_label
 		label.scale = Vector2(1 / zoom.x, 1/zoom.y)
 		
-func ShakeScreen(intensity, duration):
+func shake_screen(intensity, duration):
 	noise_i = 0
 	shake_strength = intensity / zoom.x
-	SHAKE_DECAY_RATE = duration
+	SHAKE_DECAY_RATE = duration / zoom.x
 
 func get_noise_offset(delta: float):
 	noise_i += delta * NOISE_SHAKE_SPEED

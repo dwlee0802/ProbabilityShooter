@@ -67,6 +67,7 @@ var interaction_area: Area2D = $InteractionArea
 
 ## sound
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
+@onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 
 signal was_selected
 signal deselected
@@ -141,6 +142,8 @@ func reload_action() -> void:
 		equipments[current_equipped_index].ready = true
 		if equipments[current_equipped_index] is Gun:
 			equipments[current_equipped_index].reload()
+		reload_sfx.stream = equipments[current_equipped_index].data.reload_sound
+		reload_sfx.play()
 	else:
 		push_error("Reload equipment index out of bounds!")
 

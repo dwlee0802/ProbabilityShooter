@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ShotgunData" load_steps=4 format=3 uid="uid://bp3ddkwwligma"]
+[gd_resource type="Resource" script_class="ShotgunData" load_steps=5 format=3 uid="uid://bp3ddkwwligma"]
 
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_377jg"]
 [ext_resource type="AudioStream" uid="uid://38egrfhkgxen" path="res://Sound/080902_shotgun-39753.mp3" id="1_lsvm6"]
 [ext_resource type="Script" path="res://Scenes/Equipment/shotgun_data.gd" id="2_ysb4a"]
+[ext_resource type="AudioStream" uid="uid://boj1v887q4jjr" path="res://Sound/realistic-shotgun-cocking-sound-38640.mp3" id="3_bt0p2"]
 
 [resource]
 script = ExtResource("2_ysb4a")
@@ -15,5 +16,6 @@ knock_back_force = 200.0
 spread = 15.0
 equipment_name = "Shotgun"
 equipment_use_sound = ExtResource("1_lsvm6")
+reload_sound = ExtResource("3_bt0p2")
 aim_time = 0.5
 reload_time = 2.0
