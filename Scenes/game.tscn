@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="7_8ws6r"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
-[ext_resource type="Resource" uid="uid://kssrnd4lvva1" path="res://Data/Guns/assault_rifle.tres" id="8_662gi"]
 [ext_resource type="Resource" uid="uid://dkekbbsc0cnu" path="res://Data/Guns/rocket_launcher.tres" id="10_3dsys"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
@@ -69,7 +68,7 @@ position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
 starting_equipment = ExtResource("6_3xgyk")
-starting_equipments = [ExtResource("8_662gi"), ExtResource("6_crpyd")]
+starting_equipments = [ExtResource("6_3xgyk"), ExtResource("6_crpyd")]
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(576, -192)
