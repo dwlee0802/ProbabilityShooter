@@ -125,4 +125,6 @@ text = "Bullet Speed Increase"
 
 [node name="Resources" type="Node2D" parent="."]
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

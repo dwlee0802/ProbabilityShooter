@@ -16,12 +16,22 @@ var on_hit_effect = preload("res://Scenes/projectile_hit_effect.tscn")
 
 var exit_effect = preload("res://Scenes/enemy_hit_effect.tscn")
 
+var smoke_effect = preload("res://Scenes/Effects/smoke_particle.tscn")
+
 
 func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	knock_back_amount = _knock_back
 	dir = direction
 	speed = _speed
 	damage_amount = amount
+	
+func _ready():
+	var new_smoke_eff: CPUParticles2D = smoke_effect.instantiate()
+	new_smoke_eff.direction = dir.normalized()
+	new_smoke_eff.global_position = global_position
+	new_smoke_eff.emitting = true
+	get_tree().root.add_child(new_smoke_eff)
+	
 	
 func _physics_process(delta):
 	position += delta * speed * dir

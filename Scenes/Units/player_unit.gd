@@ -51,6 +51,8 @@ var queued_color: Color = Color.ORANGE
 var disabled_color: Color = Color.DIM_GRAY
 
 @onready
+var arm: Node2D = $Arm
+@onready
 var aim_line: Line2D = $AimLine
 @onready
 var attack_line: Line2D = $AttackLine
@@ -65,7 +67,6 @@ var interaction_area: Area2D = $InteractionArea
 
 ## sound
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
-
 
 signal was_selected
 signal deselected

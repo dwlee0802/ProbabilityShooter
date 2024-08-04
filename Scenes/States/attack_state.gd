@@ -97,8 +97,10 @@ func on_aim_finished() -> void:
 	if attack_direction_queue.size() == 0:
 		push_error("Aim finished but no attack direction.")
 	else:
-		parent.get_current_equipment().on_activation(parent, attack_direction_queue.pop_front())
+		var target: Vector2 = attack_direction_queue.pop_front()
+		parent.get_current_equipment().on_activation(parent, target)
 		parent.gunshot_sfx.play()
+		parent.arm.rotation = target.angle()
 		#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
 		queued_attack_lines.pop_front().queue_free()
 	
