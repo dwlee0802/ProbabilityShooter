@@ -36,8 +36,9 @@ var equipments = []
 var starting_equipment: Resource
 @export
 var starting_equipments = []
-@export
 var items = {}
+@export
+var starting_item: ItemData = null
 
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
@@ -106,8 +107,8 @@ func _ready() -> void:
 	health_bar.set_max(max_health_points)
 	health_bar.change_value(health_points)
 	
-	# testing
-	add_item(load("res://Data/Items/magnet.tres"))
+	# make starting item
+	add_item(starting_item)
 
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
@@ -155,8 +156,7 @@ func add_item(item: ItemData) -> void:
 	if items.find_key(item):
 		items[item].level += 1
 	else:
-		if item is MagnetItemData:
-			items[item] = MagnetItem.new(item)
+		items[item] = Item.new(item)
 		items[item].on_enter(self)
 	
 func receive_hit(amount: float) -> void:
