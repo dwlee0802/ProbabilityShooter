@@ -64,6 +64,8 @@ var attack_line: Line2D = $AttackLine
 @onready
 var attack_cone: Polygon2D = $AttackCone
 @onready
+var attack_full_cone: Polygon2D = $AttackCone/AttackFullCone
+@onready
 var aim_cone: Polygon2D = $AimCone
 @onready
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
@@ -235,6 +237,7 @@ func update_attack_cone(progress: float) -> void:
 func update_aim_cone() -> void:
 	var spread: float = get_current_equipment().data.get_spread()
 	aim_cone.polygon = cone_from_angle(spread, 100000)
+	attack_full_cone.polygon = cone_from_angle(spread, 100000)
 	
 ## progression system methods
 func add_item(item: ItemData) -> void:

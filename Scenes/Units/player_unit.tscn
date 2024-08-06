@@ -236,11 +236,15 @@ scale_amount_max = 0.1
 color = Color(1, 1, 0, 1)
 
 [node name="AimCone" type="Polygon2D" parent="."]
-color = Color(1, 0, 0, 1)
+color = Color(0, 0, 0, 0.392157)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [node name="AttackCone" type="Polygon2D" parent="."]
-visible = false
+color = Color(1, 0, 0, 0.392157)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="AttackFullCone" type="Polygon2D" parent="AttackCone"]
+color = Color(0.423185, 9.08468e-07, 3.1285e-07, 0.392157)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
