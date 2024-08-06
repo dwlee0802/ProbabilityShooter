@@ -49,15 +49,18 @@ func start_attack_process() -> void:
 	timer.start(parent.get_current_equipment().data.aim_time)
 	# front end
 	parent.attack_line.set_point_position(1, attack_direction_queue.front().normalized() * 10000)
+	parent.attack_cone.rotation = Vector2.ZERO.angle_to_point(attack_direction_queue.front())
 	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().data.aim_time
 	parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 	queued_attack_lines.front().visible = false
+	parent.attack_cone.visible = true
 
 func exit() -> void:
 	super()
 	parent.attack_line.visible = false
+	parent.attack_cone.visible = false
 	parent.attack_line_anim.stop()
 	clear_attack_queues()
 	timer.stop()
@@ -77,6 +80,9 @@ func process_frame(_delta: float) -> State:
 	if attack_direction_queue.is_empty():
 		return idle_state
 	
+	if !timer.is_stopped():
+		parent.update_attack_cone((timer.wait_time - timer.time_left) / timer.wait_time)
+		
 	## action queue input
 	if InputManager.IsSelected(parent):
 		if !is_first_frame and Input.is_action_just_pressed("action_one"):

@@ -21,4 +21,4 @@ var knock_back_force: float
 var spread: float = 0
 
 func get_spread() -> float:
-	return spread / 180.0
+	return spread / 180.0 * PI

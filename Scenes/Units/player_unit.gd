@@ -62,11 +62,15 @@ var aim_line: Line2D = $AimLine
 @onready
 var attack_line: Line2D = $AttackLine
 @onready
+var attack_cone: Polygon2D = $AttackCone
+@onready
+var aim_cone: Polygon2D = $AimCone
+@onready
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 @onready
 var move_line: Line2D = $MoveLine
 
-# interaction
+## interaction
 @onready
 var interaction_area: Area2D = $InteractionArea
 
@@ -97,6 +101,8 @@ func _ready() -> void:
 	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)
+	equipment_changed.connect(update_aim_cone)
+	update_aim_cone()
 	print("equipped " + get_current_equipment().data.equipment_name)
 	
 	aim_line.default_color = default_color
@@ -140,6 +146,7 @@ func _physics_process(delta: float) -> void:
 	aim_line.visible = InputManager.IsSelected(self)
 	if InputManager.IsSelected(self):
 		aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
+		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
@@ -214,7 +221,21 @@ func set_movement_line(points) -> void:
 	for pt: Vector2 in points:
 		move_line.add_point(pt)
 
+func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
+	# calculate three points of triangle
+	var cone = []
+	cone.append(Vector2.ZERO)
+	cone.append(Vector2.from_angle(angle/2) * radius)
+	cone.append(Vector2.from_angle(-angle/2) * radius)
+	return cone
 
+func update_attack_cone(progress: float) -> void:
+	attack_cone.polygon = cone_from_angle(get_current_equipment().data.get_spread() * progress, 100000)
+
+func update_aim_cone() -> void:
+	var spread: float = get_current_equipment().data.get_spread()
+	aim_cone.polygon = cone_from_angle(spread, 100000)
+	
 ## progression system methods
 func add_item(item: ItemData) -> void:
 	# if it exists, increase level
