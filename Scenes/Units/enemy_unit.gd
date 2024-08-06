@@ -32,6 +32,7 @@ var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
 var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
+static var resource_drop_chance: float = 0.2
 var resource_drop = preload("res://Scenes/resource.tscn")
 
 signal on_death
@@ -87,11 +88,12 @@ func die():
 	new_effect.global_position = global_position
 	get_tree().root.add_child(new_effect)
 	
-	var new_drop: ResourceDrop = resource_drop.instantiate()
-	new_drop.amount = randi_range(1, 5)
-	new_drop.global_position = global_position
-	new_drop.picked_up.connect(game_ref.change_resource)
-	game_ref.resource_node.call_deferred("add_child", new_drop)
+	if randf() < EnemyUnit.resource_drop_chance:
+		var new_drop: ResourceDrop = resource_drop.instantiate()
+		new_drop.amount = randi_range(1, 5)
+		new_drop.global_position = global_position
+		new_drop.picked_up.connect(game_ref.change_resource)
+		game_ref.resource_node.call_deferred("add_child", new_drop)
 	
 	get_parent().remove_child(self)
 	on_death.emit()
