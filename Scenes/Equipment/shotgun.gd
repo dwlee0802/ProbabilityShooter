@@ -10,7 +10,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		new_bullet.launch(
 			mouse_position.normalized().rotated(randf_range(-data.get_spread()/2.0, data.get_spread()/2.0)), 
 			get_projectile_speed(), 
-			randi_range(data.damage_range.x, data.damage_range.y) + bonus_damage, 
+			randi_range(get_damage_range().x, get_damage_range().y), 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
 		

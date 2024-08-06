@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="SpeedBoostItemData" load_steps=2 format=3 uid="uid://ccb7hswk56r5h"]
+[gd_resource type="Resource" script_class="UnitItemData" load_steps=2 format=3 uid="uid://bnb5a776ydyhh"]
 
-[ext_resource type="Script" path="res://Scenes/Equipment/Items/speed_boost_data.gd" id="1_crdh2"]
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/unit_item_data.gd" id="1_cml8h"]
 
 [resource]
-script = ExtResource("1_crdh2")
-speed_increase_per_level = 50
+script = ExtResource("1_cml8h")
+movement = 100.0
 item_name = "Speed Up"
-description = "Increase movement speed"
+description = "Increase unit movement speed"

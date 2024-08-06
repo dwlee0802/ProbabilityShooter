@@ -38,7 +38,7 @@ func process_input(_event: InputEvent) -> State:
 	## manual reload
 	if Input.is_action_just_pressed("reload"):
 		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.get_current_equipment().data.reload_time)
+			parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
 			parent.get_current_equipment().ready = false
 	if Input.is_action_just_pressed("interact"):
 		# if its player unit and they're downed, revive
@@ -69,7 +69,7 @@ func process_frame(_delta: float) -> State:
 	# auto reload
 	if parent.get_current_equipment().ready == false:
 		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.get_current_equipment().data.reload_time)
+			parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
 	
 	# knocked out
 	if parent.is_unconscious():

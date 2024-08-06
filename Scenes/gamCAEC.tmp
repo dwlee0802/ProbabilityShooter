@@ -10,11 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="7_8ws6r"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
+[ext_resource type="Resource" uid="uid://bnb5a776ydyhh" path="res://Data/Items/speed_up.tres" id="9_xef75"]
 [ext_resource type="Resource" uid="uid://dkekbbsc0cnu" path="res://Data/Guns/rocket_launcher.tres" id="10_3dsys"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
-[ext_resource type="Resource" uid="uid://cs5ulej1snb4t" path="res://Data/Items/damage_up.tres" id="12_ouk0x"]
-[ext_resource type="Resource" uid="uid://oy5atpvocfu2" path="res://Data/Items/reload_faster.tres" id="12_thdy7"]
+[ext_resource type="Resource" uid="uid://bq5vb4c6sdpvf" path="res://Data/Items/damage_up.tres" id="12_ouk0x"]
 [ext_resource type="PackedScene" uid="uid://4lynrn5adlcp" path="res://Scenes/Units/core_console.tscn" id="15_5cnel"]
 
 [node name="Game" type="Node2D"]
@@ -73,14 +73,14 @@ movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
 starting_equipment = ExtResource("6_3xgyk")
 starting_equipments = [ExtResource("6_3xgyk"), ExtResource("6_crpyd")]
-starting_item = ExtResource("12_ouk0x")
+starting_item = ExtResource("9_xef75")
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(576, -192)
 movement_speed = 500.0
 temp_color = Color(0.729412, 0.305882, 1, 1)
 starting_equipments = [ExtResource("7_8ws6r"), ExtResource("10_3dsys")]
-starting_item = ExtResource("12_thdy7")
+starting_item = ExtResource("12_ouk0x")
 
 [node name="Enemies" type="Node2D" parent="."]
 

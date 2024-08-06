@@ -12,12 +12,13 @@ var shortcut_label: Label = $ShortcutLabel
 @export_category("Unit Stats")
 @export
 var movement_speed: float = 100
-var movement_speed_modifier: float = 0
+var movement_speed_bonus: float = 0
 var movement_speed_multiplier: float = 1.0
 @export
 var temp_color: Color = Color.WHITE
 @export
-var damage_range: Vector2 = Vector2(10, 150)
+var damage_range: Vector2i = Vector2i(10, 150)
+var damage_bonus: Vector2i = Vector2i(0, 0)
 @export
 var health_points: float = 500
 @export
@@ -36,6 +37,7 @@ var equipments = []
 var starting_equipment: Resource
 @export
 var starting_equipments = []
+## dictionary<ItemData data, int level> to store items this unit got
 var items = {}
 @export
 var starting_item: ItemData = null
@@ -124,7 +126,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if get_current_equipment() != null and !get_current_equipment().ready:
 			# start reload
 			if action_one_reload_timer.is_stopped():
-				action_one_reload_timer.start(get_current_equipment().data.reload_time)
+				action_one_reload_timer.start(get_current_equipment().get_reload_time())
 			
 	if Input.is_action_just_pressed("switch_equipment"):
 		current_equipped_index += 1
@@ -151,13 +153,6 @@ func reload_action() -> void:
 		reload_sfx.play()
 	else:
 		push_error("Reload equipment index out of bounds!")
-
-func add_item(item: ItemData) -> void:
-	if items.find_key(item):
-		items[item].level += 1
-	else:
-		items[item] = Item.new(item)
-		items[item].on_enter(self)
 	
 func receive_hit(amount: float) -> void:
 	health_points -= amount
@@ -211,10 +206,22 @@ func get_other_equipment():
 		return equipments[current_equipped_index - 1]
 
 func get_movement_speed() -> float:
-	return movement_speed * movement_speed_multiplier + movement_speed_modifier
+	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
 
 func set_movement_line(points) -> void:
 	move_line.clear_points()
 	move_line.add_point(Vector2.ZERO)
 	for pt: Vector2 in points:
 		move_line.add_point(pt)
+
+
+## progression system methods
+func add_item(item: ItemData) -> void:
+	# if it exists, increase level
+	if items.find_key(item):
+		item.on_exit(self, items[item])
+		items[item] += 1
+		item.on_enter(self, items[item])
+	else:
+		items[item] = 1
+		item.on_enter(self, items[item])
