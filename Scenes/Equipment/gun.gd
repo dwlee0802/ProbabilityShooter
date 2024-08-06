@@ -18,9 +18,10 @@ func _init(_data: EquipmentData):
 func on_activation(unit: Unit, mouse_position: Vector2):
 	# make new projectile
 	var new_bullet: Projectile = data.projectile_scene.instantiate()
+	var random_spread_offset: float = randf_range(-data.get_spread()/2, data.get_spread()/2)
 	# set stats
 	new_bullet.launch(
-		mouse_position.normalized(), 
+		mouse_position.normalized().rotated(random_spread_offset), 
 		get_projectile_speed(), 
 		randi_range(get_damage_range().x, get_damage_range().y), 
 		data.knock_back_force)

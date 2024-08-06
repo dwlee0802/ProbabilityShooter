@@ -10,6 +10,7 @@ magazine_size = 20
 projectile_speed = 3000.0
 damage_range = Vector2i(20, 50)
 knock_back_force = 800.0
+spread = 90.0
 equipment_name = "Assault Rifle"
 aim_time = 0.2
 reload_time = 3.0
