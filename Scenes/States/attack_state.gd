@@ -135,6 +135,7 @@ func on_aim_finished() -> void:
 func save_mouse_position() -> void:
 	attack_direction_queue.push_back(parent.get_local_mouse_position())
 	make_queued_attack_line(attack_direction_queue.back())
+	make_queued_attack_cone(attack_direction_queue.back())
 	#print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
 	#print(attack_direction_queue)
 
@@ -151,8 +152,6 @@ func make_queued_attack_line(dir: Vector2) -> void:
 	parent.add_child(new_line)
 	queued_attack_lines.append(new_line)
 	
-	make_queued_attack_cone(dir)
-
 func make_queued_attack_cone(dir: Vector2) -> void:
 	var new_attack_cone: Polygon2D = Polygon2D.new()
 	new_attack_cone.polygon = parent.attack_full_cone.polygon

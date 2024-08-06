@@ -53,6 +53,8 @@ var attack_color: Color = Color.RED
 @export
 var queued_color: Color = Color.ORANGE
 @export
+var background_color: Color = Color.BLACK
+@export
 var disabled_color: Color = Color.DIM_GRAY
 
 @onready
@@ -109,6 +111,9 @@ func _ready() -> void:
 	
 	aim_line.default_color = default_color
 	attack_line.default_color = attack_color
+	aim_cone.color = default_color
+	attack_cone.color = attack_color
+	attack_full_cone.color = background_color
 	state_machine.init(self)
 	$Sprite2D.self_modulate = temp_color
 	
