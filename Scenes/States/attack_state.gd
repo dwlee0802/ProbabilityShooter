@@ -2,6 +2,7 @@ extends State
 
 var attack_direction_queue = []
 var queued_attack_lines = []
+var queued_attack_cones = []
 
 @export
 var wait_time: float = 1
@@ -55,6 +56,7 @@ func start_attack_process() -> void:
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 	queued_attack_lines.front().visible = false
+	queued_attack_cones.front().visible = false
 	parent.attack_cone.visible = true
 
 func exit() -> void:
@@ -110,6 +112,7 @@ func on_aim_finished() -> void:
 		parent.arm.rotation = target.angle()
 		#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
 		queued_attack_lines.pop_front().queue_free()
+		queued_attack_cones.pop_front().queue_free()
 	
 	if !parent.get_current_equipment().have_bullets():
 		parent.get_current_equipment().ready = false
@@ -147,10 +150,23 @@ func make_queued_attack_line(dir: Vector2) -> void:
 	new_line.default_color = parent.queued_color
 	parent.add_child(new_line)
 	queued_attack_lines.append(new_line)
+	
+	make_queued_attack_cone(dir)
 
+func make_queued_attack_cone(dir: Vector2) -> void:
+	var new_attack_cone: Polygon2D = Polygon2D.new()
+	new_attack_cone.polygon = parent.attack_full_cone.polygon
+	new_attack_cone.color = parent.queued_color
+	new_attack_cone.rotate(dir.angle())
+	parent.add_child(new_attack_cone)
+	queued_attack_cones.append(new_attack_cone)
+	
 func clear_attack_queues():
 	attack_direction_queue.clear()
 	for item in queued_attack_lines:
 		item.queue_free()
 	queued_attack_lines.clear()
+	for item in queued_attack_cones:
+		item.queue_free()
+	queued_attack_cones.clear()
 	
