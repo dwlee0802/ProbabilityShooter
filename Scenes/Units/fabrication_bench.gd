@@ -15,6 +15,10 @@ var progress_bar: DelayedProgressBar = $HealthBar
 @onready
 var icon_sprite: Sprite2D = $ItemSprite
 
+static var item_data_list = []
+
+static func _static_init():
+	FabricationBench.item_data_list = DW_ToolBox.ImportResources("res://Data/Items/", true)
 
 func _ready():
 	progress_bar.set_max(wait_time)
