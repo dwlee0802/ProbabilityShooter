@@ -10,7 +10,6 @@ static func RemoveAllChildren(node: Node):
 	for item in children:
 		item.queue_free()
 
-
 ## assumes that count is not larger than list if duplicates is true
 static func PickRandomNumber(list, count: int, duplicates: bool = true):
 	var output = []
@@ -20,7 +19,6 @@ static func PickRandomNumber(list, count: int, duplicates: bool = true):
 	else:
 		list.shuffle()
 		return list.slice(0,count)
-
 
 static func TrimDecimalPoints(num: float, count: int) -> float:
 	var decnum: float = pow(10, count)

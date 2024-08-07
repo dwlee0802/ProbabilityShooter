@@ -1,7 +1,7 @@
 extends Interactable
 class_name FabricationBench
 
-var wait_time: float = 5
+var wait_time: float = 1
 var time_holder: float = 0
 
 @export
@@ -24,6 +24,8 @@ static var max_roll_count: int = 10
 static var slot_roll_seconds: float = 0.5
 var current_roll_count: int = 0
 var is_rolling: bool = false
+var dropped_item_scene = preload("res://Scenes/Units/dropped_item.tscn")
+
 
 static func _static_init():
 	FabricationBench.item_data_list = DW_ToolBox.ImportResources("res://Data/Items/", true)
@@ -43,6 +45,13 @@ func active(_delta: float, _user: PlayerUnit) -> bool:
 		print("picked " + current_item.item_name)
 		slot_timer.stop()
 		is_rolling = false
+		item_sprite.visible = false
+		# make new dropped item
+		var new_item: DroppedItem = dropped_item_scene.instantiate()
+		new_item.set_data(current_item)
+		new_item.global_position = global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(300, 600)
+		get_tree().root.add_child(new_item)
+		
 		return false
 		
 	progress_bar.change_value(time_holder, true)
@@ -65,6 +74,7 @@ func on_exit():
 
 func start_slot_machine():
 	is_rolling = true
+	progress_bar.visible = false
 	item_sprite.visible = true
 	current_roll_count = 0
 	slot_timer.start(slot_roll_seconds)

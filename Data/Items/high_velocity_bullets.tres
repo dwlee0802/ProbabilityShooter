@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="GunItemData" load_steps=2 format=3 uid="uid://ckeggx4ftksac"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_knq30"]
+
+[resource]
+script = ExtResource("1_knq30")
+projectile_speed = 1000.0
+damage_range = Vector2i(0, 0)
+reload_speed_modifier = 0.0
+item_name = "High Velocity Bullets"
+description = "Faster bullet travel speed"
+color = Color(1, 0.243137, 0.286275, 1)
