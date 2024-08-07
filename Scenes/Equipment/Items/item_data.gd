@@ -9,6 +9,8 @@ var item_name: String = "Null"
 var icon: Texture2D
 @export_multiline
 var description: String = "null"
+@export
+var color: Color = Color.WHITE
 
 func on_enter(_unit: PlayerUnit, _level: int):
 	return

@@ -7,3 +7,4 @@ script = ExtResource("1_3uub7")
 reload_speed_modifier = 1.0
 item_name = "Reload Faster"
 description = "Reload twice as fast"
+color = Color(0.639216, 1, 0.827451, 1)

@@ -5,5 +5,7 @@
 [resource]
 script = ExtResource("1_iyxad")
 range_increase_per_level = 50
+movement = 0.0
 item_name = "Magnet"
 description = "Increase resource pick up range"
+color = Color(0.558946, 0.556867, 1.92523e-07, 1)

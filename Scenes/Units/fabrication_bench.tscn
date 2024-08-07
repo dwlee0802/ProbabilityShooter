@@ -29,7 +29,24 @@ offset_right = 38.0
 offset_bottom = -48.0
 bar_color = Color(0.874469, 0.919946, 1, 1)
 
-[node name="ItemSprite" type="Sprite2D" parent="."]
-position = Vector2(1, -141)
-scale = Vector2(4, 4)
+[node name="Timer" type="Timer" parent="."]
+
+[node name="ItemImage" type="TextureRect" parent="."]
+offset_left = -72.0
+offset_top = -210.0
+offset_right = 72.0
+offset_bottom = -79.0
 texture = ExtResource("2_3c13f")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="ItemImage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Item Name"
+autowrap_mode = 2

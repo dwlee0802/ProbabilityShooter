@@ -7,3 +7,4 @@ script = ExtResource("1_cml8h")
 movement = 100.0
 item_name = "Speed Up"
 description = "Increase unit movement speed"
+color = Color(1, 1, 0, 1)
