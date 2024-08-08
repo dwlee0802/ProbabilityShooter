@@ -57,7 +57,6 @@ func increase_activation(amount: float) -> bool:
 	if activation_progress >= activation_max:
 		activation_progress = activation_max
 		activation_complete.emit()
-		print("?")
 		return true
 			
 	progressed.emit()

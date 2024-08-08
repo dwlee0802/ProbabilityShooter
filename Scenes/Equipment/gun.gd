@@ -68,26 +68,26 @@ func add_damage_multiplier(amount: float) -> void:
 		
 func add_bonus_projectile_speed(amount: int) -> void:
 	bonus_projectile_speed += amount
-	if amount > 0:
+	if amount != 0:
 		print(data.equipment_name + " has bonus speed of " + str(bonus_projectile_speed))
 
 func add_bonus_spread(amount: float) -> void:
 	bonus_spread += amount / 180.0 * PI
 	bonus_spread = max(bonus_spread, 0)
-	if amount > 0:
+	if amount != 0:
 		print(data.equipment_name + " has bonus spread of " + str(bonus_spread))
 		spread_changed.emit()
 
 func add_bonus_projectile_count(amount: int) -> void:
 	bonus_projectile_count += amount
 	#bonus_projectile_count = max(bonus_spread, 1)
-	if amount > 0:
+	if amount != 0:
 		print(data.equipment_name + " has bonus projectile count of " + str(bonus_projectile_count))
 
 func add_bonus_magazine_size(amount: int) -> void:
 	bonus_magazine_size += amount
 	bonus_magazine_size = max(bonus_magazine_size, 1)
-	if amount > 0:
+	if amount != 0:
 		print(data.equipment_name + " has bonus magazine size of " + str(bonus_magazine_size))
 	
 func get_damage_range() -> Vector2i:

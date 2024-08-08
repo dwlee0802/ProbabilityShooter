@@ -25,7 +25,6 @@ func enter() -> void:
 	parent.state_label.text = "Action1"
 	save_mouse_position()
 	
-	print(parent.get_current_equipment().data.equipment_name + " " + str(parent.get_current_equipment().get_reload_time()))
 	if parent.get_current_equipment().ready:
 		start_attack_process()
 	else:
@@ -125,7 +124,6 @@ func on_aim_finished() -> void:
 			start_attack_process()
 		else:
 			# start reload process
-			print(parent.get_current_equipment().data.equipment_name + " " + str(parent.get_current_equipment().get_reload_time()))
 			if parent.action_one_reload_timer.is_stopped():
 				parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
 			if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
