@@ -1,14 +1,144 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxlw2ixu3j4bd"]
+[gd_scene load_steps=12 format=3 uid="uid://cxlw2ixu3j4bd"]
 
 [ext_resource type="Script" path="res://Scenes/Units/fabrication_bench.gd" id="1_tq0q7"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_3c13f"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_jpl4k"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="4_nljri"]
+
+[sub_resource type="Gradient" id="Gradient_y135d"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0fldd"]
 radius = 64.0
 
+[sub_resource type="Gradient" id="Gradient_uudg2"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7aqk2"]
+gradient = SubResource("Gradient_uudg2")
+width = 1
+
+[sub_resource type="Animation" id="Animation_ao6uc"]
+resource_name = "picked_item_image_animation"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextureRect:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, false]
+}
+
+[sub_resource type="Animation" id="Animation_e6qjr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TextureRect:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1s5aq"]
+_data = {
+"RESET": SubResource("Animation_e6qjr"),
+"picked_item_image_animation": SubResource("Animation_ao6uc")
+}
+
 [node name="FabricationBench" type="Node2D"]
 script = ExtResource("1_tq0q7")
+item_spawn_radius = 200.0
+
+[node name="PickEffectParticle" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 80
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource("4_nljri")
+direction = Vector2(0, -1)
+spread = 50.0
+gravity = Vector2(0, -400)
+initial_velocity_min = 500.0
+initial_velocity_max = 800.0
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+damping_min = 1.0
+damping_max = 1.0
+scale_amount_min = 0.01
+scale_amount_max = 0.05
+color = Color(1, 0.835294, 0, 1)
+color_ramp = SubResource("Gradient_y135d")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
@@ -58,3 +188,19 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "Item Name"
 autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ItemImage"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.529412)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_7aqk2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ItemImage"]
+libraries = {
+"": SubResource("AnimationLibrary_1s5aq")
+}

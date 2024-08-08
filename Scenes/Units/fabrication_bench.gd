@@ -4,19 +4,18 @@ class_name FabricationBench
 var wait_time: float = 1
 var time_holder: float = 0
 
-@export
-var add_damage: int = 0
-@export
-var add_projectile_speed: int = 0
-
 @onready
 var progress_bar: DelayedProgressBar = $HealthBar
 
 @onready
 var item_sprite: TextureRect = $ItemImage
 @onready
+var item_sprite_animator: AnimationPlayer = $ItemImage/AnimationPlayer
+@onready
 var slot_timer: Timer = $Timer
 var current_item: ItemData = null
+@export
+var item_spawn_radius: float = 100
 
 static var item_data_list = []
 ## stop and pick current item after this number of rolls
@@ -25,6 +24,10 @@ static var slot_roll_seconds: float = 0.5
 var current_roll_count: int = 0
 var is_rolling: bool = false
 var dropped_item_scene = preload("res://Scenes/Units/dropped_item.tscn")
+
+## Effects
+@onready
+var pick_effect_particle: CPUParticles2D = $PickEffectParticle
 
 
 static func _static_init():
@@ -41,13 +44,7 @@ func _ready():
 # if called when slot machine is rolling, pick that item
 func active(_delta: float, _user: PlayerUnit) -> bool:
 	if is_rolling:
-		# pick current item and return it
-		print("picked " + current_item.item_name)
-		slot_timer.stop()
-		is_rolling = false
-		item_sprite.visible = false
-		make_dropped_item()
-		
+		pick_current_item()
 		return false
 		
 	progress_bar.change_value(time_holder, true)
@@ -61,6 +58,7 @@ func active(_delta: float, _user: PlayerUnit) -> bool:
 	
 func on_activate():
 	progress_bar.visible = true
+	item_sprite_animator.play("RESET")
 	time_holder = 0
 	progress_bar.change_value(wait_time, true)
 	
@@ -78,11 +76,8 @@ func start_slot_machine():
 
 func load_new_item() -> void:
 	if current_roll_count == max_roll_count:
-		slot_timer.stop()
-		print("time out. picked " + current_item.item_name)
-		item_sprite.visible = false
-		is_rolling = false
-		make_dropped_item()
+		pick_current_item()
+		return
 		
 	var new_item = FabricationBench.item_data_list.pick_random()
 	while true:
@@ -99,6 +94,15 @@ func load_new_item() -> void:
 func make_dropped_item():
 	var new_item: DroppedItem = dropped_item_scene.instantiate()
 	new_item.set_data(current_item)
-	new_item.global_position = global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(300, 600)
+	new_item.global_position = global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * item_spawn_radius
 	get_tree().root.add_child(new_item)
 	
+func pick_current_item():
+	# pick current item and return it
+	print("picked " + current_item.item_name)
+	slot_timer.stop()
+	is_rolling = false
+	item_sprite_animator.play("picked_item_image_animation")
+	make_dropped_item()
+	pick_effect_particle.restart()
+	pick_effect_particle.emitting = true
