@@ -6,6 +6,9 @@ var button: TextureButton = $TextureButton
 
 var item_data: ItemData
 
+func _ready():
+	CameraControl.camera.shake_screen(30,200)
+	
 func set_data(data: ItemData) -> void:
 	button = $TextureButton
 	item_data = data
