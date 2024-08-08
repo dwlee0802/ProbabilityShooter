@@ -1,4 +1,4 @@
-extends Node2D
+extends Interactable
 class_name DroppedItem
 
 @onready
@@ -12,7 +12,7 @@ func set_data(data: ItemData) -> void:
 	#button.texture_normal = item_data.icon
 	button.self_modulate = item_data.color
 
-func _on_texture_button_pressed():
-	print("button pressed")
-	## if selected unit is far away, make it move over here and pick up when it arrives
-	## if selected unit is close by, pick up item and queue
+func active(_delta: float, _user: PlayerUnit) -> bool:
+	# add item to interacting unit
+	_user.add_item(item_data)
+	return false
