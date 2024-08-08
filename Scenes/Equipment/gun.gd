@@ -47,8 +47,8 @@ func have_bullets() -> bool:
 	return current_magazine_count > 0
 
 func reload() -> void:
-	current_magazine_count = data.magazine_size
-	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(data.magazine_size))
+	current_magazine_count = get_magazine_size()
+	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
 
 func add_bonus_damage(bonus: Vector2i) -> void:
 	bonus_damage_range += bonus

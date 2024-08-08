@@ -21,7 +21,7 @@ var current_item: ItemData = null
 static var item_data_list = []
 ## stop and pick current item after this number of rolls
 static var max_roll_count: int = 10
-static var slot_roll_seconds: float = 0.5
+static var slot_roll_seconds: float = 0.3
 var current_roll_count: int = 0
 var is_rolling: bool = false
 var dropped_item_scene = preload("res://Scenes/Units/dropped_item.tscn")
