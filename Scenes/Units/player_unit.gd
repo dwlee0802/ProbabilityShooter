@@ -122,6 +122,9 @@ func _ready() -> void:
 	health_bar.set_max(max_health_points)
 	health_bar.change_value(health_points)
 	
+	if get_current_equipment() is Gun:
+		get_current_equipment().spread_changed.connect(update_aim_cone)
+		
 	# make starting item
 	add_item(starting_item)
 

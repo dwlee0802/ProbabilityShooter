@@ -33,7 +33,7 @@ func _process(_delta):
 				mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
 		else:
 			if current_eq is Gun:
-				mag_label.text = str(current_eq.current_magazine_count) + " / " + str(current_eq.data.magazine_size)
+				mag_label.text = str(current_eq.current_magazine_count) + " / " + str(current_eq.get_magazine_size())
 				
 		# rotate pointer
 		var direction_to_cursor: Vector2 = InputManager.selected_unit.get_local_mouse_position()

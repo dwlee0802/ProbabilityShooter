@@ -16,25 +16,28 @@ var bonus_projectile_count: int = 0
 @export
 var bonus_magazine_size: int = 0
 
+signal spread_changed
+
 
 func _init(_data: EquipmentData):
 	super(_data)
 	current_magazine_count = data.magazine_size
 	
 func on_activation(unit: Unit, mouse_position: Vector2):
-	# make new projectile
-	var new_bullet: Projectile = data.projectile_scene.instantiate()
-	var random_spread_offset: float = randf_range(-get_spread()/2, get_spread()/2)
-	# set stats
-	new_bullet.launch(
-		mouse_position.normalized().rotated(random_spread_offset), 
-		get_projectile_speed(), 
-		randi_range(get_damage_range().x, get_damage_range().y), 
-		data.knock_back_force)
-	new_bullet.global_position = unit.global_position
-	
-	# add to scene
-	unit.get_tree().root.add_child(new_bullet)
+	for i in range(get_projectile_count()):
+		# make new projectile
+		var new_bullet: Projectile = data.projectile_scene.instantiate()
+		var random_spread_offset: float = randf_range(-get_spread()/2, get_spread()/2)
+		# set stats
+		new_bullet.launch(
+			mouse_position.normalized().rotated(random_spread_offset), 
+			get_projectile_speed(), 
+			randi_range(get_damage_range().x, get_damage_range().y), 
+			data.knock_back_force)
+		new_bullet.global_position = unit.global_position
+		
+		# add to scene
+		unit.get_tree().root.add_child(new_bullet)
 	
 	current_magazine_count -= 1
 	
@@ -62,6 +65,7 @@ func add_bonus_spread(amount: float) -> void:
 	bonus_spread = max(bonus_spread, 0)
 	if amount > 0:
 		print(data.equipment_name + " has bonus spread of " + str(bonus_spread))
+		spread_changed.emit()
 
 func add_bonus_projectile_count(amount: int) -> void:
 	bonus_projectile_count += amount
@@ -83,3 +87,5 @@ func get_spread() -> float:
 	return max(data.get_spread_in_rad() + bonus_spread, 0)
 func get_magazine_size() -> int:
 	return data.magazine_size + bonus_magazine_size
+func get_projectile_count() -> int:
+	return data.projectile_count + bonus_projectile_count

@@ -1,0 +1,134 @@
+[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
+
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
+[ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
+[ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
+[ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
+[ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
+[ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="6_3xgyk"]
+[ext_resource type="Resource" uid="uid://becu5sj0v260d" path="res://Data/Guns/incendiary_grenade.tres" id="6_crpyd"]
+[ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
+[ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
+[ext_resource type="Resource" uid="uid://dkekbbsc0cnu" path="res://Data/Guns/rocket_launcher.tres" id="10_3dsys"]
+[ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
+[ext_resource type="Resource" uid="uid://kssrnd4lvva1" path="res://Data/Guns/assault_rifle.tres" id="10_78snb"]
+[ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
+[ext_resource type="Resource" uid="uid://cs5ulej1snb4t" path="res://Data/Items/damage_up.tres" id="12_ouk0x"]
+[ext_resource type="Resource" uid="uid://oy5atpvocfu2" path="res://Data/Items/reload_faster.tres" id="12_thdy7"]
+[ext_resource type="PackedScene" uid="uid://4lynrn5adlcp" path="res://Scenes/Units/core_console.tscn" id="15_5cnel"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_entdd")
+wave_unit_count = 15
+enemy_health_range = Vector2i(50, 100)
+spawn_radius = 6000
+time_difficulty_modifier = 0.5
+resource_stock = 10
+
+[node name="WaveTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 30.0
+
+[node name="GameDurationTimer" type="Timer" parent="."]
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource("2_webe7")
+
+[node name="Camera2D" type="Camera2D" parent="InputManager"]
+zoom = Vector2(0.3, 0.3)
+process_callback = 0
+script = ExtResource("2_iduqg")
+
+[node name="BloodSplatter" type="Node2D" parent="."]
+
+[node name="Core" parent="." node_paths=PackedStringArray("game_ref") instance=ExtResource("1_i48ud")]
+game_ref = NodePath("..")
+
+[node name="Core Console" parent="Core" node_paths=PackedStringArray("core") instance=ExtResource("15_5cnel")]
+position = Vector2(-178, 102)
+core = NodePath("..")
+
+[node name="Label2" type="Label" parent="Core/Core Console"]
+offset_left = -95.0
+offset_top = -96.0
+offset_right = 98.0
+offset_bottom = -27.0
+theme_override_font_sizes/font_size = 50
+text = "Console"
+
+[node name="Label" type="Label" parent="Core"]
+offset_left = -150.0
+offset_top = -150.0
+offset_right = 146.0
+offset_bottom = -67.0
+theme_override_font_sizes/font_size = 60
+text = "Core"
+horizontal_alignment = 1
+
+[node name="PlayerUnits" type="Node2D" parent="."]
+
+[node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+position = Vector2(-591, 27)
+movement_speed = 500.0
+temp_color = Color(0.356863, 1, 1, 1)
+starting_equipment = ExtResource("6_3xgyk")
+starting_equipments = [ExtResource("6_3xgyk"), ExtResource("6_crpyd")]
+starting_item = ExtResource("12_ouk0x")
+
+[node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+position = Vector2(576, -192)
+movement_speed = 500.0
+temp_color = Color(0.729412, 0.305882, 1, 1)
+starting_equipments = [ExtResource("10_78snb"), ExtResource("10_3dsys")]
+starting_item = ExtResource("12_thdy7")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
+
+[node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
+position = Vector2(718, 279)
+
+[node name="Interactables" type="Node" parent="."]
+
+[node name="HealStation" parent="Interactables" instance=ExtResource("10_5tay6")]
+position = Vector2(-385, -506)
+
+[node name="Label" type="Label" parent="Interactables/HealStation"]
+offset_left = -145.0
+offset_top = -114.0
+offset_right = 151.0
+offset_bottom = -45.0
+theme_override_font_sizes/font_size = 50
+text = "Heal Station"
+
+[node name="DamageFabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
+position = Vector2(-88, -680)
+add_damage = 10
+
+[node name="Label" type="Label" parent="Interactables/DamageFabricationBench"]
+offset_left = -211.0
+offset_top = -139.0
+offset_right = 227.0
+offset_bottom = -70.0
+theme_override_font_sizes/font_size = 50
+text = "Fabrication Bench"
+
+[node name="SpeedFabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
+visible = false
+position = Vector2(-478, 410)
+add_projectile_speed = 500
+
+[node name="Label" type="Label" parent="Interactables/SpeedFabricationBench"]
+offset_left = -237.0
+offset_top = -124.0
+offset_right = 283.0
+offset_bottom = -55.0
+theme_override_font_sizes/font_size = 50
+text = "Bullet Speed Increase"
+
+[node name="Resources" type="Node2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
