@@ -81,6 +81,7 @@ movement_speed = 500.0
 temp_color = Color(0.729412, 0.305882, 1, 1)
 starting_equipments = [ExtResource("10_78snb"), ExtResource("10_3dsys")]
 starting_item = ExtResource("12_thdy7")
+queued_color = Color(1, 0.647059, 0, 0.0784314)
 
 [node name="Enemies" type="Node2D" parent="."]
 
