@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=10 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
@@ -64,6 +64,13 @@ _data = {
 "RESET": SubResource("Animation_dcoc7"),
 "core_hit_animation": SubResource("Animation_vfg1j")
 }
+
+[sub_resource type="InputEventKey" id="InputEventKey_olwgs"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_7vqcr"]
+events = [SubResource("InputEventKey_olwgs")]
 
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
@@ -326,6 +333,7 @@ offset_left = 257.0
 offset_top = 404.0
 offset_right = 325.0
 offset_bottom = 435.0
+shortcut = SubResource("Shortcut_7vqcr")
 text = "OK"
 
 [node name="InteractionLabel" type="Label" parent="."]
