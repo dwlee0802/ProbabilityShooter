@@ -20,5 +20,5 @@ var knock_back_force: float
 @export
 var spread: float = 0
 
-func get_spread() -> float:
+func get_spread_in_rad() -> float:
 	return spread / 180.0 * PI

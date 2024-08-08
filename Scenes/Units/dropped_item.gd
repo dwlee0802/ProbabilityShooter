@@ -15,4 +15,5 @@ func set_data(data: ItemData) -> void:
 func active(_delta: float, _user: PlayerUnit) -> bool:
 	# add item to interacting unit
 	_user.add_item(item_data)
+	queue_free()
 	return false

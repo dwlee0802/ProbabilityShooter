@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -16,7 +16,6 @@
 [ext_resource type="Resource" uid="uid://cs5ulej1snb4t" path="res://Data/Items/damage_up.tres" id="12_ouk0x"]
 [ext_resource type="Resource" uid="uid://oy5atpvocfu2" path="res://Data/Items/reload_faster.tres" id="12_thdy7"]
 [ext_resource type="PackedScene" uid="uid://4lynrn5adlcp" path="res://Scenes/Units/core_console.tscn" id="15_5cnel"]
-[ext_resource type="PackedScene" uid="uid://c0v3yagt1kbub" path="res://Scenes/Units/dropped_item.tscn" id="17_qqocm"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -131,8 +130,5 @@ text = "Bullet Speed Increase"
 [node name="Resources" type="Node2D" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="DroppedItem" parent="." instance=ExtResource("17_qqocm")]
-position = Vector2(358, -774)
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]

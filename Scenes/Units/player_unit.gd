@@ -238,10 +238,10 @@ func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	return cone
 
 func update_attack_cone(progress: float) -> void:
-	attack_cone.polygon = cone_from_angle(get_current_equipment().data.get_spread() * progress, 100000)
+	attack_cone.polygon = cone_from_angle(get_current_equipment().get_spread() * progress, 100000)
 
 func update_aim_cone() -> void:
-	var spread: float = get_current_equipment().data.get_spread()
+	var spread: float = get_current_equipment().get_spread()
 	aim_cone.polygon = cone_from_angle(spread, 100000)
 	attack_full_cone.polygon = cone_from_angle(spread, 100000)
 	
