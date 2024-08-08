@@ -12,4 +12,4 @@ damage_range = Vector2i(0, 0)
 reload_speed_modifier = 0.0
 item_name = "Bigger Magazine"
 description = "Increase magazine capacity."
-color = Color(1, 1, 1, 1)
+color = Color(0.65834, 0.65834, 0.65834, 1)

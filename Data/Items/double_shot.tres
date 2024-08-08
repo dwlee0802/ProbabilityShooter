@@ -9,6 +9,7 @@ spread = 5.0
 projectile_count = 1
 magazine_size = 0
 damage_range = Vector2i(0, 0)
+damage_modifier = 0.0
 reload_speed_modifier = 0.0
 item_name = "Double Shot"
 description = "Increase number of projectiles each attack shoots while increasing spread."

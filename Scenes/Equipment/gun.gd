@@ -3,10 +3,12 @@ class_name Gun
 
 @export
 var current_magazine_count: int = 5
-## Speed of the projectile produced by this gun
 
 @export
 var bonus_damage_range: Vector2i = Vector2i.ZERO
+@export
+var damage_multiplier: float = 0
+## how much faster projectiles fly
 @export
 var bonus_projectile_speed: int = 0
 @export
@@ -52,9 +54,18 @@ func reload() -> void:
 
 func add_bonus_damage(bonus: Vector2i) -> void:
 	bonus_damage_range += bonus
+	if bonus_damage_range.x < 0:
+		bonus_damage_range.x = 0
+	if bonus_damage_range.y < 0:
+		bonus_damage_range.y = 0
 	if bonus != Vector2i.ZERO:
 		print(data.equipment_name + " has bonus damage of " + str(bonus_damage_range))
-	
+
+func add_damage_multiplier(amount: float) -> void:
+	damage_multiplier += amount
+	if amount != 0:
+		print(data.equipment_name + " has damage modifier of " + str(damage_multiplier))
+		
 func add_bonus_projectile_speed(amount: int) -> void:
 	bonus_projectile_speed += amount
 	if amount > 0:
@@ -69,7 +80,7 @@ func add_bonus_spread(amount: float) -> void:
 
 func add_bonus_projectile_count(amount: int) -> void:
 	bonus_projectile_count += amount
-	bonus_projectile_count = max(bonus_spread, 1)
+	#bonus_projectile_count = max(bonus_spread, 1)
 	if amount > 0:
 		print(data.equipment_name + " has bonus projectile count of " + str(bonus_projectile_count))
 
@@ -80,7 +91,8 @@ func add_bonus_magazine_size(amount: int) -> void:
 		print(data.equipment_name + " has bonus magazine size of " + str(bonus_magazine_size))
 	
 func get_damage_range() -> Vector2i:
-	return data.damage_range + bonus_damage_range
+	var mod: float = max(1 + damage_multiplier, 0)
+	return (data.damage_range + bonus_damage_range) * mod / get_projectile_count()
 func get_projectile_speed() -> float:
 	return data.projectile_speed + bonus_projectile_speed
 func get_spread() -> float:

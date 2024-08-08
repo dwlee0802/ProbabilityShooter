@@ -21,7 +21,7 @@ var current_item: ItemData = null
 static var item_data_list = []
 ## stop and pick current item after this number of rolls
 static var max_roll_count: int = 10
-static var slot_roll_seconds: float = 0.3
+static var slot_roll_seconds: float = 0.5
 var current_roll_count: int = 0
 var is_rolling: bool = false
 var dropped_item_scene = preload("res://Scenes/Units/dropped_item.tscn")
@@ -77,6 +77,13 @@ func start_slot_machine():
 	slot_timer.start(slot_roll_seconds)
 
 func load_new_item() -> void:
+	if current_roll_count == max_roll_count:
+		slot_timer.stop()
+		print("time out. picked " + current_item.item_name)
+		item_sprite.visible = false
+		is_rolling = false
+		make_dropped_item()
+		
 	var new_item = FabricationBench.item_data_list.pick_random()
 	while true:
 		if new_item != current_item:
@@ -88,12 +95,6 @@ func load_new_item() -> void:
 	item_sprite.get_node("NameLabel").text = current_item.item_name
 	item_sprite.self_modulate = current_item.color
 	current_roll_count += 1
-	if current_roll_count == max_roll_count:
-		slot_timer.stop()
-		print("time out. picked " + current_item.item_name)
-		item_sprite.visible = false
-		is_rolling = false
-		make_dropped_item()
 
 func make_dropped_item():
 	var new_item: DroppedItem = dropped_item_scene.instantiate()

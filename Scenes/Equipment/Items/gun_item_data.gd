@@ -15,17 +15,19 @@ var magazine_size: int = 0
 
 
 func on_enter(unit: PlayerUnit, level: int):
+	super.on_enter(unit, level)
 	var equipment: Equipment = unit.get_current_equipment()
 	if equipment is Gun:
 		equipment.add_bonus_projectile_speed(projectile_speed * level)
-		equipment.add_bonus_spread(spread)
-		equipment.add_bonus_projectile_count(projectile_count)
-		equipment.add_bonus_magazine_size(magazine_size)
+		equipment.add_bonus_spread(spread * level)
+		equipment.add_bonus_projectile_count(projectile_count * level)
+		equipment.add_bonus_magazine_size(magazine_size * level)
 
 func on_exit(unit: PlayerUnit, level: int):
+	super.on_exit(unit, level)
 	var equipment: Equipment = unit.get_current_equipment()
 	if equipment is Gun:
 		equipment.add_bonus_projectile_speed(-projectile_speed * level)
-		equipment.add_bonus_spread(-spread)
-		equipment.add_bonus_projectile_count(-projectile_count)
-		equipment.add_bonus_magazine_size(-magazine_size)
+		equipment.add_bonus_spread(-spread * level)
+		equipment.add_bonus_projectile_count(-projectile_count * level)
+		equipment.add_bonus_magazine_size(-magazine_size * level)
