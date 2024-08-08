@@ -50,19 +50,19 @@ func start_attack_process() -> void:
 	timer.start(parent.get_current_equipment().data.aim_time)
 	# front end
 	parent.attack_line.set_point_position(1, attack_direction_queue.front().normalized() * 10000)
-	parent.attack_cone.rotation = Vector2.ZERO.angle_to_point(attack_direction_queue.front())
+	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(attack_direction_queue.front())
 	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().data.aim_time
 	parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 	queued_attack_lines.front().visible = false
 	queued_attack_cones.front().visible = false
-	parent.attack_cone.visible = true
+	parent.attack_full_cone.visible = true
 
 func exit() -> void:
 	super()
 	parent.attack_line.visible = false
-	parent.attack_cone.visible = false
+	parent.attack_full_cone.visible = false
 	parent.attack_line_anim.stop()
 	clear_attack_queues()
 	timer.stop()
@@ -113,6 +113,7 @@ func on_aim_finished() -> void:
 		#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
 		queued_attack_lines.pop_front().queue_free()
 		queued_attack_cones.pop_front().queue_free()
+		parent.attack_full_cone.visible = false
 	
 	if !parent.get_current_equipment().have_bullets():
 		parent.get_current_equipment().ready = false

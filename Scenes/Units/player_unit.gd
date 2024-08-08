@@ -47,15 +47,13 @@ var action_one_reload_timer: Timer = $ActionOneReloadTimer
 
 @export_category("Aim Line")
 @export
-var default_color: Color = Color.DIM_GRAY
+var aim_color: Color = Color.DIM_GRAY
 @export
 var attack_color: Color = Color.RED
 @export
 var queued_color: Color = Color.ORANGE
 @export
 var background_color: Color = Color.BLACK
-@export
-var disabled_color: Color = Color.DIM_GRAY
 
 @onready
 var arm: Node2D = $Arm
@@ -64,9 +62,9 @@ var aim_line: Line2D = $AimLine
 @onready
 var attack_line: Line2D = $AttackLine
 @onready
-var attack_cone: Polygon2D = $AttackCone
+var attack_cone: Polygon2D = $AttackFullCone/AttackCone
 @onready
-var attack_full_cone: Polygon2D = $AttackCone/AttackFullCone
+var attack_full_cone: Polygon2D = $AttackFullCone
 @onready
 var aim_cone: Polygon2D = $AimCone
 @onready
@@ -109,11 +107,13 @@ func _ready() -> void:
 	update_aim_cone()
 	print("equipped " + get_current_equipment().data.equipment_name)
 	
-	aim_line.default_color = default_color
+	aim_line.default_color = aim_color
 	attack_line.default_color = attack_color
-	aim_cone.color = default_color
+	# cone colors
+	aim_cone.color = aim_color
 	attack_cone.color = attack_color
 	attack_full_cone.color = background_color
+	
 	state_machine.init(self)
 	$Sprite2D.self_modulate = temp_color
 	

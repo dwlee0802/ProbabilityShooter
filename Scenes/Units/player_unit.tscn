@@ -73,10 +73,10 @@ radius = 128.0
 collision_layer = 2
 collision_mask = 8
 script = ExtResource("1_b776y")
-default_color = Color(0.411765, 0.411765, 0.411765, 0.8)
-attack_color = Color(1, 0, 0, 0.639216)
-queued_color = Color(1, 0.647059, 0, 0.407843)
-background_color = Color(0.169245, 0.169245, 0.169245, 0.768627)
+aim_color = Color(1, 1, 1, 0.196078)
+attack_color = Color(1, 0, 0, 0.588235)
+queued_color = Color(1, 0.647059, 0, 0.392157)
+background_color = Color(0, 0, 0, 0.196078)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_us0md")
@@ -240,16 +240,15 @@ scale_amount_max = 0.1
 color = Color(1, 1, 0, 1)
 
 [node name="AimCone" type="Polygon2D" parent="."]
-color = Color(0, 0, 0, 0.392157)
+color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
-[node name="AttackCone" type="Polygon2D" parent="."]
-visible = false
+[node name="AttackFullCone" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="AttackCone" type="Polygon2D" parent="AttackFullCone"]
 color = Color(1, 0, 0, 0.392157)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
-
-[node name="AttackFullCone" type="Polygon2D" parent="AttackCone"]
-color = Color(0.423185, 9.08468e-07, 3.1285e-07, 0.392157)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
