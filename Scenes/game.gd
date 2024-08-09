@@ -171,6 +171,7 @@ func start() -> void:
 	pause = false
 	for unit: PlayerUnit in units:
 		unit.reset_health()
+		unit.reset_items()
 
 func on_core_hit() -> void:
 	user_interface.core_health_bar.change_value(core.health_points)

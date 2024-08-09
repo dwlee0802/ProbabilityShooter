@@ -258,3 +258,8 @@ func add_item(item: ItemData) -> void:
 	else:
 		items[item] = 1
 		item.on_enter(self, items[item])
+		
+func reset_items() -> void:
+	for item in items.keys():
+		item.on_exit(self, items[item])
+	items.clear()
