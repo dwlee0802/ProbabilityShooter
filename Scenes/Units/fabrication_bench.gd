@@ -4,7 +4,7 @@ class_name FabricationBench
 var wait_time: float = 5
 var time_holder: float = 0
 
-var cooldown_time: float = 30
+var cooldown_time: float = 20
 var is_on_cooldown: bool = false
 @onready
 var cooldown_timer: Timer = $CooldownTimer
