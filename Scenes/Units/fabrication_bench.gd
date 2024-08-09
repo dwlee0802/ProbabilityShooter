@@ -1,8 +1,17 @@
 extends Interactable
 class_name FabricationBench
 
-var wait_time: float = 1
+var wait_time: float = 5
 var time_holder: float = 0
+
+var cooldown_time: float = 30
+var is_on_cooldown: bool = false
+@onready
+var cooldown_timer: Timer = $CooldownTimer
+@onready
+var cooldown_shade: TextureRect = $Sprite2D/TextureRect
+@onready
+var cooldown_label: Label = $Sprite2D/Label
 
 @onready
 var progress_bar: DelayedProgressBar = $HealthBar
@@ -38,7 +47,14 @@ func _ready():
 	progress_bar.change_value(0, true)
 	progress_bar.visible = false
 	slot_timer.timeout.connect(load_new_item)
-	
+	cooldown_timer.timeout.connect(cooldown_over)
+
+func _process(_delta):
+	if is_on_cooldown:
+		## update cooldown time indicator
+		cooldown_shade.anchor_bottom = cooldown_timer.time_left/cooldown_time
+		cooldown_label.text = str(DW_ToolBox.TrimDecimalPoints(cooldown_timer.time_left, 0))
+		
 # called every frame by the interactor
 # returns false if process is finished
 # if called when slot machine is rolling, pick that item
@@ -106,3 +122,12 @@ func pick_current_item():
 	make_dropped_item()
 	pick_effect_particle.restart()
 	pick_effect_particle.emitting = true
+	
+	is_on_cooldown = true
+	cooldown_label.visible = true
+	cooldown_timer.start(cooldown_time)
+
+func cooldown_over() -> void:
+	is_on_cooldown = false
+	cooldown_label.visible = false
+	return
