@@ -14,6 +14,9 @@ var aim_speed_modifier: float = 0
 
 static var max_reload_time: float = 60
 
+signal finished
+
+
 func on_activation(_unit: Unit, _direction: Vector2):
 	pass
 

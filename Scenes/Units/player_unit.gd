@@ -250,11 +250,11 @@ func update_aim_cone() -> void:
 	attack_full_cone.polygon = cone_from_angle(spread, 100000)
 
 func get_interactable_in_range():
-	var items = interaction_area.get_overlapping_areas()
+	var items_in_range = interaction_area.get_overlapping_areas()
 	# get closest thing inside interaction area
 	var target
 	var dist = INF
-	for interactable in items:
+	for interactable in items_in_range:
 		if dist > interactable.global_position.distance_to(global_position):
 			dist = interactable.global_position.distance_to(global_position)
 			target = interactable
