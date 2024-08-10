@@ -220,3 +220,5 @@ offset_top = 110.0
 offset_right = 142.0
 offset_bottom = 135.0
 grow_vertical = 0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -87,6 +87,7 @@ signal was_attacked
 signal knocked_out
 signal revived
 signal equipment_changed
+signal picked_up_item(item)
 
 
 func _ready() -> void:
@@ -258,6 +259,8 @@ func add_item(item: ItemData) -> void:
 	else:
 		items[item] = 1
 		item.on_enter(self, items[item])
+	
+	picked_up_item.emit(item)
 		
 func reset_items() -> void:
 	for item in items.keys():

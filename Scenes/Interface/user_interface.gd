@@ -30,10 +30,14 @@ var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
 
 @onready
 var interaction_label: Label = $InteractionLabel
-
+@onready
+var item_info: Control = $NewItemInfo
+## fade out after this amount of seconds
+static var item_info_show_time: float = 3
 
 func _ready():
 	game_over_ui.visible = false
+	item_info.visible = false
 
 func update_unit_portraits(units) -> void:
 	for i in range(unit_portraits.get_child_count()):
@@ -52,3 +56,18 @@ func show_game_over_screen(victory: bool = false):
 	$GameOver.visible = true
 	$GameOver/Fail.visible = !victory
 	$GameOver/Victory.visible = victory
+
+func show_item_info(item: ItemData):
+	#item_info.visible = true
+	item_info.get_node("AnimationPlayer").play("RESET")
+	var item_icon: TextureRect = item_info.get_node("MarginContainer/HBoxContainer/ItemIcon")
+	#item_icon.texture = item.icon
+	item_icon.self_modulate = item.color
+	var name_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/NameLabel")
+	name_label.text = item.item_name
+	var info_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/InfoLabel")
+	info_label.text = item.description
+	
+	await get_tree().create_timer(UserInterface.item_info_show_time).timeout
+	
+	item_info.get_node("AnimationPlayer").play("item_info_fadeout_animation")

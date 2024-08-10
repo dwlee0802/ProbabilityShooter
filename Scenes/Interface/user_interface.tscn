@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=14 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
 [ext_resource type="Script" path="res://Scenes/Interface/TemporaryTutorial.gd" id="4_vhvr1"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_fir5d"]
 
 [sub_resource type="Animation" id="Animation_dcoc7"]
 length = 0.001
@@ -71,6 +72,66 @@ keycode = 4194305
 
 [sub_resource type="Shortcut" id="Shortcut_7vqcr"]
 events = [SubResource("InputEventKey_olwgs")]
+
+[sub_resource type="Animation" id="Animation_rgipl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_308bu"]
+resource_name = "item_info_fadeout_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j30i2"]
+_data = {
+"RESET": SubResource("Animation_rgipl"),
+"item_info_fadeout_animation": SubResource("Animation_308bu")
+}
 
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
@@ -262,6 +323,7 @@ libraries = {
 speed_scale = 3.0
 
 [node name="TemporaryTutorial" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 301.0
@@ -352,5 +414,58 @@ theme_override_font_sizes/font_size = 20
 text = "Press E to [Action Name]"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="NewItemInfo" type="PanelContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.85
+anchor_right = 0.5
+anchor_bottom = 0.85
+offset_left = -114.5
+offset_top = -40.0
+offset_right = 114.5
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="NewItemInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NewItemInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="ItemIcon" type="TextureRect" parent="NewItemInfo/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_fir5d")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NewItemInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="NewItemInfo/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Name"
+vertical_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="NewItemInfo/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(1, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "stat changes"
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NewItemInfo"]
+libraries = {
+"": SubResource("AnimationLibrary_j30i2")
+}
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
