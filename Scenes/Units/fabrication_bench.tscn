@@ -1,15 +1,25 @@
-[gd_scene load_steps=12 format=3 uid="uid://cxlw2ixu3j4bd"]
+[gd_scene load_steps=15 format=3 uid="uid://cxlw2ixu3j4bd"]
 
 [ext_resource type="Script" path="res://Scenes/Units/fabrication_bench.gd" id="1_tq0q7"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_3c13f"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_jpl4k"]
+[ext_resource type="Shader" path="res://Scenes/Units/outline.gdshader" id="3_t3g3x"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="4_nljri"]
+[ext_resource type="Texture2D" uid="uid://b8srhn7vhyetp" path="res://Art/76716.png" id="5_on3co"]
 
 [sub_resource type="Gradient" id="Gradient_y135d"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0fldd"]
 radius = 64.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_njgvl"]
+shader = ExtResource("3_t3g3x")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 3.022
+shader_parameter/pattern = 1
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="Gradient" id="Gradient_uudg2"]
 offsets = PackedFloat32Array(0)
@@ -148,11 +158,26 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_0fldd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.686275, 0.662745, 1, 1)
+self_modulate = Color(0.762285, 0.588008, 0.347862, 1)
+material = SubResource("ShaderMaterial_njgvl")
 scale = Vector2(2, 2)
 texture = ExtResource("2_3c13f")
 
+[node name="TextureRect2" type="TextureRect" parent="Sprite2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_on3co")
+expand_mode = 1
+
 [node name="TextureRect" type="TextureRect" parent="Sprite2D"]
+visible = false
 self_modulate = Color(0, 0, 0, 0.572549)
 anchors_preset = 10
 anchor_right = 1.0

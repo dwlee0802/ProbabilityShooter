@@ -41,15 +41,8 @@ func process_input(_event: InputEvent) -> State:
 			parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
 			parent.get_current_equipment().ready = false
 	if Input.is_action_just_pressed("interact"):
-		# if its player unit and they're downed, revive
-		var items = parent.interaction_area.get_overlapping_areas()
 		# get closest thing inside interaction area
-		var target
-		var dist = INF
-		for interactable in items:
-			if dist > interactable.global_position.distance_to(parent.global_position):
-				dist = interactable.global_position.distance_to(parent.global_position)
-				target = interactable
+		var target = parent.get_interactable_in_range()
 		if target:
 			target = target.get_parent()
 			if target is PlayerUnit:

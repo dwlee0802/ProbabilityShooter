@@ -4,6 +4,9 @@ class_name Interactable
 @export_multiline
 var interaction_label_text: String = ""
 
+@onready
+var sprite: Sprite2D = $Sprite2D
+
 # called every frame by the interactor
 # returns false if process is finished
 func active(_dela: float, _user: PlayerUnit) -> bool:
