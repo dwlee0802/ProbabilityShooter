@@ -97,8 +97,6 @@ func _ready() -> void:
 			equipments.append(RayGun.new(eq))
 		elif eq is GrenadeData:
 			equipments.append(Grenade.new(eq))
-		elif eq is ShotgunData:
-			equipments.append(Shotgun.new(eq))
 		else:
 			equipments.append(Gun.new(eq))
 	

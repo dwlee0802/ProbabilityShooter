@@ -17,6 +17,7 @@ var damage_range: Vector2i
 @export
 var knock_back_force: float
 ## number of projectiles spawned for each attack
+@export
 var projectile_count: int = 1
 
 @export

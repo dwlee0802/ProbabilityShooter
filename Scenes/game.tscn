@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="Resource" uid="uid://dkekbbsc0cnu" path="res://Data/Guns/rocket_launcher.tres" id="10_3dsys"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
-[ext_resource type="Resource" uid="uid://kssrnd4lvva1" path="res://Data/Guns/assault_rifle.tres" id="10_78snb"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
+[ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="11_redtg"]
 [ext_resource type="Resource" uid="uid://cs5ulej1snb4t" path="res://Data/Items/damage_up.tres" id="12_ouk0x"]
 [ext_resource type="Resource" uid="uid://oy5atpvocfu2" path="res://Data/Items/reload_faster.tres" id="12_thdy7"]
 [ext_resource type="PackedScene" uid="uid://4lynrn5adlcp" path="res://Scenes/Units/core_console.tscn" id="15_5cnel"]
@@ -87,7 +87,7 @@ starting_item = ExtResource("12_ouk0x")
 position = Vector2(576, -192)
 movement_speed = 500.0
 temp_color = Color(0.729412, 0.305882, 1, 1)
-starting_equipments = [ExtResource("10_78snb"), ExtResource("10_3dsys")]
+starting_equipments = [ExtResource("11_redtg"), ExtResource("10_3dsys")]
 starting_item = ExtResource("12_thdy7")
 queued_color = Color(1, 0.647059, 0, 0.0784314)
 
