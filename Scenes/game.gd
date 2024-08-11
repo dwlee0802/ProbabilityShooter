@@ -5,7 +5,7 @@ class_name Game
 var user_interface: UserInterface = $UserInterface
 
 var pulse_enemy_scene = preload("res://Scenes/Units/pulse_enemy_unit.tscn")
-var pulse_enemy_ratio: float = 0.5
+var pulse_enemy_ratio: float = 0
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
 @onready var core: Core = $Core
@@ -99,13 +99,16 @@ func _process(_delta):
 		time_since_start += _delta
 	time_difficulty = int(time_since_start * time_difficulty_modifier)
 	
+	pulse_enemy_ratio += _delta * 0.01 * time_difficulty
+	pulse_enemy_ratio = min(pulse_enemy_ratio, 0.2)
+	
 	user_interface.game_time_label.text = str(int(time_since_start)) + " s"
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
 	
 	user_interface.update_wave_info(
 		Vector2(enemy_health_range.x, enemy_health_range.y + time_difficulty),
 		Vector2(enemy_speed_range.x, enemy_speed_range.y + time_difficulty),
-		pulse_enemy_ratio
+		pulse_enemy_ratio,
 		)
 
 func enemy_killed()-> void:
