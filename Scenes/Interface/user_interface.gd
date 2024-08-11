@@ -28,6 +28,14 @@ var core_progress_label: Label = $GameState/CoreActivationBar/CoreProgressLabel
 @onready
 var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
 
+## wave info
+@onready
+var wave_health_range_label: Label = $WaveInfo/MarginContainer/HBoxContainer/EnemyHealthRangeLabel
+@onready
+var wave_speed_range_label: Label = $WaveInfo/MarginContainer/HBoxContainer/EnemySpeedRangeLabel
+@onready
+var wave_pulse_enemy_rate_label: Label = $WaveInfo/MarginContainer/HBoxContainer/PulseEnemyRatioLabel
+
 @onready
 var interaction_label: Label = $InteractionLabel
 @onready
@@ -71,3 +79,11 @@ func show_item_info(item: ItemData):
 	await get_tree().create_timer(UserInterface.item_info_show_time).timeout
 	
 	item_info.get_node("AnimationPlayer").play("item_info_fadeout_animation")
+
+func update_wave_info(health_range: Vector2, speed_range: Vector2, pulse_enemy_rate: float):
+	var vec_to_range = func(vec: Vector2):
+		return str(vec.x) + " - " + str(vec.y)
+		
+	wave_health_range_label.text = "Enemy Health Range: "  + vec_to_range.call(health_range)
+	wave_speed_range_label.text = "Enemy Speed Range: "  + vec_to_range.call(speed_range)
+	wave_pulse_enemy_rate_label.text = "Lunger Spawn Rate: "  + str(int(pulse_enemy_rate * 100)) + "%"

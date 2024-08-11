@@ -14,13 +14,10 @@ func _ready():
 	
 func on_spawn(speed: float, health: int) -> void:
 	health_points = health
-	impulse = speed * 10
+	impulse = speed * 5
 	health_bar = $HealthBar
 	health_bar.set_max(health)
 	health_bar.change_value(health, true)
-
-func _physics_process(_delta):
-	return
 	
 func apply_movement():
 	# adjust velocity to go towards core
@@ -31,3 +28,5 @@ func apply_movement():
 	# flip sprite based on movement
 	# right is false
 	sprite.flip_h = linear_velocity.x <= 0
+	
+	movement_timer.start(3)

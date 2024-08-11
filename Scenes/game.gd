@@ -5,6 +5,7 @@ class_name Game
 var user_interface: UserInterface = $UserInterface
 
 var pulse_enemy_scene = preload("res://Scenes/Units/pulse_enemy_unit.tscn")
+var pulse_enemy_ratio: float = 0.5
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
 @onready var core: Core = $Core
@@ -32,6 +33,7 @@ var wave_timer: Timer = $WaveTimer
 @export
 var spawn_radius: int = 1000
 ## how much stronger enemies get with time
+var time_difficulty: int = 0
 @export
 var time_difficulty_modifier: float = 1.0
 
@@ -95,9 +97,16 @@ func _process(_delta):
 	
 	if !pause:
 		time_since_start += _delta
-		
+	time_difficulty = int(time_since_start * time_difficulty_modifier)
+	
 	user_interface.game_time_label.text = str(int(time_since_start)) + " s"
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
+	
+	user_interface.update_wave_info(
+		Vector2(enemy_health_range.x, enemy_health_range.y + time_difficulty),
+		Vector2(enemy_speed_range.x, enemy_speed_range.y + time_difficulty),
+		pulse_enemy_ratio
+		)
 
 func enemy_killed()-> void:
 	kill_count += 1
@@ -109,13 +118,12 @@ func spawn_wave() -> void:
 		
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit
-	if randf() < 0.1:
+	if randf() < pulse_enemy_ratio:
 		newEnemy = pulse_enemy_scene.instantiate()
 	else:
 		newEnemy = enemy_scene.instantiate()
 		
 	newEnemy.game_ref = self
-	var time_difficulty: int = int(time_since_start * time_difficulty_modifier)
 	newEnemy.on_spawn(
 		randi_range(enemy_speed_range.x, enemy_speed_range.y + time_difficulty),
 		randi_range(enemy_health_range.x, enemy_health_range.y + time_difficulty))

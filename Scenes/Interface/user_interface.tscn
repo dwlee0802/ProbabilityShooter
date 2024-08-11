@@ -468,4 +468,42 @@ libraries = {
 "": SubResource("AnimationLibrary_j30i2")
 }
 
+[node name="WaveInfo" type="PanelContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -217.0
+offset_top = -96.0
+offset_right = -11.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="WaveInfo"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="VBoxContainer" parent="WaveInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="EnemyHealthRangeLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Enemy Health Range 0-0"
+
+[node name="EnemySpeedRangeLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Enemy Speed Range 0-0"
+
+[node name="PulseEnemyRatioLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Lunger Spawn Rate: 0%"
+
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

@@ -22,6 +22,7 @@
 script = ExtResource("1_entdd")
 wave_unit_count = 15
 enemy_health_range = Vector2i(50, 100)
+enemy_speed_range = Vector2i(100, 200)
 spawn_radius = 6000
 time_difficulty_modifier = 0.5
 resource_stock = 10
