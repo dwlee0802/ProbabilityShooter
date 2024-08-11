@@ -108,7 +108,12 @@ func spawn_wave() -> void:
 		spawn_enemy_unit()
 		
 func spawn_enemy_unit() -> void:
-	var newEnemy: EnemyUnit = enemy_scene.instantiate()
+	var newEnemy: EnemyUnit
+	if randf() < 0.1:
+		newEnemy = pulse_enemy_scene.instantiate()
+	else:
+		newEnemy = enemy_scene.instantiate()
+		
 	newEnemy.game_ref = self
 	var time_difficulty: int = int(time_since_start * time_difficulty_modifier)
 	newEnemy.on_spawn(

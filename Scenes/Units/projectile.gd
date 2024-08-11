@@ -18,6 +18,8 @@ var exit_effect = preload("res://Scenes/enemy_hit_effect.tscn")
 
 var smoke_effect = preload("res://Scenes/Effects/smoke_particle.tscn")
 
+var penetration_probability: float = 1
+
 
 func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	knock_back_amount = _knock_back
@@ -59,4 +61,5 @@ func _on_body_entered(body) -> void:
 	new_exit_eff.get_node("CPUParticles2D").emitting = true
 	get_tree().root.add_child(new_exit_eff)
 	
-	queue_free()
+	if randf() > penetration_probability:
+		queue_free()
