@@ -30,7 +30,6 @@ static var camera
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	zoom_target = zoom
-	
 	noise.frequency = 2
 	noise.fractal_octaves = 3
 	

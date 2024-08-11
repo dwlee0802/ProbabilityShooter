@@ -110,6 +110,9 @@ func _process(_delta):
 		Vector2(enemy_speed_range.x, enemy_speed_range.y + time_difficulty),
 		pulse_enemy_ratio,
 		)
+		
+	if Input.is_action_just_pressed("action_one"):
+		$ClickSoundPlayer.play()
 
 func enemy_killed()-> void:
 	kill_count += 1
