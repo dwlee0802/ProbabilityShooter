@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GunItemData" load_steps=2 format=3 uid="uid://bs3rwi1lcl2ay"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_vi64h"]
+
+[resource]
+script = ExtResource("1_vi64h")
+projectile_speed = -300.0
+spread = 0.0
+projectile_count = 0
+magazine_size = 0
+damage_range = Vector2i(0, 25)
+damage_modifier = 0.0
+reload_speed_modifier = 0.0
+aim_speed_modifier = 0.0
+item_name = "Hollow Point"
+description = "Increase damage at the cost of projectile speed."
+color = Color(1, 1, 1, 1)

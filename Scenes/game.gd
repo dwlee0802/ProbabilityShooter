@@ -29,6 +29,8 @@ var enemy_speed_range: Vector2i = Vector2i(25, 100)
 ## timer for resting periods between waves
 @onready
 var wave_timer: Timer = $WaveTimer
+@onready
+var linear_spawn_timer: Timer = $LinearSpawnTimer
 ## distance from core where enemy units spawn at
 @export
 var spawn_radius: int = 1000
@@ -76,10 +78,12 @@ func _ready():
 	user_interface.core_progress_bar.change_value(0, true)
 	
 	# spawn first wave
-	spawn_wave()
+	#spawn_wave()
 	
 	wave_timer.timeout.connect(spawn_wave)
 	wave_timer.start(time_between_waves)
+	linear_spawn_timer.timeout.connect(spawn_enemy_unit)
+	linear_spawn_timer.start(4)
 	
 	user_interface.update_unit_portraits(units)
 	user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)

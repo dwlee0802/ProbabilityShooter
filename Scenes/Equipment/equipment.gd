@@ -13,6 +13,7 @@ var reload_speed_modifier: float = 0
 var aim_speed_modifier: float = 0
 
 static var max_reload_time: float = 60
+static var max_aim_time: float = 60
 
 signal finished
 
@@ -27,9 +28,20 @@ func add_reload_speed_modifier(amount: float) -> void:
 	reload_speed_modifier += amount
 	if amount != 0:
 		print("Changed reload speed modifier by " + str(amount))
+		
+func add_aim_speed_modifier(amount: float) -> void:
+	aim_speed_modifier += amount
+	if amount != 0:
+		print("Changed aiming speed modifier by " + str(amount))
 	
 func get_reload_time() -> float:
 	if 1 + reload_speed_modifier <= 0:
 		return Equipment.max_reload_time
 		
 	return data.reload_time / (1 + reload_speed_modifier)
+	
+func get_aim_time() -> float:
+	if 1 + aim_speed_modifier <= 0:
+		return Equipment.max_aim_time
+		
+	return data.aim_time / (1 + aim_speed_modifier)

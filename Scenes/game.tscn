@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -14,16 +14,13 @@
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="11_redtg"]
-[ext_resource type="Resource" uid="uid://cs5ulej1snb4t" path="res://Data/Items/damage_up.tres" id="12_ouk0x"]
-[ext_resource type="Resource" uid="uid://oy5atpvocfu2" path="res://Data/Items/reload_faster.tres" id="12_thdy7"]
 [ext_resource type="PackedScene" uid="uid://4lynrn5adlcp" path="res://Scenes/Units/core_console.tscn" id="15_5cnel"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-wave_unit_count = 15
-enemy_health_range = Vector2i(50, 100)
-enemy_speed_range = Vector2i(100, 200)
+wave_unit_count = 4
+time_between_waves = 20.0
 spawn_radius = 6000
 time_difficulty_modifier = 0.5
 resource_stock = 10
@@ -39,6 +36,9 @@ texture = ExtResource("2_jamf8")
 [node name="WaveTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 30.0
+
+[node name="LinearSpawnTimer" type="Timer" parent="."]
+wait_time = 4.0
 
 [node name="GameDurationTimer" type="Timer" parent="."]
 
@@ -84,14 +84,12 @@ movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
 starting_equipment = ExtResource("6_3xgyk")
 starting_equipments = [ExtResource("6_3xgyk"), ExtResource("6_crpyd")]
-starting_item = ExtResource("12_ouk0x")
 
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(576, -192)
 movement_speed = 500.0
 temp_color = Color(0.729412, 0.305882, 1, 1)
 starting_equipments = [ExtResource("11_redtg"), ExtResource("10_3dsys")]
-starting_item = ExtResource("12_thdy7")
 queued_color = Color(1, 0.647059, 0, 0.0784314)
 
 [node name="Enemies" type="Node2D" parent="."]

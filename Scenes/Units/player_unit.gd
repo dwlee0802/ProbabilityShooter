@@ -125,7 +125,6 @@ func _ready() -> void:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
 		
 	# make starting item
-	add_item(starting_item)
 
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
