@@ -222,3 +222,5 @@ offset_bottom = 135.0
 grow_vertical = 0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="BleedTimer" type="Timer" parent="."]

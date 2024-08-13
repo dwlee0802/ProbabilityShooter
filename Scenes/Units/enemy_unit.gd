@@ -6,6 +6,9 @@ var game_ref: Game
 static var core_position: Vector2
 
 var health_points: float = 100
+var max_health_points: float = 100
+@onready
+var bleed_timer: Timer = $BleedTimer
 
 ## percentage of radius that is considered a critical hit
 var critical_hit_ratio: float = 0.2
@@ -42,6 +45,7 @@ func on_spawn(speed: float, health: int) -> void:
 	var core_dir = global_position.direction_to(EnemyUnit.core_position)
 	apply_central_impulse(core_dir * speed)
 	health_points = health
+	max_health_points = health
 	movement_speed = speed
 	health_bar = $HealthBar
 	health_bar.set_max(health)
@@ -49,6 +53,8 @@ func on_spawn(speed: float, health: int) -> void:
 
 func _ready():
 	health_label.text = str(health_points)
+	bleed_timer.timeout.connect(
+		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
 	
 func receive_hit(damage_amount: float, critical: bool = false, projectile_info = null):
 	var new_popup = damage_popup.instantiate()
@@ -77,6 +83,9 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_info =
 	
 	CameraControl.camera.shake_screen(10,200)
 	
+	if health_points < max_health_points:
+		bleed_timer.start(2)
+		
 	if health_points <= 0:
 		die()
 		if projectile_info:

@@ -87,7 +87,7 @@ func _ready():
 	user_interface.core_progress_bar.change_value(0, true)
 	
 	# spawn first wave
-	#spawn_wave()
+	spawn_wave()
 	
 	wave_timer.timeout.connect(spawn_wave)
 	wave_timer.start(time_between_waves)
