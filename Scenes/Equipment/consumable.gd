@@ -9,5 +9,4 @@ func on_activation(_unit: Unit, _direction: Vector2):
 	## equip main weapon
 	_unit.set_current_equipment(0)
 	_unit.remove_equipment(1)
-	
 	return

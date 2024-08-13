@@ -1,2 +1,0 @@
-extends GunData
-class_name ShotgunData
