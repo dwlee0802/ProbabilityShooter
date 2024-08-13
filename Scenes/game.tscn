@@ -20,8 +20,8 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
 wave_unit_count = 4
-time_between_waves = 20.0
-spawn_radius = 6000
+enemy_speed_range = Vector2i(100, 200)
+spawn_radius = 10000
 time_difficulty_modifier = 0.5
 resource_stock = 10
 no_game_over = true
@@ -38,6 +38,9 @@ process_callback = 0
 wait_time = 30.0
 
 [node name="LinearSpawnTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="EliteTimer" type="Timer" parent="."]
 wait_time = 4.0
 
 [node name="GameDurationTimer" type="Timer" parent="."]

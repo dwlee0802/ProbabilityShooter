@@ -18,4 +18,4 @@ equipment_name = "Shotgun"
 equipment_use_sound = ExtResource("1_lsvm6")
 reload_sound = ExtResource("3_bt0p2")
 aim_time = 0.5
-reload_time = 2.0
+reload_time = 4.0

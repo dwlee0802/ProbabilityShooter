@@ -5,6 +5,7 @@ class_name Game
 var user_interface: UserInterface = $UserInterface
 
 var pulse_enemy_scene = preload("res://Scenes/Units/pulse_enemy_unit.tscn")
+@export
 var pulse_enemy_ratio: float = 0
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
@@ -31,7 +32,15 @@ var enemy_speed_range: Vector2i = Vector2i(25, 100)
 var wave_timer: Timer = $WaveTimer
 @onready
 var linear_spawn_timer: Timer = $LinearSpawnTimer
+@export
+var linear_spawn_count: int = 1
 ## distance from core where enemy units spawn at
+@onready
+var elite_timer: Timer = $EliteTimer
+@export
+var elite_spawn_time: float = 60
+@export
+var elite_unit_modifier: float = 2
 @export
 var spawn_radius: int = 1000
 ## how much stronger enemies get with time
@@ -84,6 +93,8 @@ func _ready():
 	wave_timer.start(time_between_waves)
 	linear_spawn_timer.timeout.connect(spawn_enemy_unit)
 	linear_spawn_timer.start(4)
+	elite_timer.timeout.connect(spawn_elite_unit)
+	elite_timer.start(elite_spawn_time)
 	
 	user_interface.update_unit_portraits(units)
 	user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
@@ -103,8 +114,8 @@ func _process(_delta):
 		time_since_start += _delta
 	time_difficulty = int(time_since_start * time_difficulty_modifier)
 	
-	pulse_enemy_ratio += _delta * 0.01 * time_difficulty
-	pulse_enemy_ratio = min(pulse_enemy_ratio, 0.2)
+	#pulse_enemy_ratio += _delta * 0.01 * time_difficulty
+	#pulse_enemy_ratio = min(pulse_enemy_ratio, 0.2)
 	
 	user_interface.game_time_label.text = str(int(time_since_start)) + " s"
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
@@ -128,6 +139,7 @@ func spawn_wave() -> void:
 		
 func spawn_enemy_unit() -> void:
 	var newEnemy: EnemyUnit
+	
 	if randf() < pulse_enemy_ratio:
 		newEnemy = pulse_enemy_scene.instantiate()
 	else:
@@ -141,6 +153,18 @@ func spawn_enemy_unit() -> void:
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
 
+func spawn_elite_unit() -> void:
+	var newEnemy: EnemyUnit
+	newEnemy = enemy_scene.instantiate()
+	newEnemy.game_ref = self
+	newEnemy.on_spawn(
+		enemy_speed_range.y * elite_unit_modifier,
+		enemy_health_range.y * elite_unit_modifier)
+	newEnemy.increase_size(2)
+	enemies.add_child(newEnemy)
+	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
+	newEnemy.on_death.connect(enemy_killed)
+	
 func game_over() -> void:
 	if no_game_over:
 		return

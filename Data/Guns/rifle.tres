@@ -17,5 +17,5 @@ spread = 1.0
 equipment_name = "Rifle"
 equipment_use_sound = ExtResource("1_21dl5")
 reload_sound = ExtResource("3_21bjx")
-aim_time = 3.0
+aim_time = 1.0
 reload_time = 5.0

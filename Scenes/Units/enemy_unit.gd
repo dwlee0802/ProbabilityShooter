@@ -151,4 +151,7 @@ func make_blood_splatter_eff(direction, count: int = 50) -> void:
 	new_dead_eff.get_node("CPUParticles2D").amount = count
 	new_dead_eff.get_node("CPUParticles2D").emitting = true
 	game_ref.blood_splatter.call_deferred("add_child", new_dead_eff)
-	
+
+func increase_size(rate: float) -> void:
+	$Sprite2D.scale *= rate
+	$CollisionShape2D.scale *= rate
