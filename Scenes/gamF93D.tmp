@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="6_3xgyk"]
+[ext_resource type="Resource" uid="uid://becu5sj0v260d" path="res://Data/Guns/incendiary_grenade.tres" id="6_crpyd"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
-[ext_resource type="Resource" uid="uid://btl4q5slohaxc" path="res://Data/Guns/medkit.tres" id="9_2ipg1"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="PackedScene" uid="uid://4lynrn5adlcp" path="res://Scenes/Units/core_console.tscn" id="15_5cnel"]
@@ -83,7 +83,7 @@ position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
 starting_equipment = ExtResource("6_3xgyk")
-starting_equipments = [ExtResource("6_3xgyk"), ExtResource("9_2ipg1")]
+starting_equipments = [ExtResource("6_3xgyk"), ExtResource("6_crpyd")]
 
 [node name="Enemies" type="Node2D" parent="."]
 

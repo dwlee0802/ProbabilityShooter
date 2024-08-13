@@ -98,7 +98,10 @@ func _ready() -> void:
 		elif eq is GrenadeData:
 			equipments.append(Grenade.new(eq))
 		else:
-			equipments.append(Gun.new(eq))
+			if eq is ConsumableData:
+				equipments.append(Consumable.new(eq))
+			else:
+				equipments.append(Gun.new(eq))
 	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)
@@ -125,6 +128,7 @@ func _ready() -> void:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
 		
 	# make starting item
+	
 
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
@@ -159,7 +163,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
-	
+
 func reload_action() -> void:
 	if current_equipped_index < equipments.size():
 		equipments[current_equipped_index].ready = true
@@ -216,11 +220,28 @@ func get_current_equipment():
 	if current_equipped_index < equipments.size():
 		return equipments[current_equipped_index]
 func get_other_equipment():
+	if equipments.size() <= 1:
+		return null
+		
 	if current_equipped_index + 1 < equipments.size():
 		return equipments[current_equipped_index + 1]
 	else:
 		return equipments[current_equipped_index - 1]
 
+func set_current_equipment(num: int) -> void:
+	if num >= equipments.size():
+		push_error("Set equipment index out of bounds")
+		return
+		
+	current_equipped_index = num
+	equipment_changed.emit()
+	print("current equipment: " + get_current_equipment().data.equipment_name)
+
+func remove_equipment(num: int) -> void:
+	if num < equipments.size():
+		equipments.remove_at(num)
+		equipment_changed.emit()
+		
 func get_movement_speed() -> float:
 	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
 
@@ -242,6 +263,8 @@ func update_attack_cone(progress: float) -> void:
 	attack_cone.polygon = cone_from_angle(get_current_equipment().get_spread() * progress, 100000)
 
 func update_aim_cone() -> void:
+	if !(get_current_equipment() is Gun):
+		return
 	var spread: float = get_current_equipment().get_spread()
 	aim_cone.polygon = cone_from_angle(spread, 100000)
 	attack_full_cone.polygon = cone_from_angle(spread, 100000)

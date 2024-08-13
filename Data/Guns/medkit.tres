@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ConsumableData" load_steps=3 format=3 uid="uid://btl4q5slohaxc"]
+
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_es0ld"]
+[ext_resource type="Script" path="res://Scenes/Equipment/consumable_data.gd" id="1_kiywt"]
+
+[resource]
+script = ExtResource("1_kiywt")
+projectile_scene = ExtResource("1_es0ld")
+magazine_size = 1
+projectile_speed = 0.0
+damage_range = Vector2i(0, 0)
+knock_back_force = 0.0
+projectile_count = 1
+spread = 0.0
+equipment_name = "Medkit"
+aim_time = 0.1
+reload_time = 1.0

@@ -1,0 +1,3 @@
+extends EquipmentData
+class_name ConsumableData
+
