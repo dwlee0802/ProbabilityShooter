@@ -34,8 +34,6 @@ var current_equipped_index: int = 0
 @export
 var equipments = []
 @export
-var starting_equipment: Resource
-@export
 var starting_equipments = []
 ## dictionary<ItemData data, int level> to store items this unit got
 var items = {}
@@ -98,10 +96,7 @@ func _ready() -> void:
 		elif eq is GrenadeData:
 			equipments.append(Grenade.new(eq))
 		else:
-			if eq is ConsumableData:
-				equipments.append(Consumable.new(eq))
-			else:
-				equipments.append(Gun.new(eq))
+			equipments.append(Gun.new(eq))
 	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)

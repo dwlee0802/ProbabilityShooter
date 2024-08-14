@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=15 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -6,10 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_jamf8"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
-[ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="6_3xgyk"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
-[ext_resource type="Resource" uid="uid://btl4q5slohaxc" path="res://Data/Guns/medkit.tres" id="9_2ipg1"]
+[ext_resource type="Resource" uid="uid://csmnjjopjuuar" path="res://Data/Guns/one_shotgun.tres" id="9_8smjc"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="11_redtg"]
@@ -83,8 +82,7 @@ horizontal_alignment = 1
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
-starting_equipment = ExtResource("6_3xgyk")
-starting_equipments = [ExtResource("11_redtg"), ExtResource("9_2ipg1")]
+starting_equipments = [ExtResource("11_redtg"), ExtResource("9_8smjc")]
 
 [node name="Enemies" type="Node2D" parent="."]
 

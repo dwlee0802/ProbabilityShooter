@@ -1,0 +1,2 @@
+extends EquipmentData
+class_name EffectorData

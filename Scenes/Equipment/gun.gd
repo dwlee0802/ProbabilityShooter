@@ -1,6 +1,12 @@
 extends Equipment
 class_name Gun
 
+var reload_speed_modifier: float = 0
+var aim_speed_modifier: float = 0
+
+static var max_reload_time: float = 60
+static var max_aim_time: float = 60
+
 @export
 var current_magazine_count: int = 5
 
@@ -44,6 +50,8 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	current_magazine_count -= 1
 	
 	CameraControl.camera.shake_screen(20,200)
+	
+	super.on_activation(unit, mouse_position)
 
 func have_bullets() -> bool:
 	return current_magazine_count > 0
@@ -86,10 +94,20 @@ func add_bonus_projectile_count(amount: int) -> void:
 
 func add_bonus_magazine_size(amount: int) -> void:
 	bonus_magazine_size += amount
-	bonus_magazine_size = max(bonus_magazine_size, 1)
+	bonus_magazine_size = max(bonus_magazine_size, 0)
 	if amount != 0:
 		print(data.equipment_name + " has bonus magazine size of " + str(bonus_magazine_size))
 	
+func add_reload_speed_modifier(amount: float) -> void:
+	reload_speed_modifier += amount
+	if amount != 0:
+		print("Changed reload speed modifier by " + str(amount))
+		
+func add_aim_speed_modifier(amount: float) -> void:
+	aim_speed_modifier += amount
+	if amount != 0:
+		print("Changed aiming speed modifier by " + str(amount))
+		
 func get_damage_range() -> Vector2i:
 	var mod: float = max(1 + damage_multiplier, 0)
 	return (data.damage_range + bonus_damage_range) * mod / get_projectile_count()
@@ -101,3 +119,11 @@ func get_magazine_size() -> int:
 	return data.magazine_size + bonus_magazine_size
 func get_projectile_count() -> int:
 	return data.projectile_count + bonus_projectile_count
+func get_reload_time() -> float:
+	if 1 + reload_speed_modifier <= 0:
+		return Gun.max_reload_time
+	return data.reload_time / (1 + reload_speed_modifier)
+func get_aim_time() -> float:
+	if 1 + aim_speed_modifier <= 0:
+		return Gun.max_aim_time
+	return data.aim_time / (1 + aim_speed_modifier)

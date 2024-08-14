@@ -4,6 +4,14 @@ class_name GunData
 @export
 var projectile_scene = preload("res://Scenes/Units/projectile.tscn")
 
+@export_category("Stats")
+## How long it takes for the action to fire after use
+@export
+var aim_time: float
+## How long it takes to reload the action after use
+@export
+var reload_time: float
+
 ## Number of times the gun can be used before needing to reload.
 @export
 var magazine_size: int = 5
