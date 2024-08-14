@@ -17,7 +17,7 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-wave_unit_count = 4
+wave_unit_count = 1000
 spawn_radius = 10000
 time_difficulty_modifier = 0.5
 resource_stock = 10
