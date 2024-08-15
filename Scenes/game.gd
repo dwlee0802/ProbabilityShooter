@@ -65,6 +65,11 @@ var resource_node: Node2D = $Resources
 @export
 var no_game_over: bool = false
 
+static var upgrade_options
+
+
+static func _static_init():
+	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -253,14 +258,14 @@ func bind_selected_unit_signals() -> void:
 func on_experience_changed() -> void:
 	if InputManager.selected_unit != null:
 		var unit: PlayerUnit = InputManager.selected_unit
-		user_interface.experience_bar.change_value(unit.experience_gained)
+		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 
 func on_level_up() -> void:
 	if InputManager.selected_unit != null:
 		var unit: PlayerUnit = InputManager.selected_unit
 		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
-		user_interface.experience_bar.change_value(unit.experience_gained)
+		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 	
 func pause_time(duration: float) -> void:
