@@ -1,18 +1,22 @@
-[gd_resource type="Resource" script_class="GunData" load_steps=3 format=3 uid="uid://bdcy44ox5wdf6"]
+[gd_resource type="Resource" script_class="GunData" load_steps=5 format=3 uid="uid://bdcy44ox5wdf6"]
 
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="1_boncp"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_crcsf"]
+[ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="1_xm7ut"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="3_as02g"]
 
 [resource]
 script = ExtResource("1_boncp")
 projectile_scene = ExtResource("1_crcsf")
-aim_time = 0.0
-reload_time = 0.0
+aim_time = 1.0
+reload_time = 3.0
 magazine_size = 5
-projectile_speed = 0.0
-damage_range = Vector2i(0, 0)
-knock_back_force = 0.0
+projectile_speed = 4000.0
+damage_range = Vector2i(50, 200)
+knock_back_force = 800.0
 projectile_count = 1
-spread = 0.0
-equipment_name = ""
+spread = 1.0
+equipment_name = "Rifle"
+equipment_use_sound = ExtResource("1_xm7ut")
+reload_sound = ExtResource("3_as02g")
 is_consumable = false

@@ -9,6 +9,10 @@ var game_over_ui = $GameOver
 var unit_portraits: VBoxContainer = $UnitPortraits
 @onready
 var unit_shortcut_labels: Control = $UnitShortcutLabels
+@onready
+var experience_bar: DelayedProgressBar = $ExperienceBar
+@onready
+var experience_label: Label = $ExperienceBar/ExperienceBarLabel
 
 ## game state
 @onready

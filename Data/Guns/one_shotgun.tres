@@ -8,8 +8,8 @@
 [resource]
 script = ExtResource("3_sps8c")
 projectile_scene = ExtResource("2_hw275")
-aim_time = 0.0
-reload_time = 0.0
+aim_time = 0.5
+reload_time = 1.0
 magazine_size = 2
 projectile_speed = 3000.0
 damage_range = Vector2i(50, 150)

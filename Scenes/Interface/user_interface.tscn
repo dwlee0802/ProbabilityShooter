@@ -469,17 +469,13 @@ libraries = {
 }
 
 [node name="WaveInfo" type="PanelContainer" parent="."]
-anchors_preset = 3
+anchors_preset = -1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -217.0
-offset_top = -96.0
-offset_right = -11.0
-offset_bottom = -12.0
+offset_left = -206.0
+offset_top = 50.0
+offset_bottom = 84.0
 grow_horizontal = 0
-grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="WaveInfo"]
 layout_mode = 2
@@ -505,5 +501,24 @@ text = "Enemy Speed Range 0-0"
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "Lunger Spawn Rate: 0%"
+
+[node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_right = 0.0
+grow_vertical = 0
+bar_color = Color(0.294339, 0.495578, 1, 1)
+
+[node name="ExperienceBarLabel" type="Label" parent="ExperienceBar"]
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8
+text = "Progress: 0"
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

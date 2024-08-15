@@ -42,11 +42,7 @@ var current_equipped_index: int = 0
 @export
 var equipments = []
 @export
-var main_equipment_data: EquipmentData = null
-@export
-var consumable_equipment_data: EquipmentData = null
-var main_equipment: Equipment
-var consumable: Equipment
+var starting_equipments = []
 ## dictionary<ItemData data, int level> to store items this unit got
 var items = {}
 @export
@@ -93,6 +89,11 @@ var interaction_area: Area2D = $InteractionArea
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 @onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 
+#region Experience System
+var experience_gained: int = 0
+var current_level: int = 1
+#endregion
+
 #region Signals
 signal was_selected
 signal deselected
@@ -102,15 +103,21 @@ signal knocked_out
 signal revived
 signal equipment_changed
 signal picked_up_item(item)
+signal experience_changed()
 #endregion
 
 
 func _ready() -> void:
 	# instantiate gun objects
-	if main_equipment_data is GunData:
-		main_equipment = Gun.new(main_equipment_data)
-	if consumable_equipment_data is EquipmentData:
-		consumable = Equipment.new(consumable_equipment_data)
+	for eq: EquipmentData in starting_equipments:
+		if eq is RayGunData:
+			equipments.append(RayGun.new(eq))
+		elif eq is GrenadeData:
+			equipments.append(Grenade.new(eq))
+		elif eq is EffectorData:
+			equipments.append(Effector.new(eq))
+		else:
+			equipments.append(Gun.new(eq))
 	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)
@@ -152,7 +159,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if get_current_equipment() != null and !get_current_equipment().ready:
 			# start reload
 			if action_one_reload_timer.is_stopped():
-				action_one_reload_timer.start(get_current_equipment().get_reload_time())
+				action_one_reload_timer.start(get_reload_time())
 			
 	if Input.is_action_just_pressed("switch_equipment"):
 		current_equipped_index += 1
@@ -334,6 +341,28 @@ func add_aim_speed_modifier(amount: float) -> void:
 	aim_speed_modifier += amount
 func get_aim_time() -> float:
 	return equipments[0].get_aim_time() * (1 - aim_speed_modifier)
+	
 func add_reload_speed_modifier(amount: float) -> void:
 	reload_speed_modifier += amount
+func get_reload_time() -> float:
+	return equipments[0].get_reload_time() * (1 - reload_speed_modifier)
+#endregion
+
+#region Experience system
+func add_experience(amount: int) -> void:
+	print("add " + str(amount) + " experience")
+	experience_gained += amount
+	experience_changed.emit()
+	if experience_gained >= required_exp_amount(current_level):
+		level_up()
+
+func level_up() -> void:
+	experience_gained -= required_exp_amount(current_level)
+	current_level += 1
+	print("level up to " + str(current_level))
+	return
+
+func required_exp_amount(level: int) -> int:
+	return level * 1000
+	
 #endregion

@@ -6,3 +6,4 @@
 script = ExtResource("1_pynpj")
 speed = 1000.0
 aim_speed_modifier = 0.5
+reload_speed_modifier = 0.5

@@ -37,6 +37,8 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		var new_bullet: Projectile = data.projectile_scene.instantiate()
 		var random_spread_offset: float = randf_range(-get_spread()/2, get_spread()/2)
 		# set stats
+		# save origin unit to call back for experience gain
+		new_bullet.origin_unit = unit
 		new_bullet.launch(
 			mouse_position.normalized().rotated(random_spread_offset), 
 			get_projectile_speed(), 

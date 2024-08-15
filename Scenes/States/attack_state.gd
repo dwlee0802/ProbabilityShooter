@@ -33,7 +33,7 @@ func enter() -> void:
 	else:
 		# start reload process
 		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
+			parent.action_one_reload_timer.start(parent.get_reload_time())
 		if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
 			# start attack process when reload is done
 			parent.action_one_reload_timer.timeout.connect(start_attack_process)
@@ -119,10 +119,10 @@ func on_aim_finished() -> void:
 				queued_attack_cones.pop_front().queue_free()
 			parent.attack_full_cone.visible = false
 		parent.get_current_equipment().on_activation(parent, target)
-		
 	
-	if !parent.get_current_equipment().have_bullets():
-		parent.get_current_equipment().ready = false
+	if parent.get_current_equipment() is Gun:
+		if !parent.get_current_equipment().have_bullets():
+			parent.get_current_equipment().ready = false
 	
 	# if attack direction queue has stuff in it, start next attack process
 	# reload if we are out of bullets
@@ -132,7 +132,7 @@ func on_aim_finished() -> void:
 		else:
 			# start reload process
 			if parent.action_one_reload_timer.is_stopped():
-				parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
+				parent.action_one_reload_timer.start(parent.get_reload_time())
 			if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
 				# start attack process when reload is done
 				parent.action_one_reload_timer.timeout.connect(start_attack_process)
