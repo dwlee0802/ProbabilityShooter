@@ -1,8 +1,16 @@
-extends Resource
+extends Node
 class_name EffectObject
 
-@export
-var duration: float = 0
+var data: EffectObjectData = null
+var duration_left: float = 0
 
-func effect(unit: PlayerUnit) -> void:
-	print("do something to unit")
+signal timeout(data)
+
+func _init(_data: EffectObjectData, duration: float):
+	data = _data
+	duration_left = duration
+	
+func _process(delta):
+	duration_left -= delta
+	if duration_left < 0:
+		timeout.emit(self)

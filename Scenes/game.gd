@@ -158,8 +158,8 @@ func spawn_elite_unit() -> void:
 	newEnemy = enemy_scene.instantiate()
 	newEnemy.game_ref = self
 	newEnemy.on_spawn(
-		(enemy_speed_range.y + time_difficulty) * elite_unit_modifier,
-		(enemy_health_range.y + time_difficulty) * elite_unit_modifier)
+		int((enemy_speed_range.y + time_difficulty) * elite_unit_modifier),
+		int((enemy_health_range.y + time_difficulty) * elite_unit_modifier))
 	newEnemy.increase_size(2)
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius

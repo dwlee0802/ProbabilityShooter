@@ -26,7 +26,10 @@ func enter() -> void:
 	save_mouse_position()
 	
 	if parent.get_current_equipment().ready:
-		start_attack_process()
+		if parent.get_current_equipment() is Gun:
+			start_attack_process()
+		elif parent.get_current_equipment() is Effector:
+			on_aim_finished()
 	else:
 		# start reload process
 		if parent.action_one_reload_timer.is_stopped():
