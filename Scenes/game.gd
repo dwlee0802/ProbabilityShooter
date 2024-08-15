@@ -254,13 +254,13 @@ func bind_selected_unit_signals() -> void:
 		var unit: PlayerUnit = InputManager.selected_unit
 		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
-		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
 func on_experience_changed() -> void:
 	if InputManager.selected_unit != null:
 		var unit: PlayerUnit = InputManager.selected_unit
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
-		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
 		if !user_interface.upgrade_menu.visible and unit.is_level_up_ready():
 			user_interface.show_upgrade_menu()
@@ -270,7 +270,7 @@ func on_level_up() -> void:
 		var unit: PlayerUnit = InputManager.selected_unit
 		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
-		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 	
 func pause_time(duration: float) -> void:
 	get_tree().paused = true

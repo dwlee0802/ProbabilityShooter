@@ -245,13 +245,15 @@ visible = false
 color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
+[node name="QueuedCones" type="Node2D" parent="."]
+
 [node name="AttackFullCone" type="Polygon2D" parent="."]
 visible = false
 color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [node name="AttackCone" type="Polygon2D" parent="AttackFullCone"]
-color = Color(1, 0, 0, 0.392157)
+color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="Effects" type="Node" parent="."]

@@ -74,6 +74,8 @@ var attack_full_cone: Polygon2D = $AttackFullCone
 @onready
 var aim_cone: Polygon2D = $AimCone
 @onready
+var queued_cones: Node2D = $QueuedCones
+@onready
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 @onready
 var move_line: Line2D = $MoveLine

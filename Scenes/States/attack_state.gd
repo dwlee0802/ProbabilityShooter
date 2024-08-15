@@ -163,7 +163,7 @@ func make_queued_attack_cone(dir: Vector2) -> void:
 	new_attack_cone.polygon = parent.attack_full_cone.polygon
 	new_attack_cone.color = parent.queued_color
 	new_attack_cone.rotate(dir.angle())
-	parent.add_child(new_attack_cone)
+	parent.queued_cones.add_child(new_attack_cone)
 	queued_attack_cones.append(new_attack_cone)
 	
 func clear_attack_queues():
