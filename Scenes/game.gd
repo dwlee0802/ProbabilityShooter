@@ -108,6 +108,7 @@ func _ready():
 		#unit.picked_up_item.connect(user_interface.show_item_info)
 		unit.experience_changed.connect(on_experience_changed)
 		unit.was_selected.connect(bind_selected_unit_signals)
+		unit.was_selected.connect(user_interface.load_unit_info)
 		unit.level_increased.connect(on_level_up)
 	
 func _process(_delta):

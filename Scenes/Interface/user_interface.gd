@@ -58,6 +58,11 @@ var upgrade_option_3 = $UpgradeMenu/LevelUp/Option3
 @onready
 var upgrade_option_4 = $UpgradeMenu/LevelUp/Option4
 
+@onready
+var unit_stat_label: Label = $PanelContainer/MarginContainer/GridContainer/UnitStatLabel
+@onready
+var weapon_stat_label: Label = $PanelContainer/MarginContainer/GridContainer/WeaponStatLabel
+
 
 func _ready():
 	game_over_ui.visible = false
@@ -139,3 +144,9 @@ func upgrade_option_selected(data: ItemData) -> void:
 		upgrade_menu.visible = false
 	else:
 		show_upgrade_menu()
+
+func load_unit_info():
+	var unit: PlayerUnit = InputManager.selected_unit
+	if unit != null:
+		unit_stat_label.text = unit.print_unit_stats()
+		weapon_stat_label.text = unit.print_weapon_stats()

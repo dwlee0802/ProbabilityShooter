@@ -45,7 +45,7 @@ vertical_alignment = 1
 [node name="InfoLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(1, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 11
+theme_override_font_sizes/font_size = 8
 text = "stat changes............................................................"
 vertical_alignment = 1
 autowrap_mode = 1

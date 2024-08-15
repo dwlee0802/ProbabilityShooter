@@ -17,8 +17,6 @@ var movement_speed_bonus: float = 0
 var movement_speed_multiplier: float = 1.0
 @export
 var temp_color: Color = Color.WHITE
-@export
-var damage_range: Vector2i = Vector2i(10, 150)
 var damage_bonus: Vector2i = Vector2i(0, 0)
 @export
 var health_points: float = 500
@@ -347,6 +345,28 @@ func add_reload_speed_modifier(amount: float) -> void:
 	reload_speed_modifier += amount
 func get_reload_time() -> float:
 	return equipments[0].get_reload_time() * (1 - reload_speed_modifier)
+	
+func print_unit_stats() -> String:
+	var output = "Move Speed: {move_speed}\nReloading Bonus: {reload_speed_bonus}    Aiming Bonus: {aim_speed_bonus}%"
+	
+	return output.format({
+		"move_speed":get_movement_speed(),
+		"reload_speed_bonus":int(reload_speed_modifier * 100),
+		"aim_speed_bonus":int(aim_speed_modifier*100)})
+
+func print_weapon_stats() -> String:
+	var output = ""
+	var eq = get_current_equipment()
+	if eq is Gun:
+		output += "Damage: " + str(eq.get_damage_range().x) + "-" + str(eq.get_damage_range().y) + "    "
+		output += "Aim Time: " + str(eq.get_aim_time()) + "s    "
+		output += "Reload Time: " + str(eq.get_reload_time()) + "s\n"
+		
+		output += "Spread: " + str(DW_ToolBox.TrimDecimalPoints(eq.get_spread()/PI * 180, 1)) + " deg    "
+		output += "Bullet Speed: " + str(eq.get_projectile_speed()) + "    \n"
+		
+		output += "Penetration: " + str(int(eq.get_penetration() * 100)) + "%"  
+	return output
 #endregion
 
 #region Experience system

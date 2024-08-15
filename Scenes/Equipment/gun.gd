@@ -23,6 +23,8 @@ var bonus_spread: float = 0
 var bonus_projectile_count: int = 0
 @export
 var bonus_magazine_size: int = 0
+@export
+var bonus_penetration: float = 0
 
 signal spread_changed
 
@@ -129,3 +131,5 @@ func get_aim_time() -> float:
 	if 1 + aim_speed_modifier <= 0:
 		return Gun.max_aim_time
 	return data.aim_time / (1 + aim_speed_modifier)
+func get_penetration() -> float:
+	return data.penetration + bonus_penetration

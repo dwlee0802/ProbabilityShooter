@@ -30,6 +30,8 @@ var projectile_count: int = 1
 
 @export
 var spread: float = 0
+@export
+var penetration: float = 0
 
 func get_spread_in_rad() -> float:
 	return spread / 180.0 * PI
