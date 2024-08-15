@@ -103,6 +103,7 @@ func _ready():
 		unit.picked_up_item.connect(user_interface.show_item_info)
 		unit.experience_changed.connect(on_experience_changed)
 		unit.was_selected.connect(bind_selected_unit_signals)
+		unit.level_increased.connect(on_level_up)
 	
 func _process(_delta):
 	var reload_times = []
@@ -247,11 +248,20 @@ func bind_selected_unit_signals() -> void:
 		var unit: PlayerUnit = InputManager.selected_unit
 		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
+		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
 func on_experience_changed() -> void:
 	if InputManager.selected_unit != null:
 		var unit: PlayerUnit = InputManager.selected_unit
-		user_interface.experience_bar.change_value(unit.experience_gained, true)
+		user_interface.experience_bar.change_value(unit.experience_gained)
+		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+
+func on_level_up() -> void:
+	if InputManager.selected_unit != null:
+		var unit: PlayerUnit = InputManager.selected_unit
+		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
+		user_interface.experience_bar.change_value(unit.experience_gained)
+		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 	
 func pause_time(duration: float) -> void:
 	get_tree().paused = true

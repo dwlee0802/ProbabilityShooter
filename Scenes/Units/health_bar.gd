@@ -9,7 +9,7 @@ var health_bar: ProgressBar = $HealthBar
 @onready
 var damage_bar: ProgressBar = $DamageBar
 @export
-var delay_time: float = 1
+var delay_time: float = 0.8
 
 func _ready():
 	$HealthBar.self_modulate = bar_color
@@ -21,14 +21,25 @@ func set_max(val: float):
 	damage_bar.max_value = val
 
 func change_value(new_val: float, immediate: bool = false) -> void:
-	health_bar.value = new_val
-	# gradually change damage bar
-	if !immediate:
-		var tween = get_tree().create_tween()
-		tween.tween_property(damage_bar, "value", new_val, delay_time)
-		tween.bind_node(health_bar)
+	if new_val > 0:
+		health_bar.value = new_val
+		# gradually change damage bar
+		if !immediate:
+			var tween = get_tree().create_tween()
+			tween.tween_property(damage_bar, "value", new_val, delay_time)
+			tween.bind_node(health_bar)
+		else:
+			# immediately change health bar
+			damage_bar.value = new_val
 	else:
-		# immediately change health bar
 		damage_bar.value = new_val
+		# gradually change damage bar
+		if !immediate:
+			var tween = get_tree().create_tween()
+			tween.tween_property(health_bar, "value", new_val, delay_time)
+			tween.bind_node(damage_bar)
+		else:
+			# immediately change health bar
+			health_bar.value = new_val
 		
 	return

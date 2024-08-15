@@ -103,7 +103,8 @@ signal knocked_out
 signal revived
 signal equipment_changed
 signal picked_up_item(item)
-signal experience_changed()
+signal experience_changed
+signal level_increased
 #endregion
 
 
@@ -352,14 +353,16 @@ func get_reload_time() -> float:
 func add_experience(amount: int) -> void:
 	print("add " + str(amount) + " experience")
 	experience_gained += amount
-	experience_changed.emit()
 	if experience_gained >= required_exp_amount(current_level):
 		level_up()
+	else:
+		experience_changed.emit()
 
 func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)
 	current_level += 1
 	print("level up to " + str(current_level))
+	level_increased.emit()
 	return
 
 func required_exp_amount(level: int) -> int:
