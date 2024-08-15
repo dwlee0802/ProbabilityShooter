@@ -337,7 +337,7 @@ func add_movement_bonus(amount: float) -> void:
 	movement_speed_bonus += amount
 func get_movement_speed() -> float:
 	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
-	
+
 func add_aim_speed_modifier(amount: float) -> void:
 	aim_speed_modifier += amount
 func get_aim_time() -> float:
@@ -353,10 +353,7 @@ func get_reload_time() -> float:
 func add_experience(amount: int) -> void:
 	print("add " + str(amount) + " experience")
 	experience_gained += amount
-	if experience_gained >= required_exp_amount(current_level):
-		level_up()
-	else:
-		experience_changed.emit()
+	experience_changed.emit()
 
 func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)
@@ -365,6 +362,9 @@ func level_up() -> void:
 	level_increased.emit()
 	return
 
+func is_level_up_ready() -> bool:
+	return experience_gained >= required_exp_amount(current_level)
+	
 func required_exp_amount(level: int) -> int:
 	return level * 1000
 	

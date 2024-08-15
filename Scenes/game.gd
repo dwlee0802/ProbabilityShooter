@@ -105,7 +105,7 @@ func _ready():
 	user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
 	for unit: PlayerUnit in units:
-		unit.picked_up_item.connect(user_interface.show_item_info)
+		#unit.picked_up_item.connect(user_interface.show_item_info)
 		unit.experience_changed.connect(on_experience_changed)
 		unit.was_selected.connect(bind_selected_unit_signals)
 		unit.level_increased.connect(on_level_up)
@@ -260,6 +260,9 @@ func on_experience_changed() -> void:
 		var unit: PlayerUnit = InputManager.selected_unit
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+		
+		if !user_interface.upgrade_menu.visible and unit.is_level_up_ready():
+			user_interface.show_upgrade_menu()
 
 func on_level_up() -> void:
 	if InputManager.selected_unit != null:

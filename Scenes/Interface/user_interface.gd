@@ -49,11 +49,26 @@ static var item_info_show_time: float = 3
 
 @onready
 var upgrade_menu = $UpgradeMenu
+@onready
+var upgrade_option_1 = $UpgradeMenu/LevelUp/Option1
+@onready
+var upgrade_option_2 = $UpgradeMenu/LevelUp/Option2
+@onready
+var upgrade_option_3 = $UpgradeMenu/LevelUp/Option3
+@onready
+var upgrade_option_4 = $UpgradeMenu/LevelUp/Option4
 
 
 func _ready():
 	game_over_ui.visible = false
 	item_info.visible = false
+	
+	upgrade_option_1.option_selected.connect(upgrade_option_selected)
+	upgrade_option_2.option_selected.connect(upgrade_option_selected)
+	upgrade_option_3.option_selected.connect(upgrade_option_selected)
+	upgrade_option_4.option_selected.connect(upgrade_option_selected)
+	
+	upgrade_menu.visible = false
 
 func update_unit_portraits(units) -> void:
 	for i in range(unit_portraits.get_child_count()):
@@ -98,4 +113,29 @@ func update_wave_info(health_range: Vector2, speed_range: Vector2, pulse_enemy_r
 
 ## show upgrade menu and populate it with upgrade options
 func show_upgrade_menu() -> void:
-	return
+	upgrade_option_1.set_data(Game.upgrade_options.pick_random())
+	upgrade_option_2.set_data(Game.upgrade_options.pick_random())
+	upgrade_option_3.set_data(Game.upgrade_options.pick_random())
+	
+	upgrade_menu.visible = true
+
+func upgrade_option_selected(data: ItemData) -> void:
+	if InputManager.selected_unit == null:
+		push_error("upgrade option selected but no unit selected.")
+		upgrade_menu.visible = false
+		return
+		
+	# add item to selected unit
+	if !InputManager.selected_unit.is_level_up_ready():
+		push_error("upgrade option selected but level up not ready.")
+	else:
+		InputManager.selected_unit.add_item(data)
+		InputManager.selected_unit.level_up()
+		show_item_info(data)
+	
+	# if level up is still ready after leveling up, show new options
+	# otherwise, hide menu
+	if !InputManager.selected_unit.is_level_up_ready():
+		upgrade_menu.visible = false
+	else:
+		show_upgrade_menu()
