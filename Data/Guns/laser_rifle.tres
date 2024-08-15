@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="RayGunData" load_steps=3 format=3 uid="uid://c1er6y2h88ydn"]
 
-[ext_resource type="PackedScene" uid="uid://dw4teyccanvpd" path="res://Scenes/Equipment/deathray.tscn" id="1_7ohgy"]
-[ext_resource type="Script" path="res://Scenes/Equipment/raygun_data.gd" id="1_set1x"]
+[ext_resource type="PackedScene" uid="uid://dw4teyccanvpd" path="res://Scenes/Equipment/Depreciated/deathray.tscn" id="1_7ohgy"]
+[ext_resource type="Script" path="res://Scenes/Equipment/Depreciated/raygun_data.gd" id="1_set1x"]
 
 [resource]
 script = ExtResource("1_set1x")

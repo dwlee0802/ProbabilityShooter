@@ -26,11 +26,14 @@ func enter() -> void:
 	save_mouse_position()
 	
 	if parent.get_current_equipment().ready:
-		start_attack_process()
+		if parent.get_current_equipment() is Gun:
+			start_attack_process()
+		elif parent.get_current_equipment() is Effector:
+			on_aim_finished()
 	else:
 		# start reload process
 		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
+			parent.action_one_reload_timer.start(parent.get_reload_time())
 		if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
 			# start attack process when reload is done
 			parent.action_one_reload_timer.timeout.connect(start_attack_process)
@@ -46,11 +49,11 @@ func start_attack_process() -> void:
 		return
 	# back end
 	timer.stop()
-	timer.start(parent.get_current_equipment().data.aim_time)
+	timer.start(parent.get_aim_time())
 	# front end
 	parent.attack_line.set_point_position(1, attack_direction_queue.front().normalized() * 10000)
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(attack_direction_queue.front())
-	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().data.aim_time
+	parent.attack_line_anim.speed_scale = 1/parent.get_aim_time()
 	parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
@@ -81,7 +84,7 @@ func process_frame(_delta: float) -> State:
 	if attack_direction_queue.is_empty():
 		return idle_state
 	
-	if !timer.is_stopped():
+	if !timer.is_stopped() and parent.get_current_equipment() is Gun:
 		parent.update_attack_cone((timer.wait_time - timer.time_left) / timer.wait_time)
 		
 	## action queue input
@@ -105,17 +108,21 @@ func on_aim_finished() -> void:
 		push_error("Aim finished but no attack direction.")
 	else:
 		var target: Vector2 = attack_direction_queue.pop_front()
+		if parent.get_current_equipment() is Gun:
+			parent.gunshot_sfx.stream = parent.get_current_equipment().data.equipment_use_sound
+			parent.gunshot_sfx.play()
+			parent.arm.rotation = target.angle()
+			#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
+			if queued_attack_lines.size() > 0:
+				queued_attack_lines.pop_front().queue_free()
+			if queued_attack_cones.size() > 0:
+				queued_attack_cones.pop_front().queue_free()
+			parent.attack_full_cone.visible = false
 		parent.get_current_equipment().on_activation(parent, target)
-		parent.gunshot_sfx.stream = parent.get_current_equipment().data.equipment_use_sound
-		parent.gunshot_sfx.play()
-		parent.arm.rotation = target.angle()
-		#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
-		queued_attack_lines.pop_front().queue_free()
-		queued_attack_cones.pop_front().queue_free()
-		parent.attack_full_cone.visible = false
 	
-	if !parent.get_current_equipment().have_bullets():
-		parent.get_current_equipment().ready = false
+	if parent.get_current_equipment() is Gun:
+		if !parent.get_current_equipment().have_bullets():
+			parent.get_current_equipment().ready = false
 	
 	# if attack direction queue has stuff in it, start next attack process
 	# reload if we are out of bullets
@@ -125,7 +132,7 @@ func on_aim_finished() -> void:
 		else:
 			# start reload process
 			if parent.action_one_reload_timer.is_stopped():
-				parent.action_one_reload_timer.start(parent.get_current_equipment().get_reload_time())
+				parent.action_one_reload_timer.start(parent.get_reload_time())
 			if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
 				# start attack process when reload is done
 				parent.action_one_reload_timer.timeout.connect(start_attack_process)

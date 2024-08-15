@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="GrenadeData" load_steps=3 format=3 uid="uid://becu5sj0v260d"]
 
 [ext_resource type="PackedScene" uid="uid://6jctdedknl22" path="res://Scenes/Units/damage_area.tscn" id="1_5ixr1"]
-[ext_resource type="Script" path="res://Scenes/Equipment/grenade_data.gd" id="2_8x071"]
+[ext_resource type="Script" path="res://Scenes/Equipment/Depreciated/grenade_data.gd" id="2_8x071"]
 
 [resource]
 script = ExtResource("2_8x071")
@@ -11,11 +11,13 @@ damage_per_second = 50.0
 radius = 100.0
 duration = 60.0
 projectile_scene = ExtResource("1_5ixr1")
+aim_time = 1.5
+reload_time = 5.0
 magazine_size = 1
 projectile_speed = 0.0
 damage_range = Vector2i(50, 50)
 knock_back_force = 0.0
+projectile_count = 1
 spread = 0.0
 equipment_name = "Incendiary Grenade"
-aim_time = 1.5
-reload_time = 5.0
+is_consumable = true

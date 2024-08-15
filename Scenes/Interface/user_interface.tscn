@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=15 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
 [ext_resource type="Script" path="res://Scenes/Interface/TemporaryTutorial.gd" id="4_vhvr1"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_fir5d"]
+[ext_resource type="PackedScene" uid="uid://baabjk2sesuiw" path="res://upgrade_option.tscn" id="6_2cgu3"]
 
 [sub_resource type="Animation" id="Animation_dcoc7"]
 length = 0.001
@@ -470,17 +471,13 @@ libraries = {
 }
 
 [node name="WaveInfo" type="PanelContainer" parent="."]
-anchors_preset = 3
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -217.0
-offset_top = -96.0
-offset_right = -11.0
-offset_bottom = -12.0
+offset_left = -206.0
+offset_top = 50.0
+offset_bottom = 84.0
 grow_horizontal = 0
-grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="WaveInfo"]
 layout_mode = 2
@@ -506,5 +503,60 @@ text = "Enemy Speed Range 0-0"
 layout_mode = 2
 theme_override_font_sizes/font_size = 13
 text = "Lunger Spawn Rate: 0%"
+
+[node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_right = 0.0
+grow_vertical = 0
+bar_color = Color(0.294339, 0.495578, 1, 1)
+
+[node name="ExperienceBarLabel" type="Label" parent="ExperienceBar"]
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8
+text = "Progress: 0"
+
+[node name="UpgradeMenu" type="PanelContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -122.5
+offset_bottom = 122.5
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="LevelUp" type="VBoxContainer" parent="UpgradeMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="UpgradeMenu/LevelUp"]
+layout_mode = 2
+text = "SELECT UPGRADE"
+
+[node name="Option1" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
+layout_mode = 2
+
+[node name="Option2" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
+layout_mode = 2
+
+[node name="Option3" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
+layout_mode = 2
+
+[node name="Option4" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
+visible = false
+layout_mode = 2
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

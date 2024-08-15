@@ -9,6 +9,7 @@ var state_machine: StateMachine = $StateMachine
 @onready
 var shortcut_label: Label = $ShortcutLabel
 
+#region Unit Stat Variables
 @export_category("Unit Stats")
 @export
 var movement_speed: float = 100
@@ -27,26 +28,33 @@ var max_health_points: int = 500
 var health_bar: DelayedProgressBar = $HealthBar
 @onready
 var revive_time: float = 5.0
+var aim_speed_modifier: float = 0
+var reload_speed_modifier: float = 0
+#endregion
 
+@onready
+var effects: Node = $Effects
+
+#region Equipment Variables
 @export_category("Equipment")
 @export
 var current_equipped_index: int = 0
 @export
 var equipments = []
 @export
-var starting_equipment: Resource
-@export
 var starting_equipments = []
 ## dictionary<ItemData data, int level> to store items this unit got
 var items = {}
 @export
 var starting_item: ItemData = null
+#endregion
 
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
 
 @export_category("Aim Line")
 @export
+#region Aim UI settings
 var aim_color: Color = Color.DIM_GRAY
 @export
 var attack_color: Color = Color.RED
@@ -71,6 +79,7 @@ var aim_cone: Polygon2D = $AimCone
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 @onready
 var move_line: Line2D = $MoveLine
+#endregion
 
 ## interaction
 @onready
@@ -80,6 +89,12 @@ var interaction_area: Area2D = $InteractionArea
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 @onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 
+#region Experience System
+var experience_gained: int = 0
+var current_level: int = 1
+#endregion
+
+#region Signals
 signal was_selected
 signal deselected
 signal health_changed
@@ -88,6 +103,9 @@ signal knocked_out
 signal revived
 signal equipment_changed
 signal picked_up_item(item)
+signal experience_changed
+signal level_increased
+#endregion
 
 
 func _ready() -> void:
@@ -97,6 +115,8 @@ func _ready() -> void:
 			equipments.append(RayGun.new(eq))
 		elif eq is GrenadeData:
 			equipments.append(Grenade.new(eq))
+		elif eq is EffectorData:
+			equipments.append(Effector.new(eq))
 		else:
 			equipments.append(Gun.new(eq))
 	
@@ -125,7 +145,7 @@ func _ready() -> void:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
 		
 	# make starting item
-
+	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	
@@ -140,7 +160,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if get_current_equipment() != null and !get_current_equipment().ready:
 			# start reload
 			if action_one_reload_timer.is_stopped():
-				action_one_reload_timer.start(get_current_equipment().get_reload_time())
+				action_one_reload_timer.start(get_reload_time())
 			
 	if Input.is_action_just_pressed("switch_equipment"):
 		current_equipped_index += 1
@@ -159,17 +179,8 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
-	
-func reload_action() -> void:
-	if current_equipped_index < equipments.size():
-		equipments[current_equipped_index].ready = true
-		if equipments[current_equipped_index] is Gun:
-			equipments[current_equipped_index].reload()
-		reload_sfx.stream = equipments[current_equipped_index].data.reload_sound
-		reload_sfx.play()
-	else:
-		push_error("Reload equipment index out of bounds!")
-	
+
+#region Enemy Interaction
 func receive_hit(amount: float) -> void:
 	health_points -= amount
 	health_points = max(health_points, 0)
@@ -211,19 +222,48 @@ func disable_enemy_collision():
 func enable_enemy_collision():
 	$CollisionShape2D.call_deferred("set_disabled", false)
 	print("enabled collision")
+#endregion
 
+#region Equipment management
 func get_current_equipment():
 	if current_equipped_index < equipments.size():
 		return equipments[current_equipped_index]
+		
 func get_other_equipment():
+	if equipments.size() <= 1:
+		return null
+		
 	if current_equipped_index + 1 < equipments.size():
 		return equipments[current_equipped_index + 1]
 	else:
 		return equipments[current_equipped_index - 1]
 
-func get_movement_speed() -> float:
-	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
+func set_current_equipment(num: int) -> void:
+	if num >= equipments.size():
+		push_error("Set equipment index out of bounds")
+		return
+		
+	current_equipped_index = num
+	equipment_changed.emit()
+	print("current equipment: " + get_current_equipment().data.equipment_name)
 
+func reload_action() -> void:
+	if current_equipped_index < equipments.size():
+		equipments[current_equipped_index].ready = true
+		if equipments[current_equipped_index] is Gun:
+			equipments[current_equipped_index].reload()
+		reload_sfx.stream = equipments[current_equipped_index].data.reload_sound
+		reload_sfx.play()
+	else:
+		push_error("Reload equipment index out of bounds!")
+	
+func remove_equipment(num: int) -> void:
+	if num < equipments.size():
+		equipments.remove_at(num)
+		equipment_changed.emit()
+#endregion
+		
+#region Attack UI
 func set_movement_line(points) -> void:
 	move_line.clear_points()
 	move_line.add_point(Vector2.ZERO)
@@ -242,9 +282,12 @@ func update_attack_cone(progress: float) -> void:
 	attack_cone.polygon = cone_from_angle(get_current_equipment().get_spread() * progress, 100000)
 
 func update_aim_cone() -> void:
+	if !(get_current_equipment() is Gun):
+		return
 	var spread: float = get_current_equipment().get_spread()
 	aim_cone.polygon = cone_from_angle(spread, 100000)
 	attack_full_cone.polygon = cone_from_angle(spread, 100000)
+#endregion
 
 func get_interactable_in_range():
 	var items_in_range = interaction_area.get_overlapping_areas()
@@ -258,7 +301,7 @@ func get_interactable_in_range():
 	
 	return target
 	
-## progression system methods
+#region Item System
 func add_item(item: ItemData) -> void:
 	# if it exists, increase level
 	if items.find_key(item):
@@ -275,3 +318,54 @@ func reset_items() -> void:
 	for item in items.keys():
 		item.on_exit(self, items[item])
 	items.clear()
+#endregion
+
+#region Effect System
+func add_effect(effect: EffectObjectData, duration: float):
+	var new_eff = EffectObject.new(effect, duration)
+	new_eff.timeout.connect(remove_effect)
+	effect.effect(self)
+	effects.add_child(new_eff)
+
+func remove_effect(effect: EffectObject):
+	effect.data.on_exit(self)
+	effects.remove_child(effect)
+#endregion
+
+#region Stat Change Management
+func add_movement_bonus(amount: float) -> void:
+	movement_speed_bonus += amount
+func get_movement_speed() -> float:
+	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
+	
+func add_aim_speed_modifier(amount: float) -> void:
+	aim_speed_modifier += amount
+func get_aim_time() -> float:
+	return equipments[0].get_aim_time() * (1 - aim_speed_modifier)
+	
+func add_reload_speed_modifier(amount: float) -> void:
+	reload_speed_modifier += amount
+func get_reload_time() -> float:
+	return equipments[0].get_reload_time() * (1 - reload_speed_modifier)
+#endregion
+
+#region Experience system
+func add_experience(amount: int) -> void:
+	print("add " + str(amount) + " experience")
+	experience_gained += amount
+	if experience_gained >= required_exp_amount(current_level):
+		level_up()
+	else:
+		experience_changed.emit()
+
+func level_up() -> void:
+	experience_gained -= required_exp_amount(current_level)
+	current_level += 1
+	print("level up to " + str(current_level))
+	level_increased.emit()
+	return
+
+func required_exp_amount(level: int) -> int:
+	return level * 1000
+	
+#endregion

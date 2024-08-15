@@ -28,3 +28,4 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	unit.get_tree().root.add_child(new_bullet)
 
 	current_magazine_count -= 1
+	

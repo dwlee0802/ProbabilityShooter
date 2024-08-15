@@ -9,6 +9,10 @@ var game_over_ui = $GameOver
 var unit_portraits: VBoxContainer = $UnitPortraits
 @onready
 var unit_shortcut_labels: Control = $UnitShortcutLabels
+@onready
+var experience_bar: DelayedProgressBar = $ExperienceBar
+@onready
+var experience_label: Label = $ExperienceBar/ExperienceBarLabel
 
 ## game state
 @onready
@@ -42,6 +46,10 @@ var interaction_label: Label = $InteractionLabel
 var item_info: Control = $NewItemInfo
 ## fade out after this amount of seconds
 static var item_info_show_time: float = 3
+
+@onready
+var upgrade_menu = $UpgradeMenu
+
 
 func _ready():
 	game_over_ui.visible = false
@@ -87,3 +95,7 @@ func update_wave_info(health_range: Vector2, speed_range: Vector2, pulse_enemy_r
 	wave_health_range_label.text = "Enemy Health Range: "  + vec_to_range.call(health_range)
 	wave_speed_range_label.text = "Enemy Speed Range: "  + vec_to_range.call(speed_range)
 	wave_pulse_enemy_rate_label.text = "Lunger Spawn Rate: "  + str(int(pulse_enemy_rate * 100)) + "%"
+
+## show upgrade menu and populate it with upgrade options
+func show_upgrade_menu() -> void:
+	return

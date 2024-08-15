@@ -68,15 +68,18 @@ func on_unit_equipment_changed() -> void:
 	else:
 		cooldown_shadow.anchor_bottom = 1
 		
-		
 	var other_eq: Equipment = target_unit.get_other_equipment()
-	if other_eq.ready:
-		$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 0
+	$PanelContainer/SkillIcons/TextureRect.visible = other_eq != null
+	
+	if other_eq != null:
+		if other_eq.ready:
+			$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 0
+		else:
+			$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 1
+	
+		update_equipment_name_label(current_equipment.data.equipment_name, other_eq.data.equipment_name)
 	else:
-		$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 1
-	
-	update_equipment_name_label(current_equipment.data.equipment_name, other_eq.data.equipment_name)
-	
+		update_equipment_name_label(current_equipment.data.equipment_name, "")
 		
 func update_equipment_name_label(main_name: String, other_name: String) -> void:
 	# update name label

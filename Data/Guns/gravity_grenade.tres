@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="GrenadeData" load_steps=3 format=3 uid="uid://cxl8mxjntbg5"]
 
 [ext_resource type="PackedScene" uid="uid://bhwtlcxkcnamg" path="res://Scenes/Units/slow_area.tscn" id="1_xtqxq"]
-[ext_resource type="Script" path="res://Scenes/Equipment/grenade_data.gd" id="2_4vbux"]
+[ext_resource type="Script" path="res://Scenes/Equipment/Depreciated/grenade_data.gd" id="2_4vbux"]
 
 [resource]
 script = ExtResource("2_4vbux")

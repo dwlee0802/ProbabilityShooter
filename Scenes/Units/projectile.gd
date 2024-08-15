@@ -1,6 +1,8 @@
 extends Area2D
 class_name Projectile
 
+var origin_unit
+
 var dir: Vector2
 var speed: float
 
@@ -18,8 +20,10 @@ var exit_effect = preload("res://Scenes/enemy_hit_effect.tscn")
 
 var smoke_effect = preload("res://Scenes/Effects/smoke_particle.tscn")
 
-var penetration_probability: float = 1
+var penetration_probability: float = 0
 
+@export
+var spawn_after: PackedScene
 
 func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	knock_back_amount = _knock_back
@@ -48,6 +52,9 @@ func _on_body_entered(body) -> void:
 		body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), self)
 		# apply knock-back
 		body.apply_central_impulse(dir.normalized() * knock_back_amount)
+		# give exp to shooter
+		if origin_unit is PlayerUnit:
+			origin_unit.add_experience(damage_amount)
 	
 	var new_eff: Node2D = on_hit_effect.instantiate()
 	new_eff.global_position = global_position

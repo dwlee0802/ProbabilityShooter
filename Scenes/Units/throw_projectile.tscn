@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct6kdswal6qkk"]
+
+[ext_resource type="Script" path="res://Scenes/Units/throw_projectile.gd" id="1_hbnnc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e5j5t"]
+radius = 20.0
+
+[sub_resource type="Gradient" id="Gradient_w1uqg"]
+offsets = PackedFloat32Array(0.123377, 1)
+colors = PackedColorArray(1, 0.85098, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_th7mi"]
+gradient = SubResource("Gradient_w1uqg")
+width = 40
+height = 40
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.788991, 0.211009)
+
+[node name="ThrowProjectile" type="Area2D"]
+position = Vector2(267, 145)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_hbnnc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e5j5t")
+debug_color = Color(0, 0.6, 0.701961, 0.168627)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("GradientTexture2D_th7mi")
+
+[node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
+lifetime = 2.0
+speed_scale = 10.0
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+color = Color(1, 1, 1, 0.396078)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

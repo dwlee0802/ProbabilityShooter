@@ -65,6 +65,11 @@ var resource_node: Node2D = $Resources
 @export
 var no_game_over: bool = false
 
+static var upgrade_options
+
+
+static func _static_init():
+	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -101,6 +106,9 @@ func _ready():
 	user_interface.restart_button.pressed.connect(start)
 	for unit: PlayerUnit in units:
 		unit.picked_up_item.connect(user_interface.show_item_info)
+		unit.experience_changed.connect(on_experience_changed)
+		unit.was_selected.connect(bind_selected_unit_signals)
+		unit.level_increased.connect(on_level_up)
 	
 func _process(_delta):
 	var reload_times = []
@@ -158,8 +166,8 @@ func spawn_elite_unit() -> void:
 	newEnemy = enemy_scene.instantiate()
 	newEnemy.game_ref = self
 	newEnemy.on_spawn(
-		(enemy_speed_range.y + time_difficulty) * elite_unit_modifier,
-		(enemy_health_range.y + time_difficulty) * elite_unit_modifier)
+		int((enemy_speed_range.y + time_difficulty) * elite_unit_modifier),
+		int((enemy_health_range.x + time_difficulty) * elite_unit_modifier))
 	newEnemy.increase_size(2)
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
@@ -237,6 +245,28 @@ func change_resource(amount: int) -> void:
 	resource_stock = max(resource_stock, 0)
 	print("changed resource by " + str(amount))
 	user_interface.resource_label.text = "Resource: " + str(resource_stock)
+
+## called when selected unit is changed
+## bind ui element update to selected unit signals
+func bind_selected_unit_signals() -> void:
+	if InputManager.selected_unit != null:
+		var unit: PlayerUnit = InputManager.selected_unit
+		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
+		user_interface.experience_bar.change_value(unit.experience_gained, true)
+		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+		
+func on_experience_changed() -> void:
+	if InputManager.selected_unit != null:
+		var unit: PlayerUnit = InputManager.selected_unit
+		user_interface.experience_bar.change_value(unit.experience_gained, true)
+		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+
+func on_level_up() -> void:
+	if InputManager.selected_unit != null:
+		var unit: PlayerUnit = InputManager.selected_unit
+		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
+		user_interface.experience_bar.change_value(unit.experience_gained, true)
+		user_interface.experience_label.text = str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 	
 func pause_time(duration: float) -> void:
 	get_tree().paused = true

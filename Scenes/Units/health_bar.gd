@@ -9,7 +9,7 @@ var health_bar: ProgressBar = $HealthBar
 @onready
 var damage_bar: ProgressBar = $DamageBar
 @export
-var delay_time: float = 1
+var delay_time: float = 0.8
 
 func _ready():
 	$HealthBar.self_modulate = bar_color

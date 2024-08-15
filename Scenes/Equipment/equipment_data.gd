@@ -15,11 +15,6 @@ var equipment_sprite: Texture2D
 var equipment_use_sound: Resource
 @export
 var reload_sound: Resource
-
-@export_category("Stats")
-## How long it takes for the action to fire after use
+## If true, this equipment is deleted after one time use
 @export
-var aim_time: float
-## How long it takes to reload the action after use
-@export
-var reload_time: float
+var is_consumable: bool = false

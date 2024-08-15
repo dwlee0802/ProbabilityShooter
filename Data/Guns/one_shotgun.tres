@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="GunData" load_steps=5 format=3 uid="uid://csmnjjopjuuar"]
+
+[ext_resource type="AudioStream" uid="uid://38egrfhkgxen" path="res://Sound/080902_shotgun-39753.mp3" id="1_vs820"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_hw275"]
+[ext_resource type="AudioStream" uid="uid://boj1v887q4jjr" path="res://Sound/realistic-shotgun-cocking-sound-38640.mp3" id="3_s2yj4"]
+[ext_resource type="Script" path="res://Scenes/Equipment/gun_data.gd" id="3_sps8c"]
+
+[resource]
+script = ExtResource("3_sps8c")
+projectile_scene = ExtResource("2_hw275")
+aim_time = 0.5
+reload_time = 1.0
+magazine_size = 2
+projectile_speed = 3000.0
+damage_range = Vector2i(50, 150)
+knock_back_force = 100.0
+projectile_count = 10
+spread = 10.0
+equipment_name = "One Shotgun"
+equipment_use_sound = ExtResource("1_vs820")
+reload_sound = ExtResource("3_s2yj4")
+is_consumable = true
