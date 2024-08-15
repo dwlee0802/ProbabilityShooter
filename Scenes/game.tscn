@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=13 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="PackedScene" uid="uid://c23cvo0viwxq4" path="res://Scenes/Units/core.tscn" id="1_i48ud"]
@@ -8,10 +8,8 @@
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
-[ext_resource type="Resource" uid="uid://4al85vfv22ph" path="res://Data/Effectors/adrenaline.tres" id="9_eeqls"]
 [ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
-[ext_resource type="Resource" uid="uid://bp3ddkwwligma" path="res://Data/Guns/shotgun.tres" id="11_redtg"]
 [ext_resource type="PackedScene" uid="uid://4lynrn5adlcp" path="res://Scenes/Units/core_console.tscn" id="15_5cnel"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
@@ -82,7 +80,6 @@ horizontal_alignment = 1
 position = Vector2(-591, 27)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
-starting_equipments = [ExtResource("11_redtg"), ExtResource("9_eeqls")]
 
 [node name="Enemies" type="Node2D" parent="."]
 

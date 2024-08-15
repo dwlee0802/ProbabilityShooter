@@ -28,6 +28,8 @@ var max_health_points: int = 500
 var health_bar: DelayedProgressBar = $HealthBar
 @onready
 var revive_time: float = 5.0
+var aim_speed_modifier: float = 0
+var reload_speed_modifier: float = 0
 #endregion
 
 @onready
@@ -40,7 +42,11 @@ var current_equipped_index: int = 0
 @export
 var equipments = []
 @export
-var starting_equipments = []
+var main_equipment_data: EquipmentData = null
+@export
+var consumable_equipment_data: EquipmentData = null
+var main_equipment: Equipment
+var consumable: Equipment
 ## dictionary<ItemData data, int level> to store items this unit got
 var items = {}
 @export
@@ -101,15 +107,10 @@ signal picked_up_item(item)
 
 func _ready() -> void:
 	# instantiate gun objects
-	for eq: EquipmentData in starting_equipments:
-		if eq is RayGunData:
-			equipments.append(RayGun.new(eq))
-		elif eq is GrenadeData:
-			equipments.append(Grenade.new(eq))
-		elif eq is EffectorData:
-			equipments.append(Effector.new(eq))
-		else:
-			equipments.append(Gun.new(eq))
+	if main_equipment_data is GunData:
+		main_equipment = Gun.new(main_equipment_data)
+	if consumable_equipment_data is EquipmentData:
+		consumable = Equipment.new(consumable_equipment_data)
 	
 	$ActionOneReloadTimer.timeout.connect(reload_action)
 	equipment_changed.connect($ActionOneReloadTimer.stop)
@@ -324,9 +325,15 @@ func remove_effect(effect: EffectObject):
 #endregion
 
 #region Stat Change Management
-func add_movement_bonus(amount: float):
+func add_movement_bonus(amount: float) -> void:
 	movement_speed_bonus += amount
 func get_movement_speed() -> float:
 	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
 	
+func add_aim_speed_modifier(amount: float) -> void:
+	aim_speed_modifier += amount
+func get_aim_time() -> float:
+	return equipments[0].get_aim_time() * (1 - aim_speed_modifier)
+func add_reload_speed_modifier(amount: float) -> void:
+	reload_speed_modifier += amount
 #endregion

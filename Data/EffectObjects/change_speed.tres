@@ -4,6 +4,5 @@
 
 [resource]
 script = ExtResource("1_pynpj")
-duration = 3.0
 speed = 1000.0
-aim_speed_modifier = 0.0
+aim_speed_modifier = 0.5

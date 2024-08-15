@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_qvqoe")
-duration = 3.0
+duration = 10.0
 effects = [ExtResource("1_1l74r")]
 equipment_name = "Adrenaline"
 is_consumable = true

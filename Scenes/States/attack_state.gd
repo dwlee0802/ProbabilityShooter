@@ -49,11 +49,11 @@ func start_attack_process() -> void:
 		return
 	# back end
 	timer.stop()
-	timer.start(parent.get_current_equipment().data.aim_time)
+	timer.start(parent.get_aim_time())
 	# front end
 	parent.attack_line.set_point_position(1, attack_direction_queue.front().normalized() * 10000)
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(attack_direction_queue.front())
-	parent.attack_line_anim.speed_scale = 1/parent.get_current_equipment().data.aim_time
+	parent.attack_line_anim.speed_scale = 1/parent.get_aim_time()
 	parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
