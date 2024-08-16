@@ -25,6 +25,7 @@ visible = false
 shape = SubResource("CircleShape2D_kjiim")
 
 [node name="HealthLabel" type="Label" parent="."]
+visible = false
 offset_left = -42.0
 offset_top = -161.0
 offset_right = 42.0

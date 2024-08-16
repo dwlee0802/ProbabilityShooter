@@ -7,8 +7,6 @@ var data: EquipmentData
 @export_multiline
 var description: String = "null"
 
-signal finished
-
 
 func on_activation(_unit: Unit, _direction: Vector2):
 	if data.is_consumable:

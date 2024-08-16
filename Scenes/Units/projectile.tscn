@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4dvwh48btf1b"]
+[gd_scene load_steps=7 format=3 uid="uid://d4dvwh48btf1b"]
 
 [ext_resource type="Script" path="res://Scenes/Units/projectile.gd" id="1_g0oia"]
 
@@ -16,6 +16,17 @@ height = 40
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.788991, 0.211009)
+
+[sub_resource type="Gradient" id="Gradient_gy85f"]
+offsets = PackedFloat32Array(0, 0.233766, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_br25l"]
+gradient = SubResource("Gradient_gy85f")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.151376, 0.894495)
 
 [node name="Bullet" type="Area2D"]
 position = Vector2(267, 145)
@@ -40,5 +51,10 @@ gravity = Vector2(0, 0)
 scale_amount_min = 5.0
 scale_amount_max = 10.0
 color = Color(1, 1, 1, 0.396078)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 1, 0.788235, 1)
+texture = SubResource("GradientTexture2D_br25l")
+texture_scale = 10.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

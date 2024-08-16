@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=21 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -13,18 +13,6 @@
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
-[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="12_nk6uj"]
-
-[sub_resource type="Gradient" id="Gradient_y7id6"]
-offsets = PackedFloat32Array(0.123377, 0.649351)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_745rb"]
-gradient = SubResource("Gradient_y7id6")
-width = 128
-height = 128
-fill = 1
-fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbu37"]
 radius = 64.0
@@ -68,6 +56,15 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjobb"]
 resource_local_to_scene = true
 radius = 128.0
+
+[sub_resource type="Gradient" id="Gradient_o1o5u"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fxuti"]
+gradient = SubResource("Gradient_o1o5u")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.834862, 0.224771)
 
 [node name="PlayerUnit" type="Area2D"]
 collision_layer = 2
@@ -129,7 +126,9 @@ move_state = NodePath("../Move")
 unconscious_state = NodePath("../Unconscious")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_745rb")
+self_modulate = Color(0.262431, 0.639506, 1, 1)
+scale = Vector2(2, 2)
+texture = ExtResource("11_cpb60")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pbu37")
@@ -158,6 +157,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="ShortcutLabel" type="Label" parent="."]
+visible = false
 offset_left = -65.0
 offset_top = -64.0
 offset_right = -25.0
@@ -168,6 +168,7 @@ theme_override_font_sizes/font_size = 20
 text = "1"
 
 [node name="HealthBar" parent="." instance=ExtResource("9_hb35g")]
+visible = false
 anchors_preset = 7
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -223,22 +224,14 @@ position = Vector2(63, 30)
 scale = Vector2(2.8125, 1)
 texture = ExtResource("11_cpb60")
 
-[node name="FlashParticle" type="CPUParticles2D" parent="Arm"]
+[node name="PointLight2D" type="PointLight2D" parent="Arm"]
 visible = false
-position = Vector2(105, 29)
-amount = 3
-lifetime = 0.1
-explosiveness = 0.9
-texture = ExtResource("12_nk6uj")
-spread = 90.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-damping_min = 1000.0
-damping_max = 1000.0
-scale_amount_min = 0.05
-scale_amount_max = 0.1
-color = Color(1, 1, 0, 1)
+position = Vector2(-88, 93)
+color = Color(1, 1, 0.784314, 1)
+energy = 5.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_fxuti")
+texture_scale = 8.0
 
 [node name="AimCone" type="Polygon2D" parent="."]
 visible = false

@@ -57,10 +57,12 @@ script = ExtResource("2_iduqg")
 game_ref = NodePath("..")
 
 [node name="Core Console" parent="Core" node_paths=PackedStringArray("core") instance=ExtResource("15_5cnel")]
+visible = false
 position = Vector2(-178, 102)
 core = NodePath("..")
 
 [node name="Label2" type="Label" parent="Core/Core Console"]
+visible = false
 offset_left = -95.0
 offset_top = -96.0
 offset_right = 98.0
@@ -69,6 +71,7 @@ theme_override_font_sizes/font_size = 50
 text = "Console"
 
 [node name="Label" type="Label" parent="Core"]
+visible = false
 offset_left = -150.0
 offset_top = -150.0
 offset_right = 146.0
@@ -80,7 +83,7 @@ horizontal_alignment = 1
 [node name="PlayerUnits" type="Node2D" parent="."]
 
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
-position = Vector2(-591, 27)
+position = Vector2(-496, 39)
 movement_speed = 500.0
 temp_color = Color(0.356863, 1, 1, 1)
 starting_equipments = [ExtResource("11_redtg"), ExtResource("9_eeqls")]
@@ -129,5 +132,7 @@ text = "Fabrication Bench"
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_7elte")
 volume_db = -5.0
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 [connection signal="body_entered" from="Core" to="Core" method="_on_body_entered"]
