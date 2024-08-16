@@ -75,18 +75,6 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed('right_click'):
 		return move_state
 	
-	return null
-
-func process_frame(_delta: float) -> State:
-	if parent.is_unconscious():
-		return unconscious_state
-	
-	if attack_direction_queue.is_empty():
-		return idle_state
-	
-	if !timer.is_stopped() and parent.get_current_equipment() is Gun:
-		parent.update_attack_cone((timer.wait_time - timer.time_left) / timer.wait_time)
-		
 	## action queue input
 	if InputManager.IsSelected(parent):
 		if !is_first_frame and Input.is_action_just_pressed("action_one"):
@@ -99,6 +87,18 @@ func process_frame(_delta: float) -> State:
 					start_attack_process()
 			else:
 				save_mouse_position()
+				
+	return null
+
+func process_frame(_delta: float) -> State:
+	if parent.is_unconscious():
+		return unconscious_state
+	
+	if attack_direction_queue.is_empty():
+		return idle_state
+	
+	if !timer.is_stopped() and parent.get_current_equipment() is Gun:
+		parent.update_attack_cone((timer.wait_time - timer.time_left) / timer.wait_time)
 			
 	is_first_frame = false
 	return null

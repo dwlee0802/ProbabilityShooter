@@ -388,6 +388,6 @@ func is_level_up_ready() -> bool:
 	return experience_gained >= required_exp_amount(current_level)
 	
 func required_exp_amount(level: int) -> int:
-	return level * 1000
+	return level * 100
 	
 #endregion
