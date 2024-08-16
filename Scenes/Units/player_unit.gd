@@ -161,7 +161,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			# start reload
 			if action_one_reload_timer.is_stopped():
 				action_one_reload_timer.start(get_reload_time())
-			
+				
 	if Input.is_action_just_pressed("switch_equipment"):
 		current_equipped_index += 1
 		current_equipped_index = current_equipped_index % equipments.size()

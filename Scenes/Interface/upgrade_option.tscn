@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://baabjk2sesuiw"]
 
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_puwrh"]
-[ext_resource type="Script" path="res://upgrade_option.gd" id="1_qeyeh"]
+[ext_resource type="Script" path="res://Scenes/Interface/upgrade_option.gd" id="1_qeyeh"]
 
 [node name="OptionButton" type="TextureButton"]
 self_modulate = Color(0, 0, 0, 1)
@@ -50,4 +50,28 @@ text = "stat changes............................................................
 vertical_alignment = 1
 autowrap_mode = 1
 
+[node name="HoverShade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(1, 1, 1, 0.0705882)
+
+[node name="PressedShade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 0.721569)
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="." to="." method="_on_pressed"]

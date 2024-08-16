@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
 [ext_resource type="Script" path="res://Scenes/Interface/TemporaryTutorial.gd" id="4_vhvr1"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_fir5d"]
-[ext_resource type="PackedScene" uid="uid://baabjk2sesuiw" path="res://upgrade_option.tscn" id="6_2cgu3"]
+[ext_resource type="PackedScene" uid="uid://baabjk2sesuiw" path="res://Scenes/Interface/upgrade_option.tscn" id="6_2cgu3"]
 
 [sub_resource type="Animation" id="Animation_dcoc7"]
 length = 0.001

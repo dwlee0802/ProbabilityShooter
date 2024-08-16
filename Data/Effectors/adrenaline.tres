@@ -1,11 +1,12 @@
 [gd_resource type="Resource" script_class="EffectorData" load_steps=3 format=3 uid="uid://4al85vfv22ph"]
 
-[ext_resource type="Resource" uid="uid://bm4efn6hgymtx" path="res://Data/EffectObjects/change_speed.tres" id="1_1l74r"]
+[ext_resource type="Resource" uid="uid://bm4efn6hgymtx" path="res://Data/EffectObjects/stat_change.tres" id="1_qd5l3"]
 [ext_resource type="Script" path="res://Scenes/Equipment/effector_data.gd" id="1_qvqoe"]
 
 [resource]
 script = ExtResource("1_qvqoe")
 duration = 15.0
-effects = [ExtResource("1_1l74r")]
+cooldown = 0.0
+effects = [ExtResource("1_qd5l3")]
 equipment_name = "Adrenaline Shot"
 is_consumable = false
