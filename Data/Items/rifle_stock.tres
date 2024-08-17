@@ -15,3 +15,4 @@ aim_speed_modifier = 0.1
 item_name = "Rifle Stock"
 description = "Reduce spread by 1. Increase aim speed by 10%."
 color = Color(1, 1, 1, 1)
+disabled = true

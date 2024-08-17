@@ -39,9 +39,6 @@ var dropped_item_scene = preload("res://Scenes/Units/dropped_item.tscn")
 var pick_effect_particle: CPUParticles2D = $PickEffectParticle
 
 
-static func _static_init():
-	FabricationBench.item_data_list = DW_ToolBox.ImportResources("res://Data/Items/", true)
-
 func _ready():
 	progress_bar.set_max(wait_time)
 	progress_bar.change_value(0, true)

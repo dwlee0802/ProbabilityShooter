@@ -12,6 +12,10 @@ var description: String = "null"
 @export
 var color: Color = Color.WHITE
 
+@export
+var disabled: bool = false
+
+
 func on_enter(_unit: PlayerUnit, _level: int):
 	return
 	

@@ -19,6 +19,7 @@ var damage_multiplier: float = 0
 var bonus_projectile_speed: int = 0
 @export
 var bonus_spread: float = 0
+static var min_spread: float = 0.1 /360 * PI
 @export
 var bonus_projectile_count: int = 0
 @export
@@ -85,20 +86,17 @@ func add_bonus_projectile_speed(amount: int) -> void:
 
 func add_bonus_spread(amount: float) -> void:
 	bonus_spread += amount / 180.0 * PI
-	bonus_spread = max(bonus_spread, 0)
-	if amount != 0:
+	if abs(amount) > 0.01:
 		print(data.equipment_name + " has bonus spread of " + str(bonus_spread))
 		spread_changed.emit()
 
 func add_bonus_projectile_count(amount: int) -> void:
 	bonus_projectile_count += amount
-	#bonus_projectile_count = max(bonus_spread, 1)
 	if amount != 0:
 		print(data.equipment_name + " has bonus projectile count of " + str(bonus_projectile_count))
 
 func add_bonus_magazine_size(amount: int) -> void:
 	bonus_magazine_size += amount
-	bonus_magazine_size = max(bonus_magazine_size, 0)
 	if amount != 0:
 		print(data.equipment_name + " has bonus magazine size of " + str(bonus_magazine_size))
 	
@@ -118,7 +116,7 @@ func get_damage_range() -> Vector2i:
 func get_projectile_speed() -> float:
 	return data.projectile_speed + bonus_projectile_speed
 func get_spread() -> float:
-	return max(data.get_spread_in_rad() + bonus_spread, 0)
+	return max(data.get_spread_in_rad() + bonus_spread, Gun.min_spread)
 func get_magazine_size() -> int:
 	return data.magazine_size + bonus_magazine_size
 func get_projectile_count() -> int:
@@ -130,6 +128,6 @@ func get_reload_time() -> float:
 func get_aim_time() -> float:
 	if 1 + aim_speed_modifier <= 0:
 		return Gun.max_aim_time
-	return data.aim_time / (1 + aim_speed_modifier)
+	return data.aim_time * (1 - aim_speed_modifier)
 func get_penetration() -> float:
 	return data.penetration + bonus_penetration

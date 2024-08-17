@@ -105,6 +105,7 @@ signal equipment_changed
 signal picked_up_item(item)
 signal experience_changed
 signal level_increased
+signal stats_changed
 #endregion
 
 
@@ -313,11 +314,13 @@ func add_item(item: ItemData) -> void:
 		item.on_enter(self, items[item])
 	
 	picked_up_item.emit(item)
+	stats_changed.emit()
 		
 func reset_items() -> void:
 	for item in items.keys():
 		item.on_exit(self, items[item])
 	items.clear()
+	stats_changed.emit()
 #endregion
 
 #region Effect System
@@ -326,6 +329,7 @@ func add_effect(effect: EffectObjectData, duration: float):
 	new_eff.timeout.connect(remove_effect)
 	effect.effect(self)
 	effects.add_child(new_eff)
+	stats_changed.emit()
 
 func remove_effect(effect: EffectObject):
 	effect.data.on_exit(self)
@@ -354,15 +358,15 @@ func print_unit_stats() -> String:
 	return output.format({
 		"move_speed":get_movement_speed(),
 		"reload_speed_bonus":int(reload_speed_modifier * 100),
-		"aim_speed_bonus":int(aim_speed_modifier*100)})
+		"aim_speed_bonus":int(aim_speed_modifier * 100)})
 
 func print_weapon_stats() -> String:
 	var output = ""
 	var eq = get_current_equipment()
 	if eq is Gun:
 		output += "Damage: " + str(eq.get_damage_range().x) + "-" + str(eq.get_damage_range().y) + "    "
-		output += "Aim Time: " + str(eq.get_aim_time()) + "s    "
-		output += "Reload Time: " + str(eq.get_reload_time()) + "s\n"
+		output += "Aim Time: " + str(DW_ToolBox.TrimDecimalPoints(get_aim_time(), 2)) + "s    "
+		output += "Reload Time: " + str(get_reload_time()) + "s\n"
 		
 		output += "Spread: " + str(DW_ToolBox.TrimDecimalPoints(eq.get_spread()/PI * 180, 1)) + " deg    "
 		output += "Bullet Speed: " + str(eq.get_projectile_speed()) + "    \n"

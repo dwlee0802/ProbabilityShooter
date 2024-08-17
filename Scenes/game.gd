@@ -69,7 +69,10 @@ static var upgrade_options
 
 
 static func _static_init():
-	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", true)
+	var is_diabled = func(data):
+		return !data.disabled
+		
+	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", is_diabled, true)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -109,12 +112,10 @@ func _ready():
 		unit.experience_changed.connect(on_experience_changed)
 		unit.was_selected.connect(bind_selected_unit_signals)
 		unit.was_selected.connect(user_interface.load_unit_info)
+		unit.stats_changed.connect(user_interface.load_unit_info)
 		unit.level_increased.connect(on_level_up)
 	
 func _process(_delta):
-	if Input.is_action_just_pressed("action_one"):
-		print("meow")
-		
 	var reload_times = []
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)

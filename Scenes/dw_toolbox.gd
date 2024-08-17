@@ -25,13 +25,15 @@ static func TrimDecimalPoints(num: float, count: int) -> float:
 	return int(num * decnum) / decnum
 
 ## reads all resources in path. Assumes all files in directory path are resources
-static func ImportResources(path: String, print_output: bool = false) -> Array:
+static func ImportResources(path: String, filter: Callable = func do_nothing(target): return true, print_output: bool = false) -> Array:
 	var file_path: String = path + "/"
 	var dir = DirAccess.open(file_path)
 	dir.list_dir_begin()
 	var filename: String = dir.get_next()
 	
 	var output = []
+	
+	var disabled_count: int = 0
 	
 	while filename != "":
 		var fullpath: String = path + filename
@@ -40,7 +42,11 @@ static func ImportResources(path: String, print_output: bool = false) -> Array:
 			fullpath = fullpath.trim_suffix('.remap')
 			
 		var newthing: Resource = load(fullpath)
-		output.append(newthing)
+		if filter.call(newthing):
+			output.append(newthing)
+		else:
+			disabled_count += 1
+			
 		filename = dir.get_next()
 		
 	if print_output:
@@ -48,5 +54,6 @@ static func ImportResources(path: String, print_output: bool = false) -> Array:
 		print("Imported " + str(output.size()) + " resource files.")
 		for item: ItemData in output:
 			print(item.item_name)
+		print("Excluded " + str(disabled_count) + " resource files.")
 		print("******\n")
 	return output

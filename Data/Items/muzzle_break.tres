@@ -15,3 +15,4 @@ aim_speed_modifier = 0.0
 item_name = "Muzzle Break"
 description = "null"
 color = Color(1, 1, 1, 1)
+disabled = true
