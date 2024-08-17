@@ -174,9 +174,10 @@ layout_mode = 2
 text = "RESTART"
 
 [node name="UnitPortraits" type="VBoxContainer" parent="."]
-offset_left = 6.0
-offset_right = 180.0
-offset_bottom = 646.0
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 165.0
+grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 

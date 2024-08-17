@@ -112,6 +112,9 @@ func _ready():
 		unit.level_increased.connect(on_level_up)
 	
 func _process(_delta):
+	if Input.is_action_just_pressed("action_one"):
+		print("meow")
+		
 	var reload_times = []
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)

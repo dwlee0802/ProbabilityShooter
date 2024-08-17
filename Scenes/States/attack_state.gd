@@ -18,6 +18,7 @@ var unconscious_state: State
 var timer: Timer = $Timer
 
 var is_first_frame: bool = false
+var this_frame: bool = false
 
 func enter() -> void:
 	super()
@@ -76,18 +77,20 @@ func process_input(_event: InputEvent) -> State:
 		return move_state
 	
 	## action queue input
-	if InputManager.IsSelected(parent):
-		if !is_first_frame and Input.is_action_just_pressed("action_one"):
-			if !Input.is_physical_key_pressed(KEY_SHIFT):
-				# empty attack queue
-				clear_attack_queues()
-				
-				save_mouse_position()
-				if parent.get_current_equipment().ready:
-					start_attack_process()
-			else:
-				save_mouse_position()
-				
+	if _event is InputEventMouseButton and _event.is_pressed():
+		if InputManager.IsSelected(parent):
+			if !is_first_frame:
+				if Input.is_action_just_pressed("action_one"):
+					if !Input.is_physical_key_pressed(KEY_SHIFT):
+						# empty attack queue
+						clear_attack_queues()
+						
+						save_mouse_position()
+						if parent.get_current_equipment().ready:
+							start_attack_process()
+					else:
+						save_mouse_position()
+	
 	return null
 
 func process_frame(_delta: float) -> State:
@@ -142,7 +145,7 @@ func save_mouse_position() -> void:
 	attack_direction_queue.push_back(parent.get_local_mouse_position())
 	make_queued_attack_line(attack_direction_queue.back())
 	make_queued_attack_cone(attack_direction_queue.back())
-	#print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
+	print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
 	#print(attack_direction_queue)
 
 ## makes one queued attack line

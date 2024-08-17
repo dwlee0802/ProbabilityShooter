@@ -1,10 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://baabjk2sesuiw"]
+[gd_scene load_steps=5 format=3 uid="uid://baabjk2sesuiw"]
 
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_puwrh"]
 [ext_resource type="Script" path="res://Scenes/Interface/upgrade_option.gd" id="1_qeyeh"]
+[ext_resource type="Shader" path="res://Scenes/Units/shine.gdshader" id="1_visa4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwth2"]
+shader = ExtResource("1_visa4")
+shader_parameter/shine_color = Color(1, 1, 1, 0.25)
+shader_parameter/line_width = 0.1
+shader_parameter/angle = 0.785398
+shader_parameter/speed = 1.0
+shader_parameter/wait_cycles = 2.0
 
 [node name="OptionButton" type="TextureButton"]
 self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_rwth2")
 custom_minimum_size = Vector2(200, 70)
 offset_right = 200.0
 offset_bottom = 70.0
