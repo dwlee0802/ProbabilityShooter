@@ -35,7 +35,3 @@ func _process(_delta):
 		else:
 			if current_eq is Gun:
 				mag_label.text = str(current_eq.current_magazine_count) + " / " + str(current_eq.get_magazine_size())
-				
-		# rotate pointer
-		var direction_to_cursor: Vector2 = InputManager.selected_unit.get_local_mouse_position()
-		selected_unit_pointer.rotation = direction_to_cursor.angle()
