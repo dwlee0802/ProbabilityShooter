@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="GunItemData" load_steps=2 format=3 uid="uid://brjk8ym0nnk4r"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_mccun"]
+
+[resource]
+script = ExtResource("1_mccun")
+projectile_speed = 0.0
+spread = 0.0
+projectile_count = 0
+magazine_size = 0
+penetration_chance = 0.1
+damage_range = Vector2i(0, 0)
+damage_modifier = 0.0
+reload_speed_modifier = 0.0
+aim_speed_modifier = 0.0
+item_name = "AP Rounds"
+description = "Penetration chance +10%"
+color = Color(1, 1, 1, 1)
+disabled = false

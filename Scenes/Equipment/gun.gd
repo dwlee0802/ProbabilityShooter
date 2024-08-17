@@ -48,6 +48,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 			randi_range(get_damage_range().x, get_damage_range().y), 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
+		new_bullet.penetration_probability = get_penetration()
 		
 		# add to scene
 		unit.get_tree().root.add_child(new_bullet)
@@ -109,7 +110,12 @@ func add_aim_speed_modifier(amount: float) -> void:
 	aim_speed_modifier += amount
 	if amount != 0:
 		print("Changed aiming speed modifier by " + str(amount))
-		
+
+func add_penetration_bonus(amount: float) -> void:
+	bonus_penetration += amount
+	if amount != 0:
+		print("Changed penetration amount modifier by " + str(amount))
+	
 func get_damage_range() -> Vector2i:
 	var mod: float = max(1 + damage_multiplier, 0)
 	return (data.damage_range + bonus_damage_range) * mod / get_projectile_count()
@@ -130,4 +136,6 @@ func get_aim_time() -> float:
 		return Gun.max_aim_time
 	return data.aim_time * (1 - aim_speed_modifier)
 func get_penetration() -> float:
+	if data.penetration + bonus_penetration < 0:
+		return 0
 	return data.penetration + bonus_penetration
