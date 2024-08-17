@@ -48,11 +48,11 @@ var spawn_radius: int = 1000
 var time_difficulty: int = 0
 @export
 var time_difficulty_modifier: float = 1.0
-var power_budget: int = 0
+var power_budget: float = 0
 @export
-var enemy_base_health: int = 50
+var enemy_base_health: int = 100
 @export
-var enemy_base_speed: int = 25
+var enemy_base_speed: int = 50
 
 #endregion
 
@@ -133,6 +133,7 @@ func _process(_delta):
 	
 	if !pause:
 		time_since_start += _delta
+		power_budget += _delta * time_difficulty_modifier
 	time_difficulty = int(time_since_start * time_difficulty_modifier)
 	
 	#pulse_enemy_ratio += _delta * 0.01 * time_difficulty
@@ -142,8 +143,8 @@ func _process(_delta):
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
 	
 	user_interface.update_wave_info(
-		Vector2(enemy_health_range.x, enemy_health_range.y + time_difficulty),
-		Vector2(enemy_speed_range.x, enemy_speed_range.y + time_difficulty),
+		Vector2(enemy_base_health, enemy_base_health + int(power_budget)),
+		Vector2(enemy_base_speed, enemy_base_speed + int(power_budget/2)),
 		pulse_enemy_ratio,
 		)
 		
@@ -165,11 +166,15 @@ func spawn_enemy_unit() -> void:
 		newEnemy = pulse_enemy_scene.instantiate()
 	else:
 		newEnemy = enemy_scene.instantiate()
-		
+	
+	## split power budget
+	var speed_bonus: int = randi_range(0, int(power_budget/2))
+	var hp_bonus: int = int(power_budget - speed_bonus * 2)
+	
 	newEnemy.game_ref = self
 	newEnemy.on_spawn(
-		randi_range(enemy_speed_range.x, enemy_speed_range.y + time_difficulty/2),
-		randi_range(enemy_health_range.x, enemy_health_range.y + time_difficulty))
+		enemy_base_speed + speed_bonus,
+		enemy_base_health + hp_bonus)
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)

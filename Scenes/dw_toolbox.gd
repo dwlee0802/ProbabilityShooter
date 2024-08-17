@@ -25,7 +25,7 @@ static func TrimDecimalPoints(num: float, count: int) -> float:
 	return int(num * decnum) / decnum
 
 ## reads all resources in path. Assumes all files in directory path are resources
-static func ImportResources(path: String, filter: Callable = func do_nothing(target): return true, print_output: bool = false) -> Array:
+static func ImportResources(path: String, filter: Callable = func do_nothing(_target): return true, print_output: bool = false) -> Array:
 	var file_path: String = path + "/"
 	var dir = DirAccess.open(file_path)
 	dir.list_dir_begin()

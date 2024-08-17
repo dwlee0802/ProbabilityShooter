@@ -14,6 +14,10 @@ config/name="ProbabilityShooter"
 run/main_scene="res://Scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 mouse_cursor/custom_image="res://Art/empty_circle.png"
