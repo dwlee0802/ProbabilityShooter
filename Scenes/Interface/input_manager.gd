@@ -14,6 +14,9 @@ func _ready():
 	InputManager.camera = $Camera2D
 	
 func _physics_process(_delta):
+	if InputManager.selected_unit == null:
+		_select_unit(game.units[0])
+		
 	var unit_index: int = 0
 	if Input.is_action_just_pressed("select_unit_one"):
 		unit_index = 1
