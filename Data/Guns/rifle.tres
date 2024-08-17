@@ -9,13 +9,14 @@
 script = ExtResource("1_boncp")
 projectile_scene = ExtResource("1_crcsf")
 aim_time = 1.0
-reload_time = 3.0
+reload_time = 5.0
 magazine_size = 5
 projectile_speed = 4000.0
 damage_range = Vector2i(50, 200)
 knock_back_force = 800.0
 projectile_count = 1
 spread = 1.0
+penetration = 0.0
 equipment_name = "Rifle"
 equipment_use_sound = ExtResource("1_xm7ut")
 reload_sound = ExtResource("3_as02g")

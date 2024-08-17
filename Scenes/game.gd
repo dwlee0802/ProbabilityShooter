@@ -14,6 +14,7 @@ var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
 var units = []
 
+#region Wave settings
 @export_category("Wave Setting")
 var time_since_start: float = 0
 var pause: bool = false
@@ -47,6 +48,13 @@ var spawn_radius: int = 1000
 var time_difficulty: int = 0
 @export
 var time_difficulty_modifier: float = 1.0
+var power_budget: int = 0
+@export
+var enemy_base_health: int = 50
+@export
+var enemy_base_speed: int = 25
+
+#endregion
 
 ## node to hold enemy units
 @onready
@@ -160,7 +168,7 @@ func spawn_enemy_unit() -> void:
 		
 	newEnemy.game_ref = self
 	newEnemy.on_spawn(
-		randi_range(enemy_speed_range.x, enemy_speed_range.y + time_difficulty),
+		randi_range(enemy_speed_range.x, enemy_speed_range.y + time_difficulty/2),
 		randi_range(enemy_health_range.x, enemy_health_range.y + time_difficulty))
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
@@ -171,7 +179,7 @@ func spawn_elite_unit() -> void:
 	newEnemy = enemy_scene.instantiate()
 	newEnemy.game_ref = self
 	newEnemy.on_spawn(
-		int((enemy_speed_range.y + time_difficulty) * elite_unit_modifier),
+		int((enemy_speed_range.x + time_difficulty)),
 		int((enemy_health_range.x + time_difficulty) * elite_unit_modifier))
 	newEnemy.increase_size(2)
 	enemies.add_child(newEnemy)
@@ -260,6 +268,11 @@ func bind_selected_unit_signals() -> void:
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
+		if unit.is_level_up_ready():
+			user_interface.show_upgrade_menu()
+		else:
+			user_interface.upgrade_menu.visible = false
+			
 func on_experience_changed() -> void:
 	if InputManager.selected_unit != null:
 		var unit: PlayerUnit = InputManager.selected_unit
@@ -267,6 +280,7 @@ func on_experience_changed() -> void:
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
 		if !user_interface.upgrade_menu.visible and unit.is_level_up_ready():
+			unit.upgrade_options = get_upgrade_options()
 			user_interface.show_upgrade_menu()
 
 func on_level_up() -> void:
@@ -275,6 +289,13 @@ func on_level_up() -> void:
 		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+		unit.upgrade_options = get_upgrade_options()
+		
+func get_upgrade_options(count: int = 4):
+	var output = []
+	for i in range(count):
+		output.append(Game.upgrade_options.pick_random())
+	return output
 	
 func pause_time(duration: float) -> void:
 	get_tree().paused = true

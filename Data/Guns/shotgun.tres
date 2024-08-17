@@ -9,13 +9,14 @@
 script = ExtResource("2_66qtf")
 projectile_scene = ExtResource("1_377jg")
 aim_time = 1.0
-reload_time = 3.0
+reload_time = 4.0
 magazine_size = 2
 projectile_speed = 3000.0
 damage_range = Vector2i(50, 150)
 knock_back_force = 100.0
 projectile_count = 4
 spread = 5.0
+penetration = 0.0
 equipment_name = "Shotgun"
 equipment_use_sound = ExtResource("1_lsvm6")
 reload_sound = ExtResource("3_bt0p2")

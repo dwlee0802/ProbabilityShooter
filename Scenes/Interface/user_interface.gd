@@ -49,6 +49,7 @@ static var item_info_show_time: float = 3
 
 @onready
 var upgrade_menu = $UpgradeMenu
+var upgrade_options = []
 @onready
 var upgrade_option_1 = $UpgradeMenu/LevelUp/Option1
 @onready
@@ -68,10 +69,13 @@ func _ready():
 	game_over_ui.visible = false
 	item_info.visible = false
 	
-	upgrade_option_1.option_selected.connect(upgrade_option_selected)
-	upgrade_option_2.option_selected.connect(upgrade_option_selected)
-	upgrade_option_3.option_selected.connect(upgrade_option_selected)
-	upgrade_option_4.option_selected.connect(upgrade_option_selected)
+	upgrade_options.append(upgrade_option_1)
+	upgrade_options.append(upgrade_option_2)
+	upgrade_options.append(upgrade_option_3)
+	upgrade_options.append(upgrade_option_4)
+	
+	for option in upgrade_options:
+		option.option_selected.connect(upgrade_option_selected)
 	
 	upgrade_menu.visible = false
 
@@ -118,10 +122,9 @@ func update_wave_info(health_range: Vector2, speed_range: Vector2, pulse_enemy_r
 
 ## show upgrade menu and populate it with upgrade options
 func show_upgrade_menu() -> void:
-	upgrade_option_1.set_data(Game.upgrade_options.pick_random())
-	upgrade_option_2.set_data(Game.upgrade_options.pick_random())
-	upgrade_option_3.set_data(Game.upgrade_options.pick_random())
-	
+	for i in range(upgrade_options.size()):
+		upgrade_options[i].set_data(InputManager.selected_unit.upgrade_options[i])
+		
 	upgrade_menu.visible = true
 
 func upgrade_option_selected(data: ItemData) -> void:
@@ -144,7 +147,7 @@ func upgrade_option_selected(data: ItemData) -> void:
 		upgrade_menu.visible = false
 	else:
 		show_upgrade_menu()
-
+		
 func load_unit_info():
 	var unit: PlayerUnit = InputManager.selected_unit
 	if unit != null:

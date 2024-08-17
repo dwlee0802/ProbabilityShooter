@@ -92,6 +92,7 @@ var interaction_area: Area2D = $InteractionArea
 #region Experience System
 var experience_gained: int = 0
 var current_level: int = 1
+var upgrade_options = []
 #endregion
 
 #region Signals
