@@ -35,7 +35,7 @@ var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
 var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
-static var resource_drop_chance: float = 0.2
+static var resource_drop_chance: float = 0
 var resource_drop = preload("res://Scenes/resource.tscn")
 
 signal on_death

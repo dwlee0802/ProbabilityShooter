@@ -82,6 +82,7 @@ static func _static_init():
 		
 	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", is_diabled, true)
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# delegate front end management to input manager
@@ -101,6 +102,9 @@ func _ready():
 	
 	user_interface.core_progress_bar.set_max(100)
 	user_interface.core_progress_bar.change_value(0, true)
+	
+	# set minimap parameters
+	user_interface.minimap.detection_range = spawn_radius
 	
 	# spawn first wave
 	spawn_wave()
@@ -147,7 +151,28 @@ func _process(_delta):
 		Vector2(enemy_base_speed, enemy_base_speed + int(power_budget/2)),
 		pulse_enemy_ratio,
 		)
+	
+	# update minimap
+	if InputManager.selected_unit:
+		var points: PackedVector2Array = PackedVector2Array()
+		var color_arr: PackedColorArray = PackedColorArray()
+		# add player units
+		for unit: PlayerUnit in units:
+			points.append(unit.global_position)
+			color_arr.append(unit.temp_color)
+			
+		# add camera
+		points.append(CameraControl.camera.global_position)
+		color_arr.append(Color.GREEN_YELLOW)
 		
+		for enemy: EnemyUnit in enemies.get_children():
+			points.append(enemy.global_position)
+			color_arr.append(Color.RED)
+		user_interface.minimap.update_markers(core.global_position, points, color_arr)
+	else:
+		user_interface.minimap.update_markers(core.global_position, [], [])
+		
+	
 	if Input.is_action_just_pressed("action_one"):
 		$ClickSoundPlayer.play()
 

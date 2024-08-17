@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://bla0llv7cm4g2"]
+
+[ext_resource type="Script" path="res://Scenes/Interface/minimap.gd" id="1_hxc43"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_7qup3"]
+[ext_resource type="PackedScene" uid="uid://drhasa3h2lef0" path="res://Scenes/Interface/map_marker.tscn" id="3_6bda7"]
+
+[node name="Minimap" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -200.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_hxc43")
+
+[node name="Background" type="TextureRect" parent="."]
+self_modulate = Color(0.800491, 0.800491, 0.800491, 1)
+layout_mode = 2
+texture = ExtResource("2_7qup3")
+expand_mode = 1
+
+[node name="EnemyMarkers" type="Control" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CoreMarker" parent="Background" instance=ExtResource("3_6bda7")]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

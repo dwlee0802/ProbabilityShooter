@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=16 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/Interface/TemporaryTutorial.gd" id="4_vhvr1"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_fir5d"]
 [ext_resource type="PackedScene" uid="uid://baabjk2sesuiw" path="res://Scenes/Interface/upgrade_option.tscn" id="6_2cgu3"]
+[ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://minimap.tscn" id="7_a8odi"]
 
 [sub_resource type="Animation" id="Animation_dcoc7"]
 length = 0.001
@@ -306,15 +307,15 @@ text = "0 Kills"
 horizontal_alignment = 1
 
 [node name="ResourceLabel" type="Label" parent="GameState"]
+visible = false
 layout_mode = 2
 text = "Resource: 0"
 
 [node name="CoreHitEffect" type="ColorRect" parent="."]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.584314, 0, 0, 0.0980392)
@@ -472,13 +473,16 @@ libraries = {
 }
 
 [node name="WaveInfo" type="PanelContainer" parent="."]
-anchors_preset = 1
+anchors_preset = -1
 anchor_left = 1.0
+anchor_top = 0.614
 anchor_right = 1.0
+anchor_bottom = 0.614
 offset_left = -206.0
-offset_top = 50.0
-offset_bottom = 84.0
+offset_top = -36.0
+offset_bottom = 36.0
 grow_horizontal = 0
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="WaveInfo"]
 layout_mode = 2
@@ -506,6 +510,7 @@ theme_override_font_sizes/font_size = 13
 text = "Lunger Spawn Rate: 0%"
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
+visible = false
 custom_minimum_size = Vector2(10, 10)
 anchors_preset = 12
 anchor_left = 0.0
@@ -525,14 +530,15 @@ theme_override_font_sizes/font_size = 8
 text = "Progress: 0"
 
 [node name="UpgradeMenu" type="PanelContainer" parent="."]
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -122.5
-offset_bottom = 122.5
+offset_left = -201.0
+offset_top = -224.0
+offset_right = -1.0
+offset_bottom = 21.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_vertical = 4
@@ -544,6 +550,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="UpgradeMenu/LevelUp"]
+visible = false
 layout_mode = 2
 text = "SELECT UPGRADE"
 
@@ -560,7 +567,10 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
+
 [node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

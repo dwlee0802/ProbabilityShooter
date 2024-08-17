@@ -20,6 +20,7 @@ script = ExtResource("1_entdd")
 wave_unit_count = 4
 spawn_radius = 20000
 time_difficulty_modifier = 0.5
+enemy_base_speed = 500
 resource_stock = 10
 no_game_over = true
 

@@ -64,6 +64,8 @@ var unit_stat_label: Label = $PanelContainer/MarginContainer/GridContainer/UnitS
 @onready
 var weapon_stat_label: Label = $PanelContainer/MarginContainer/GridContainer/WeaponStatLabel
 
+@onready
+var minimap: Minimap = $Minimap
 
 func _ready():
 	game_over_ui.visible = false
