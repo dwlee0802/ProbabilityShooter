@@ -9,6 +9,7 @@ var health_points: float = 100
 var max_health_points: float = 100
 @onready
 var bleed_timer: Timer = $BleedTimer
+var is_elite: bool = false
 
 ## percentage of radius that is considered a critical hit
 var critical_hit_ratio: float = 0.2

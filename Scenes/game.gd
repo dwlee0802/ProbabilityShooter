@@ -167,7 +167,10 @@ func _process(_delta):
 		
 		for enemy: EnemyUnit in enemies.get_children():
 			points.append(enemy.global_position)
-			color_arr.append(Color.RED)
+			if enemy.is_elite:
+				color_arr.append(Color.PURPLE)
+			else:
+				color_arr.append(Color.RED)
 		user_interface.minimap.update_markers(core.global_position, points, color_arr)
 	else:
 		user_interface.minimap.update_markers(core.global_position, [], [])
@@ -212,6 +215,7 @@ func spawn_elite_unit() -> void:
 		int((enemy_speed_range.x + time_difficulty)),
 		int((enemy_health_range.x + time_difficulty) * elite_unit_modifier))
 	newEnemy.increase_size(2)
+	newEnemy.is_elite = true
 	enemies.add_child(newEnemy)
 	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)

@@ -20,7 +20,6 @@ func _ready() -> void:
 	for i in range(100):
 		var new_marker: Control = marker_scene.instantiate()
 		enemy_markers.add_child(new_marker)
-		new_marker.modulate = Color.RED
 		new_marker.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(1, 99)
 	
 	#var test_positions = []
@@ -52,7 +51,7 @@ func update_markers(center: Vector2, points: PackedVector2Array, colors: PackedC
 			
 		current_marker.position = local_pos
 		current_marker.visible = true
-		current_marker.modulate = colors[i]
+		current_marker.get_node("TextureRect").self_modulate = colors[i]
 	
 	for i: int in range(points.size(), enemy_markers.get_child_count()):
 		enemy_markers.get_child(i).visible = false

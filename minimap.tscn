@@ -18,7 +18,7 @@ grow_vertical = 0
 script = ExtResource("1_hxc43")
 
 [node name="Background" type="TextureRect" parent="."]
-self_modulate = Color(0.800491, 0.800491, 0.800491, 1)
+self_modulate = Color(0.273872, 0.273873, 0.273873, 1)
 layout_mode = 2
 texture = ExtResource("2_7qup3")
 expand_mode = 1
