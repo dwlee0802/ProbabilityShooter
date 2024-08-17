@@ -55,7 +55,7 @@ func start_attack_process() -> void:
 	parent.attack_line.set_point_position(1, attack_direction_queue.front().normalized() * 10000)
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(attack_direction_queue.front())
 	parent.attack_line_anim.speed_scale = 1/parent.get_aim_time()
-	parent.attack_line.visible = true
+	#parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
 	queued_attack_lines.front().visible = false
@@ -158,6 +158,10 @@ func make_queued_attack_line(dir: Vector2) -> void:
 	new_line.points = points
 	new_line.width = 10
 	new_line.default_color = parent.queued_color
+	
+	# disabled
+	new_line.visible = false
+	
 	parent.add_child(new_line)
 	queued_attack_lines.append(new_line)
 	

@@ -171,8 +171,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
 	# make aim line follow mouse cursor
-	aim_line.visible = InputManager.IsSelected(self)
-	aim_cone.visible = aim_line.visible
+	#aim_line.visible = InputManager.IsSelected(self)
+	aim_cone.visible = InputManager.IsSelected(self)
 	if InputManager.IsSelected(self):
 		aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
 		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
