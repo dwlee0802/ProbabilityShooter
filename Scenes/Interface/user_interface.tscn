@@ -313,7 +313,7 @@ text = "Resource: 0"
 
 [node name="CoreHitEffect" type="ColorRect" parent="."]
 visible = false
-anchors_preset = -1
+anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 grow_vertical = 2
@@ -475,12 +475,12 @@ libraries = {
 [node name="WaveInfo" type="PanelContainer" parent="."]
 anchors_preset = -1
 anchor_left = 1.0
-anchor_top = 0.614
+anchor_top = 0.65
 anchor_right = 1.0
-anchor_bottom = 0.614
-offset_left = -206.0
-offset_top = -36.0
-offset_bottom = 36.0
+anchor_bottom = 0.65
+offset_left = -128.0
+offset_top = -21.0
+offset_bottom = 21.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -493,20 +493,22 @@ theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="VBoxContainer" parent="WaveInfo/MarginContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="EnemyHealthRangeLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 10
 text = "Enemy Health Range 0-0"
 
 [node name="EnemySpeedRangeLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 10
 text = "Enemy Speed Range 0-0"
 
 [node name="PulseEnemyRatioLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 10
 text = "Lunger Spawn Rate: 0%"
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
@@ -530,7 +532,7 @@ theme_override_font_sizes/font_size = 8
 text = "Progress: 0"
 
 [node name="UpgradeMenu" type="PanelContainer" parent="."]
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
