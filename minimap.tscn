@@ -32,6 +32,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="CoreMarker" parent="Background" instance=ExtResource("3_6bda7")]
 modulate = Color(0, 0, 0, 1)
@@ -43,3 +44,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

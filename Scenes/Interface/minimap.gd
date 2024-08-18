@@ -5,6 +5,8 @@ static var marker_scene = preload("res://Scenes/Interface/map_marker.tscn")
 
 var enemy_markers: Control
 
+var center_global_position: Vector2
+
 @export
 ## max distance minimap points are away from center irl
 var detection_range: int = 20000:
@@ -32,6 +34,8 @@ func _ready() -> void:
 ## all in global space
 ## recalculate the relative position vectors from center point and move markers there
 func update_markers(center: Vector2, points: PackedVector2Array, colors: PackedColorArray) -> void:
+	center_global_position = center
+	
 	for i: int in range(points.size()):
 		var local_pos: Vector2 = points[i] - center
 		# reduce length to fit in range
@@ -55,3 +59,10 @@ func update_markers(center: Vector2, points: PackedVector2Array, colors: PackedC
 	
 	for i: int in range(points.size(), enemy_markers.get_child_count()):
 		enemy_markers.get_child(i).visible = false
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.is_action_pressed("action_one"):
+		var clicked_position: Vector2 = get_local_mouse_position()
+		# move camera to there
+		CameraControl.camera.center_camera_on(
+			center_global_position + (clicked_position - Vector2(100, 100)).normalized() * (clicked_position - Vector2(100,100)).length()/100 * detection_range)
