@@ -124,8 +124,8 @@ func _ready() -> void:
 		else:
 			equipments.append(Gun.new(eq))
 	
-	$ActionOneReloadTimer.timeout.connect(reload_action)
-	equipment_changed.connect($ActionOneReloadTimer.stop)
+	$ActionOneReloadTimer.timeout.connect(reload_action.bind(0))
+	$SecondaryReloadTimer.timeout.connect(reload_action.bind(1))
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
 	print("equipped " + get_current_equipment().data.equipment_name)
@@ -274,12 +274,12 @@ func set_current_equipment(num: int) -> void:
 	equipment_changed.emit()
 	print("current equipment: " + get_current_equipment().data.equipment_name)
 
-func reload_action() -> void:
-	if current_equipped_index < equipments.size():
-		equipments[current_equipped_index].ready = true
-		if equipments[current_equipped_index] is Gun:
-			equipments[current_equipped_index].reload()
-		reload_sfx.stream = equipments[current_equipped_index].data.reload_sound
+func reload_action(eq_num: int = 0) -> void:
+	if eq_num < equipments.size():
+		equipments[eq_num].ready = true
+		if equipments[eq_num] is Gun:
+			equipments[eq_num].reload()
+		reload_sfx.stream = equipments[eq_num].data.reload_sound
 		reload_sfx.play()
 	else:
 		push_error("Reload equipment index out of bounds!")

@@ -1,27 +1,32 @@
 extends Control
 class_name UnitPortrait
 
+var portrait_image: TextureRect
 @onready
-var shortcut_label: Label = $PanelContainer/Image/ShortCutLabel
+var shortcut_label: Label = $PortraitImage/ShortCutLabel
 @onready
 var animation_player: AnimationPlayer = $AnimationPlayer
 
 var target_unit: PlayerUnit
 
 @onready
-var health_bar: DelayedProgressBar = $PanelContainer/HealthBar
+var health_bar: DelayedProgressBar = $PortraitImage/HealthBar
+@onready
+var hit_animation: AnimationPlayer = $PortraitImage/HitShadow/AnimationPlayer
 
 @onready
-var cooldown_shadow: Control = $PanelContainer/WeaponImage/CooldownShadow
+var main_slot: Control = $VBoxContainer/CurrentSlot
 @onready
-var reload_complete_animation_player: AnimationPlayer = $PanelContainer/WeaponImage/ReadyTint/AnimationPlayer
-
+var secondary_slot: Control = $VBoxContainer/OtherSlot
 @onready
-var secondary_cooldown_shade: Control = $PanelContainer/SkillIcons/TextureRect/CooldownShadow
+var main_equipment_icon: EquipmentIcon = $VBoxContainer/CurrentSlot/MainWeaponIcon
 @onready
-var secondary_reload_animation: AnimationPlayer = $PanelContainer/SkillIcons/TextureRect/ReadyTint/AnimationPlayer
+var secondary_equipment_icon: EquipmentIcon = $VBoxContainer/OtherSlot/SecondaryWeaponIcon
 
-
+func _ready() -> void:
+	portrait_image = $PortraitImage
+	print(portrait_image.get_parent().name)
+	
 func set_shortcut_label(num: int) -> void:
 	shortcut_label.text = str(num)
 
@@ -31,21 +36,26 @@ func set_unit(unit: PlayerUnit) -> void:
 	if !visible:
 		return
 	
+	portrait_image.self_modulate = target_unit.temp_color
+	
 	health_bar.set_max(target_unit.max_health_points)
 	update_healthbar()
 	
-	# set portrait image
+	# set equipment icon data
+	main_equipment_icon.set_data(target_unit.equipments[0], target_unit.action_one_reload_timer)
+	if target_unit.has_secondary():
+		secondary_equipment_icon.set_data(target_unit.equipments[1], target_unit.secondary_reload_timer)
+	else:
+		secondary_equipment_icon.visible = false
 	
 	# connect signals
 	target_unit.was_selected.connect(animation_player.play.bind("portrait_select"))
 	target_unit.deselected.connect(animation_player.play.bind("RESET"))
 	target_unit.health_changed.connect(update_healthbar)
-	target_unit.action_one_reload_timer.timeout.connect(reload_complete_animation_player.play.bind("reload_finished_animation"))
-	target_unit.was_attacked.connect($PanelContainer/Image/HitShadow/AnimationPlayer.play.bind("hit_portrait_animation"))
+	target_unit.was_attacked.connect(hit_animation.play.bind("hit_portrait_animation"))
 	target_unit.knocked_out.connect(on_unit_knocked_out)
 	target_unit.revived.connect(on_unit_revived)
 	target_unit.equipment_changed.connect(on_unit_equipment_changed)
-	on_unit_equipment_changed()
 
 func update_healthbar():
 	health_bar.change_value(target_unit.health_points)
@@ -57,43 +67,29 @@ func on_unit_revived():
 	health_bar.change_value(target_unit.health_points)
 	
 func _process(_delta):
-	if target_unit != null:
-		if !target_unit.action_one_reload_timer.is_stopped():
-			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.get_current_equipment().data.reload_time)
-			
-		# do it for the other equipment too
-		if !target_unit.secondary_reload_timer.is_stopped():
-			if target_unit.has_secondary():
-				secondary_cooldown_shade.anchor_bottom = (target_unit.secondary_reload_timer.time_left / target_unit.equipments[1].data.reload_time)
-			
+	pass
 			
 func on_unit_equipment_changed() -> void:
 	if target_unit == null:
 		return
-		
-	var current_equipment: Equipment = target_unit.get_current_equipment()
-	var other_equipment: Equipment
-	if target_unit.has_secondary():
-		other_equipment = target_unit.get_other_equipment()
+	if !target_unit.has_secondary():
+		return
 	
-	$PanelContainer/SkillIcons/TextureRect.visible = other_equipment != null
-	
-	# set cooldown shades
-	if !current_equipment.ready:
-		cooldown_shadow.anchor_bottom = (target_unit.get_current_equipment_timer().time_left / current_equipment.data.reload_time)
-	else:
-		cooldown_shadow.anchor_bottom = 0
+	# remove children
+	for child in main_slot.get_children():
+		main_slot.remove_child(child)
+	for child in secondary_slot.get_children():
+		secondary_slot.remove_child(child)
 		
-	if other_equipment != null and !other_equipment.ready:
-		secondary_cooldown_shade.anchor_bottom = (target_unit.get_other_equipment_timer().time_left / other_equipment.data.reload_time)
+	## equipped main equipment
+	if target_unit.get_current_equipment() == main_equipment_icon.target_equipment:
+		main_slot.add_child(main_equipment_icon)
+		secondary_slot.add_child(secondary_equipment_icon)
+	## equipped secondary
 	else:
-		secondary_cooldown_shade.anchor_bottom = 0
+		main_slot.add_child(secondary_equipment_icon)
+		secondary_slot.add_child(main_equipment_icon)
 	
-	if other_equipment != null:
-		update_equipment_name_label(current_equipment.data.equipment_name, other_equipment.data.equipment_name)
-	else:
-		update_equipment_name_label(current_equipment.data.equipment_name, "")
-		
 func update_equipment_name_label(main_name: String, other_name: String) -> void:
 	# update name label
 	$PanelContainer/SkillIcons/TextureRect/WeaponNameLabel.text = other_name

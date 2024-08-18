@@ -1,38 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://4ly04duxj5fu"]
+[gd_scene load_steps=14 format=3 uid="uid://4ly04duxj5fu"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/unit_portrait.gd" id="1_5p2e6"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_yonm2"]
+[ext_resource type="Script" path="res://Scenes/Interface/portrait_image.gd" id="3_3dlx2"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_o2cqk"]
+[ext_resource type="PackedScene" uid="uid://dtr0fngxikvrt" path="res://equipment_icon.tscn" id="3_thmnd"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c2xu1"]
 
 [sub_resource type="Animation" id="Animation_ei3io"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(165, 50)]
-}
 
 [sub_resource type="Animation" id="Animation_m4y84"]
 resource_name = "portrait_select"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(165, 50), Vector2(180, 50)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0hqsc"]
 _data = {
@@ -106,57 +86,37 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 script = ExtResource("1_5p2e6")
 
+[node name="TempBugfix" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("PlaceholderTexture2D_c2xu1")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0hqsc")
 }
 speed_scale = 10.0
 
-[node name="PanelContainer" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -167.0
-offset_top = -35.5
-offset_bottom = 35.5
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="Panel" type="Panel" parent="PanelContainer"]
-custom_minimum_size = Vector2(160, 60)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -30.0
-offset_right = 80.0
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Image" type="TextureRect" parent="PanelContainer"]
-custom_minimum_size = Vector2(50, 50)
+[node name="PortraitImage" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 7.0
+offset_left = 5.0
 offset_top = -25.0
-offset_right = 50.0
+offset_right = 55.0
 offset_bottom = 25.0
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("1_yonm2")
 expand_mode = 1
+script = ExtResource("3_3dlx2")
 
-[node name="ShortCutLabel" type="Label" parent="PanelContainer/Image"]
+[node name="ShortCutLabel" type="Label" parent="PortraitImage"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,9 +128,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 14
 text = "1"
-vertical_alignment = 2
 
-[node name="HitShadow" type="ColorRect" parent="PanelContainer/Image"]
+[node name="HitShadow" type="ColorRect" parent="PortraitImage"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -179,12 +138,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainer/Image/HitShadow"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PortraitImage/HitShadow"]
 libraries = {
 "": SubResource("AnimationLibrary_4vrfe")
 }
 
-[node name="UnconsciousShadow" type="ColorRect" parent="PanelContainer/Image"]
+[node name="UnconsciousShadow" type="ColorRect" parent="PortraitImage"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -194,115 +153,59 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.635294)
 
-[node name="WeaponImage" type="TextureRect" parent="PanelContainer"]
-self_modulate = Color(0.271793, 4.9695e-05, 0.271791, 1)
-custom_minimum_size = Vector2(100, 30)
+[node name="HealthBar" parent="PortraitImage" instance=ExtResource("3_o2cqk")]
+custom_minimum_size = Vector2(10, 4)
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -15.0
-offset_right = -5.0
-offset_bottom = -4.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("1_yonm2")
-expand_mode = 1
-
-[node name="CooldownShadow" type="ColorRect" parent="PanelContainer/WeaponImage"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.635294)
-
-[node name="ReadyTint" type="ColorRect" parent="PanelContainer/WeaponImage"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainer/WeaponImage/ReadyTint"]
-libraries = {
-"": SubResource("AnimationLibrary_4vrfe")
-}
-speed_scale = 3.0
-
-[node name="WeaponNameLabel" type="Label" parent="PanelContainer/WeaponImage/ReadyTint"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 10
-text = "Name Here"
-
-[node name="SkillIcons" type="HBoxContainer" parent="PanelContainer"]
-custom_minimum_size = Vector2(100, 15)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = 22.0
-offset_right = -5.0
-offset_bottom = 11.0
-grow_horizontal = 0
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/SkillIcons"]
-self_modulate = Color(0, 0.362987, 0.364418, 1)
-custom_minimum_size = Vector2(40, 5)
-layout_mode = 2
-texture = ExtResource("1_yonm2")
-expand_mode = 1
-
-[node name="CooldownShadow" type="ColorRect" parent="PanelContainer/SkillIcons/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.635294)
-
-[node name="ReadyTint" type="ColorRect" parent="PanelContainer/SkillIcons/TextureRect"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="PanelContainer/SkillIcons/TextureRect/ReadyTint"]
-libraries = {
-"": SubResource("AnimationLibrary_4vrfe")
-}
-speed_scale = 3.0
-
-[node name="WeaponNameLabel" type="Label" parent="PanelContainer/SkillIcons/TextureRect"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 6
-text = "Name Here"
-
-[node name="HealthBar" parent="PanelContainer" instance=ExtResource("3_o2cqk")]
-layout_mode = 1
-anchors_preset = 7
+anchors_preset = 12
+anchor_left = 0.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -77.5
-offset_top = -5.0
-offset_right = 79.5
-offset_bottom = 1.0
+offset_left = 0.0
+offset_top = 2.0
+offset_right = 0.0
+offset_bottom = 6.0
 grow_vertical = 0
+
+[node name="ExperienceBar" parent="PortraitImage" instance=ExtResource("3_o2cqk")]
+custom_minimum_size = Vector2(10, 4)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 6.0
+offset_right = 0.0
+offset_bottom = 10.0
+grow_vertical = 0
+bar_color = Color(0.289395, 0.496626, 1, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
+offset_bottom = 59.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="CurrentSlot" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MainWeaponIcon" parent="VBoxContainer/CurrentSlot" instance=ExtResource("3_thmnd")]
+custom_minimum_size = Vector2(40, 20)
+layout_mode = 1
+
+[node name="OtherSlot" type="Control" parent="VBoxContainer"]
+custom_minimum_size = Vector2(70, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="SecondaryWeaponIcon" parent="VBoxContainer/OtherSlot" instance=ExtResource("3_thmnd")]
+custom_minimum_size = Vector2(35, 15)
+layout_mode = 1

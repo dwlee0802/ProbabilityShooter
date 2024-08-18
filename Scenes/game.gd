@@ -3,6 +3,7 @@ class_name Game
 
 @onready
 var user_interface: UserInterface = $UserInterface
+var portraits_set: bool = false
 
 var pulse_enemy_scene = preload("res://Scenes/Units/pulse_enemy_unit.tscn")
 @export
@@ -116,9 +117,9 @@ func _ready():
 	elite_timer.timeout.connect(spawn_elite_unit)
 	elite_timer.start(elite_spawn_time)
 	
-	user_interface.update_unit_portraits(units)
 	user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
+	
 	for unit: PlayerUnit in units:
 		#unit.picked_up_item.connect(user_interface.show_item_info)
 		unit.experience_changed.connect(on_experience_changed)
@@ -127,7 +128,12 @@ func _ready():
 		unit.stats_changed.connect(user_interface.load_unit_info)
 		unit.level_increased.connect(on_level_up)
 	
+	
 func _process(_delta):
+	if !portraits_set:
+		user_interface.update_unit_portraits(units)
+		portraits_set = true
+		
 	var reload_times = []
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)
