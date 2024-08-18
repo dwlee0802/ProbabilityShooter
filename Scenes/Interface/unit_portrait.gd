@@ -25,7 +25,6 @@ var secondary_equipment_icon: EquipmentIcon = $VBoxContainer/OtherSlot/Secondary
 
 func _ready() -> void:
 	portrait_image = $PortraitImage
-	print(portrait_image.get_parent().name)
 	
 func set_shortcut_label(num: int) -> void:
 	shortcut_label.text = str(num)

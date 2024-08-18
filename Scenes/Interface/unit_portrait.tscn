@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://4ly04duxj5fu"]
+[gd_scene load_steps=13 format=3 uid="uid://4ly04duxj5fu"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/unit_portrait.gd" id="1_5p2e6"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_yonm2"]
-[ext_resource type="Script" path="res://Scenes/Interface/portrait_image.gd" id="3_3dlx2"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_o2cqk"]
 [ext_resource type="PackedScene" uid="uid://dtr0fngxikvrt" path="res://equipment_icon.tscn" id="3_thmnd"]
 
@@ -114,7 +113,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("1_yonm2")
 expand_mode = 1
-script = ExtResource("3_3dlx2")
 
 [node name="ShortCutLabel" type="Label" parent="PortraitImage"]
 layout_mode = 1
