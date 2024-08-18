@@ -175,12 +175,12 @@ layout_mode = 2
 text = "RESTART"
 
 [node name="UnitPortraits" type="VBoxContainer" parent="."]
-anchors_preset = 9
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_top = 0.159
+anchor_bottom = 0.159
 offset_right = 165.0
-grow_vertical = 2
+offset_bottom = 260.0
 theme_override_constants/separation = 20
-alignment = 1
 
 [node name="UnitPortrait" parent="UnitPortraits" instance=ExtResource("2_mqlrt")]
 layout_mode = 2
@@ -475,14 +475,13 @@ libraries = {
 [node name="WaveInfo" type="PanelContainer" parent="."]
 anchors_preset = -1
 anchor_left = 1.0
-anchor_top = 0.65
+anchor_top = 0.68
 anchor_right = 1.0
-anchor_bottom = 0.65
+anchor_bottom = 0.68
 offset_left = -128.0
-offset_top = -21.0
-offset_bottom = 21.0
+offset_top = -42.0
 grow_horizontal = 0
-grow_vertical = 2
+grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="WaveInfo"]
 layout_mode = 2
@@ -512,7 +511,6 @@ theme_override_font_sizes/font_size = 10
 text = "Lunger Spawn Rate: 0%"
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
-visible = false
 custom_minimum_size = Vector2(10, 10)
 anchors_preset = 12
 anchor_left = 0.0
@@ -572,16 +570,12 @@ layout_mode = 2
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-visible = false
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -290.0
-offset_top = -136.0
+offset_top = -147.0
+offset_right = 290.0
 offset_bottom = -20.0
-grow_horizontal = 0
 grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]

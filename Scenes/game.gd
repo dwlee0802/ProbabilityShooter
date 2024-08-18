@@ -303,6 +303,9 @@ func bind_selected_unit_signals() -> void:
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
 		if unit.is_level_up_ready():
+			if unit.upgrade_options == null:
+				unit.upgrade_options = get_upgrade_options()
+				
 			user_interface.show_upgrade_menu()
 		else:
 			user_interface.upgrade_menu.visible = false

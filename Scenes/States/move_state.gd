@@ -20,10 +20,6 @@ func enter() -> void:
 	destination = parent.global_position
 	save_mouse_position()
 	
-	# cancel reload
-	if !parent.action_one_reload_timer.is_stopped():
-		parent.action_one_reload_timer.stop()
-	
 	parent.move_line.visible = true
 	parent.move_line.clear_points()
 	parent.move_line.add_point(Vector2.ZERO)
@@ -72,8 +68,6 @@ func process_frame(_delta: float) -> State:
 				clear_movement_queues()
 				save_mouse_position()
 				destination = parent.global_position
-				if !parent.action_one_reload_timer.is_stopped():
-					parent.action_one_reload_timer.stop()
 			else:
 				save_mouse_position()
 				

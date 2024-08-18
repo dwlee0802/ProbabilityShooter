@@ -16,6 +16,11 @@ var cooldown_shadow: Control = $PanelContainer/WeaponImage/CooldownShadow
 @onready
 var reload_complete_animation_player: AnimationPlayer = $PanelContainer/WeaponImage/ReadyTint/AnimationPlayer
 
+@onready
+var secondary_cooldown_shade: Control = $PanelContainer/SkillIcons/TextureRect/CooldownShadow
+@onready
+var secondary_reload_animation: AnimationPlayer = $PanelContainer/SkillIcons/TextureRect/ReadyTint/AnimationPlayer
+
 
 func set_shortcut_label(num: int) -> void:
 	shortcut_label.text = str(num)
@@ -56,28 +61,36 @@ func _process(_delta):
 		if !target_unit.action_one_reload_timer.is_stopped():
 			cooldown_shadow.anchor_bottom = (target_unit.action_one_reload_timer.time_left / target_unit.get_current_equipment().data.reload_time)
 			
-			# do it for the other equipment too
+		# do it for the other equipment too
+		if !target_unit.secondary_reload_timer.is_stopped():
+			if target_unit.has_secondary():
+				secondary_cooldown_shade.anchor_bottom = (target_unit.secondary_reload_timer.time_left / target_unit.equipments[1].data.reload_time)
+			
 			
 func on_unit_equipment_changed() -> void:
 	if target_unit == null:
 		return
 		
 	var current_equipment: Equipment = target_unit.get_current_equipment()
-	if current_equipment.ready:
-		cooldown_shadow.anchor_bottom = 0
+	var other_equipment: Equipment
+	if target_unit.has_secondary():
+		other_equipment = target_unit.get_other_equipment()
+	
+	$PanelContainer/SkillIcons/TextureRect.visible = other_equipment != null
+	
+	# set cooldown shades
+	if !current_equipment.ready:
+		cooldown_shadow.anchor_bottom = (target_unit.get_current_equipment_timer().time_left / current_equipment.data.reload_time)
 	else:
-		cooldown_shadow.anchor_bottom = 1
+		cooldown_shadow.anchor_bottom = 0
 		
-	var other_eq: Equipment = target_unit.get_other_equipment()
-	$PanelContainer/SkillIcons/TextureRect.visible = other_eq != null
+	if other_equipment != null and !other_equipment.ready:
+		secondary_cooldown_shade.anchor_bottom = (target_unit.get_other_equipment_timer().time_left / other_equipment.data.reload_time)
+	else:
+		secondary_cooldown_shade.anchor_bottom = 0
 	
-	if other_eq != null:
-		if other_eq.ready:
-			$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 0
-		else:
-			$PanelContainer/SkillIcons/TextureRect/CooldownShadow.anchor_bottom = 1
-	
-		update_equipment_name_label(current_equipment.data.equipment_name, other_eq.data.equipment_name)
+	if other_equipment != null:
+		update_equipment_name_label(current_equipment.data.equipment_name, other_equipment.data.equipment_name)
 	else:
 		update_equipment_name_label(current_equipment.data.equipment_name, "")
 		

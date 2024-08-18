@@ -49,6 +49,8 @@ var starting_item: ItemData = null
 
 @onready
 var action_one_reload_timer: Timer = $ActionOneReloadTimer
+@onready
+var secondary_reload_timer: Timer = $SecondaryReloadTimer
 
 @export_category("Aim Line")
 @export
@@ -180,8 +182,16 @@ func _physics_process(delta: float) -> void:
 		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 
 func _process(delta: float) -> void:
+	## always reload stuff unless knocked out
+	if equipments.size() >= 1 and !equipments[0].ready:
+		if action_one_reload_timer.is_stopped():
+			action_one_reload_timer.start(get_reload_time(0))
+	if equipments.size() >= 2 and !equipments[1].ready:
+		if secondary_reload_timer.is_stopped():
+			secondary_reload_timer.start(get_reload_time(1))
+			
 	state_machine.process_frame(delta)
-
+	
 #region Enemy Interaction
 func receive_hit(amount: float) -> void:
 	health_points -= amount
@@ -230,6 +240,12 @@ func enable_enemy_collision():
 func get_current_equipment():
 	if current_equipped_index < equipments.size():
 		return equipments[current_equipped_index]
+
+func get_current_equipment_timer() -> Timer:
+	if current_equipped_index == 0:
+		return action_one_reload_timer
+	else:
+		return secondary_reload_timer
 		
 func get_other_equipment():
 	if equipments.size() <= 1:
@@ -240,6 +256,15 @@ func get_other_equipment():
 	else:
 		return equipments[current_equipped_index - 1]
 
+func get_other_equipment_timer() -> Timer:
+	if current_equipped_index == 1:
+		return action_one_reload_timer
+	else:
+		return secondary_reload_timer
+		
+func has_secondary() -> bool:
+	return equipments.size() > 1
+	
 func set_current_equipment(num: int) -> void:
 	if num >= equipments.size():
 		push_error("Set equipment index out of bounds")
@@ -350,8 +375,8 @@ func get_aim_time() -> float:
 	
 func add_reload_speed_modifier(amount: float) -> void:
 	reload_speed_modifier += amount
-func get_reload_time() -> float:
-	return equipments[0].get_reload_time() * (1 - reload_speed_modifier)
+func get_reload_time(num: int = 0) -> float:
+	return equipments[num].get_reload_time() * (1 - reload_speed_modifier)
 	
 func print_unit_stats() -> String:
 	var output = "Move Speed: {move_speed}\nReloading Bonus: {reload_speed_bonus}    Aiming Bonus: {aim_speed_bonus}%"
@@ -391,8 +416,9 @@ func level_up() -> void:
 
 func is_level_up_ready() -> bool:
 	return experience_gained >= required_exp_amount(current_level)
-	
+
+## amount needed to proceed to next level
 func required_exp_amount(level: int) -> int:
-	return level * 100
+	return level * 1000
 	
 #endregion

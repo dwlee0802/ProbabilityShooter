@@ -32,9 +32,6 @@ func enter() -> void:
 		elif parent.get_current_equipment() is Effector:
 			on_aim_finished()
 	else:
-		# start reload process
-		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.get_reload_time())
 		if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
 			# start attack process when reload is done
 			parent.action_one_reload_timer.timeout.connect(start_attack_process)
@@ -133,9 +130,6 @@ func on_aim_finished() -> void:
 		if parent.get_current_equipment().ready:
 			start_attack_process()
 		else:
-			# start reload process
-			if parent.action_one_reload_timer.is_stopped():
-				parent.action_one_reload_timer.start(parent.get_reload_time())
 			if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
 				# start attack process when reload is done
 				parent.action_one_reload_timer.timeout.connect(start_attack_process)

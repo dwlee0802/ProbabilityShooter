@@ -166,6 +166,11 @@ process_callback = 0
 wait_time = 2.0
 one_shot = true
 
+[node name="SecondaryReloadTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
 [node name="ShortcutLabel" type="Label" parent="."]
 visible = false
 offset_left = -65.0

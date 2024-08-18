@@ -20,8 +20,6 @@ func enter() -> void:
 
 func exit() -> void:
 	super()
-	if parent.action_one_reload_timer.is_stopped() == false and !keep_reloading:
-		parent.action_one_reload_timer.stop()
 	keep_reloading = false
 		
 func process_input(_event: InputEvent) -> State:
@@ -60,10 +58,6 @@ func process_physics(_delta: float) -> State:
 
 func process_frame(_delta: float) -> State:
 	# auto reload
-	if parent.get_current_equipment().ready == false:
-		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.get_reload_time())
-	
 	# knocked out
 	if parent.is_unconscious():
 		return unconscious_state
