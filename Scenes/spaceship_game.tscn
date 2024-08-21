@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4hpjwe3sjawq"]
+
+[ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="1_e888n"]
+[ext_resource type="PackedScene" uid="uid://dg8wouh2bvju8" path="res://Scenes/spaceship.tscn" id="2_tb84w"]
+
+[node name="Game" type="Node2D"]
+
+[node name="CameraControl" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+script = ExtResource("1_e888n")
+
+[node name="Spaceship" parent="." instance=ExtResource("2_tb84w")]
+position = Vector2(-3, 9)
