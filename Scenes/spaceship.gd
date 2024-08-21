@@ -25,13 +25,20 @@ var afterburner_sprite: Sprite2D = $ShipBody/AfterburnerSprite
 @onready
 var flame_particles: CPUParticles2D = $ShipBody/FlameParticles
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	_ignite_thrusters(delta)
+	_rotate_ship(delta)
+
+func _unhandled_input(event: InputEvent) -> void:
+	pass
+	
+func _ignite_thrusters(delta: float) -> void:
 	flame_sprite.visible = false
 	flame_particles.emitting = false
 	afterburner_sprite.visible = false
@@ -46,10 +53,10 @@ func _process(delta: float) -> void:
 		flame_sprite.visible = true
 		flame_particles.emitting = true
 	
+func _rotate_ship(delta: float) -> void:
 	# rotate sprite
 	# make this physics based?
 	if Input.is_action_pressed("rotate_right"):
 		ship_body.rotate(angular_acceleration * delta)
 	if Input.is_action_pressed("rotate_left"):
 		ship_body.rotate(-angular_acceleration * delta)
-			

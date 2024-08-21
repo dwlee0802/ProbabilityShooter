@@ -26,7 +26,7 @@ scale = Vector2(0.825806, 1)
 polygon = PackedVector2Array(67, 0, -88, -50, -58, 0, -88, 50)
 
 [node name="AfterburnerSprite" type="Sprite2D" parent="ShipBody"]
-self_modulate = Color(1, 0, 0, 1)
+self_modulate = Color(1, 0, 0, 0.615686)
 position = Vector2(-108.75, -4.76837e-07)
 scale = Vector2(0.280864, 0.102881)
 texture = ExtResource("2_sxt77")
