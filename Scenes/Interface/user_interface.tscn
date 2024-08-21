@@ -564,7 +564,6 @@ visible = false
 layout_mode = 2
 
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
-anchors_preset = -1
 offset_bottom = -10.0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
