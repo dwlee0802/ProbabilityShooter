@@ -39,6 +39,20 @@ texture = ExtResource("2_sxt77")
 
 [node name="FlameParticles" type="CPUParticles2D" parent="ShipBody"]
 position = Vector2(-112, 0)
+amount = 20
 gravity = Vector2(0, 0)
 scale_amount_min = 10.0
 scale_amount_max = 10.0
+
+[node name="AimCone" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="AttackFullCone" type="Polygon2D" parent="."]
+visible = false
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="AttackCone" type="Polygon2D" parent="AttackFullCone"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
