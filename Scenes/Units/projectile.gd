@@ -6,6 +6,8 @@ var origin_unit
 var dir: Vector2
 var speed: float
 
+var velocity: Vector2 = Vector2.ZERO
+
 var damage_amount: int = 0
 
 var knock_back_amount: float = 800
@@ -27,6 +29,7 @@ var spawn_after: PackedScene
 
 func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	knock_back_amount = _knock_back
+	velocity = direction.normalized() * _speed
 	dir = direction
 	speed = _speed
 	damage_amount = amount
@@ -40,7 +43,7 @@ func _ready():
 	
 	
 func _physics_process(delta):
-	position += delta * speed * dir
+	position += velocity * delta
 	lifetime += delta
 	if lifetime_limit < lifetime:
 		queue_free()

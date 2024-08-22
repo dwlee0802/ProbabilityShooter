@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg8wouh2bvju8"]
+[gd_scene load_steps=5 format=3 uid="uid://dg8wouh2bvju8"]
 
 [ext_resource type="Script" path="res://Scenes/spaceship.gd" id="1_il7id"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_sxt77"]
+[ext_resource type="PackedScene" uid="uid://3m8mdqt1rwg3" path="res://Scenes/turret.tscn" id="3_1vvaf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5a8cq"]
 size = Vector2(100, 100)
@@ -40,19 +41,15 @@ texture = ExtResource("2_sxt77")
 [node name="FlameParticles" type="CPUParticles2D" parent="ShipBody"]
 position = Vector2(-112, 0)
 amount = 20
+lifetime = 3.0
 gravity = Vector2(0, 0)
 scale_amount_min = 10.0
-scale_amount_max = 10.0
+scale_amount_max = 20.0
 
-[node name="AimCone" type="Polygon2D" parent="."]
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+[node name="Turrets" type="Node2D" parent="ShipBody"]
 
-[node name="AttackFullCone" type="Polygon2D" parent="."]
-visible = false
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+[node name="Turret" parent="ShipBody/Turrets" instance=ExtResource("3_1vvaf")]
+position = Vector2(0, -21)
 
-[node name="AttackCone" type="Polygon2D" parent="AttackFullCone"]
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
+[node name="Turret2" parent="ShipBody/Turrets" instance=ExtResource("3_1vvaf")]
+position = Vector2(0, 18)

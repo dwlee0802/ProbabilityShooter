@@ -117,7 +117,7 @@ func _ready():
 	elite_timer.timeout.connect(spawn_elite_unit)
 	elite_timer.start(elite_spawn_time)
 	
-	user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
+	#user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
 	
 	for unit: PlayerUnit in units:
@@ -137,8 +137,8 @@ func _process(_delta):
 	var reload_times = []
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)
-	InputManager.camera.scale_unit_shortcut_label(units)
-	InputManager.camera.scale_health_label(enemies.get_children())
+	#InputManager.camera.scale_unit_shortcut_label(units)
+	#InputManager.camera.scale_health_label(enemies.get_children())
 	user_interface.core_health_label.text = "Core Health: " + str(core.health_points)
 	
 	if !pause:

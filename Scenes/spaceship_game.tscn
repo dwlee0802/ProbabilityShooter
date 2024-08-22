@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4hpjwe3sjawq"]
+[gd_scene load_steps=5 format=3 uid="uid://d4hpjwe3sjawq"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="1_e888n"]
 [ext_resource type="Script" path="res://Scenes/spaceship_game.gd" id="1_npx1o"]
 [ext_resource type="PackedScene" uid="uid://dg8wouh2bvju8" path="res://Scenes/spaceship.tscn" id="2_tb84w"]
+[ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="4_rc6s8"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_npx1o")
@@ -25,3 +26,13 @@ offset_top = -23.0
 offset_right = 99.0
 grow_vertical = 0
 text = "asdfasdfdsfa"
+
+[node name="Crosshair" parent="CanvasLayer" instance=ExtResource("4_rc6s8")]
+position = Vector2(718, 279)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
