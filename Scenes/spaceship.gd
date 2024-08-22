@@ -70,7 +70,4 @@ func _ignite_thrusters(_delta: float) -> void:
 func _rotate_ship(delta: float) -> void:
 	# rotate sprite
 	# make this physics based?
-	if Input.is_action_pressed("rotate_right"):
-		ship_body.rotate(angular_acceleration * delta)
-	if Input.is_action_pressed("rotate_left"):
-		ship_body.rotate(-angular_acceleration * delta)
+	ship_body.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())

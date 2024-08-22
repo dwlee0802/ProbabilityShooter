@@ -21,11 +21,11 @@ func _ready() -> void:
 	update_aim_cone()
 
 func _physics_process(delta: float) -> void:
-	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
+	pass
 		
 func start_attack_process():
 	aim_timer.start(aim_time)
-	make_queued_attack_cone(get_local_mouse_position())
+	make_queued_attack_cone(Vector2.from_angle(rotation))
 	
 func on_aim_timer_timeout() -> void:
 	var new_projectile: Projectile = projectile_scene.instantiate()
@@ -40,7 +40,6 @@ func update_aim_cone() -> void:
 	var spread: float = 0.1
 	aim_cone.polygon = cone_from_angle(spread, 100000)
 	attack_full_cone.polygon = cone_from_angle(spread, 100000)
-	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 	
 func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	# calculate three points of triangle
@@ -54,6 +53,7 @@ func make_queued_attack_cone(dir: Vector2) -> void:
 	var new_attack_cone: Polygon2D = Polygon2D.new()
 	new_attack_cone.polygon = attack_full_cone.polygon
 	new_attack_cone.color = Color.YELLOW
-	new_attack_cone.rotate(dir.angle())
+	new_attack_cone.color.a = 0.3
+	#new_attack_cone.rotate(dir.angle())
 	queued_cones.add_child(new_attack_cone)
 	queued_attack_cones.append(new_attack_cone)

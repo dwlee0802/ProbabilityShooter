@@ -49,7 +49,4 @@ scale_amount_max = 20.0
 [node name="Turrets" type="Node2D" parent="ShipBody"]
 
 [node name="Turret" parent="ShipBody/Turrets" instance=ExtResource("3_1vvaf")]
-position = Vector2(0, -21)
-
-[node name="Turret2" parent="ShipBody/Turrets" instance=ExtResource("3_1vvaf")]
-position = Vector2(0, 18)
+position = Vector2(64, 0)

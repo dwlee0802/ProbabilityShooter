@@ -56,6 +56,9 @@ func _ready():
 	health_label.text = str(health_points)
 	bleed_timer.timeout.connect(
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
+		
+func _process(delta: float) -> void:
+	core_position = game_ref.spaceship.global_position
 	
 func receive_hit(damage_amount: float, critical: bool = false, projectile_info = null):
 	var new_popup = damage_popup.instantiate()

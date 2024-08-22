@@ -29,7 +29,7 @@ color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [node name="AttackCone" type="Polygon2D" parent="AttackFullCone"]
-color = Color(1, 0, 0, 1)
+color = Color(1, 0, 0, 0.396078)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="AimTimer" type="Timer" parent="."]
