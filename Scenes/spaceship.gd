@@ -35,6 +35,10 @@ var attack_direction_queue = []
 @onready
 var attack_cooldown: float = 1
 
+@onready
+var thrust_audio: AudioStreamPlayer = $ThrustAudio
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	return
@@ -56,6 +60,7 @@ func _ignite_thrusters(_delta: float) -> void:
 	flame_sprite.visible = false
 	flame_particles.emitting = false
 	afterburner_sprite.visible = false
+	
 	if Input.is_action_pressed("forward"):
 		var dir: Vector2 = Vector2.from_angle(ship_body.rotation)
 		if Input.is_action_pressed("after_burner"):
@@ -66,8 +71,19 @@ func _ignite_thrusters(_delta: float) -> void:
 			
 		flame_sprite.visible = true
 		flame_particles.emitting = true
+		if thrust_audio.playing == false:
+			thrust_audio.playing = true
 	
-func _rotate_ship(delta: float) -> void:
+	if Input.is_action_just_released("forward"):
+		thrust_audio.playing = false
+	
+	
+func _rotate_ship(_delta: float) -> void:
 	# rotate sprite
 	# make this physics based?
 	ship_body.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
+
+func _on_body_entered(body: Node) -> void:
+	# take damage
+	if body is EnemyUnit:
+		body.die()

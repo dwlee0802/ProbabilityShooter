@@ -15,12 +15,14 @@ var queued_attack_cones = []
 
 var projectile_scene: PackedScene = preload("res://Scenes/Units/projectile.tscn")
 
+@onready
+var attack_audio: AudioStreamPlayer = $AttackAudio
 
 func _ready() -> void:
 	aim_timer.timeout.connect(on_aim_timer_timeout)
 	update_aim_cone()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	pass
 		
 func start_attack_process():
@@ -28,10 +30,11 @@ func start_attack_process():
 	make_queued_attack_cone(Vector2.from_angle(rotation))
 	
 func on_aim_timer_timeout() -> void:
+	attack_audio.play()
 	var new_projectile: Projectile = projectile_scene.instantiate()
 	new_projectile.global_position = global_position
 	get_tree().root.add_child(new_projectile)
-	new_projectile.launch(Vector2.from_angle(queued_attack_cones.front().global_rotation), 5000, 100, 100)
+	new_projectile.launch(Vector2.from_angle(queued_attack_cones.front().global_rotation), 7000, 100, 100)
 	var used_attack_cone = queued_attack_cones.pop_front()
 	queued_cones.remove_child(used_attack_cone)
 	used_attack_cone.queue_free()
@@ -49,7 +52,7 @@ func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	cone.append(Vector2.from_angle(-angle/2) * radius)
 	return cone
 
-func make_queued_attack_cone(dir: Vector2) -> void:
+func make_queued_attack_cone(_dir: Vector2) -> void:
 	var new_attack_cone: Polygon2D = Polygon2D.new()
 	new_attack_cone.polygon = attack_full_cone.polygon
 	new_attack_cone.color = Color.YELLOW

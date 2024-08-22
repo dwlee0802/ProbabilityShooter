@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg8wouh2bvju8"]
+[gd_scene load_steps=6 format=3 uid="uid://dg8wouh2bvju8"]
 
 [ext_resource type="Script" path="res://Scenes/spaceship.gd" id="1_il7id"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_sxt77"]
 [ext_resource type="PackedScene" uid="uid://3m8mdqt1rwg3" path="res://Scenes/turret.tscn" id="3_1vvaf"]
+[ext_resource type="AudioStream" uid="uid://bput787u1hbmr" path="res://Sound/010406_rocket-thrust-effectwav-59704.mp3" id="4_uf5jo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5a8cq"]
 size = Vector2(100, 100)
@@ -11,6 +12,8 @@ size = Vector2(100, 100)
 mass = 10.0
 gravity_scale = 0.0
 lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("1_il7id")
 
 [node name="Sprites" type="Node2D" parent="."]
@@ -40,8 +43,8 @@ texture = ExtResource("2_sxt77")
 
 [node name="FlameParticles" type="CPUParticles2D" parent="ShipBody"]
 position = Vector2(-112, 0)
-amount = 20
-lifetime = 3.0
+amount = 50
+lifetime = 10.0
 gravity = Vector2(0, 0)
 scale_amount_min = 10.0
 scale_amount_max = 20.0
@@ -50,3 +53,10 @@ scale_amount_max = 20.0
 
 [node name="Turret" parent="ShipBody/Turrets" instance=ExtResource("3_1vvaf")]
 position = Vector2(64, 0)
+
+[node name="ThrustAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_uf5jo")
+volume_db = -15.0
+parameters/looping = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

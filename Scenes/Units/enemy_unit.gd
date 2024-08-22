@@ -1,9 +1,10 @@
 extends RigidBody2D
 class_name EnemyUnit
 
-var game_ref: Game
+var game_ref
 
-static var core_position: Vector2
+var core_position: Vector2
+var follow_player: bool = true
 
 var health_points: float = 100
 var max_health_points: float = 100
@@ -43,7 +44,7 @@ signal on_death
 
 
 func on_spawn(speed: float, health: int) -> void:
-	var core_dir = global_position.direction_to(EnemyUnit.core_position)
+	var core_dir = global_position.direction_to(core_position)
 	apply_central_impulse(core_dir * speed)
 	health_points = health
 	max_health_points = health
@@ -57,8 +58,9 @@ func _ready():
 	bleed_timer.timeout.connect(
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
 		
-func _process(delta: float) -> void:
-	core_position = game_ref.spaceship.global_position
+func _process(_delta: float) -> void:
+	if follow_player:
+		core_position = game_ref.spaceship.global_position
 	
 func receive_hit(damage_amount: float, critical: bool = false, projectile_info = null):
 	var new_popup = damage_popup.instantiate()
@@ -112,14 +114,15 @@ func die():
 	on_death.emit()
 	queue_free()
 	
-func _physics_process(delta):
+func _physics_process(delta) -> void:
+	var target_direction: Vector2 = global_position.direction_to(core_position)
+	
 	movement_speed_multiplier += delta * acceleration
 	
 	# adjust velocity to go towards core
 	var current_direction: Vector2 = linear_velocity.normalized()
 	var current_speed: float = linear_velocity.length()
 	
-	var target_direction: Vector2 = global_position.direction_to(core_position)
 	
 	var adjustment_force: Vector2 = target_direction - current_direction
 	
@@ -163,7 +166,7 @@ func make_blood_splatter_eff(direction, count: int = 50) -> void:
 	new_dead_eff.get_node("CPUParticles2D").direction = direction
 	new_dead_eff.get_node("CPUParticles2D").amount = count
 	new_dead_eff.get_node("CPUParticles2D").emitting = true
-	game_ref.blood_splatter.call_deferred("add_child", new_dead_eff)
+	#game_ref.blood_splatter.call_deferred("add_child", new_dead_eff)
 
 func increase_size(rate: float) -> void:
 	$Sprite2D.scale *= rate
