@@ -419,6 +419,6 @@ func is_level_up_ready() -> bool:
 
 ## amount needed to proceed to next level
 func required_exp_amount(level: int) -> int:
-	return level * 1000
+	return 1000 + level * 500
 	
 #endregion

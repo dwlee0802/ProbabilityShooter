@@ -137,8 +137,8 @@ func _process(_delta):
 	var reload_times = []
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)
-	#InputManager.camera.scale_unit_shortcut_label(units)
-	#InputManager.camera.scale_health_label(enemies.get_children())
+	InputManager.camera.scale_unit_shortcut_label(units)
+	InputManager.camera.scale_health_label(enemies.get_children())
 	user_interface.core_health_label.text = "Core Health: " + str(core.health_points)
 	
 	if !pause:
@@ -309,7 +309,7 @@ func bind_selected_unit_signals() -> void:
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
 		if unit.is_level_up_ready():
-			if unit.upgrade_options == null:
+			if unit.upgrade_options == null or unit.upgrade_options.size() == 0:
 				unit.upgrade_options = get_upgrade_options()
 				
 			user_interface.show_upgrade_menu()
