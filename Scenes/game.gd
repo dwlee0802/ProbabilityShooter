@@ -76,8 +76,6 @@ var no_game_over: bool = false
 
 static var upgrade_options
 
-@onready
-var spaceship = $Spaceship
 
 static func _static_init():
 	var is_diabled = func(data):

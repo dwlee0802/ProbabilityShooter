@@ -5,6 +5,7 @@
 [node name="MapMarker" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 
 [node name="Highlight" type="TextureRect" parent="."]
 layout_mode = 1

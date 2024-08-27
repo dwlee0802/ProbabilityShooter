@@ -3,7 +3,7 @@ class_name EnemyUnit
 
 var game_ref
 
-var core_position: Vector2
+static var core_position: Vector2
 var follow_player: bool = true
 
 var health_points: float = 100
@@ -59,8 +59,7 @@ func _ready():
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
 		
 func _process(_delta: float) -> void:
-	if follow_player:
-		core_position = game_ref.spaceship.global_position
+	return
 	
 func receive_hit(damage_amount: float, critical: bool = false, projectile_info = null):
 	var new_popup = damage_popup.instantiate()
