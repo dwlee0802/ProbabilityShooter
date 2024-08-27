@@ -422,3 +422,13 @@ func required_exp_amount(level: int) -> int:
 	return 1000 + level * 500
 	
 #endregion
+
+func get_magazine_status() -> String:
+	var queued_count: int = $StateMachine/ActionOne.attack_direction_queue.size()
+	var output = ""
+	
+	output += str(get_current_equipment().current_magazine_count - queued_count)
+	output += "(" + str(queued_count) + ")"
+	output += " / " + str(get_current_equipment().get_magazine_size())
+	
+	return output

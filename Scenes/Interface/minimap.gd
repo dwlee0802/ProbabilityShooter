@@ -2,8 +2,10 @@ extends Control
 class_name Minimap
 
 static var marker_scene = preload("res://Scenes/Interface/map_marker.tscn")
+static var bullet_marker_scene = preload("res://Scenes/Interface/bullet_marker.tscn")
 
 var enemy_markers: Control
+var bullet_markers: Control
 
 var center_global_position: Vector2
 
@@ -18,9 +20,15 @@ var minimap_radius: int = 98
 
 func _ready() -> void:
 	enemy_markers = $Background/EnemyMarkers
+	bullet_markers = $Background/BulletMarkers
+	
 	# premake markers
 	for i in range(100):
-		var new_marker: Control = marker_scene.instantiate()
+		var new_marker: Control = Minimap.marker_scene.instantiate()
+		enemy_markers.add_child(new_marker)
+		new_marker.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(1, 99)
+		
+		new_marker = Minimap.bullet_marker_scene.instantiate()
 		enemy_markers.add_child(new_marker)
 		new_marker.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(1, 99)
 	

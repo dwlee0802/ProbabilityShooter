@@ -34,4 +34,6 @@ func _process(_delta):
 				mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
 		else:
 			if current_eq is Gun:
-				mag_label.text = str(current_eq.current_magazine_count) + " / " + str(current_eq.get_magazine_size())
+				mag_label.text = InputManager.selected_unit.get_magazine_status()
+			else:
+				mag_label.text = "0/0"
