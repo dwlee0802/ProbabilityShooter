@@ -13,6 +13,8 @@ var target_unit: PlayerUnit
 var health_bar: DelayedProgressBar = $PortraitImage/HealthBar
 @onready
 var hit_animation: AnimationPlayer = $PortraitImage/HitShadow/AnimationPlayer
+@onready
+var exp_bar: DelayedProgressBar = $PortraitImage/ExperienceBar
 
 @onready
 var main_slot: Control = $VBoxContainer/CurrentSlot
@@ -40,6 +42,9 @@ func set_unit(unit: PlayerUnit) -> void:
 	health_bar.set_max(target_unit.max_health_points)
 	update_healthbar()
 	
+	reload_expbar_max()
+	update_expbar()
+	
 	# set equipment icon data
 	main_equipment_icon.set_data(target_unit.equipments[0], target_unit.action_one_reload_timer)
 	if target_unit.has_secondary():
@@ -51,6 +56,8 @@ func set_unit(unit: PlayerUnit) -> void:
 	target_unit.was_selected.connect(animation_player.play.bind("portrait_select"))
 	target_unit.deselected.connect(animation_player.play.bind("RESET"))
 	target_unit.health_changed.connect(update_healthbar)
+	target_unit.experience_changed.connect(update_expbar)
+	target_unit.level_increased.connect(reload_expbar_max)
 	target_unit.was_attacked.connect(hit_animation.play.bind("hit_portrait_animation"))
 	target_unit.knocked_out.connect(on_unit_knocked_out)
 	target_unit.revived.connect(on_unit_revived)
@@ -58,7 +65,13 @@ func set_unit(unit: PlayerUnit) -> void:
 
 func update_healthbar():
 	health_bar.change_value(target_unit.health_points)
-
+func update_expbar():
+	exp_bar.change_value(target_unit.experience_gained, true)
+	
+func reload_expbar_max():
+	exp_bar.set_max(target_unit.required_exp_amount(target_unit.current_level))
+	update_expbar()
+	
 func on_unit_knocked_out():
 	$PortraitImage/UnconsciousShadow.visible = true
 func on_unit_revived():
