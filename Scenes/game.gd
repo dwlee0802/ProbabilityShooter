@@ -15,6 +15,9 @@ var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
 var units = []
 
+@onready
+var projectiles: Node2D = $Projectiles
+
 #region Wave settings
 @export_category("Wave Setting")
 var time_since_start: float = 0
@@ -178,6 +181,14 @@ func _process(_delta):
 			else:
 				color_arr.append(Color.RED)
 		user_interface.minimap.update_markers(core.global_position, points, color_arr)
+		
+		var bullet_points = []
+		var bullet_color_arr = []
+		for bullet: Projectile in projectiles.get_children():
+			bullet_points.append(bullet.global_position)
+			bullet_color_arr.append(Color.WHITE)
+			
+		user_interface.minimap.update_bullet_markers(core.global_position, bullet_points, bullet_color_arr)
 	else:
 		user_interface.minimap.update_markers(core.global_position, [], [])
 		

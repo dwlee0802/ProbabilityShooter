@@ -51,7 +51,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		new_bullet.penetration_probability = get_penetration()
 		
 		# add to scene
-		unit.get_tree().root.add_child(new_bullet)
+		unit.get_tree().root.get_node("Game").projectiles.add_child(new_bullet)
 	
 	current_magazine_count -= 1
 	
