@@ -90,7 +90,7 @@ starting_equipments = [ExtResource("10_gp80q")]
 [node name="PlayerUnit2" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 position = Vector2(-183, -354)
 movement_speed = 500.0
-temp_color = Color(0.811765, 0.227451, 0.356863, 1)
+temp_color = Color(0.927168, 0.66544, 0.205725, 1)
 starting_equipments = [ExtResource("10_gp80q")]
 
 [node name="Enemies" type="Node2D" parent="."]
