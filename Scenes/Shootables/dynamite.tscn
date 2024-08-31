@@ -45,7 +45,7 @@ _data = {
 radius = 119.78
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s7bwy"]
-radius = 1200.0
+radius = 2000.0
 
 [sub_resource type="Animation" id="Animation_mqmx1"]
 length = 0.001
@@ -137,8 +137,8 @@ shape = SubResource("CircleShape2D_s7bwy")
 
 [node name="Sprite2D" type="Sprite2D" parent="ExplosionEffect"]
 visible = false
-position = Vector2(2.49999, -3.8147e-05)
-scale = Vector2(4.95267, 4.92593)
+position = Vector2(5.00006, -11.5)
+scale = Vector2(8.21811, 8.22428)
 texture = ExtResource("1_imyjt")
 
 [node name="SmokeParticle" parent="ExplosionEffect" instance=ExtResource("3_ts3rt")]

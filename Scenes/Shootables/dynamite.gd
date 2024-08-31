@@ -16,7 +16,7 @@ func activate() -> void:
 	
 	explosion_animation.play("explosion_animation")
 	$Sprite2D.visible = false
-	
+	$CollisionShape2D.disabled = true
 	var bodies = area.get_overlapping_bodies()
 	for unit in bodies:
 		if unit is EnemyUnit:
