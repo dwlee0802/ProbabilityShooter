@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bklnq54w5br57"]
+[gd_scene load_steps=13 format=3 uid="uid://bklnq54w5br57"]
 
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_imyjt"]
 [ext_resource type="Script" path="res://Scenes/Shootables/dynamite.gd" id="1_nwh7f"]
 [ext_resource type="PackedScene" uid="uid://cjl0at5jqf1so" path="res://Scenes/Effects/smoke_particle.tscn" id="3_ts3rt"]
+[ext_resource type="AudioStream" uid="uid://bb5n5b4hiyeu5" path="res://Sound/medium-explosion-40472.mp3" id="4_m1160"]
 
 [sub_resource type="Animation" id="Animation_r12x2"]
 length = 0.001
@@ -152,3 +153,9 @@ initial_velocity_max = 1500.0
 libraries = {
 "": SubResource("AnimationLibrary_q1xa5")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_m1160")
+volume_db = 5.0
+max_distance = 20000.0
+max_polyphony = 10

@@ -8,13 +8,16 @@ var damage_range: Vector2 = Vector2(0, 500)
 
 @onready
 var explosion_animation: AnimationPlayer = $ExplosionEffect/AnimationPlayer
-
+@onready
+var explosion_sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func activate() -> void:
 	super.activate()
 	await get_tree().create_timer(0.1).timeout
 	
 	explosion_animation.play("explosion_animation")
+	explosion_sound.play()
+	
 	$Sprite2D.visible = false
 	$CollisionShape2D.disabled = true
 	var bodies = area.get_overlapping_bodies()
