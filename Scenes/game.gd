@@ -200,6 +200,14 @@ func _process(_delta):
 			bullet_color_arr.append(Color.WHITE)
 			
 		user_interface.minimap.update_bullet_markers(core.global_position, bullet_points, bullet_color_arr)
+		
+		var shootable_points = []
+		var shootable_color_arr = []
+		for shootable: Shootable in shootables.get_children():
+			shootable_points.append(shootable.global_position)
+			shootable_color_arr.append(Color.ORANGE)
+			
+		user_interface.minimap.update_shootable_markers(core.global_position, shootable_points, shootable_color_arr)
 	else:
 		user_interface.minimap.update_markers(core.global_position, [], [])
 		
