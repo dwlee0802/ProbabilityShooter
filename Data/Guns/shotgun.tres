@@ -9,10 +9,10 @@
 script = ExtResource("2_66qtf")
 projectile_scene = ExtResource("1_377jg")
 aim_time = 1.0
-reload_time = 4.0
+reload_time = 3.0
 magazine_size = 2
 projectile_speed = 3000.0
-damage_range = Vector2i(50, 150)
+damage_range = Vector2i(50, 250)
 knock_back_force = 100.0
 projectile_count = 4
 spread = 5.0

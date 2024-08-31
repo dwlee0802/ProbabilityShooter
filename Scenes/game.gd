@@ -138,7 +138,7 @@ func _ready():
 		unit.level_increased.connect(on_level_up)
 	
 	# randomly place dynamite on the map
-	for i in range(100):
+	for i in range(5):
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)
@@ -220,7 +220,7 @@ func enemy_killed()-> void:
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
 	
 func spawn_wave() -> void:
-	for i in range(wave_unit_count):
+	for i in range(wave_unit_count + time_since_start/120):
 		spawn_enemy_unit()
 		
 func spawn_enemy_unit() -> void:
@@ -246,10 +246,15 @@ func spawn_enemy_unit() -> void:
 func spawn_elite_unit() -> void:
 	var newEnemy: EnemyUnit
 	newEnemy = enemy_scene.instantiate()
+	
+	## split power budget
+	var speed_bonus: int = randi_range(0, int((power_budget * elite_unit_modifier)/2))
+	var hp_bonus: int = int((power_budget * elite_unit_modifier) - speed_bonus)
+	
 	newEnemy.game_ref = self
 	newEnemy.on_spawn(
-		int((enemy_speed_range.x + time_difficulty)),
-		int((enemy_health_range.x + time_difficulty) * elite_unit_modifier))
+		enemy_base_speed + speed_bonus,
+		enemy_base_health + hp_bonus)
 	newEnemy.increase_size(2)
 	newEnemy.is_elite = true
 	enemies.add_child(newEnemy)

@@ -4,7 +4,7 @@ extends Shootable
 var area: Area2D = $Area2D
 
 @export
-var damage_range: Vector2 = Vector2(0, 20)
+var damage_range: Vector2 = Vector2(0, 100)
 
 @onready
 var explosion_animation: AnimationPlayer = $ExplosionEffect/AnimationPlayer
