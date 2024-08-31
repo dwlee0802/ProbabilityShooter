@@ -65,42 +65,41 @@ func _ready():
 func _process(_delta: float) -> void:
 	return
 	
-func receive_hit(damage_amount: float, critical: bool = false, projectile_info = null):
+func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO):
 	var new_popup = damage_popup.instantiate()
-	
 		
 	if critical:
 		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
 		damage_amount *= 2
 		new_popup.modulate = Color.YELLOW
 		crit_sound_player.play()
-		if projectile_info:
-			make_blood_splatter_eff(projectile_info.dir, 15)
+		if projectile_dir:
+			make_blood_splatter_eff(projectile_dir, 15, 2)
 	else:
-		if projectile_info:
-			make_blood_splatter_eff(projectile_info.dir, 5)
+		if projectile_dir:
+			make_blood_splatter_eff(projectile_dir, 5)
 		hit_sound_player.play()
 		
-	health_points -= damage_amount
-	health_bar.change_value(int(health_points))
-	health_label.text = str(int(health_points))
-	#print("Received damage: " + str(damage_amount))
-	
 	new_popup.set_label(str(int(damage_amount)))
 	new_popup.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
 	get_tree().root.add_child(new_popup)
 	
-	CameraControl.camera.shake_screen(10,200)
-	
-	if health_points < max_health_points:
-		bleed_timer.start(2)
-		
+	health_points -= damage_amount
 	if health_points <= 0:
 		die()
-		if projectile_info:
-			make_blood_splatter_eff(projectile_info.dir, 50)
-	$Sprite2D/AnimationPlayer.play("hit_animation")
-
+		if projectile_dir:
+			make_blood_splatter_eff(projectile_dir, 50)
+	else:
+		health_bar.change_value(int(health_points))
+		health_label.text = str(int(health_points))
+		
+		if health_points < max_health_points:
+			bleed_timer.start(2)
+		
+		$Sprite2D/AnimationPlayer.play("hit_animation")
+		
+	CameraControl.camera.shake_screen(10,200)
+	
 func die():
 	var new_effect: CPUParticles2D = death_effect.instantiate()
 	new_effect.global_position = global_position
@@ -168,12 +167,16 @@ func determine_critical_hit(bullet_dir: Vector2, hit_pos: Vector2) -> bool:
 	
 	return !result.is_empty()
 
-func make_blood_splatter_eff(direction, count: int = 50) -> void:
+func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float = 1) -> void:
 	var new_dead_eff = dead_enemy_effect.instantiate()
 	new_dead_eff.global_position = global_position
-	new_dead_eff.get_node("CPUParticles2D").direction = direction
-	new_dead_eff.get_node("CPUParticles2D").amount = count
-	new_dead_eff.get_node("CPUParticles2D").emitting = true
+	
+	var particles: CPUParticles2D = new_dead_eff.get_node("CPUParticles2D")
+	particles.direction = direction
+	particles.amount = count
+	particles.initial_velocity_min *= intensity_scale
+	particles.initial_velocity_max *= intensity_scale
+	particles.emitting = true
 	game_ref.blood_splatter.call_deferred("add_child", new_dead_eff)
 
 func increase_size(rate: float) -> void:
