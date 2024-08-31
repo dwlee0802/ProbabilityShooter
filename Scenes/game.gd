@@ -138,7 +138,7 @@ func _ready():
 		unit.level_increased.connect(on_level_up)
 	
 	# randomly place dynamite on the map
-	for i in range(100):
+	for i in range(10):
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)

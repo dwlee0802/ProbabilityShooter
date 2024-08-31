@@ -41,7 +41,7 @@ static var resource_drop_chance: float = 0
 var resource_drop = preload("res://Scenes/resource.tscn")
 
 ## shootables
-static var dynamite_drop_chance: float = 0.5
+static var dynamite_drop_chance: float = 0.1
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
 
 signal on_death
