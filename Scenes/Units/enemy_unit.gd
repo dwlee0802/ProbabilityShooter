@@ -40,6 +40,10 @@ var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 static var resource_drop_chance: float = 0
 var resource_drop = preload("res://Scenes/resource.tscn")
 
+## shootables
+static var dynamite_drop_chance: float = 0.5
+var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
+
 signal on_death
 
 
@@ -108,6 +112,11 @@ func die():
 		new_drop.global_position = global_position
 		new_drop.picked_up.connect(game_ref.change_resource)
 		game_ref.resource_node.call_deferred("add_child", new_drop)
+		
+	if randf() < EnemyUnit.dynamite_drop_chance:
+		var new_drop: Shootable = dynamite_shootable.instantiate()
+		new_drop.global_position = global_position
+		game_ref.shootables.call_deferred("add_child", new_drop)
 	
 	get_parent().remove_child(self)
 	on_death.emit()

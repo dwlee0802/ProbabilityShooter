@@ -18,6 +18,9 @@ var units = []
 @onready
 var projectiles: Node2D = $Projectiles
 
+@onready
+var shootables: Node2D = $Shootables
+
 #region Wave settings
 @export_category("Wave Setting")
 var time_since_start: float = 0
@@ -79,6 +82,9 @@ var no_game_over: bool = false
 
 static var upgrade_options
 
+## shootable objects
+var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
+
 
 static func _static_init():
 	var is_diabled = func(data):
@@ -131,6 +137,11 @@ func _ready():
 		unit.stats_changed.connect(user_interface.load_unit_info)
 		unit.level_increased.connect(on_level_up)
 	
+	# randomly place dynamite on the map
+	for i in range(100):
+		var new_shootable: Shootable = dynamite_shootable.instantiate()
+		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
+		shootables.add_child(new_shootable)
 	
 func _process(_delta):
 	if !portraits_set:

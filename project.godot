@@ -157,6 +157,7 @@ after_burner={
 2d_physics/layer_4="Enemy"
 2d_physics/layer_5="Critical"
 2d_physics/layer_6="Pickup"
+2d_physics/layer_7="Shootables"
 
 [physics]
 

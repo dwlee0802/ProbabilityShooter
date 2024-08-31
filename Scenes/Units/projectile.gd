@@ -59,17 +59,20 @@ func _on_body_entered(body) -> void:
 		if origin_unit is PlayerUnit:
 			origin_unit.add_experience(damage_amount)
 	
-	var new_eff: Node2D = on_hit_effect.instantiate()
-	new_eff.global_position = global_position
-	new_eff.rotation = dir.angle()
-	new_eff.get_node("CPUParticles2D").emitting = true
-	get_tree().root.add_child(new_eff)
+		var new_eff: Node2D = on_hit_effect.instantiate()
+		new_eff.global_position = global_position
+		new_eff.rotation = dir.angle()
+		new_eff.get_node("CPUParticles2D").emitting = true
+		get_tree().root.add_child(new_eff)
+		
+		var new_exit_eff: Node2D = exit_effect.instantiate()
+		new_exit_eff.global_position = global_position
+		new_exit_eff.rotation = dir.angle()
+		new_exit_eff.get_node("CPUParticles2D").emitting = true
+		get_tree().root.add_child(new_exit_eff)
 	
-	var new_exit_eff: Node2D = exit_effect.instantiate()
-	new_exit_eff.global_position = global_position
-	new_exit_eff.rotation = dir.angle()
-	new_exit_eff.get_node("CPUParticles2D").emitting = true
-	get_tree().root.add_child(new_exit_eff)
-	
+	if body is Shootable:
+		body.activate()
+		
 	if randf() > penetration_probability:
 		queue_free()
