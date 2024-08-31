@@ -273,6 +273,19 @@ func game_over() -> void:
 	enemies.queue_free()
 	enemies = Node2D.new()
 	add_child(enemies)
+	
+	# remove all remaining projectiles
+	remove_child(projectiles)
+	projectiles.queue_free()
+	projectiles = Node2D.new()
+	add_child(projectiles)
+	
+	# remove all remaining shootables
+	remove_child(shootables)
+	shootables.queue_free()
+	shootables = Node2D.new()
+	add_child(shootables)
+	
 	user_interface.show_game_over_screen(false)
 	pause = true
 	change_resource(0)
@@ -289,6 +302,19 @@ func victory() -> void:
 	enemies.queue_free()
 	enemies = Node2D.new()
 	add_child(enemies)
+	
+	# remove all remaining projectiles
+	remove_child(projectiles)
+	projectiles.queue_free()
+	projectiles = Node2D.new()
+	add_child(projectiles)
+	
+	# remove all remaining shootables
+	remove_child(shootables)
+	shootables.queue_free()
+	shootables = Node2D.new()
+	add_child(shootables)
+	
 	user_interface.show_game_over_screen(true)
 	pause = true
 	change_resource(0)
