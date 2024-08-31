@@ -25,7 +25,7 @@ func _process(_delta):
 		if current_eq is Gun:
 			info_label.text = str(current_eq.get_damage_range().x) + "-" + str(current_eq.get_damage_range().y)
 		if !current_eq.ready:
-			var timer: Timer = InputManager.selected_unit.action_one_reload_timer
+			var timer: Timer = InputManager.selected_unit.get_current_equipment_timer()
 			#info_label.text = str(int(InputManager.selected_unit.action_one_reload_timer.time_left * 10)/10.0)
 			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
 			if timer.is_stopped():

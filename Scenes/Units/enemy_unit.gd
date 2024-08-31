@@ -16,6 +16,7 @@ var is_elite: bool = false
 var critical_hit_ratio: float = 0.2
 
 var movement_speed: float = 0
+var max_movement_speed: float = 0
 var movement_speed_modifier: float = 0
 var movement_speed_multiplier: float = 1.0
 var acceleration: float = 0
@@ -53,6 +54,7 @@ func on_spawn(speed: float, health: int) -> void:
 	health_points = health
 	max_health_points = health
 	movement_speed = speed
+	max_movement_speed = speed
 	health_bar = $HealthBar
 	health_bar.set_max(health)
 	health_bar.change_value(health, true)
@@ -85,6 +87,11 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	get_tree().root.add_child(new_popup)
 	
 	health_points -= damage_amount
+	
+	# reduce speed if below half health
+	if health_points < max_health_points / 2:
+		movement_speed = max_movement_speed * 0.75
+		
 	if health_points <= 0:
 		die()
 		if projectile_dir:
@@ -174,6 +181,9 @@ func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float 
 	var particles: CPUParticles2D = new_dead_eff.get_node("CPUParticles2D")
 	particles.direction = direction
 	particles.amount = count
+	if is_elite:
+		particles.amount *= 2
+		intensity_scale += 0.5
 	particles.initial_velocity_min *= intensity_scale
 	particles.initial_velocity_max *= intensity_scale
 	particles.emitting = true
