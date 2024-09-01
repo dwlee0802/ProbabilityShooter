@@ -17,17 +17,23 @@ var is_first_frame: bool = false
 func enter() -> void:
 	super()
 	parent.state_label.text = "Move"
-	destination = parent.global_position
-	save_mouse_position()
+	#destination = parent.global_position
+	#save_mouse_position()
 	
-	parent.move_line.visible = true
-	parent.move_line.clear_points()
-	parent.move_line.add_point(Vector2.ZERO)
+	# verify action type
+	if parent.action_queue.front().type == Action.Type.Move:
+		destination = parent.action_queue.pop_front().mouse_position
+	else:
+		destination = parent.global_position
+	
+	#parent.move_line.visible = true
+	#parent.move_line.clear_points()
+	#parent.move_line.add_point(Vector2.ZERO)
 
 func exit() -> void:
 	super()
 	destination = parent.global_position
-	parent.move_line.visible = false
+	#parent.move_line.visible = false
 	clear_movement_queues()
 	
 func process_input(_event: InputEvent) -> State:
@@ -35,14 +41,15 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
 	# pressed action 1. go to action 1 aim mode
-	if Input.is_action_just_pressed("action_one"):
-		return action_one_state
+	#if Input.is_action_just_pressed("action_one"):
+		#return action_one_state
 		
 	return null
 
 func process_physics(_delta: float) -> State:
 	if destination.distance_to(parent.global_position) < 1 * parent.get_movement_speed()/100:
 		if move_points_queue.is_empty():
+			parent.move_points.pop_front()
 			return idle_state
 		else:
 			destination = move_points_queue.front()
@@ -59,25 +66,26 @@ func process_physics(_delta: float) -> State:
 func process_frame(_delta: float) -> State:
 	if parent.is_unconscious():
 		return unconscious_state
-		
-	## movement queue input
-	if InputManager.IsSelected(parent):
-		if !is_first_frame and Input.is_action_just_pressed("right_click"):
-			if !Input.is_physical_key_pressed(KEY_SHIFT):
-				# empty attack queue
-				clear_movement_queues()
-				save_mouse_position()
-				destination = parent.global_position
-			else:
-				save_mouse_position()
+	
+	### movement queue input
+	#if InputManager.IsSelected(parent):
+		#if !is_first_frame and Input.is_action_just_pressed("right_click"):
+			#if !Input.is_physical_key_pressed(KEY_SHIFT):
+				## empty attack queue
+				#clear_movement_queues()
+				#save_mouse_position()
+				#destination = parent.global_position
+			#else:
+				#save_mouse_position()
 				
-	update_movement_lines()
+	#update_movement_lines()
 	
 	return null
 
 # save local mouse position vector to move points queue
 func save_mouse_position() -> void:
-	move_points_queue.push_back(parent.get_global_mouse_position())
+	#move_points_queue.push_back(parent.get_global_mouse_position())
+	return
 	
 func update_movement_lines():
 	var move_line: Line2D = parent.move_line

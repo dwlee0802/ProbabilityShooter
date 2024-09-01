@@ -6,6 +6,11 @@ var state_label: Label = $StateLabel
 @onready
 var state_machine: StateMachine = $StateMachine
 
+## Combined action queue
+var action_queue = []
+# global position that this unit would end up at if all queued up move actions are finished
+var future_position: Vector2 = Vector2.ZERO
+
 @onready
 var shortcut_label: Label = $ShortcutLabel
 
@@ -55,6 +60,8 @@ var secondary_reload_timer: Timer = $SecondaryReloadTimer
 @export_category("Aim Line")
 @export
 #region Aim UI settings
+var queued_attack_cones = []
+
 var aim_color: Color = Color.DIM_GRAY
 @export
 var attack_color: Color = Color.RED
@@ -81,6 +88,7 @@ var queued_cones: Node2D = $QueuedCones
 var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 @onready
 var move_line: Line2D = $MoveLine
+var move_points = []
 #endregion
 
 ## interaction
@@ -147,7 +155,7 @@ func _ready() -> void:
 	
 	if get_current_equipment() is Gun:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
-		
+	
 	# make starting item
 	
 func set_shortcut_label(num: int) -> void:
@@ -157,15 +165,34 @@ func _unhandled_input(event: InputEvent) -> void:
 	if !InputManager.IsSelected(self):
 		return
 		
+	## Action Queue Population
+	# attack
+	if event.is_action_pressed("action_one"):
+		var attack_action: Action = Action.new(Action.Type.Attack, get_local_mouse_position() - future_position)
+		if !Input.is_action_pressed("queue_action"):
+			action_queue.clear()
+			move_points.clear()
+			DW_ToolBox.RemoveAllChildren(queued_cones)
+		action_queue.push_back(attack_action)
+		make_queued_attack_cone((get_local_mouse_position() - future_position).normalized(), future_position)
+		
+		print("current action queue count for " + name + ": " + str(action_queue.size()))
+	# movement
+	if event.is_action_pressed("right_click"):
+		var point: Vector2 = get_global_mouse_position()
+		var action: Action = Action.new(Action.Type.Move, point)
+		if !Input.is_action_pressed("queue_action"):
+			action_queue.clear()
+			move_points.clear()
+			DW_ToolBox.RemoveAllChildren(queued_cones)
+		move_points.append(point)
+		action_queue.push_back(action)
+		future_position = point
+		
+		print("current action queue count for " + name + ": " + str(action_queue.size()))
+		
 	state_machine.process_input(event)
 	
-	if Input.is_action_just_pressed("action_one"):
-		# do we need to reload?
-		if get_current_equipment() != null and !get_current_equipment().ready:
-			# start reload
-			if action_one_reload_timer.is_stopped():
-				action_one_reload_timer.start(get_reload_time())
-				
 	if Input.is_action_just_pressed("switch_equipment"):
 		current_equipped_index += 1
 		current_equipped_index = current_equipped_index % equipments.size()
@@ -180,6 +207,9 @@ func _physics_process(delta: float) -> void:
 	if InputManager.IsSelected(self):
 		aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
 		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
+		
+	# update move line
+	set_movement_line(move_points)
 
 func _process(delta: float) -> void:
 	## always reload stuff unless knocked out
@@ -295,7 +325,7 @@ func set_movement_line(points) -> void:
 	move_line.clear_points()
 	move_line.add_point(Vector2.ZERO)
 	for pt: Vector2 in points:
-		move_line.add_point(pt)
+		move_line.add_point(pt - global_position)
 
 func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	# calculate three points of triangle
@@ -314,6 +344,27 @@ func update_aim_cone() -> void:
 	var spread: float = get_current_equipment().get_spread()
 	aim_cone.polygon = cone_from_angle(spread, 100000)
 	attack_full_cone.polygon = cone_from_angle(spread, 100000)
+
+func make_queued_attack_cone(dir: Vector2, _position_offset: Vector2 = Vector2.ZERO) -> void:
+	var new_attack_cone: Polygon2D = Polygon2D.new()
+	new_attack_cone.polygon = attack_full_cone.polygon
+	new_attack_cone.position = _position_offset
+	new_attack_cone.color = queued_color
+	new_attack_cone.rotate(dir.angle())
+	queued_cones.add_child(new_attack_cone)
+	queued_attack_cones.append(new_attack_cone)
+
+# TODO
+# adjust the positions of child queued attack cones
+func update_queued_attack_cone_positoins() -> void:
+	for cone: Polygon2D in queued_attack_cones:
+		cone.position
+	
+func clear_attack_queues():
+	for item in queued_attack_cones:
+		item.queue_free()
+	queued_attack_cones.clear()
+	
 #endregion
 
 func get_interactable_in_range():

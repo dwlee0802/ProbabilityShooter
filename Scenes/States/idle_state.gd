@@ -55,11 +55,21 @@ func process_input(_event: InputEvent) -> State:
 	
 func process_physics(_delta: float) -> State:
 	return null
-
+	
 func process_frame(_delta: float) -> State:
 	# auto reload
 	# knocked out
 	if parent.is_unconscious():
 		return unconscious_state
 		
-	return null
+	## check if action queue is empty
+	if parent.action_queue.is_empty():
+		return null
+	else:
+		match parent.action_queue.front().type:
+			Action.Type.Move:
+				return move_state
+			Action.Type.Attack:
+				return action_one_state
+			_:
+				return null

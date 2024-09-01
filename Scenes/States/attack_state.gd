@@ -1,8 +1,6 @@
 extends State
 
 var attack_direction_queue = []
-var queued_attack_lines = []
-var queued_attack_cones = []
 
 @export
 var wait_time: float = 1
@@ -24,7 +22,12 @@ func enter() -> void:
 	super()
 	is_first_frame = true
 	parent.state_label.text = "Action1"
-	save_mouse_position()
+	
+	#save_mouse_position()
+	if parent.action_queue.front().type == Action.Type.Attack:
+		attack_direction_queue.append(parent.action_queue.pop_front().mouse_position)
+	else:
+		attack_direction_queue.clear()
 	
 	if parent.get_current_equipment().ready:
 		if parent.get_current_equipment() is Gun:
@@ -38,7 +41,6 @@ func enter() -> void:
 	
 	if !parent.equipment_changed.is_connected(timer.stop):
 		parent.equipment_changed.connect(timer.stop)
-		parent.equipment_changed.connect(clear_attack_queues)
 	if !timer.timeout.is_connected(on_aim_finished):
 		timer.timeout.connect(on_aim_finished)
 
@@ -55,38 +57,36 @@ func start_attack_process() -> void:
 	#parent.attack_line.visible = true
 	parent.attack_line_anim.play("RESET")
 	parent.attack_line_anim.play("aim_animation")
-	queued_attack_lines.front().visible = false
-	queued_attack_cones.front().visible = false
 	parent.attack_full_cone.visible = true
+	#parent.queued_attack_cones.front().visible = false
 
 func exit() -> void:
 	super()
 	parent.attack_line.visible = false
 	parent.attack_full_cone.visible = false
 	parent.attack_line_anim.stop()
-	clear_attack_queues()
 	timer.stop()
 	
 func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
-	if Input.is_action_just_pressed('right_click'):
-		return move_state
+	#if _event.is_action_pressed("right_click") and !_event.is_action_pressed("queue_action"):
+		#return move_state
 	
 	## action queue input
-	if _event is InputEventMouseButton and _event.is_pressed():
-		if InputManager.IsSelected(parent):
-			if !is_first_frame:
-				if Input.is_action_just_pressed("action_one"):
-					if !Input.is_physical_key_pressed(KEY_SHIFT):
-						# empty attack queue
-						clear_attack_queues()
-						
-						save_mouse_position()
-						if parent.get_current_equipment().ready:
-							start_attack_process()
-					else:
-						save_mouse_position()
+	#if _event is InputEventMouseButton and _event.is_pressed():
+		#if InputManager.IsSelected(parent):
+			#if !is_first_frame:
+				#if Input.is_action_just_pressed("action_one"):
+					#if !Input.is_physical_key_pressed(KEY_SHIFT):
+						## empty attack queue
+						#clear_attack_queues()
+						#
+						#save_mouse_position()
+						#if parent.get_current_equipment().ready:
+							#start_attack_process()
+					#else:
+						#save_mouse_position()
 	
 	return null
 
@@ -113,10 +113,10 @@ func on_aim_finished() -> void:
 			parent.gunshot_sfx.play()
 			parent.arm.rotation = target.angle()
 			#print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
-			if queued_attack_lines.size() > 0:
-				queued_attack_lines.pop_front().queue_free()
-			if queued_attack_cones.size() > 0:
-				queued_attack_cones.pop_front().queue_free()
+			if parent.queued_attack_cones.size() > 0:
+				parent.queued_attack_cones.pop_front().queue_free()
+				print("meow")
+				
 			parent.attack_full_cone.visible = false
 		parent.get_current_equipment().on_activation(parent, target)
 	
@@ -139,7 +139,7 @@ func save_mouse_position() -> void:
 	attack_direction_queue.push_back(parent.get_local_mouse_position())
 	make_queued_attack_line(attack_direction_queue.back())
 	make_queued_attack_cone(attack_direction_queue.back())
-	print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
+	#print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
 	#print(attack_direction_queue)
 
 ## makes one queued attack line
@@ -157,7 +157,6 @@ func make_queued_attack_line(dir: Vector2) -> void:
 	new_line.visible = false
 	
 	parent.add_child(new_line)
-	queued_attack_lines.append(new_line)
 	
 func make_queued_attack_cone(dir: Vector2) -> void:
 	var new_attack_cone: Polygon2D = Polygon2D.new()
@@ -165,14 +164,3 @@ func make_queued_attack_cone(dir: Vector2) -> void:
 	new_attack_cone.color = parent.queued_color
 	new_attack_cone.rotate(dir.angle())
 	parent.queued_cones.add_child(new_attack_cone)
-	queued_attack_cones.append(new_attack_cone)
-	
-func clear_attack_queues():
-	attack_direction_queue.clear()
-	for item in queued_attack_lines:
-		item.queue_free()
-	queued_attack_lines.clear()
-	for item in queued_attack_cones:
-		item.queue_free()
-	queued_attack_cones.clear()
-	
