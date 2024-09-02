@@ -47,6 +47,11 @@ var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
 
 signal on_death
 
+## element system
+var elements: Vector3i = Vector3i.ZERO
+@onready
+var element_circles: Node2D = $ElementCircles
+static var trinity_damage: int = 100
 
 func on_spawn(speed: float, health: int) -> void:
 	var core_dir = global_position.direction_to(core_position)
@@ -63,49 +68,58 @@ func _ready():
 	health_label.text = str(health_points)
 	bleed_timer.timeout.connect(
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
-		
+	# add random element amount
+	update_element_ui()
+	
 func _process(_delta: float) -> void:
-	return
+	pass
 	
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO):
-	var new_popup = damage_popup.instantiate()
-		
 	if critical:
 		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
 		damage_amount *= 2
-		new_popup.modulate = Color.YELLOW
-		crit_sound_player.play()
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 15, 2)
 	else:
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 5)
-		hit_sound_player.play()
 		
-	new_popup.set_label(str(int(damage_amount)))
+	apply_damage(damage_amount, critical)
+		
+	if health_points <= 0:
+		if projectile_dir:
+			make_blood_splatter_eff(projectile_dir, 50)
+		
+	CameraControl.camera.shake_screen(10,200)
+
+## takes care of reducing HP, making damage popup, bleeding eff, hit sound and anim, and slow down
+func apply_damage(amount: float, critical: bool = false)-> void:
+	health_points -= amount
+	
+	var new_popup = damage_popup.instantiate()
+	if critical:
+		new_popup.modulate = Color.YELLOW
+		crit_sound_player.play()
+	else:
+		hit_sound_player.play()
+	new_popup.set_label(str(int(amount)))
 	new_popup.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
 	get_tree().root.add_child(new_popup)
 	
-	health_points -= damage_amount
-	
-	# reduce speed if below half health
-	if health_points < max_health_points / 2:
-		movement_speed = max_movement_speed * 0.75
-		
 	if health_points <= 0:
 		die()
-		if projectile_dir:
-			make_blood_splatter_eff(projectile_dir, 50)
 	else:
+		# reduce speed if below half health
+		if health_points < max_health_points / 2:
+			movement_speed = max_movement_speed * 0.75
+			
 		health_bar.change_value(int(health_points))
 		health_label.text = str(int(health_points))
 		
 		if health_points < max_health_points:
 			bleed_timer.start(2)
-		
+			
 		$Sprite2D/AnimationPlayer.play("hit_animation")
-		
-	CameraControl.camera.shake_screen(10,200)
 	
 func die():
 	var new_effect: CPUParticles2D = death_effect.instantiate()
@@ -192,3 +206,43 @@ func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float 
 func increase_size(rate: float) -> void:
 	$Sprite2D.scale *= rate
 	$CollisionShape2D.scale *= rate
+
+## Element system
+func add_elements(amount: Vector3i) -> void:
+	if health_points < 0:
+		return
+		
+	elements += amount
+	make_element_count_positive()
+	update_element_ui()
+	
+	check_elemental_damage()
+	
+func make_element_count_positive() -> void:
+	if elements.x < 0:
+		elements.x = 0
+	if elements.y < 0:
+		elements.y = 0
+	if elements.z < 0:
+		elements.z = 0
+
+## returns the number of trinities
+func full_elements_count() -> int:
+	return min(elements.x, elements.y, elements.z)
+
+func update_element_ui() -> void:
+	for i: int in element_circles.get_child_count():
+		element_circles.get_child(i).get_node("Label").text = str(vector3_to_array(elements)[i])
+
+func vector3_to_array(vec3: Vector3) -> PackedInt32Array:
+	return [vec3.x, vec3.y, vec3.z]
+
+func check_elemental_damage() -> void:
+	var count: int = full_elements_count()
+	apply_damage(EnemyUnit.trinity_damage * count)
+	if count > 0:
+		print("elemental damage!")
+	# remove used elements
+	elements -= -1 * Vector3i.ONE * count
+	make_element_count_positive()
+	# add random elements

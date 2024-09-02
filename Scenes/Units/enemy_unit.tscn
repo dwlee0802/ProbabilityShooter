@@ -139,6 +139,7 @@ scale_amount_max = 10.0
 color = Color(1, 1, 1, 0.396078)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(0.658824, 0, 0, 1)
 position = Vector2(0.999998, -1.5)
 scale = Vector2(5, 4.959)
@@ -224,3 +225,68 @@ grow_vertical = 0
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="BleedTimer" type="Timer" parent="."]
+
+[node name="ElementCircles" type="Node2D" parent="."]
+
+[node name="ElementOne" type="TextureRect" parent="ElementCircles"]
+self_modulate = Color(1, 0, 0, 1)
+offset_left = -61.0
+offset_top = -338.0
+offset_right = 59.0
+offset_bottom = -218.0
+texture = ExtResource("5_e5dnx")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="ElementCircles/ElementOne"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "-1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ElementTwo" type="TextureRect" parent="ElementCircles"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = -305.0
+offset_top = 107.0
+offset_right = -185.0
+offset_bottom = 227.0
+texture = ExtResource("5_e5dnx")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="ElementCircles/ElementTwo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "-1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ElementThree" type="TextureRect" parent="ElementCircles"]
+self_modulate = Color(1, 0.788235, 0, 1)
+offset_left = 230.0
+offset_top = 112.0
+offset_right = 350.0
+offset_bottom = 232.0
+texture = ExtResource("5_e5dnx")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="ElementCircles/ElementThree"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "-1"
+horizontal_alignment = 1
+vertical_alignment = 1
