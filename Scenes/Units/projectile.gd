@@ -70,7 +70,17 @@ func _on_body_entered(body) -> void:
 		new_exit_eff.rotation = dir.angle()
 		new_exit_eff.get_node("CPUParticles2D").emitting = true
 		get_tree().root.add_child(new_exit_eff)
-	
+		
+		# temporary element effect
+		var add_element: Vector3 = Vector3.ZERO
+		if randi() % 3 == 0:
+			add_element.x = 1
+		if randi() % 3 == 1:
+			add_element.y = 1
+		if randi() % 3 == 2:
+			add_element.z = 1
+		body.add_elements(add_element)
+			
 	if body is Shootable:
 		body.activate()
 		
