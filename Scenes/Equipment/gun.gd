@@ -15,6 +15,13 @@ var current_magazine_count: int = 5
 var bullets = []
 ## Max number of bullets gun can have
 var max_bullet_count: int = 5
+
+## probabilities of bullets spawning with types
+var damage_range: Vector2 = Vector2(50,150)
+var anti_armor_chance: float = 0
+var piercing_chance: float = 0
+var explosive_chance: float = 0
+var buckshot_chance: float = 0
 #endregion
 
 @export
@@ -57,8 +64,8 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 			current_bullet.damage_amount, 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
-		new_bullet.penetration_probability = get_penetration()
-		
+		if current_bullet.piercing:
+			new_bullet.penetration_probability = 1
 		# add to scene
 		unit.get_tree().root.get_node("Game").projectiles.add_child(new_bullet)
 	
@@ -82,7 +89,10 @@ func reload() -> void:
 func generate_bullets(count: int):
 	var output = []
 	for i in range(count):
-		output.append(Bullet.new(randi_range(get_damage_range().x, get_damage_range().y)))
+		var new_bullet: Bullet = Bullet.new()
+		new_bullet.damage_amount = randi_range(damage_range.x, damage_range.y)
+		new_bullet.piercing = randf() <= piercing_chance
+		output.append(new_bullet)
 	return output
 #endregion
 	

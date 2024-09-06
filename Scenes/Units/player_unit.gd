@@ -152,6 +152,8 @@ func _ready() -> void:
 		
 	# make starting item
 	
+	stats_changed.emit()
+	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	

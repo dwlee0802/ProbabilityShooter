@@ -135,6 +135,7 @@ func _ready():
 		unit.was_selected.connect(bind_selected_unit_signals)
 		unit.level_increased.connect(on_level_up)
 		unit.stats_changed.connect(user_interface.update_bullet_menu)
+		unit.stats_changed.connect(user_interface.update_bullet_generation_info_menu)
 		unit.was_selected.connect(user_interface.update_bullet_menu)
 		unit.actioned.connect(user_interface.update_bullet_menu)
 		unit.bullets_changed.connect(user_interface.update_bullet_menu)
@@ -213,6 +214,7 @@ func _process(_delta):
 	else:
 		user_interface.minimap.update_markers(core.global_position, [], [])
 		
+	user_interface.update_bullet_generation_info_menu()
 	
 	if Input.is_action_just_pressed("action_one"):
 		$ClickSoundPlayer.play()

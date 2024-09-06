@@ -64,6 +64,8 @@ var minimap: Minimap = $Minimap
 
 @onready
 var bullet_info_menu_container: Container = $BulletInfoMenu/MarginContainer/GridContainer
+@onready
+var bullet_generation_info: Control = $BulletGenerationInfoMenu
 
 
 func _ready():
@@ -167,3 +169,20 @@ func update_bullet_menu() -> void:
 			new_label.add_theme_color_override("font_color", Color.YELLOW)
 		new_label.text = str(bullets[i])
 		bullet_info_menu_container.add_child(new_label)
+
+func update_bullet_generation_info_menu() -> void:
+	var labels_label: Label = bullet_generation_info.get_node("MarginContainer/Labels")
+	var values_label: Label = bullet_generation_info.get_node("MarginContainer/Values")
+	
+	labels_label.text = "DMG Range:\n"
+	labels_label.text += "Anti-Armor:\n"
+	labels_label.text += "Piercing:\n"
+	labels_label.text += "Explosive:\n"
+	labels_label.text += "Buckshot:\n"
+	
+	var gun = InputManager.selected_unit.get_current_equipment()
+	values_label.text = str(gun.damage_range.x) + " - " + str(gun.damage_range.y) + "\n"
+	values_label.text += str(int(gun.anti_armor_chance * 100)) + "%\n"
+	values_label.text += str(int(gun.piercing_chance * 100)) + "%\n"
+	values_label.text += str(int(gun.explosive_chance * 100)) + "%\n"
+	values_label.text += str(int(gun.buckshot_chance * 100)) + "%\n"

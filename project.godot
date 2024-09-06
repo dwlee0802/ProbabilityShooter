@@ -20,8 +20,6 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
 mouse_cursor/custom_image="res://Art/empty_circle.png"
 
 [editor_plugins]
