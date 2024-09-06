@@ -567,7 +567,7 @@ layout_mode = 2
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
 offset_bottom = -10.0
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="BulletInfoMenu" type="PanelContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -576,30 +576,39 @@ offset_right = 290.0
 offset_bottom = -20.0
 grow_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="BulletInfoMenu"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="GridContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="GridContainer" type="VBoxContainer" parent="BulletInfoMenu/MarginContainer"]
 layout_mode = 2
+alignment = 2
 
-[node name="UnitStatLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="Label" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Speed: 0000
-asdf
-asdfasdf
-asdf
-asdf
-asdf
-"
+text = "Bullet info 1"
 
-[node name="WeaponStatLabel" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+[node name="Label2" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Damage: 0-0"
+text = "Bullet info 1"
+
+[node name="Label3" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label4" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label5" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label6" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

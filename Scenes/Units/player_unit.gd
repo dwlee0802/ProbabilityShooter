@@ -109,6 +109,8 @@ signal picked_up_item(item)
 signal experience_changed
 signal level_increased
 signal stats_changed
+signal actioned
+signal bullets_changed
 #endregion
 
 
@@ -281,6 +283,8 @@ func reload_action(eq_num: int = 0) -> void:
 			equipments[eq_num].reload()
 		reload_sfx.stream = equipments[eq_num].data.reload_sound
 		reload_sfx.play()
+		
+		bullets_changed.emit()
 	else:
 		push_error("Reload equipment index out of bounds!")
 	
@@ -424,7 +428,7 @@ func required_exp_amount(level: int) -> int:
 #endregion
 
 func get_magazine_status() -> String:
-	var queued_count: int = $StateMachine/ActionOne.attack_direction_queue.size()
+	var queued_count: int = get_queued_attack_count()
 	var output = ""
 	
 	output += str(get_current_equipment().current_magazine_count - queued_count)
@@ -432,3 +436,6 @@ func get_magazine_status() -> String:
 	output += " / " + str(get_current_equipment().get_magazine_size())
 	
 	return output
+
+func get_queued_attack_count() -> int:
+	return $StateMachine/ActionOne.attack_direction_queue.size()

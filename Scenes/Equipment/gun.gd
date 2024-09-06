@@ -10,6 +10,13 @@ static var max_aim_time: float = 60
 @export
 var current_magazine_count: int = 5
 
+#region Random Bullets System
+## array that holds the randomly generated Bullet objects
+var bullets = []
+## Max number of bullets gun can have
+var max_bullet_count: int = 5
+#endregion
+
 @export
 var bonus_damage_range: Vector2i = Vector2i.ZERO
 @export
@@ -32,10 +39,12 @@ signal spread_changed
 
 func _init(_data: EquipmentData):
 	super(_data)
-	current_magazine_count = data.magazine_size
+	reload()
 	
 func on_activation(unit: Unit, mouse_position: Vector2):
-	for i in range(get_projectile_count()):
+	var current_bullet: Bullet = bullets.pop_front()
+	
+	for i in range(current_bullet.projectile_count):
 		# make new projectile
 		var new_bullet: Projectile = data.projectile_scene.instantiate()
 		var random_spread_offset: float = randf_range(-get_spread()/2, get_spread()/2)
@@ -45,7 +54,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		new_bullet.launch(
 			mouse_position.normalized().rotated(random_spread_offset), 
 			get_projectile_speed(), 
-			randi_range(get_damage_range().x, get_damage_range().y), 
+			current_bullet.damage_amount, 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
 		new_bullet.penetration_probability = get_penetration()
@@ -65,7 +74,18 @@ func have_bullets() -> bool:
 func reload() -> void:
 	current_magazine_count = get_magazine_size()
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
+	bullets = generate_bullets(max_bullet_count)
+	for bullet: Bullet in bullets:
+		print(bullet)
 
+#region Random Bullets System
+func generate_bullets(count: int):
+	var output = []
+	for i in range(count):
+		output.append(Bullet.new(randi_range(get_damage_range().x, get_damage_range().y)))
+	return output
+#endregion
+	
 func add_bonus_damage(bonus: Vector2i) -> void:
 	bonus_damage_range += bonus
 	if bonus_damage_range.x < 0:

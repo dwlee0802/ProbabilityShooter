@@ -87,6 +87,8 @@ func process_input(_event: InputEvent) -> State:
 							start_attack_process()
 					else:
 						save_mouse_position()
+						
+					parent.bullets_changed.emit()
 	
 	return null
 
@@ -119,6 +121,7 @@ func on_aim_finished() -> void:
 				queued_attack_cones.pop_front().queue_free()
 			parent.attack_full_cone.visible = false
 		parent.get_current_equipment().on_activation(parent, target)
+		parent.actioned.emit()
 	
 	if parent.get_current_equipment() is Gun:
 		if !parent.get_current_equipment().have_bullets():

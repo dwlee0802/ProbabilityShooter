@@ -60,12 +60,11 @@ var upgrade_option_3 = $UpgradeMenu/LevelUp/Option3
 var upgrade_option_4 = $UpgradeMenu/LevelUp/Option4
 
 @onready
-var unit_stat_label: Label = $PanelContainer/MarginContainer/GridContainer/UnitStatLabel
-@onready
-var weapon_stat_label: Label = $PanelContainer/MarginContainer/GridContainer/WeaponStatLabel
+var minimap: Minimap = $Minimap
 
 @onready
-var minimap: Minimap = $Minimap
+var bullet_info_menu_container: Container = $BulletInfoMenu/MarginContainer/GridContainer
+
 
 func _ready():
 	game_over_ui.visible = false
@@ -149,9 +148,20 @@ func upgrade_option_selected(data: ItemData) -> void:
 		upgrade_menu.visible = false
 	else:
 		show_upgrade_menu()
+
+func update_bullet_menu() -> void:
+	DW_ToolBox.RemoveAllChildren(bullet_info_menu_container)
+	if InputManager.selected_unit == null:
+		return
+	
+	var bullets = []
+	if InputManager.selected_unit.get_current_equipment() is Gun:
+		bullets = InputManager.selected_unit.get_current_equipment().bullets
 		
-func load_unit_info():
-	var unit: PlayerUnit = InputManager.selected_unit
-	if unit != null:
-		unit_stat_label.text = unit.print_unit_stats()
-		weapon_stat_label.text = unit.print_weapon_stats()
+	for i in range(bullets.size()):
+		var new_label: Label = Label.new()
+		new_label.add_theme_font_size_override("font_size", 10)
+		if i < InputManager.selected_unit.get_queued_attack_count():
+			new_label.add_theme_color_override("font_color", Color.YELLOW)
+		new_label.text = str(bullets[i])
+		bullet_info_menu_container.add_child(new_label)
