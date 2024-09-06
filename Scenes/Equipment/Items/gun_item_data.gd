@@ -15,6 +15,16 @@ var magazine_size: int = 0
 @export
 var penetration_chance: float = 0
 
+@export_category("Bullet Generation Modifiers")
+@export
+var anti_armor_chance: float = 0
+@export
+var piercing_chance: float = 0
+@export
+var explosive_chance: float = 0
+@export
+var buckshot_chance: float = 0
+
 
 func on_enter(unit: PlayerUnit, level: int):
 	super.on_enter(unit, level)
@@ -25,7 +35,13 @@ func on_enter(unit: PlayerUnit, level: int):
 		equipment.add_bonus_projectile_count(projectile_count * level)
 		equipment.add_bonus_magazine_size(magazine_size * level)
 		equipment.add_penetration_bonus(penetration_chance * level)
-
+		
+		# change bullet generation chance
+		equipment.add_anti_armor_chance_bonus(anti_armor_chance)
+		equipment.add_piercing_chance_bonus(piercing_chance)
+		equipment.add_explosive_chance_bonus(explosive_chance)
+		equipment.add_buckshot_chance_bonus(buckshot_chance)
+		
 func on_exit(unit: PlayerUnit, level: int):
 	super.on_exit(unit, level)
 	var equipment: Equipment = unit.get_current_equipment()
@@ -35,3 +51,9 @@ func on_exit(unit: PlayerUnit, level: int):
 		equipment.add_bonus_projectile_count(-projectile_count * level)
 		equipment.add_bonus_magazine_size(-magazine_size * level)
 		equipment.add_penetration_bonus(-penetration_chance * level)
+		
+		# change bullet generation chance
+		equipment.add_anti_armor_chance_bonus(-anti_armor_chance)
+		equipment.add_piercing_chance_bonus(-piercing_chance)
+		equipment.add_explosive_chance_bonus(-explosive_chance)
+		equipment.add_buckshot_chance_bonus(-buckshot_chance)

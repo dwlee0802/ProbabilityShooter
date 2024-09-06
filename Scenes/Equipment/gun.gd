@@ -17,7 +17,7 @@ var bullets = []
 var max_bullet_count: int = 5
 
 ## probabilities of bullets spawning with types
-var damage_range: Vector2 = Vector2(50,150)
+var damage_range: Vector2i = Vector2i(50,150)
 var anti_armor_chance: float = 0
 var piercing_chance: float = 0
 var explosive_chance: float = 0
@@ -59,9 +59,9 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		# save origin unit to call back for experience gain
 		new_bullet.origin_unit = unit
 		new_bullet.launch(
-			mouse_position.normalized().rotated(random_spread_offset), 
+			mouse_position.normalized().rotated(random_spread_offset * current_bullet.projectile_count), 
 			get_projectile_speed(), 
-			current_bullet.damage_amount, 
+			int(current_bullet.damage_amount) / current_bullet.projectile_count, 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
 		if current_bullet.piercing:
@@ -91,7 +91,12 @@ func generate_bullets(count: int):
 	for i in range(count):
 		var new_bullet: Bullet = Bullet.new()
 		new_bullet.damage_amount = randi_range(damage_range.x, damage_range.y)
-		new_bullet.piercing = randf() <= piercing_chance
+		new_bullet.piercing = randf() < piercing_chance
+		new_bullet.anti_armor = randf() < anti_armor_chance
+		new_bullet.explosive = randf() < explosive_chance
+		if randf() < buckshot_chance:
+			new_bullet.projectile_count = 4
+			
 		output.append(new_bullet)
 	return output
 #endregion
@@ -145,6 +150,32 @@ func add_penetration_bonus(amount: float) -> void:
 	bonus_penetration += amount
 	if amount != 0:
 		print("Changed penetration amount modifier by " + str(amount))
+		
+		
+## Bullet Generation chance modifiers
+func add_anti_armor_chance_bonus(amount: float) -> void:
+	anti_armor_chance += amount
+	anti_armor_chance = max(anti_armor_chance, 0)
+	if amount != 0:
+		print("Changed anti armor chance by " + str(amount))
+		
+func add_piercing_chance_bonus(amount: float) -> void:
+	piercing_chance += amount
+	piercing_chance = max(piercing_chance, 0)
+	if amount != 0:
+		print("Changed piercing chance by " + str(amount))
+		
+func add_explosive_chance_bonus(amount: float) -> void:
+	explosive_chance += amount
+	explosive_chance = max(explosive_chance, 0)
+	if amount != 0:
+		print("Changed explosive chance by " + str(amount))
+		
+func add_buckshot_chance_bonus(amount: float) -> void:
+	buckshot_chance += amount
+	buckshot_chance = max(buckshot_chance, 0)
+	if amount != 0:
+		print("Changed buckshot chance by " + str(amount))
 	
 func get_damage_range() -> Vector2i:
 	var mod: float = max(1 + damage_multiplier, 0)
