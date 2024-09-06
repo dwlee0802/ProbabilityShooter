@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0drjo3d87v1o"]
+
+[ext_resource type="Shader" path="res://Scenes/Units/shine.gdshader" id="1_0whlb"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_kq52d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7ak5"]
+shader = ExtResource("1_0whlb")
+shader_parameter/shine_color = Color(1, 1, 1, 0.25)
+shader_parameter/line_width = 0.2
+shader_parameter/angle = 0.785398
+shader_parameter/speed = 2.0
+shader_parameter/wait_cycles = 2.0
+
+[node name="PlayerCharacter" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.262431, 0.639506, 1, 1)
+material = SubResource("ShaderMaterial_r7ak5")
+scale = Vector2(2, 2)
+texture = ExtResource("2_kq52d")

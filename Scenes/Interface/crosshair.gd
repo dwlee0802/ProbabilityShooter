@@ -23,7 +23,11 @@ func _process(_delta):
 		image.progress = 100
 		var current_eq: Equipment = InputManager.selected_unit.get_current_equipment()
 		if current_eq is Gun and current_eq.bullets.size() > 0:
-			info_label.text = str(current_eq.bullets.front().damage_amount)
+			var num: int = InputManager.selected_unit.get_queued_attack_count()
+			if num >= current_eq.bullets.size():
+				info_label.text = ""
+			else:
+				info_label.text = str(current_eq.bullets[num].damage_amount)
 		else:
 			info_label.text = ""
 			

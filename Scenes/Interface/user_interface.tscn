@@ -99,7 +99,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_308bu"]
@@ -170,6 +170,7 @@ layout_mode = 2
 text = "RESTART"
 
 [node name="UnitPortraits" type="VBoxContainer" parent="."]
+visible = false
 anchors_preset = -1
 anchor_top = 0.159
 anchor_bottom = 0.159
@@ -190,6 +191,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="UnitShortcutLabels" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -416,6 +418,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="NewItemInfo" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.85
@@ -469,6 +472,7 @@ libraries = {
 }
 
 [node name="WaveInfo" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.68
@@ -527,6 +531,7 @@ theme_override_font_sizes/font_size = 8
 text = "Progress: 0"
 
 [node name="UpgradeMenu" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -568,13 +573,14 @@ layout_mode = 2
 offset_bottom = -10.0
 
 [node name="BulletInfoMenu" type="PanelContainer" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -147.0
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -84.0
 offset_right = 290.0
-offset_bottom = -20.0
-grow_vertical = 0
+offset_bottom = 84.0
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="BulletInfoMenu"]
 layout_mode = 2
@@ -585,7 +591,6 @@ theme_override_constants/margin_bottom = 5
 
 [node name="GridContainer" type="VBoxContainer" parent="BulletInfoMenu/MarginContainer"]
 layout_mode = 2
-alignment = 2
 
 [node name="Label" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
@@ -610,5 +615,38 @@ text = "Bullet info 1"
 [node name="Label6" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
+
+[node name="BulletGenerationInfoMenu" type="PanelContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -181.0
+offset_right = 290.0
+offset_bottom = -13.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="BulletGenerationInfoMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Labels" type="Label" parent="BulletGenerationInfoMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 12
+text = "HP Damage Range:
+AP Damage Range:
+Piercing Round Spawn Chance:"
+
+[node name="Values" type="Label" parent="BulletGenerationInfoMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 12
+text = "0 - 0
+0 - 0
+0%"
+horizontal_alignment = 2
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
