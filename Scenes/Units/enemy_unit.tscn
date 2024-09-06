@@ -215,11 +215,22 @@ max_distance = 10000.0
 anchors_preset = 7
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -118.0
-offset_top = 110.0
-offset_right = 142.0
-offset_bottom = 135.0
+offset_left = -122.0
+offset_top = 144.0
+offset_right = 138.0
+offset_bottom = 169.0
 grow_vertical = 0
+
+[node name="ArmorBar" parent="." instance=ExtResource("4_s1jtq")]
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = 108.0
+offset_right = 138.0
+offset_bottom = 133.0
+grow_vertical = 0
+bar_color = Color(0, 0.539768, 0.955463, 1)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 

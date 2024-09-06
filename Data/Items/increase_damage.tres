@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GunItemData" load_steps=2 format=3 uid="uid://mwquy8ype576"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_nntqa"]
+
+[resource]
+script = ExtResource("1_nntqa")
+projectile_speed = 0.0
+spread = 0.0
+projectile_count = 0
+magazine_size = 0
+penetration_chance = 0.0
+anti_armor_chance = 0.0
+piercing_chance = 0.0
+explosive_chance = 0.0
+buckshot_chance = 0.0
+damage_range = Vector2i(10, 10)
+damage_modifier = 0.0
+reload_speed_modifier = 0.0
+aim_speed_modifier = 0.0
+item_name = "Increase Damage"
+description = ""
+color = Color(0.634244, 0.905678, 0.991321, 1)
+disabled = false

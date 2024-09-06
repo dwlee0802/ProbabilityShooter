@@ -54,6 +54,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	for i in range(current_bullet.projectile_count):
 		# make new projectile
 		var new_bullet: Projectile = data.projectile_scene.instantiate()
+			
 		var random_spread_offset: float = randf_range(-get_spread()/2, get_spread()/2)
 		# set stats
 		# save origin unit to call back for experience gain
@@ -90,7 +91,7 @@ func generate_bullets(count: int):
 	var output = []
 	for i in range(count):
 		var new_bullet: Bullet = Bullet.new()
-		new_bullet.damage_amount = randi_range(damage_range.x, damage_range.y)
+		new_bullet.damage_amount = randi_range(get_damage_range().x, get_damage_range().y)
 		new_bullet.piercing = randf() < piercing_chance
 		new_bullet.anti_armor = randf() < anti_armor_chance
 		new_bullet.explosive = randf() < explosive_chance
@@ -178,8 +179,7 @@ func add_buckshot_chance_bonus(amount: float) -> void:
 		print("Changed buckshot chance by " + str(amount))
 	
 func get_damage_range() -> Vector2i:
-	var mod: float = max(1 + damage_multiplier, 0)
-	return (data.damage_range + bonus_damage_range) * mod / get_projectile_count()
+	return damage_range + bonus_damage_range
 func get_projectile_speed() -> float:
 	return data.projectile_speed + bonus_projectile_speed
 func get_spread() -> float:

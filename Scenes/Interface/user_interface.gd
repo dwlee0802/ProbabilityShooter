@@ -177,7 +177,7 @@ func update_bullet_generation_info_menu() -> void:
 	var gun = InputManager.selected_unit.get_current_equipment()
 	
 	labels_label.text = "DMG Range:\n"
-	values_label.text = str(gun.damage_range.x) + " - " + str(gun.damage_range.y) + "\n"
+	values_label.text = str(gun.get_damage_range().x) + " - " + str(gun.get_damage_range().y) + "\n"
 	
 	if gun.anti_armor_chance > 0:
 		labels_label.text += "Anti-Armor:\n"

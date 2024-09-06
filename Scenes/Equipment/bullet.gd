@@ -16,7 +16,7 @@ func _to_string() -> String:
 	if anti_armor:
 		output += " AA"
 	if piercing:
-		output += " EXPL"
+		output += " PIER"
 	if explosive:
 		output += " EXPL"
 	return output
