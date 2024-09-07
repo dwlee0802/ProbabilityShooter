@@ -1,16 +1,22 @@
 extends Shootable
+class_name Explosive
 
 @onready
 var area: Area2D = $Area2D
 
 @export
-var damage_range: Vector2 = Vector2(0, 100)
+var damage_amount: int = 100
 
 @onready
 var explosion_animation: AnimationPlayer = $ExplosionEffect/AnimationPlayer
 @onready
 var explosion_sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
+var radius: float = 1500
+
+func _ready() -> void:
+	set_size(radius)
+	
 func activate() -> void:
 	super.activate()
 	await get_tree().create_timer(0.1).timeout
@@ -25,7 +31,7 @@ func activate() -> void:
 		if unit is EnemyUnit and unit.health_points > 0 and unit.is_node_ready():
 			var dir: Vector2 = global_position.direction_to(unit.global_position)
 			# damage stuff inside range
-			unit.receive_hit(damage_range.y, true, dir)
+			unit.receive_hit(damage_amount, true, dir)
 			
 			# apply knock back
 			unit.apply_impulse(dir * 1000)
@@ -43,3 +49,7 @@ func activate() -> void:
 	queue_free()
 	
 	return
+
+func set_size(new_radius: float) -> void:
+	$ExplosionEffect/Sprite2D.scale = Vector2(new_radius/243, new_radius/243)
+	$Area2D/CollisionShape2D.shape.set_radius(new_radius)

@@ -20,4 +20,4 @@ aim_speed_modifier = 0.0
 item_name = "Explosive"
 description = ""
 color = Color(0.85098, 0.733333, 0, 1)
-disabled = true
+disabled = false

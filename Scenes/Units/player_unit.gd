@@ -92,6 +92,8 @@ var interaction_area: Area2D = $InteractionArea
 @onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 
 #region Experience System
+@export_category("Experience System")
+@export
 var experience_gained: int = 0
 var current_level: int = 1
 var upgrade_options = []

@@ -86,6 +86,7 @@ position = Vector2(-496, 39)
 movement_speed = 500.0
 temp_color = Color(0.356863, 0.643137, 1, 1)
 starting_equipments = [ExtResource("10_gp80q")]
+experience_gained = 99999
 
 [node name="Enemies" type="Node2D" parent="."]
 

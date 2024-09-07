@@ -22,7 +22,11 @@ var exit_effect = preload("res://Scenes/enemy_hit_effect.tscn")
 
 var smoke_effect = preload("res://Scenes/Effects/smoke_particle.tscn")
 
+var dynamite_scene = load("res://Scenes/Shootables/dynamite.tscn")
+
 var penetration_probability: float = 0
+
+var bullet_data: Bullet
 
 @export
 var spawn_after: PackedScene
@@ -72,6 +76,15 @@ func _on_body_entered(body) -> void:
 	
 	if body is Shootable:
 		body.activate()
+	
+	if bullet_data.explosive:
+		var new_dynamite: Shootable = dynamite_scene.instantiate()
+		new_dynamite.get_node("CollisionShape2D").disabled = true
+		get_tree().root.call_deferred("add_child", new_dynamite)
+		new_dynamite.global_position = global_position
+		new_dynamite.radius = 500
+		new_dynamite.damage_amount = damage_amount
+		new_dynamite.call_deferred("activate")
 		
-	if randf() > penetration_probability:
+	if !bullet_data.piercing:
 		queue_free()

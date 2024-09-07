@@ -65,8 +65,9 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 			int(current_bullet.damage_amount * unit.get_charge_damage_modifier() / float(current_bullet.projectile_count)), 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
-		if current_bullet.piercing:
-			new_bullet.penetration_probability = 1
+		
+		new_bullet.bullet_data = current_bullet
+			
 		# add to scene
 		unit.get_tree().root.get_node("Game").projectiles.add_child(new_bullet)
 	
