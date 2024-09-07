@@ -17,7 +17,7 @@ var bullets = []
 var max_bullet_count: int = 5
 
 ## probabilities of bullets spawning with types
-var damage_range: Vector2i = Vector2i(50,150)
+var damage_range: Vector2i = Vector2i(25,125)
 var anti_armor_chance: float = 0
 var piercing_chance: float = 0
 var explosive_chance: float = 0
@@ -62,7 +62,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		new_bullet.launch(
 			mouse_position.normalized().rotated(random_spread_offset * current_bullet.projectile_count), 
 			get_projectile_speed(), 
-			int(current_bullet.damage_amount) / current_bullet.projectile_count, 
+			int(current_bullet.damage_amount * unit.get_charge_damage_modifier()) / current_bullet.projectile_count, 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
 		if current_bullet.piercing:

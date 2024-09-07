@@ -122,6 +122,8 @@ func on_aim_finished() -> void:
 			parent.attack_full_cone.visible = false
 		parent.get_current_equipment().on_activation(parent, target)
 		parent.actioned.emit()
+		
+		parent.charge += 30
 	
 	if parent.get_current_equipment() is Gun:
 		if !parent.get_current_equipment().have_bullets():

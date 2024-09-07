@@ -62,7 +62,8 @@ func on_spawn(speed: float, health: int) -> void:
 	health_bar.change_value(health, true)
 
 func _ready():
-	health_label.text = "(" + str(int(armor_points)) + ")" + str(int(health_points))
+	health_label.text = str(int(health_points))
+	#health_label.text = "(" + str(int(armor_points)) + ")" + str(int(health_points))
 	bleed_timer.timeout.connect(
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
 		
@@ -100,7 +101,8 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 			make_blood_splatter_eff(projectile_dir, 50)
 	else:
 		health_bar.change_value(int(health_points))
-		health_label.text = "(" + str(int(armor_points)) + ")" + str(int(health_points))
+		#health_label.text = "(" + str(int(armor_points)) + ")" + str(int(health_points))
+		health_label.text = str(int(health_points))
 		
 		if health_points < max_health_points:
 			bleed_timer.start(2)

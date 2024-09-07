@@ -97,6 +97,11 @@ var current_level: int = 1
 var upgrade_options = []
 #endregion
 
+#region Charge System
+var charge: float = 0
+var max_charge: float = 100
+#endregion
+
 #region Signals
 signal was_selected
 signal deselected
@@ -195,6 +200,11 @@ func _process(delta: float) -> void:
 			secondary_reload_timer.start(get_reload_time(1))
 			
 	state_machine.process_frame(delta)
+	
+	# reduce charge
+	charge -= delta * int(charge/10 + 1) * 2
+	if charge < 0:
+		charge = 0
 	
 #region Enemy Interaction
 func receive_hit(amount: float) -> void:
@@ -442,3 +452,7 @@ func get_magazine_status() -> String:
 
 func get_queued_attack_count() -> int:
 	return $StateMachine/ActionOne.attack_direction_queue.size()
+
+## how much damage is increased from current charge. 100 charge means x2 damage
+func get_charge_damage_modifier() -> float:
+	return 1 + charge/100.0

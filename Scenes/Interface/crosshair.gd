@@ -27,7 +27,7 @@ func _process(_delta):
 			if num >= current_eq.bullets.size():
 				info_label.text = ""
 			else:
-				info_label.text = str(current_eq.bullets[num].damage_amount)
+				info_label.text = str(int(current_eq.bullets[num].damage_amount * (1 + InputManager.selected_unit.charge/100)))
 		else:
 			info_label.text = ""
 			

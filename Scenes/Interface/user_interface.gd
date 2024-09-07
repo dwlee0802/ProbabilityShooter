@@ -67,6 +67,9 @@ var bullet_info_menu_container: Container = $BulletInfoMenu/MarginContainer/Grid
 @onready
 var bullet_generation_info: Control = $BulletGenerationInfoMenu
 
+@onready
+var charge_bar: ProgressBar = $ChargeProgressBar
+
 
 func _ready():
 	game_over_ui.visible = false
@@ -82,6 +85,10 @@ func _ready():
 	
 	upgrade_menu.visible = false
 
+func _process(_delta: float) -> void:
+	if InputManager.selected_unit != null:
+		charge_bar.value = InputManager.selected_unit.charge / InputManager.selected_unit.max_charge * 100
+	
 func update_unit_portraits(units) -> void:
 	for i in range(unit_portraits.get_child_count()):
 		var portrait: UnitPortrait = unit_portraits.get_child(i)
