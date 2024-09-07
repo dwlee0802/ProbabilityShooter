@@ -69,8 +69,9 @@ func _ready():
 		
 func _process(_delta: float) -> void:
 	return
-	
-func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO):
+
+# returns actual amount of HP decreased of self
+func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
 	var new_popup = damage_popup.instantiate()
 		
 	if critical:
@@ -89,6 +90,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	new_popup.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
 	get_tree().root.add_child(new_popup)
 	
+	var effective_damage: int = min(damage_amount, health_points)
 	health_points -= damage_amount
 	
 	# reduce speed if below half health
@@ -110,6 +112,8 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 		$Sprite2D/AnimationPlayer.play("hit_animation")
 		
 	CameraControl.camera.shake_screen(10,200)
+	
+	return effective_damage
 	
 func die():
 	var new_effect: CPUParticles2D = death_effect.instantiate()
