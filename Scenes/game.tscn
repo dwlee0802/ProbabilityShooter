@@ -19,9 +19,9 @@
 script = ExtResource("1_entdd")
 wave_unit_count = 4
 elite_spawn_time = 5.0
-spawn_radius = 20000
+spawn_radius = 10000
 time_difficulty_modifier = 0.5
-enemy_base_speed = 200
+enemy_base_speed = 100
 resource_stock = 10
 
 [node name="Background" type="Sprite2D" parent="."]
