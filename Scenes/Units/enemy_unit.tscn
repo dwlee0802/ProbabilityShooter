@@ -220,8 +220,10 @@ offset_top = 144.0
 offset_right = 138.0
 offset_bottom = 169.0
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="ArmorBar" parent="." instance=ExtResource("4_s1jtq")]
+visible = false
 anchors_preset = 7
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -230,6 +232,7 @@ offset_top = 108.0
 offset_right = 138.0
 offset_bottom = 133.0
 grow_vertical = 0
+mouse_filter = 2
 bar_color = Color(0, 0.539768, 0.955463, 1)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

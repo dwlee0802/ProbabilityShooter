@@ -647,7 +647,7 @@ size_flags_vertical = 1
 theme_override_font_sizes/font_size = 12
 text = "HP Damage Range:
 AP Damage Range:
-Piercing Round Spawn Chance:"
+Piercing:"
 
 [node name="Values" type="Label" parent="BulletGenerationInfoMenu/MarginContainer"]
 layout_mode = 2

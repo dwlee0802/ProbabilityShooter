@@ -68,7 +68,7 @@ func _ready():
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
 		
 func _process(_delta: float) -> void:
-	return
+	core_position = InputManager.selected_unit.global_position
 
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
