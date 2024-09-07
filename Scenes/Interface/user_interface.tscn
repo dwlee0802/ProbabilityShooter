@@ -138,6 +138,12 @@ _data = {
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
 
+[node name="Bugfix" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_fir5d")
+
 [node name="GameOver" type="VBoxContainer" parent="."]
 visible = false
 anchors_preset = 8

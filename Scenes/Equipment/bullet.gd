@@ -10,7 +10,7 @@ var projectile_count: int = 1
 func _to_string() -> String:
 	var output = "BULLET INFO:\n"
 	if projectile_count != 1:
-		output += "DMG: " + str(damage_amount/projectile_count) + " x" + str(projectile_count)
+		output += "DMG: " + str(int(damage_amount/float(projectile_count))) + " x" + str(projectile_count)
 	else:
 		output += "DMG: " + str(damage_amount)
 	if anti_armor:
