@@ -78,7 +78,7 @@ func _physics_process(_delta):
 static func IsSelected(unit: PlayerUnit) -> bool:
 	return selected_unit == unit
 
-func _select_unit(unit: PlayerUnit) -> void:
+static func _select_unit(unit: PlayerUnit) -> void:
 	if InputManager.selected_unit != null:
 		InputManager.selected_unit.deselected.emit()
 		

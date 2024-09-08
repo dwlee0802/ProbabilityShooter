@@ -49,6 +49,7 @@ script = ExtResource("2_webe7")
 [node name="BloodSplatter" type="Node2D" parent="."]
 
 [node name="Core" parent="." node_paths=PackedStringArray("game_ref") instance=ExtResource("1_i48ud")]
+visible = false
 game_ref = NodePath("..")
 
 [node name="Core Console" parent="Core" node_paths=PackedStringArray("core") instance=ExtResource("15_5cnel")]

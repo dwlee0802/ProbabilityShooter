@@ -10,9 +10,6 @@ var pulse_enemy_scene = preload("res://Scenes/Units/pulse_enemy_unit.tscn")
 var pulse_enemy_ratio: float = 0
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
-@onready var core: Core = $Core
-@export var core_health: int = 1000
-
 var units = []
 
 @onready
@@ -99,19 +96,8 @@ func _ready():
 	$InputManager.game = self
 	
 	units = $PlayerUnits.get_children()
-	
-	EnemyUnit.core_position = core.global_position
-	core.core_killed.connect(game_over)
-	core.received_hit.connect(on_core_hit)
-	core.health_points = core_health
-	core.progressed.connect(on_core_progress)
-	core.activation_complete.connect(victory)
-	
-	user_interface.core_health_bar.set_max(core_health)
-	user_interface.core_health_bar.change_value(core_health)
-	
-	user_interface.core_progress_bar.set_max(100)
-	user_interface.core_progress_bar.change_value(0, true)
+	#InputManager._select_unit(units[0])
+	bind_selected_unit_signals()
 	
 	# set minimap parameters
 	user_interface.minimap.detection_range = spawn_radius
@@ -156,7 +142,7 @@ func _process(_delta):
 		reload_times.append(unit.action_one_reload_timer.time_left)
 	InputManager.camera.scale_unit_shortcut_label(units)
 	InputManager.camera.scale_health_label(enemies.get_children())
-	user_interface.core_health_label.text = "Core Health: " + str(core.health_points)
+	user_interface.core_health_label.text = "Health: " + str(InputManager.selected_unit.health_points)
 	
 	if !pause:
 		time_since_start += _delta
@@ -340,11 +326,7 @@ func start() -> void:
 	# spawn first wave
 	spawn_wave()
 	wave_timer.start(time_between_waves)
-	
-	core.health_points = core_health
-	core.activation_progress = 0
-	user_interface.core_health_bar.change_value(core_health, true)
-	user_interface.core_progress_bar.change_value(0, true)
+
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
 	kill_count = 0
@@ -355,15 +337,9 @@ func start() -> void:
 		unit.reset_items()
 
 func on_core_hit() -> void:
-	user_interface.core_health_bar.change_value(core.health_points)
 	user_interface.core_hit_effect.play("RESET")
 	user_interface.core_hit_effect.play("core_hit_animation")
 
-func on_core_progress() -> void:
-	user_interface.core_progress_bar.change_value(core.activation_progress)
-	user_interface.core_progress_label.text = "Progress: " + str(
-		DW_ToolBox.TrimDecimalPoints(core.activation_progress / core.activation_max, 4) * 100) + "%"
-	
 func change_resource(amount: int) -> void:
 	resource_stock += amount
 	resource_stock = max(resource_stock, 0)
@@ -386,6 +362,11 @@ func bind_selected_unit_signals() -> void:
 			user_interface.show_upgrade_menu()
 		else:
 			user_interface.upgrade_menu.visible = false
+			
+		InputManager.selected_unit.knocked_out.connect(game_over)
+		InputManager.selected_unit.was_attacked.connect(on_core_hit)
+		user_interface.core_health_bar.set_max(InputManager.selected_unit.max_health_points)
+		user_interface.core_health_bar.change_value(InputManager.selected_unit.health_points)
 			
 func on_experience_changed() -> void:
 	if InputManager.selected_unit != null:
