@@ -46,11 +46,6 @@ wait_time = 4.0
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
 
-[node name="Camera2D" type="Camera2D" parent="InputManager"]
-zoom = Vector2(0.3, 0.3)
-process_callback = 0
-script = ExtResource("2_iduqg")
-
 [node name="BloodSplatter" type="Node2D" parent="."]
 
 [node name="Core" parent="." node_paths=PackedStringArray("game_ref") instance=ExtResource("1_i48ud")]
@@ -87,7 +82,12 @@ position = Vector2(-496, 39)
 movement_speed = 500.0
 temp_color = Color(0.356863, 0.643137, 1, 1)
 starting_equipments = [ExtResource("10_gp80q")]
-experience_gained = 99999
+
+[node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]
+zoom = Vector2(0.3, 0.3)
+process_callback = 0
+script = ExtResource("2_iduqg")
+panning_disabled = true
 
 [node name="Enemies" type="Node2D" parent="."]
 

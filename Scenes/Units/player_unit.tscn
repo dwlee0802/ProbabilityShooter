@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=25 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scenes/States/unconscious_state.gd" id="6_yjtio"]
 [ext_resource type="Script" path="res://Scenes/States/revive_state.gd" id="8_5ttnm"]
 [ext_resource type="Script" path="res://Scenes/States/interact_state.gd" id="8_voe6n"]
+[ext_resource type="Script" path="res://wasd_movement_component.gd" id="9_0efpd"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
@@ -75,9 +76,12 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_0xn4u"]
 colors = PackedColorArray(1, 1, 1, 0.423529, 1, 1, 1, 0)
 
-[node name="PlayerUnit" type="Area2D"]
+[node name="PlayerUnit" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 8
+gravity_scale = 0.0
+linear_damp_mode = 1
+linear_damp = 15.0
 script = ExtResource("1_b776y")
 aim_color = Color(1, 1, 1, 0.196078)
 attack_color = Color(1, 0, 0, 0.392157)
@@ -88,9 +92,8 @@ background_color = Color(0, 0, 0, 0.196078)
 script = ExtResource("2_us0md")
 starting_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state", "action_one_state", "unconscious_state", "revive_state", "interact_state")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("action_one_state", "unconscious_state", "revive_state", "interact_state")]
 script = ExtResource("3_2iym7")
-move_state = NodePath("../Move")
 action_one_state = NodePath("../ActionOne")
 unconscious_state = NodePath("../Unconscious")
 revive_state = NodePath("../Revive")
@@ -106,10 +109,9 @@ unconscious_state = NodePath("../Unconscious")
 script = ExtResource("6_yjtio")
 idle_state = NodePath("../Idle")
 
-[node name="ActionOne" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "move_state", "unconscious_state")]
+[node name="ActionOne" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "unconscious_state")]
 script = ExtResource("6_3pdj6")
 idle_state = NodePath("../Idle")
-move_state = NodePath("../Move")
 unconscious_state = NodePath("../Unconscious")
 
 [node name="Timer" type="Timer" parent="StateMachine/ActionOne"]
@@ -133,6 +135,11 @@ idle_state = NodePath("../Idle")
 action_one_state = NodePath("../ActionOne")
 move_state = NodePath("../Move")
 unconscious_state = NodePath("../Unconscious")
+
+[node name="MovementComponent" type="Node" parent="."]
+script = ExtResource("9_0efpd")
+max_speed = 12000.0
+acceleration = 12000.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.262431, 0.639506, 1, 1)

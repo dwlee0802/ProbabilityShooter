@@ -13,6 +13,8 @@ var move_target: Vector2
 var moving: bool = false
 
 ## camera panning related stuff
+@export
+var panning_disabled: bool = false
 var dragging: bool = false
 var mouse_pos_init: Vector2
 var camera_pos_init: Vector2
@@ -57,6 +59,9 @@ func _zoom_camera(delta):
 	zoom = zoom.slerp(zoom_target, zoom_speed * delta)
 
 func _pan_camera():
+	if panning_disabled:
+		return
+		
 	if !dragging and Input.is_action_just_pressed("camera_pan"):
 		moving = false
 		mouse_pos_init = get_viewport().get_mouse_position()

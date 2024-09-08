@@ -8,10 +8,7 @@ static var camera: CameraControl
 static var selected_unit: PlayerUnit = null
 
 var slice_angle_size: float = PI/2
-
-
-func _ready():
-	InputManager.camera = $Camera2D
+	
 	
 func _physics_process(_delta):
 	if InputManager.selected_unit == null:

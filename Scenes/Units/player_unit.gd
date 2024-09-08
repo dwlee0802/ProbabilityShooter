@@ -106,6 +106,10 @@ var max_charge: float = 100
 var charge_particles: CPUParticles2D = $ChargeParticles
 #endregion
 
+## WASD Movement Component Node
+@onready
+var movement_component: WASDMovementComponent = $MovementComponent
+
 #region Signals
 signal was_selected
 signal deselected
@@ -163,6 +167,8 @@ func _ready() -> void:
 	
 	stats_changed.emit()
 	
+	InputManager.camera = $Camera2D
+	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	
@@ -187,6 +193,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
+	movement_component.physics_update(self, delta)
 	# make aim line follow mouse cursor
 	#aim_line.visible = InputManager.IsSelected(self)
 	aim_cone.visible = InputManager.IsSelected(self)

@@ -1,2 +1,2 @@
-extends Area2D
+extends RigidBody2D
 class_name Unit
