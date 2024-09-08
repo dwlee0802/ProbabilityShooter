@@ -206,7 +206,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			start_reload_process()
 		else:
 			# determine active reload success
-			pass
+			var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
+			if active_reload_range.x < selected_point and selected_point < active_reload_range.y:
+				print("active reload success!")
+			else:
+				print("active reload fail!")
+			print("selected: " + str(selected_point))
+			print("range: " + str(active_reload_range))
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
@@ -329,7 +335,7 @@ func set_current_equipment(num: int) -> void:
 func start_reload_process(eq_num: int = 0) -> void:
 	if action_one_reload_timer.is_stopped():
 		action_one_reload_timer.start(get_reload_time(0))
-		var active_reload_start_point: int = randi_range(50, 90)
+		var active_reload_start_point: int = randi_range(50, 70)
 		active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
 		print("active reload range: " + str(active_reload_range))
 		reload_started.emit()

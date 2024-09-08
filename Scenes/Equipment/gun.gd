@@ -41,6 +41,9 @@ var bonus_magazine_size: int = 0
 @export
 var bonus_penetration: float = 0
 
+## Debugging
+var print_bullet_info: bool = false
+
 signal spread_changed
 
 
@@ -84,8 +87,10 @@ func reload() -> void:
 	current_magazine_count = get_magazine_size()
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
 	bullets = generate_bullets(max_bullet_count)
-	for bullet: Bullet in bullets:
-		print(bullet)
+	
+	if print_bullet_info:
+		for bullet: Bullet in bullets:
+			print(bullet)
 
 func clear_bullets() -> void:
 	print("removed " + str(current_magazine_count) + " bullets")
