@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=4 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
+[ext_resource type="Script" path="res://Scenes/Interface/active_reload_component.gd" id="3_27vr4"]
 
 [node name="Crosshair" type="Node2D"]
 process_mode = 3
@@ -25,7 +26,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-rotation = 3.64774
+rotation = -0.314159
 mouse_filter = 2
 script = ExtResource("2_hrpk1")
 radius = 15.0
@@ -60,3 +61,6 @@ visible = false
 self_modulate = Color(1, 1, 0, 1)
 rotation = 3.14159
 polygon = PackedVector2Array(72, -5, 72, 5, 103, 0)
+
+[node name="ActiveReloadComponent" type="Node" parent="."]
+script = ExtResource("3_27vr4")

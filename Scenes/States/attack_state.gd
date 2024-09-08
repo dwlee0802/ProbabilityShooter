@@ -70,7 +70,8 @@ func start_attack_process() -> void:
 func stop_attack_process() -> void:
 	timer.stop()
 	parent.attack_full_cone.visible = false
-	queued_attack_cones.front().visible = true
+	if !queued_attack_cones.is_empty():
+		queued_attack_cones.front().visible = true
 	
 func exit() -> void:
 	super()

@@ -87,6 +87,11 @@ func reload() -> void:
 	for bullet: Bullet in bullets:
 		print(bullet)
 
+func clear_bullets() -> void:
+	print("removed " + str(current_magazine_count) + " bullets")
+	current_magazine_count = 0
+	bullets.clear()
+
 #region Random Bullets System
 func generate_bullets(count: int):
 	var output = []

@@ -200,11 +200,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("reload"):
 		# reload not in process. start reload process
 		if action_one_reload_timer.is_stopped():
-			action_one_reload_timer.start(get_reload_time())
-			get_current_equipment().ready = false
-			
-			# need to stop ongoing attack processes
-			reload_started.emit()
+			equipments[0].ready = false
+			if equipments[0] is Gun:
+				equipments[0].clear_bullets()
+			start_reload_process()
 		else:
 			# determine active reload success
 			pass
@@ -222,8 +221,7 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	## always reload stuff unless knocked out
 	if equipments.size() >= 1 and !equipments[0].ready:
-		if action_one_reload_timer.is_stopped():
-			action_one_reload_timer.start(get_reload_time(0))
+		start_reload_process()
 	if equipments.size() >= 2 and !equipments[1].ready:
 		if secondary_reload_timer.is_stopped():
 			secondary_reload_timer.start(get_reload_time(1))
@@ -333,7 +331,9 @@ func start_reload_process(eq_num: int = 0) -> void:
 		action_one_reload_timer.start(get_reload_time(0))
 		var active_reload_start_point: int = randi_range(50, 90)
 		active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
-	
+		print("active reload range: " + str(active_reload_range))
+		reload_started.emit()
+		
 ## called after reloading process is finished
 func reload_action(eq_num: int = 0) -> void:
 	print("Reload complete")

@@ -9,12 +9,19 @@ var image: RadialProgress = $RadialProgress
 @onready
 var selected_unit_pointer: Node2D = $SelectedUnitPointer
 
+@onready
+var active_reload_component: ActiveReloadComponent = $ActiveReloadComponent
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	if !InputManager.selected_unit.reload_started.is_connected(active_reload_component.update_reload_marker):
+		InputManager.selected_unit.reload_started.connect(active_reload_component.update_reload_marker)
+		
 	global_position = get_global_mouse_position()
 	
 	# depending on attack available, change infolabel content
