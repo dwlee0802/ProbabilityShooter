@@ -12,6 +12,9 @@ var shootable_markers: Control
 var center_global_position: Vector2
 
 @export
+var clip_markers: bool = true
+
+@export
 ## max distance minimap points are away from center irl
 var detection_range: int = 20000:
 	set(newval):
@@ -69,7 +72,7 @@ func update_markers(center: Vector2, points: PackedVector2Array, colors: PackedC
 			current_marker = enemy_markers.get_child(i)
 			
 		current_marker.position = local_pos
-		current_marker.visible = true
+		current_marker.visible = dist_ratio <= 1
 		current_marker.get_node("TextureRect").self_modulate = colors[i]
 	
 	for i: int in range(points.size(), enemy_markers.get_child_count()):

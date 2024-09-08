@@ -180,13 +180,13 @@ func _process(_delta):
 		var points: PackedVector2Array = PackedVector2Array()
 		var color_arr: PackedColorArray = PackedColorArray()
 		# add player units
-		for unit: PlayerUnit in units:
-			points.append(unit.global_position)
-			color_arr.append(unit.temp_color)
+		#for unit: PlayerUnit in units:
+			#points.append(unit.global_position)
+			#color_arr.append(unit.temp_color)
 			
 		# add camera
-		points.append(CameraControl.camera.global_position)
-		color_arr.append(Color.GREEN_YELLOW)
+		#points.append(CameraControl.camera.global_position)
+		#color_arr.append(Color.GREEN_YELLOW)
 		
 		for enemy: EnemyUnit in enemies.get_children():
 			points.append(enemy.global_position)
@@ -194,7 +194,7 @@ func _process(_delta):
 				color_arr.append(Color.PURPLE)
 			else:
 				color_arr.append(Color.RED)
-		user_interface.minimap.update_markers(core.global_position, points, color_arr)
+		user_interface.minimap.update_markers(InputManager.selected_unit.global_position, points, color_arr)
 		
 		var bullet_points = []
 		var bullet_color_arr = []
@@ -202,7 +202,7 @@ func _process(_delta):
 			bullet_points.append(bullet.global_position)
 			bullet_color_arr.append(Color.WHITE)
 			
-		user_interface.minimap.update_bullet_markers(core.global_position, bullet_points, bullet_color_arr)
+		user_interface.minimap.update_bullet_markers(InputManager.selected_unit.global_position, bullet_points, bullet_color_arr)
 		
 		var shootable_points = []
 		var shootable_color_arr = []
@@ -210,9 +210,9 @@ func _process(_delta):
 			shootable_points.append(shootable.global_position)
 			shootable_color_arr.append(Color.ORANGE)
 			
-		user_interface.minimap.update_shootable_markers(core.global_position, shootable_points, shootable_color_arr)
+		user_interface.minimap.update_shootable_markers(InputManager.selected_unit.global_position, shootable_points, shootable_color_arr)
 	else:
-		user_interface.minimap.update_markers(core.global_position, [], [])
+		user_interface.minimap.update_markers(InputManager.selected_unit.global_position, [], [])
 		
 	user_interface.update_bullet_generation_info_menu()
 	
@@ -244,7 +244,10 @@ func spawn_enemy_unit() -> void:
 		enemy_base_speed + speed_bonus,
 		enemy_base_health + hp_bonus)
 	enemies.add_child(newEnemy)
-	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
+	if InputManager.selected_unit != null:
+		newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
+	else:
+		newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
 
 func spawn_elite_unit() -> void:
