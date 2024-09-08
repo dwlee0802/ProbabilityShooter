@@ -18,7 +18,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbu37"]
-radius = 64.0
+radius = 93.0215
 
 [sub_resource type="Animation" id="Animation_t56vo"]
 length = 0.001
@@ -145,7 +145,7 @@ acceleration = 12000.0
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.262431, 0.639506, 1, 1)
 material = SubResource("ShaderMaterial_ablmn")
-scale = Vector2(2, 2)
+scale = Vector2(4, 4)
 texture = ExtResource("11_cpb60")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

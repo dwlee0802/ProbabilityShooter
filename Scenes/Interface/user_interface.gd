@@ -171,7 +171,7 @@ func update_bullet_menu() -> void:
 		var new_label: Label = Label.new()
 		if i == 0:
 			new_label.add_theme_color_override("font_color", Color.GREEN)
-		new_label.add_theme_font_size_override("font_size", 10)
+		new_label.add_theme_font_size_override("font_size", 12)
 		if i < InputManager.selected_unit.get_queued_attack_count():
 			new_label.add_theme_color_override("font_color", Color.YELLOW)
 		new_label.text = str(bullets[i])
