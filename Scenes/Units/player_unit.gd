@@ -102,6 +102,8 @@ var upgrade_options = []
 #region Charge System
 var charge: float = 0
 var max_charge: float = 100
+@onready
+var charge_particles: CPUParticles2D = $ChargeParticles
 #endregion
 
 #region Signals
@@ -207,6 +209,17 @@ func _process(delta: float) -> void:
 	charge -= delta * int(charge/10 + 1) * 2
 	if charge < 0:
 		charge = 0
+		
+	# charge particle effect
+	var charge_level: int = int(charge / max_charge * 10)
+	if charge_level == 0:
+		if charge_particles.emitting == true:
+			charge_particles.emitting = false
+	else:
+		if charge_particles.emitting == false:
+			charge_particles.emitting = true
+	if charge_particles.amount != max(charge_level * 2, 1):
+		charge_particles.amount = max(charge_level * 2, 1)
 	
 #region Enemy Interaction
 func receive_hit(amount: float) -> void:

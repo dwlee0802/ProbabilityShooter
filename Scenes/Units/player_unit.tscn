@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=24 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -8,20 +8,13 @@
 [ext_resource type="Script" path="res://Scenes/States/unconscious_state.gd" id="6_yjtio"]
 [ext_resource type="Script" path="res://Scenes/States/revive_state.gd" id="8_5ttnm"]
 [ext_resource type="Script" path="res://Scenes/States/interact_state.gd" id="8_voe6n"]
-[ext_resource type="Shader" path="res://Scenes/Units/shine.gdshader" id="9_2ktur"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhi3t"]
-shader = ExtResource("9_2ktur")
-shader_parameter/shine_color = Color(1, 1, 1, 0.25)
-shader_parameter/line_width = 0.2
-shader_parameter/angle = 0.785398
-shader_parameter/speed = 2.0
-shader_parameter/wait_cycles = 2.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbu37"]
 radius = 64.0
@@ -74,6 +67,13 @@ gradient = SubResource("Gradient_o1o5u")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.834862, 0.224771)
+
+[sub_resource type="Curve" id="Curve_3xcw1"]
+_data = [Vector2(0, 0.78022), 0.0, 0.0, 0, 0, Vector2(1, 0.637363), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_0xn4u"]
+colors = PackedColorArray(1, 1, 1, 0.423529, 1, 1, 1, 0)
 
 [node name="PlayerUnit" type="Area2D"]
 collision_layer = 2
@@ -136,7 +136,7 @@ unconscious_state = NodePath("../Unconscious")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.262431, 0.639506, 1, 1)
-material = SubResource("ShaderMaterial_rhi3t")
+material = SubResource("ShaderMaterial_ablmn")
 scale = Vector2(2, 2)
 texture = ExtResource("11_cpb60")
 
@@ -208,7 +208,6 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(2, 6)
 shape = SubResource("CircleShape2D_tjobb")
 debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
 
@@ -265,5 +264,23 @@ color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="Effects" type="Node" parent="."]
+
+[node name="ChargeParticles" type="CPUParticles2D" parent="."]
+amount = 10
+lifetime = 0.2
+emission_shape = 2
+emission_sphere_radius = 47.54
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 800.0
+scale_amount_min = 10.0
+scale_amount_max = 10.0
+split_scale = true
+scale_curve_x = SubResource("Curve_3xcw1")
+scale_curve_y = null
+color = Color(0, 0.890196, 1, 1)
+color_ramp = SubResource("Gradient_0xn4u")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
