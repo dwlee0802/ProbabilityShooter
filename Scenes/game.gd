@@ -265,7 +265,10 @@ func spawn_elite_unit() -> void:
 	newEnemy.increase_size(2)
 	newEnemy.is_elite = true
 	enemies.add_child(newEnemy)
-	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
+	if InputManager.selected_unit != null:
+		newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
+	else:
+		newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
 	
 func game_over() -> void:
