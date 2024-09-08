@@ -71,9 +71,9 @@ func _physics_process(_delta):
 			#if new_selected != null:
 				#_select_unit(new_selected)
 	
-	if Input.is_action_pressed("center_camera"):
-		if InputManager.selected_unit:
-			camera.center_camera_on(InputManager.selected_unit.position)
+	#if Input.is_action_pressed("center_camera"):
+		#if InputManager.selected_unit:
+			#camera.center_camera_on(InputManager.selected_unit.position)
 
 static func IsSelected(unit: PlayerUnit) -> bool:
 	return selected_unit == unit
