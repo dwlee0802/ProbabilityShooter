@@ -31,6 +31,8 @@ var reload_speed_modifier: float = 0
 
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
+@export
+var active_reload_available: bool = true
 #endregion
 
 @onready
@@ -207,12 +209,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			# determine active reload success
 			var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
-			if active_reload_range.x < selected_point and selected_point < active_reload_range.y:
+			if active_reload_available and active_reload_range.x < selected_point and selected_point < active_reload_range.y:
 				print("active reload success!")
+				action_one_reload_timer.start(0.1)
 			else:
 				print("active reload fail!")
-			print("selected: " + str(selected_point))
-			print("range: " + str(active_reload_range))
+				active_reload_available = false
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
@@ -332,8 +334,9 @@ func set_current_equipment(num: int) -> void:
 	equipment_changed.emit()
 	print("current equipment: " + get_current_equipment().data.equipment_name)
 
-func start_reload_process(eq_num: int = 0) -> void:
+func start_reload_process(_eq_num: int = 0) -> void:
 	if action_one_reload_timer.is_stopped():
+		active_reload_available = true
 		action_one_reload_timer.start(get_reload_time(0))
 		var active_reload_start_point: int = randi_range(50, 70)
 		active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
@@ -343,6 +346,7 @@ func start_reload_process(eq_num: int = 0) -> void:
 ## called after reloading process is finished
 func reload_action(eq_num: int = 0) -> void:
 	print("Reload complete")
+	active_reload_available = true
 	if eq_num < equipments.size():
 		equipments[eq_num].ready = true
 		if equipments[eq_num] is Gun:

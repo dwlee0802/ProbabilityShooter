@@ -37,16 +37,21 @@ func _process(_delta):
 				info_label.text = str(int(current_eq.bullets[num].damage_amount * (1 + InputManager.selected_unit.charge/100)))
 		else:
 			info_label.text = ""
-			
+		
+		# reloading
 		if !current_eq.ready:
 			var timer: Timer = InputManager.selected_unit.get_current_equipment_timer()
 			#info_label.text = str(int(InputManager.selected_unit.action_one_reload_timer.time_left * 10)/10.0)
 			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-			if timer.is_stopped():
-				image.progress = 0
+			if InputManager.selected_unit.active_reload_available:
+				image.bar_color = Color.YELLOW
+			else:
+				image.bar_color = Color.ORANGE_RED
+				
 			if current_eq is Gun:
 				mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
 		else:
+			image.bar_color = Color.GREEN
 			if current_eq is Gun:
 				mag_label.text = InputManager.selected_unit.get_magazine_status()
 			else:
