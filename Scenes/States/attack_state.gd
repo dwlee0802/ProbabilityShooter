@@ -35,6 +35,13 @@ func enter() -> void:
 		if !parent.action_one_reload_timer.timeout.is_connected(start_attack_process):
 			# start attack process when reload is done
 			parent.action_one_reload_timer.timeout.connect(start_attack_process)
+			
+	if !parent.reload_started.is_connected(stop_attack_process):
+		# stop attack process when manual reload is pressed
+		parent.reload_started.connect(stop_attack_process)
+	if !parent.reload_complete.is_connected(start_attack_process):
+		# start attack process when reload is done
+		parent.reload_complete.connect(start_attack_process)
 	
 	if !parent.equipment_changed.is_connected(timer.stop):
 		parent.equipment_changed.connect(timer.stop)
@@ -43,6 +50,7 @@ func enter() -> void:
 		timer.timeout.connect(on_aim_finished)
 
 func start_attack_process() -> void:
+	print("start attack process")
 	if attack_direction_queue.is_empty():
 		return
 	# back end
@@ -59,6 +67,11 @@ func start_attack_process() -> void:
 	queued_attack_cones.front().visible = false
 	parent.attack_full_cone.visible = true
 
+func stop_attack_process() -> void:
+	timer.stop()
+	parent.attack_full_cone.visible = false
+	queued_attack_cones.front().visible = true
+	
 func exit() -> void:
 	super()
 	parent.attack_line.visible = false

@@ -15,9 +15,24 @@ offset_bottom = 40.0
 mouse_filter = 2
 script = ExtResource("2_hrpk1")
 radius = 15.0
-progress = 100.0
+progress = 70.0
 thickness = 5.0
 bar_color = Color(0.226392, 0.983773, 0.225722, 1)
+ring = true
+
+[node name="ActiveReloadMarker" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+rotation = 3.64774
+mouse_filter = 2
+script = ExtResource("2_hrpk1")
+radius = 15.0
+progress = 10.0
+thickness = 5.0
+bg_color = Color(1, 1, 1, 0)
+bar_color = Color(0, 0, 0, 0.788235)
 ring = true
 
 [node name="MagazineLabel" type="Label" parent="."]

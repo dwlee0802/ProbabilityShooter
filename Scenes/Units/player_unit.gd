@@ -28,6 +28,9 @@ var health_bar: DelayedProgressBar = $HealthBar
 var revive_time: float = 5.0
 var aim_speed_modifier: float = 0
 var reload_speed_modifier: float = 0
+
+var active_reload_length: int = 10
+var active_reload_range: Vector2i = Vector2i.ZERO
 #endregion
 
 @onready
@@ -124,6 +127,8 @@ signal level_increased
 signal stats_changed
 signal actioned
 signal bullets_changed
+signal reload_started
+signal reload_complete
 #endregion
 
 
@@ -178,18 +183,31 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	state_machine.process_input(event)
 	
-	if Input.is_action_just_pressed("action_one"):
-		# do we need to reload?
-		if get_current_equipment() != null and !get_current_equipment().ready:
-			# start reload
-			if action_one_reload_timer.is_stopped():
-				action_one_reload_timer.start(get_reload_time())
+	#if Input.is_action_just_pressed("action_one"):
+		## do we need to reload?
+		#if get_current_equipment() != null and !get_current_equipment().ready:
+			## start reload
+			#if action_one_reload_timer.is_stopped():
+				#action_one_reload_timer.start(get_reload_time())
 				
 	if Input.is_action_just_pressed("switch_equipment"):
 		current_equipped_index += 1
 		current_equipped_index = current_equipped_index % equipments.size()
 		equipment_changed.emit()
 		print("current equipment: " + get_current_equipment().data.equipment_name)
+		
+	## manual reload
+	if Input.is_action_just_pressed("reload"):
+		# reload not in process. start reload process
+		if action_one_reload_timer.is_stopped():
+			action_one_reload_timer.start(get_reload_time())
+			get_current_equipment().ready = false
+			
+			# need to stop ongoing attack processes
+			reload_started.emit()
+		else:
+			# determine active reload success
+			pass
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
@@ -310,7 +328,15 @@ func set_current_equipment(num: int) -> void:
 	equipment_changed.emit()
 	print("current equipment: " + get_current_equipment().data.equipment_name)
 
+func start_reload_process(eq_num: int = 0) -> void:
+	if action_one_reload_timer.is_stopped():
+		action_one_reload_timer.start(get_reload_time(0))
+		var active_reload_start_point: int = randi_range(50, 90)
+		active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
+	
+## called after reloading process is finished
 func reload_action(eq_num: int = 0) -> void:
+	print("Reload complete")
 	if eq_num < equipments.size():
 		equipments[eq_num].ready = true
 		if equipments[eq_num] is Gun:
@@ -319,6 +345,7 @@ func reload_action(eq_num: int = 0) -> void:
 		reload_sfx.play()
 		
 		bullets_changed.emit()
+		reload_complete.emit()
 	else:
 		push_error("Reload equipment index out of bounds!")
 	

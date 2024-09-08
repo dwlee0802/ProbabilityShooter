@@ -33,11 +33,6 @@ func process_input(_event: InputEvent) -> State:
 	if Input.is_action_just_pressed("action_one"):
 		keep_reloading = true
 		return action_one_state
-	## manual reload
-	if Input.is_action_just_pressed("reload"):
-		if parent.action_one_reload_timer.is_stopped():
-			parent.action_one_reload_timer.start(parent.get_reload_time())
-			parent.get_current_equipment().ready = false
 	if Input.is_action_just_pressed("interact"):
 		# get closest thing inside interaction area
 		var target = parent.get_interactable_in_range()
