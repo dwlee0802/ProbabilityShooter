@@ -96,6 +96,8 @@ func _ready():
 	$InputManager.game = self
 	
 	units = $PlayerUnits.get_children()
+	user_interface.core_health_bar.set_max(units[0].max_health_points)
+	user_interface.core_health_bar.change_value(units[0].health_points, true)
 	#InputManager._select_unit(units[0])
 	bind_selected_unit_signals()
 	
@@ -339,6 +341,7 @@ func start() -> void:
 func on_core_hit() -> void:
 	user_interface.core_hit_effect.play("RESET")
 	user_interface.core_hit_effect.play("core_hit_animation")
+	user_interface.core_health_bar.change_value(InputManager.selected_unit.health_points)
 
 func change_resource(amount: int) -> void:
 	resource_stock += amount
@@ -366,7 +369,6 @@ func bind_selected_unit_signals() -> void:
 		InputManager.selected_unit.knocked_out.connect(game_over)
 		InputManager.selected_unit.was_attacked.connect(on_core_hit)
 		user_interface.core_health_bar.set_max(InputManager.selected_unit.max_health_points)
-		user_interface.core_health_bar.change_value(InputManager.selected_unit.health_points)
 			
 func on_experience_changed() -> void:
 	if InputManager.selected_unit != null:

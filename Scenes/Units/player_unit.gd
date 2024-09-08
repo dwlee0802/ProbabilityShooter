@@ -283,7 +283,8 @@ func reset_health() -> void:
 func is_unconscious() -> bool:
 	return health_points <= 0
 	
-func _on_body_entered(body):
+func _on_body_entered(body) -> void:
+	print("meow?")
 	if body is EnemyUnit:
 		receive_hit(body.health_points)
 		body.die()
