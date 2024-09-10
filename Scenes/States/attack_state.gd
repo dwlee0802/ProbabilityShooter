@@ -24,7 +24,9 @@ func enter() -> void:
 	super()
 	is_first_frame = true
 	parent.state_label.text = "Action1"
-	save_mouse_position()
+	
+	if parent.get_current_equipment().ready or !parent.active_reload_available:
+		save_mouse_position()
 	
 	if parent.get_current_equipment().ready:
 		if parent.get_current_equipment() is Gun:
@@ -92,17 +94,27 @@ func process_input(_event: InputEvent) -> State:
 		if InputManager.IsSelected(parent):
 			if !is_first_frame:
 				if Input.is_action_just_pressed("action_one"):
-					if !Input.is_physical_key_pressed(KEY_SHIFT):
-						# empty attack queue
-						clear_attack_queues()
-						
-						save_mouse_position()
-						if parent.get_current_equipment().ready:
-							start_attack_process()
+					if parent.get_current_equipment().ready:
+						if parent.get_queued_attack_count() < parent.get_current_equipment().current_magazine_count:
+							save_mouse_position()
+							parent.bullets_changed.emit()
 					else:
-						save_mouse_position()
+						if !parent.active_reload_available:
+							if parent.get_queued_attack_count() < parent.get_current_equipment().get_magazine_size():
+								save_mouse_position()
+								parent.bullets_changed.emit()
+							
+					#if !Input.is_physical_key_pressed(KEY_SHIFT):
+						## empty attack queue
+						#clear_attack_queues()
+						#
+						#save_mouse_position()
+						#if parent.get_current_equipment().ready:
+							#start_attack_process()
+					#else:
+						#save_mouse_position()
 						
-					parent.bullets_changed.emit()
+					# dont go above mag size
 	
 	return null
 

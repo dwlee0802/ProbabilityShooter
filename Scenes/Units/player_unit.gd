@@ -106,7 +106,7 @@ var upgrade_options = []
 
 #region Charge System
 var charge: float = 0
-var max_charge: float = 100
+var max_charge: float = 1000
 @onready
 var charge_particles: CPUParticles2D = $ChargeParticles
 #endregion
@@ -205,8 +205,21 @@ func _unhandled_input(event: InputEvent) -> void:
 			equipments[0].ready = false
 			if equipments[0] is Gun:
 				equipments[0].clear_bullets()
+				$StateMachine/ActionOne.clear_attack_queues()
 			start_reload_process()
 		else:
+			# determine active reload success
+			var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
+			if active_reload_available and active_reload_range.x < selected_point and selected_point < active_reload_range.y:
+				print("active reload success!")
+				action_one_reload_timer.start(0.1)
+			else:
+				print("active reload fail!")
+				active_reload_available = false
+	
+	## click to active reload
+	if !action_one_reload_timer.is_stopped():
+		if Input.is_action_just_pressed("action_one"):
 			# determine active reload success
 			var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
 			if active_reload_available and active_reload_range.x < selected_point and selected_point < active_reload_range.y:

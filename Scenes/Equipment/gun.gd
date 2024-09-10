@@ -82,7 +82,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 
 func have_bullets() -> bool:
 	return current_magazine_count > 0
-
+	
 func reload() -> void:
 	current_magazine_count = get_magazine_size()
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
