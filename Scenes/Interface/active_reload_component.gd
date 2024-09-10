@@ -2,7 +2,7 @@ extends Node
 class_name ActiveReloadComponent
 
 func update_reload_marker(node: Node2D = get_parent()):
-	var marker: RadialProgress = node.get_node("ActiveReloadMarker")
+	var marker: RadialProgress = node.get_node("Control/ActiveReloadMarker")
 	var unit: PlayerUnit = InputManager.selected_unit
 	if unit == null:
 		return

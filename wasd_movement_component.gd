@@ -24,7 +24,8 @@ func _ready() -> void:
 	
 ## called every frame in physics process
 ## implements top down WASD movement
-func physics_update(unit: RigidBody2D, delta: float) -> void:
+## returns true if input is made by player
+func physics_update(unit: RigidBody2D, delta: float) -> bool:
 	dash_modifier = 1
 	run_modifier = 1
 	
@@ -56,5 +57,7 @@ func physics_update(unit: RigidBody2D, delta: float) -> void:
 		run_modifier = run_strength
 		
 	unit.apply_central_impulse(input_dir * acceleration * dash_modifier * run_modifier * delta)
+	
+	return input_dir != Vector2.ZERO
 	
 	#print(unit.linear_velocity)

@@ -5,22 +5,28 @@ var info_label: Label = $InfoLabel
 @onready
 var mag_label: Label = $MagazineLabel
 @onready
-var image: RadialProgress = $RadialProgress
-@onready
-var selected_unit_pointer: Node2D = $SelectedUnitPointer
+var image: RadialProgress = $Control/RadialProgress
 
 @onready
 var active_reload_component: ActiveReloadComponent = $ActiveReloadComponent
 
+@onready
+var reload_finished_animation: AnimationPlayer = $Control/ReloadFinishedEffect/AnimationPlayer
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+@onready
+var click_animation: AnimationPlayer = $Control/AnimationPlayer
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			click_animation.play("click_effect")
+			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if !InputManager.selected_unit.reload_started.is_connected(active_reload_component.update_reload_marker):
 		InputManager.selected_unit.reload_started.connect(active_reload_component.update_reload_marker)
+	if !InputManager.selected_unit.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
+		InputManager.selected_unit.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
 		
 	global_position = get_global_mouse_position()
 	
@@ -41,12 +47,15 @@ func _process(_delta):
 		# reloading
 		if !current_eq.ready:
 			var timer: Timer = InputManager.selected_unit.get_current_equipment_timer()
-			#info_label.text = str(int(InputManager.selected_unit.action_one_reload_timer.time_left * 10)/10.0)
 			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
 			if InputManager.selected_unit.active_reload_available:
 				image.bar_color = Color.YELLOW
 			else:
-				image.bar_color = Color.ORANGE_RED
+				if InputManager.selected_unit.active_reload_failed:
+					image.bar_color = Color.ORANGE_RED
+				else:
+					image.bar_color = Color.GREEN
+					#image.progress = 100
 				
 			if current_eq is Gun:
 				mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))

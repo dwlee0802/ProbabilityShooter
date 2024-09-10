@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=26 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
+[ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
 
@@ -292,5 +293,10 @@ scale_curve_x = SubResource("Curve_3xcw1")
 scale_curve_y = null
 color = Color(0, 0.890196, 1, 1)
 color_ramp = SubResource("Gradient_0xn4u")
+
+[node name="ActiveReloadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_1vmhr")
+volume_db = -7.0
+pitch_scale = 1.2
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

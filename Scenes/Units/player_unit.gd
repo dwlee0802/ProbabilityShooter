@@ -33,6 +33,11 @@ var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
 @export
 var active_reload_available: bool = true
+var active_reload_failed: bool = false
+var active_reload_success_sound = preload("res://Sound/UI/confirmation_002.ogg")
+var active_reload_fail_sound = preload("res://Sound/UI/error_006.ogg")
+@onready
+var active_reload_sound_player: AudioStreamPlayer = $ActiveReloadSound
 #endregion
 
 @onready
@@ -209,29 +214,39 @@ func _unhandled_input(event: InputEvent) -> void:
 			start_reload_process()
 		else:
 			# determine active reload success
-			var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
-			if active_reload_available and active_reload_range.x < selected_point and selected_point < active_reload_range.y:
-				print("active reload success!")
-				action_one_reload_timer.start(0.1)
-			else:
-				print("active reload fail!")
-				active_reload_available = false
+			check_active_reload()
 	
 	## click to active reload
 	if !action_one_reload_timer.is_stopped():
-		if Input.is_action_just_pressed("action_one"):
-			# determine active reload success
-			var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
-			if active_reload_available and active_reload_range.x < selected_point and selected_point < active_reload_range.y:
-				print("active reload success!")
-				action_one_reload_timer.start(0.1)
-			else:
-				print("active reload fail!")
-				active_reload_available = false
+		if Input.is_action_just_pressed("action_one") and active_reload_available:
+			check_active_reload()
+
+func check_active_reload() -> void:
+	if action_one_reload_timer.is_stopped():
+		return
+		
+	# determine active reload success
+	print("range: " + str(active_reload_range))
+	var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
+	print("selected: " + str(selected_point))
+	if active_reload_available and active_reload_range.x < selected_point + 2 and selected_point - 2 < active_reload_range.y:
+		print("active reload success!")
+		action_one_reload_timer.stop()
+		action_one_reload_timer.timeout.emit()
+		active_reload_sound_player.stream = active_reload_success_sound
+		active_reload_sound_player.play()
+	else:
+		print("active reload fail!")
+		active_reload_sound_player.stream = active_reload_fail_sound
+		active_reload_sound_player.play()
+		active_reload_failed = true
+	
+	active_reload_available = false
 	
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
 	movement_component.physics_update(self, delta)
+		
 	# make aim line follow mouse cursor
 	#aim_line.visible = InputManager.IsSelected(self)
 	aim_cone.visible = InputManager.IsSelected(self)
@@ -360,6 +375,7 @@ func start_reload_process(_eq_num: int = 0) -> void:
 	if action_one_reload_timer.is_stopped():
 		print("Start Reload Process")
 		active_reload_available = true
+		active_reload_failed = false
 		action_one_reload_timer.start(get_reload_time(0))
 		var active_reload_start_point: int = randi_range(50, 70)
 		active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
