@@ -264,6 +264,14 @@ func _process(delta: float) -> void:
 			charge_particles.emitting = true
 	if charge_particles.amount != max(charge_level * 2, 1):
 		charge_particles.amount = max(charge_level * 2, 1)
+		
+	## autofail active reload if past range
+	#if !equipments[0].ready and !action_one_reload_timer.is_stopped():
+		#if active_reload_available:
+			#var current_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
+			#if current_point > active_reload_range.y:
+				#active_reload_available = false
+				#print("active reload fail!")
 	
 #region Enemy Interaction
 func receive_hit(amount: float) -> void:
@@ -350,11 +358,12 @@ func set_current_equipment(num: int) -> void:
 
 func start_reload_process(_eq_num: int = 0) -> void:
 	if action_one_reload_timer.is_stopped():
+		print("Start Reload Process")
 		active_reload_available = true
 		action_one_reload_timer.start(get_reload_time(0))
 		var active_reload_start_point: int = randi_range(50, 70)
 		active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
-		print("active reload range: " + str(active_reload_range))
+		#print("active reload range: " + str(active_reload_range))
 		reload_started.emit()
 		
 ## called after reloading process is finished
