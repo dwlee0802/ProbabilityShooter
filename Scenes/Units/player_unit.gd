@@ -188,6 +188,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if !InputManager.IsSelected(self):
 		return
 		
+	if is_unconscious():
+		return
+		
 	state_machine.process_input(event)
 	
 	#if Input.is_action_just_pressed("action_one"):
@@ -244,6 +247,9 @@ func check_active_reload() -> void:
 	active_reload_available = false
 	
 func _physics_process(delta: float) -> void:
+	if is_unconscious():
+		return
+		
 	state_machine.process_physics(delta)
 	movement_component.physics_update(self, delta)
 		
@@ -320,9 +326,12 @@ func is_unconscious() -> bool:
 	return health_points <= 0
 	
 func _on_body_entered(body) -> void:
-	print("meow?")
 	if body is EnemyUnit:
 		receive_hit(body.health_points)
+		
+		if is_unconscious():
+			return
+	
 		body.die()
 
 func disable_enemy_collision():

@@ -3,7 +3,12 @@ class_name EnemyUnit
 
 var game_ref
 
-static var core_position: Vector2
+@onready
+var state_machine: StateMachine = $StateMachine
+@onready
+var state_label: Label = $StateLabel
+
+var target_position: Vector2
 var follow_player: bool = true
 
 var health_points: float = 100
@@ -13,6 +18,11 @@ var max_armor_points: float = 10
 @onready
 var bleed_timer: Timer = $BleedTimer
 var is_elite: bool = false
+
+@export
+var projectile: PackedScene = null
+@export
+var attack_range: float = 500
 
 ## percentage of radius that is considered a critical hit
 var critical_hit_ratio: float = 0.2
@@ -51,8 +61,8 @@ signal on_death
 
 
 func on_spawn(speed: float, health: int) -> void:
-	var core_dir = global_position.direction_to(core_position)
-	apply_central_impulse(core_dir * speed)
+	var move_dir = global_position.direction_to(target_position)
+	apply_central_impulse(move_dir * speed)
 	health_points = health
 	max_health_points = health
 	movement_speed = speed
@@ -62,13 +72,17 @@ func on_spawn(speed: float, health: int) -> void:
 	health_bar.change_value(health, true)
 
 func _ready():
+	state_machine.init(self)
+	
 	health_label.text = str(int(health_points))
 	#health_label.text = "(" + str(int(armor_points)) + ")" + str(int(health_points))
 	bleed_timer.timeout.connect(
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
 		
 func _process(_delta: float) -> void:
-	core_position = InputManager.selected_unit.global_position
+	target_position = InputManager.selected_unit.global_position
+	
+	state_machine.process_frame(_delta)
 
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
@@ -137,24 +151,7 @@ func die():
 	queue_free()
 	
 func _physics_process(delta) -> void:
-	var target_direction: Vector2 = global_position.direction_to(core_position)
-	
-	movement_speed_multiplier += delta * acceleration
-	
-	# adjust velocity to go towards core
-	var current_direction: Vector2 = linear_velocity.normalized()
-	var current_speed: float = linear_velocity.length()
-	
-	
-	var adjustment_force: Vector2 = target_direction - current_direction
-	
-	apply_central_impulse(adjustment_force * adjust_modifier)
-	
-	# bring speed back to normal
-	if current_speed > get_movement_speed():
-		apply_central_impulse(abs(current_speed - get_movement_speed()) * -current_direction * speed_adjust_modifier * delta)
-	else:
-		apply_central_impulse(abs(current_speed - get_movement_speed()) * speed_adjust_modifier * current_direction * delta)
+	state_machine.process_physics(delta)
 	
 	# flip sprite based on movement
 	# right is false
@@ -200,3 +197,10 @@ func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float 
 func increase_size(rate: float) -> void:
 	$Sprite2D.scale *= rate
 	$CollisionShape2D.scale *= rate
+
+## returns whether player unit is inside attack range of self
+func player_inside_range() -> bool:
+	if InputManager.selected_unit == null:
+		return false
+		
+	return global_position.distance_to(InputManager.selected_unit.global_position) < attack_range

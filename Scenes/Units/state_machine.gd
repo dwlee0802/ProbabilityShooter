@@ -9,7 +9,7 @@ var current_state: State
 
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
-func init(parent: Unit) -> void:
+func init(parent) -> void:
 	for child in get_children():
 		child.parent = parent
 	# Initialize to the default state

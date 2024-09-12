@@ -1,8 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=21 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_ao2hf"]
+[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_e0gvr"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="3_0jrip"]
 [ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Art/slime_eye.png" id="3_146dn"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="4_652yl"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="4_s1jtq"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_e5dnx"]
 [ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
@@ -126,7 +129,20 @@ mass = 0.5
 gravity_scale = 0.0
 lock_rotation = true
 contact_monitor = true
+linear_damp = 1.0
 script = ExtResource("1_gjxg1")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_e0gvr")
+starting_state = NodePath("Move")
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_state")]
+script = ExtResource("3_0jrip")
+attack_state = NodePath("../Attack")
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("4_652yl")
+move_state = NodePath("../Move")
 
 [node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
 lifetime = 4.0
@@ -236,3 +252,12 @@ bar_color = Color(0, 0.539768, 0.955463, 1)
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="BleedTimer" type="Timer" parent="."]
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -58.0
+offset_top = -158.0
+offset_right = 61.0
+offset_bottom = -135.0
+text = "State: Idle"
+horizontal_alignment = 1
+vertical_alignment = 1

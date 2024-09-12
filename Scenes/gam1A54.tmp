@@ -14,13 +14,21 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
+pulse_enemy_ratio = null
 wave_unit_count = 4
+time_between_waves = null
+enemy_health_range = null
+enemy_speed_range = null
+linear_spawn_time = null
+linear_spawn_count = null
 elite_spawn_time = 5.0
+elite_unit_modifier = null
 spawn_radius = 5000
 time_difficulty_modifier = 0.5
 enemy_base_health = 50
 enemy_base_speed = 150
 resource_stock = 10
+no_game_over = null
 
 [node name="Background" type="Sprite2D" parent="."]
 self_modulate = Color(0.117647, 0.117647, 0.12549, 1)
