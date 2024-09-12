@@ -3,6 +3,8 @@ class_name Projectile
 
 var origin_unit
 
+var is_player: bool = true
+
 var dir: Vector2
 var speed: float
 
@@ -53,7 +55,13 @@ func _physics_process(delta):
 
 # hit something
 func _on_body_entered(body) -> void:
-	if body is EnemyUnit:
+	## ignore collision if shot from ally
+	if body is EnemyUnit and !is_player:
+		return
+	if body is PlayerUnit and is_player:
+		return
+		
+	if body is EnemyUnit and is_player:
 		# apply damage
 		var eff_dmg: int = body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
 		# apply knock-back
@@ -74,6 +82,9 @@ func _on_body_entered(body) -> void:
 		new_exit_eff.get_node("CPUParticles2D").emitting = true
 		get_tree().root.add_child(new_exit_eff)
 	
+	if body is PlayerUnit and !is_player:
+		body.receive_hit(damage_amount)
+		
 	if body is Shootable:
 		body.activate()
 	

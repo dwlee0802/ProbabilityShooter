@@ -19,10 +19,17 @@ var max_armor_points: float = 10
 var bleed_timer: Timer = $BleedTimer
 var is_elite: bool = false
 
+@export_category("Ranged Unit Stats")
 @export
 var projectile: PackedScene = null
 @export
 var attack_range: float = 500
+@export
+var projectile_speed: float = 500
+@export
+var projectile_damage: int = 50
+@export
+var attack_cooldown: float = 1.0
 
 ## percentage of radius that is considered a critical hit
 var critical_hit_ratio: float = 0.2

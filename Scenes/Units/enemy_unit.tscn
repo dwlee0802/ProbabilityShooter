@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=22 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_a2d0g"]
 [ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_ao2hf"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_e0gvr"]
 [ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="3_0jrip"]
@@ -131,6 +132,9 @@ lock_rotation = true
 contact_monitor = true
 linear_damp = 1.0
 script = ExtResource("1_gjxg1")
+projectile = ExtResource("2_a2d0g")
+attack_range = 1000.0
+attack_cooldown = 3.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_e0gvr")
