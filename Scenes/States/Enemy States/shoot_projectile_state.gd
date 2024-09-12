@@ -45,7 +45,7 @@ func shoot_projectile() -> void:
 		# save origin unit to call back for experience gain
 		new_bullet.origin_unit = self
 		new_bullet.launch(
-			parent.target_position.normalized(),
+			parent.global_position.direction_to(parent.target_position).normalized(),
 			parent.projectile_speed, 
 			parent.projectile_damage,
 			0)
