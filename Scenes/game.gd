@@ -270,7 +270,7 @@ func game_over() -> void:
 	add_child(enemies)
 	
 	# remove all remaining projectiles
-	remove_child(projectiles)
+	call_deferred("remove_child", projectiles)
 	projectiles.queue_free()
 	projectiles = Node2D.new()
 	add_child(projectiles)
