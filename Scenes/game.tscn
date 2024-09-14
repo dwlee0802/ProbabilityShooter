@@ -51,8 +51,6 @@ script = ExtResource("2_webe7")
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 movement_speed = 500.0
 temp_color = Color(0.356863, 0.643137, 1, 1)
-health_points = 1.0
-max_health_points = 1
 starting_equipments = [ExtResource("10_gp80q")]
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]

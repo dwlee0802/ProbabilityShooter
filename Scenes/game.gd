@@ -335,7 +335,9 @@ func start() -> void:
 		unit.reset_health()
 		unit.reset_items()
 		unit.reset_exp()
-		
+		unit.reset_items()
+		unit.reload_action()
+
 	# randomly place dynamite on the map
 	for i in range(5):
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
