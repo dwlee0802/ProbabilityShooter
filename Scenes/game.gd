@@ -334,6 +334,7 @@ func start() -> void:
 	for unit: PlayerUnit in units:
 		unit.reset_health()
 		unit.reset_items()
+		unit.reset_exp()
 		
 	# randomly place dynamite on the map
 	for i in range(5):
@@ -372,6 +373,7 @@ func bind_selected_unit_signals() -> void:
 		InputManager.selected_unit.knocked_out.connect(game_over)
 		InputManager.selected_unit.was_attacked.connect(on_core_hit)
 		user_interface.core_health_bar.set_max(InputManager.selected_unit.max_health_points)
+		unit.health_changed.connect(on_core_hit)
 			
 func on_experience_changed() -> void:
 	if InputManager.selected_unit != null:

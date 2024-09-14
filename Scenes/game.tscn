@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=12 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_jamf8"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
@@ -20,6 +21,11 @@ time_difficulty_modifier = 0.5
 enemy_base_health = 50
 enemy_base_speed = 150
 resource_stock = 10
+
+[node name="Background" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(10000, 10000)
+texture = ExtResource("2_jamf8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -45,6 +51,8 @@ script = ExtResource("2_webe7")
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 movement_speed = 500.0
 temp_color = Color(0.356863, 0.643137, 1, 1)
+health_points = 1.0
+max_health_points = 1
 starting_equipments = [ExtResource("10_gp80q")]
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]
@@ -95,3 +103,7 @@ text = "Fabrication Bench"
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_7elte")
 volume_db = -5.0
+
+[node name="ForceField" type="Node2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="ForceField"]

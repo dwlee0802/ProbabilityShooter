@@ -321,7 +321,13 @@ func reset_health() -> void:
 	health_points = max_health_points
 	health_bar.change_value(max_health_points, true)
 	health_changed.emit()
+	enable_enemy_collision()
 
+func reset_exp() -> void:
+	experience_gained = 0
+	current_level = 1
+	experience_changed.emit()
+	
 func is_unconscious() -> bool:
 	return health_points <= 0
 	
