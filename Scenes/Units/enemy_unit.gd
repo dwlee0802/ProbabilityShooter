@@ -82,12 +82,17 @@ func on_spawn(speed: float, health: int) -> void:
 func apply_heavy() -> void:
 	max_health_points = max_health_points * 2
 	health_points = max_health_points
-	max_movement_speed = max_movement_speed / 2.0
-	movement_speed = max_movement_speed
 	health_bar = $HealthBar
 	health_bar.set_max(health_points)
 	health_bar.change_value(health_points, true)
 	increase_size(2.5)
+	$Sprite2D.self_modulate = Color.OLIVE
+
+func apply_quick() -> void:
+	max_movement_speed = max_movement_speed * 2.0
+	movement_speed = max_movement_speed
+	increase_size(0.5)
+	$Sprite2D.self_modulate = Color.HOT_PINK
 	
 func _ready():
 	state_machine.init(self)

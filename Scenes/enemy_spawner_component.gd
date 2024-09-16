@@ -8,8 +8,15 @@ var enemy_unit_scene: PackedScene = preload("res://Scenes/Units/enemy_unit.tscn"
 var spawn_timer: Timer
 
 @export_category("Wave Stats")
+@export
 var _base_spawn_cooldown: float = 1.0
 var spawn_cooldown: float = 1.0
+@export
+var _base_wave_count: int = 3
+var wave_count: int = 3
+@export
+var _base_wave_chance: float = 0.1
+var wave_chance: float = 0.1
 
 @export_category("Enemy Stats")
 @export
@@ -23,6 +30,9 @@ var move_speed_range: Vector2i
 @export
 var _base_heavy_chance: float = 0
 var heavy_chance: float
+@export
+var _base_quick_chance: float = 0
+var quick_chance: float
 
 
 func _ready() -> void:
@@ -37,10 +47,15 @@ func _ready() -> void:
 	spawn_timer.timeout.connect(on_spawn_timer_timeout)
 
 func reset_stats() -> void:
+	spawn_cooldown = _base_spawn_cooldown
+	wave_chance = _base_wave_chance
+	wave_count = _base_wave_count
+	
 	health_range = _base_health_range
 	move_speed_range = _base_move_speed_range
 	
 	heavy_chance = _base_heavy_chance
+	quick_chance = _base_quick_chance
 	
 func spawn_enemy_unit() -> EnemyUnit:
 	var unit: EnemyUnit = enemy_unit_scene.instantiate()
@@ -52,11 +67,18 @@ func spawn_enemy_unit() -> EnemyUnit:
 	
 	if randf() < heavy_chance:
 		unit.apply_heavy()
+	if randf() < quick_chance:
+		unit.apply_quick()
 	
 	game_ref.add_enemy(unit)
 	
 	return unit
 
 func on_spawn_timer_timeout() -> void:
-	spawn_enemy_unit()
+	if randf() < wave_chance:
+		for i in range(wave_count):
+			spawn_enemy_unit()
+	else:
+		spawn_enemy_unit()
+		
 	spawn_timer.start(spawn_cooldown)

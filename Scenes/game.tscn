@@ -27,6 +27,10 @@ resource_stock = 10
 script = ExtResource("2_quhko")
 _base_health_range = Vector2i(1, 50)
 _base_move_speed_range = Vector2i(50, 100)
+_base_heavy_chance = 0.5
+_base_quick_chance = 0.5
+
+[node name="MutationTimer" type="Timer" parent="."]
 
 [node name="Background" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 1)
@@ -57,6 +61,8 @@ script = ExtResource("2_webe7")
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
 movement_speed = 500.0
 temp_color = Color(0.356863, 0.643137, 1, 1)
+health_points = 1.0
+max_health_points = 1
 starting_equipments = [ExtResource("10_gp80q")]
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]

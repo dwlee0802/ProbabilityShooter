@@ -60,9 +60,13 @@ var enemy_base_speed: int = 50
 
 ## dictionary<Mutation, int level> to store mutations
 var mutations = {}
-static var mutation_options
+static var mutation_data
+var mutation_options
 @onready
 var spawner_component: EnemySpawnerComponent = $EnemySpawnerComponent
+@onready
+var mutation_timer: Timer = $MutationTimer
+var mutation_cooldown: float = 300.0
 #endregion
 
 ## node to hold enemy units
@@ -93,7 +97,7 @@ static func _static_init():
 		return !data.disabled
 		
 	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", is_diabled, true)
-	mutation_options = DW_ToolBox.ImportResources("res://Data/Mutations/", is_diabled, true) 
+	mutation_data = DW_ToolBox.ImportResources("res://Data/Mutations/", is_diabled, true) 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -108,6 +112,10 @@ func _ready():
 	
 	# set minimap parameters
 	user_interface.minimap.detection_range = spawn_radius
+	
+	# connect mutation timer
+	mutation_timer.timeout.connect(on_mutation_timer_timeout)
+	mutation_timer.start(mutation_cooldown)
 	
 	# spawn first wave
 	spawner_component = $EnemySpawnerComponent
@@ -256,6 +264,7 @@ func game_over() -> void:
 		return
 		
 	print("***GAME OVER***")
+	spawner_component.spawn_timer.stop()
 	wave_timer.stop()
 	linear_spawn_timer.stop()
 	elite_timer.stop()
@@ -319,10 +328,11 @@ func start() -> void:
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	
 	# spawn first wave
-	spawn_wave()
-	wave_timer.start(time_between_waves)
-	linear_spawn_timer.start(linear_spawn_time)
-	elite_timer.start(elite_spawn_time)
+	spawner_component.on_spawn_timer_timeout()
+	#spawn_wave()
+	#wave_timer.start(time_between_waves)
+	#linear_spawn_timer.start(linear_spawn_time)
+	#elite_timer.start(elite_spawn_time)
 
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
@@ -422,7 +432,15 @@ func reset_items() -> void:
 func get_mutation_options(count: int = 4):
 	var output = []
 	for i in range(count):
-		output.append(Game.mutation_options.pick_random())
+		output.append(Game.mutation_data.pick_random())
 	return output
+
+# show mutation selection ui
+func on_mutation_timer_timeout():
+	# generate mutation options
+	mutation_options = get_mutation_options(3)
+	# show mutation selection ui
+	# start selection timer
+	pass
 	
 #endregion
