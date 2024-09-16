@@ -73,6 +73,9 @@ var enemy_spawn_info: Control = $EnemySpawnInfo
 @onready
 var charge_bar: ProgressBar = $ChargeProgressBar
 
+@onready
+var mutation_roulette: Roulette = $MutationRoulette
+
 
 func _ready():
 	game_over_ui.visible = false
@@ -87,6 +90,8 @@ func _ready():
 		option.option_selected.connect(upgrade_option_selected)
 	
 	upgrade_menu.visible = false
+	
+	mutation_roulette.option_selected.connect(show_mutation_info)
 
 func _process(_delta: float) -> void:
 	if InputManager.selected_unit != null:
@@ -118,6 +123,21 @@ func show_item_info(item: ItemData):
 	item_icon.self_modulate = item.color
 	var name_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/NameLabel")
 	name_label.text = item.item_name
+	var info_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/InfoLabel")
+	info_label.text = item.description
+	
+	await get_tree().create_timer(UserInterface.item_info_show_time).timeout
+	
+	item_info.get_node("AnimationPlayer").play("item_info_fadeout_animation")
+	
+func show_mutation_info(item: Mutation):
+	#item_info.visible = true
+	item_info.get_node("AnimationPlayer").play("RESET")
+	var item_icon: TextureRect = item_info.get_node("MarginContainer/HBoxContainer/ItemIcon")
+	#item_icon.texture = item.icon
+	item_icon.self_modulate = item.color
+	var name_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/NameLabel")
+	name_label.text = item.mutation_name
 	var info_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/InfoLabel")
 	info_label.text = item.description
 	

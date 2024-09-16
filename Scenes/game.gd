@@ -66,7 +66,8 @@ var mutation_options
 var spawner_component: EnemySpawnerComponent = $EnemySpawnerComponent
 @onready
 var mutation_timer: Timer = $MutationTimer
-var mutation_cooldown: float = 300.0
+@export
+var mutation_cooldown: float = 10
 #endregion
 
 ## node to hold enemy units
@@ -77,10 +78,10 @@ var kill_count: int = 0
 var blood_splatter: Node2D = $BloodSplatter
 
 ## resource system
-@export
-var resource_stock: int = 0
-@onready
-var resource_node: Node2D = $Resources
+#@export
+#var resource_stock: int = 0
+#@onready
+#var resource_node: Node2D = $Resources
 
 @export_category("Debugging")
 @export
@@ -150,6 +151,8 @@ func _ready():
 		shootables.add_child(new_shootable)
 	
 func _process(_delta):
+	print(mutation_timer.is_stopped())
+	
 	if !portraits_set:
 		user_interface.update_unit_portraits(units)
 		portraits_set = true
@@ -218,6 +221,9 @@ func _process(_delta):
 		
 	user_interface.update_bullet_generation_info_menu()
 	
+	if !mutation_timer.is_stopped():
+		user_interface.mutation_roulette.mutation_time_label.text = "Next Mutation in: " + str(int(mutation_timer.time_left) + 1) + "s"
+		
 	if Input.is_action_just_pressed("action_one"):
 		$ClickSoundPlayer.play()
 
@@ -317,13 +323,13 @@ func victory() -> void:
 	
 	user_interface.show_game_over_screen(true)
 	pause = true
-	change_resource(0)
+	#change_resource(0)
 	
 func start() -> void:
 	print("***START GAME***")
 	
 	# remove leftover resources
-	DW_ToolBox.RemoveAllChildren(resource_node)
+	#DW_ToolBox.RemoveAllChildren(resource_node)
 	# remove blood splatter
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	
@@ -356,11 +362,11 @@ func on_core_hit() -> void:
 	user_interface.core_hit_effect.play("core_hit_animation")
 	user_interface.core_health_bar.change_value(InputManager.selected_unit.health_points)
 
-func change_resource(amount: int) -> void:
-	resource_stock += amount
-	resource_stock = max(resource_stock, 0)
-	print("changed resource by " + str(amount))
-	user_interface.resource_label.text = "Resource: " + str(resource_stock)
+#func change_resource(amount: int) -> void:
+	#resource_stock += amount
+	#resource_stock = max(resource_stock, 0)
+	#print("changed resource by " + str(amount))
+	#user_interface.resource_label.text = "Resource: " + str(resource_stock)
 
 ## called when selected unit is changed
 ## bind ui element update to selected unit signals
@@ -414,7 +420,7 @@ func pause_time(duration: float) -> void:
 	get_tree().paused = false
 
 #region Mutation System
-func add_item(item: Mutation) -> void:
+func add_mutation(item: Mutation) -> void:
 	# if it exists, increase level
 	if mutations.find_key(item):
 		item.on_exit(spawner_component, mutations[item])
@@ -424,7 +430,7 @@ func add_item(item: Mutation) -> void:
 		mutations[item] = 1
 		item.on_enter(spawner_component, mutations[item])
 		
-func reset_items() -> void:
+func reset_mutations() -> void:
 	for item: Mutation in mutations.keys():
 		item.on_exit(spawner_component, mutations[item])
 	mutations.clear()
@@ -436,11 +442,16 @@ func get_mutation_options(count: int = 4):
 	return output
 
 # show mutation selection ui
+# start mutation roulette
 func on_mutation_timer_timeout():
 	# generate mutation options
 	mutation_options = get_mutation_options(3)
 	# show mutation selection ui
-	# start selection timer
-	pass
+	user_interface.mutation_roulette.start_roulette(mutation_options)
+
+func on_mutation_selected(option: Mutation):
+	mutation_timer.stop()
+	add_mutation(option)
+	mutation_timer.start(mutation_cooldown)
 	
 #endregion

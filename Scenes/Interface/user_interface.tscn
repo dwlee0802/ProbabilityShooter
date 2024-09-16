@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=20 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_fir5d"]
 [ext_resource type="PackedScene" uid="uid://baabjk2sesuiw" path="res://Scenes/Interface/upgrade_option.tscn" id="6_2cgu3"]
 [ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://minimap.tscn" id="7_a8odi"]
+[ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
 
 [sub_resource type="Animation" id="Animation_dcoc7"]
 length = 0.001
@@ -133,6 +134,18 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_rgipl"),
 "item_info_fadeout_animation": SubResource("Animation_308bu")
+}
+
+[sub_resource type="Animation" id="Animation_ljopj"]
+resource_name = "roulette_selected"
+
+[sub_resource type="Animation" id="Animation_pqi10"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y7m2g"]
+_data = {
+"RESET": SubResource("Animation_pqi10"),
+"roulette_selected": SubResource("Animation_ljopj")
 }
 
 [node name="UserInterface" type="CanvasLayer"]
@@ -542,10 +555,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -222.0
-offset_top = -148.0
-offset_right = -22.0
-offset_bottom = 97.0
+offset_left = -202.0
+offset_top = -149.0
+offset_right = -2.0
+offset_bottom = 96.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_vertical = 4
@@ -680,17 +693,15 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 12
-text = "HP Damage Range:
-AP Damage Range:
-Piercing:"
+text = "HP Range:
+Speed Range:"
 
 [node name="Values" type="Label" parent="EnemySpawnInfo/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 12
 text = "0 - 0
-0 - 0
-0%"
+0 - 0"
 horizontal_alignment = 2
 
 [node name="ChargeProgressBar" type="ProgressBar" parent="."]
@@ -699,13 +710,80 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -12.0
-offset_top = -58.0
-offset_bottom = 58.0
+offset_left = -1135.0
+offset_top = -232.0
+offset_right = -1123.0
+offset_bottom = -116.0
 grow_horizontal = 0
 grow_vertical = 2
 value = 60.0
 fill_mode = 3
 show_percentage = false
+
+[node name="MutationRoulette" type="Control" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+offset_left = -54.5
+offset_top = -42.5
+offset_right = 54.5
+offset_bottom = 42.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_ghxnf")
+option_wait_time = 1.0
+
+[node name="MutationTimeLabel" type="Label" parent="MutationRoulette"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_right = 83.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Next Mutation in: 00s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MutationRoulette"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -42.5
+offset_right = 54.5
+offset_bottom = 42.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="MutationRoulette/VBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+texture = ExtResource("5_fir5d")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MutationRoulette/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Mutation Name (E)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MutationRoulette"]
+libraries = {
+"": SubResource("AnimationLibrary_y7m2g")
+}
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
