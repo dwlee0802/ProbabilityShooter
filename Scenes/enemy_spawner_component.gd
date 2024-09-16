@@ -5,8 +5,10 @@ class_name EnemySpawnerComponent
 
 var game_ref: Game
 var enemy_unit_scene: PackedScene = preload("res://Scenes/Units/enemy_unit.tscn")
+var spawn_timer: Timer
 
 @export_category("Wave Stats")
+var _base_spawn_cooldown: float = 1.0
 var spawn_cooldown: float = 1.0
 
 @export_category("Enemy Stats")
@@ -26,6 +28,13 @@ var heavy_chance: float
 func _ready() -> void:
 	reset_stats()
 	game_ref = get_parent()
+	
+	spawn_timer = Timer.new()
+	add_child(spawn_timer)
+	spawn_timer.autostart = false
+	spawn_timer.one_shot = true
+	spawn_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	spawn_timer.timeout.connect(on_spawn_timer_timeout)
 
 func reset_stats() -> void:
 	health_range = _base_health_range
@@ -47,3 +56,7 @@ func spawn_enemy_unit() -> EnemyUnit:
 	game_ref.add_enemy(unit)
 	
 	return unit
+
+func on_spawn_timer_timeout() -> void:
+	spawn_enemy_unit()
+	spawn_timer.start(spawn_cooldown)

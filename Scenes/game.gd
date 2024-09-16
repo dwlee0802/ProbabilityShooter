@@ -111,14 +111,15 @@ func _ready():
 	
 	# spawn first wave
 	spawner_component = $EnemySpawnerComponent
-	spawn_wave()
+	spawner_component.on_spawn_timer_timeout()
+	#spawn_wave()
 	
-	wave_timer.timeout.connect(spawn_wave)
-	wave_timer.start(time_between_waves)
-	linear_spawn_timer.timeout.connect(spawner_component.spawn_enemy_unit)
-	linear_spawn_timer.start(4)
-	elite_timer.timeout.connect(spawn_elite_unit)
-	elite_timer.start(elite_spawn_time)
+	#wave_timer.timeout.connect(spawn_wave)
+	#wave_timer.start(time_between_waves)
+	#linear_spawn_timer.timeout.connect(spawner_component.spawn_enemy_unit)
+	#linear_spawn_timer.start(4)
+	#elite_timer.timeout.connect(spawn_elite_unit)
+	#elite_timer.start(elite_spawn_time)
 	
 	#user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
