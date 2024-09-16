@@ -224,3 +224,8 @@ func update_bullet_generation_info_menu() -> void:
 func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")
 	var values_label: Label = enemy_spawn_info.get_node("MarginContainer/Values")
+	
+	labels_label.text = "HP Range:\n"
+	values_label.text = str(spawner.health_range.x) + " - " + str(spawner.health_range.y) + "\n"
+	labels_label.text += "Speed Range:\n"
+	values_label.text += str(spawner.move_speed_range.x) + " - " + str(spawner.move_speed_range.y) + "\n"

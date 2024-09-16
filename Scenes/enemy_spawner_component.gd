@@ -34,6 +34,8 @@ var heavy_chance: float
 var _base_quick_chance: float = 0
 var quick_chance: float
 
+signal stats_changed
+
 
 func _ready() -> void:
 	reset_stats()
@@ -56,6 +58,8 @@ func reset_stats() -> void:
 	
 	heavy_chance = _base_heavy_chance
 	quick_chance = _base_quick_chance
+	
+	stats_changed.emit()
 	
 func spawn_enemy_unit() -> EnemyUnit:
 	var unit: EnemyUnit = enemy_unit_scene.instantiate()

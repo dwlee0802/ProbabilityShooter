@@ -119,6 +119,9 @@ func _ready():
 	mutation_timer.start(mutation_cooldown)
 	user_interface.mutation_roulette.option_selected.connect(on_mutation_selected)
 	
+	spawner_component.stats_changed.connect(user_interface.update_enemy_spawn_info.bind(spawner_component))
+	user_interface.update_enemy_spawn_info(spawner_component)
+	
 	# spawn first wave
 	spawner_component = $EnemySpawnerComponent
 	spawner_component.on_spawn_timer_timeout()
@@ -431,6 +434,9 @@ func add_mutation(item: Mutation) -> void:
 	else:
 		mutations[item] = 1
 		item.on_enter(spawner_component, mutations[item])
+	
+	# reload ui
+	user_interface.update_enemy_spawn_info(spawner_component)
 		
 func reset_mutations() -> void:
 	for item: Mutation in mutations.keys():

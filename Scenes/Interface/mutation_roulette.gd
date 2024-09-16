@@ -77,13 +77,14 @@ func select_current_option() -> void:
 	option_selected.emit(current_option)
 	
 func load_option(no_duplicates: bool = false) -> void:
-	var new_option = options.pick_random()
+	var list = []
 	if no_duplicates:
-		while current_option == new_option:
-			new_option = options.pick_random()
-			if options.size() == 1:
-				break
-				
+		for item in options:
+			if item != current_option:
+				list.append(item)
+	else:
+		list = options
+	var new_option = list.pick_random()
 	current_option = new_option
 	
 	# update ui elements
