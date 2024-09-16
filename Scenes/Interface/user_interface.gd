@@ -68,6 +68,9 @@ var bullet_info_menu_container: Container = $BulletInfoMenu/MarginContainer/Grid
 var bullet_generation_info: Control = $BulletGenerationInfoMenu
 
 @onready
+var enemy_spawn_info: Control = $EnemySpawnInfo
+
+@onready
 var charge_bar: ProgressBar = $ChargeProgressBar
 
 
@@ -197,3 +200,7 @@ func update_bullet_generation_info_menu() -> void:
 	if gun.buckshot_chance > 0:
 		labels_label.text += "Buckshot:\n"
 		values_label.text += str(int(gun.buckshot_chance * 100)) + "%\n"
+
+func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
+	var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")
+	var values_label: Label = enemy_spawn_info.get_node("MarginContainer/Values")

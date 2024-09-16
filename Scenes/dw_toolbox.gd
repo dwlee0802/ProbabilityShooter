@@ -52,8 +52,8 @@ static func ImportResources(path: String, filter: Callable = func do_nothing(_ta
 	if print_output:
 		print("***Importing Resource files***")
 		print("Imported " + str(output.size()) + " resource files.")
-		for item: ItemData in output:
-			print(item.item_name)
+		for item in output:
+			print(item)
 		print("Excluded " + str(disabled_count) + " resource files.")
 		print("******\n")
 	return output

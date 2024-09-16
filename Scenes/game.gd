@@ -26,6 +26,7 @@ var wave_unit_count: int = 10
 @export
 var time_between_waves: float = 30
 @export
+var base_enemy_health_range: Vector2i = Vector2i(50, 150)
 var enemy_health_range: Vector2i = Vector2i(50, 150)
 @export
 var enemy_speed_range: Vector2i = Vector2i(25, 100)
@@ -57,6 +58,11 @@ var enemy_base_health: int = 100
 @export
 var enemy_base_speed: int = 50
 
+## dictionary<Mutation, int level> to store mutations
+var mutations = {}
+static var mutation_options
+@onready
+var spawner_component: EnemySpawnerComponent = $EnemySpawnerComponent
 #endregion
 
 ## node to hold enemy units
@@ -87,7 +93,7 @@ static func _static_init():
 		return !data.disabled
 		
 	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", is_diabled, true)
-
+	mutation_options = DW_ToolBox.ImportResources("res://Data/Mutations/", is_diabled, true) 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -104,11 +110,12 @@ func _ready():
 	user_interface.minimap.detection_range = spawn_radius
 	
 	# spawn first wave
+	spawner_component = $EnemySpawnerComponent
 	spawn_wave()
 	
 	wave_timer.timeout.connect(spawn_wave)
 	wave_timer.start(time_between_waves)
-	linear_spawn_timer.timeout.connect(spawn_enemy_unit)
+	linear_spawn_timer.timeout.connect(spawner_component.spawn_enemy_unit)
 	linear_spawn_timer.start(4)
 	elite_timer.timeout.connect(spawn_elite_unit)
 	elite_timer.start(elite_spawn_time)
@@ -211,28 +218,17 @@ func enemy_killed()-> void:
 	
 func spawn_wave() -> void:
 	for i in range(wave_unit_count + time_since_start/120):
-		spawn_enemy_unit()
+		spawner_component.spawn_enemy_unit()
 		
-func spawn_enemy_unit() -> void:
-	var newEnemy: EnemyUnit
-	
-	newEnemy = enemy_scene.instantiate()
-	
-	## split power budget
-	var speed_bonus: int = randi_range(0, int(power_budget/2))
-	var hp_bonus: int = int(power_budget - speed_bonus * 2)
-	
+func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
-	newEnemy.on_spawn(
-		enemy_base_speed + speed_bonus,
-		enemy_base_health + hp_bonus)
 	enemies.add_child(newEnemy)
 	if InputManager.selected_unit != null:
 		newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	else:
 		newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
-
+	
 func spawn_elite_unit() -> void:
 	var newEnemy: EnemyUnit
 	newEnemy = enemy_scene.instantiate()
@@ -405,3 +401,27 @@ func pause_time(duration: float) -> void:
 	get_tree().paused = true
 	await get_tree().create_timer(duration).timeout
 	get_tree().paused = false
+
+#region Mutation System
+func add_item(item: Mutation) -> void:
+	# if it exists, increase level
+	if mutations.find_key(item):
+		item.on_exit(spawner_component, mutations[item])
+		mutations[item] += 1
+		item.on_enter(spawner_component, mutations[item])
+	else:
+		mutations[item] = 1
+		item.on_enter(spawner_component, mutations[item])
+		
+func reset_items() -> void:
+	for item: Mutation in mutations.keys():
+		item.on_exit(spawner_component, mutations[item])
+	mutations.clear()
+	
+func get_mutation_options(count: int = 4):
+	var output = []
+	for i in range(count):
+		output.append(Game.mutation_options.pick_random())
+	return output
+	
+#endregion

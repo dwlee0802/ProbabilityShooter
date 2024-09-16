@@ -27,3 +27,6 @@ func active(_unit):
 	
 func on_attack(_unit):
 	return
+	
+func _to_string() -> String:
+	return item_name

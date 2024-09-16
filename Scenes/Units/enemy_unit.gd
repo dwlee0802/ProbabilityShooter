@@ -78,6 +78,17 @@ func on_spawn(speed: float, health: int) -> void:
 	health_bar.set_max(health)
 	health_bar.change_value(health, true)
 
+## apply heavy trait
+func apply_heavy() -> void:
+	max_health_points = max_health_points * 2
+	health_points = max_health_points
+	max_movement_speed = max_movement_speed / 2.0
+	movement_speed = max_movement_speed
+	health_bar = $HealthBar
+	health_bar.set_max(health_points)
+	health_bar.change_value(health_points, true)
+	increase_size(2.5)
+	
 func _ready():
 	state_machine.init(self)
 	

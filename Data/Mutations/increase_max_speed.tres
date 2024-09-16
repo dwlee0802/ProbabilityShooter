@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://cq1fll1gc22tc"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_nphuo"]
+
+[resource]
+script = ExtResource("1_nphuo")
+mutation_name = "Faster"
+description = "Increase max enemy movement speed by 25"
+color = Color(1, 1, 1, 1)
+disabled = false
+health_range_bonus = Vector2i(0, 0)
+speed_range_bonus = Vector2i(0, 25)
+heavy_spawn_chance_bonus = 0.0

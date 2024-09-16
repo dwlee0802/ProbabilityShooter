@@ -8,11 +8,11 @@ var animation_name: String
 
 
 func enter() -> void:
-	print("\n***Enter " + name + "***")
+	#print("\n***Enter " + name + "***")
 	return
 
 func exit() -> void:
-	print("***Exit " + name + "***\n")
+	#print("***Exit " + name + "***\n")
 	pass
 
 func process_input(_event: InputEvent) -> State:

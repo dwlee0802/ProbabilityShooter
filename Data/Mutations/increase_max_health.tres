@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://ke00e8kpyq2h"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_jr8rl"]
+
+[resource]
+script = ExtResource("1_jr8rl")
+mutation_name = "Higher HP"
+description = "Increase Enemy HP Max Range by 50"
+color = Color(0.999995, 0.50437, 0.48929, 1)
+disabled = false
+health_range_bonus = Vector2i(0, 50)
+speed_range_bonus = Vector2i(0, 0)
