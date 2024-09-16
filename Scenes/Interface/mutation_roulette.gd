@@ -68,6 +68,7 @@ func start_roulette(_options) -> void:
 func select_current_option() -> void:
 	print("Selected " + str(current_option))
 	roulette_timer.stop()
+	current_count = 0
 	#selection_animation.play("roulette_selected")
 	
 	mutation_time_label.visible = true

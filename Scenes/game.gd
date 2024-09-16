@@ -67,7 +67,7 @@ var spawner_component: EnemySpawnerComponent = $EnemySpawnerComponent
 @onready
 var mutation_timer: Timer = $MutationTimer
 @export
-var mutation_cooldown: float = 10
+var mutation_cooldown: float = 100
 #endregion
 
 ## node to hold enemy units
@@ -117,6 +117,7 @@ func _ready():
 	# connect mutation timer
 	mutation_timer.timeout.connect(on_mutation_timer_timeout)
 	mutation_timer.start(mutation_cooldown)
+	user_interface.mutation_roulette.option_selected.connect(on_mutation_selected)
 	
 	# spawn first wave
 	spawner_component = $EnemySpawnerComponent
@@ -151,8 +152,6 @@ func _ready():
 		shootables.add_child(new_shootable)
 	
 func _process(_delta):
-	print(mutation_timer.is_stopped())
-	
 	if !portraits_set:
 		user_interface.update_unit_portraits(units)
 		portraits_set = true
@@ -274,6 +273,7 @@ func game_over() -> void:
 	wave_timer.stop()
 	linear_spawn_timer.stop()
 	elite_timer.stop()
+	mutation_timer.stop()
 	
 	# remove all remaining enemy units
 	remove_child(enemies)
@@ -339,6 +339,8 @@ func start() -> void:
 	#wave_timer.start(time_between_waves)
 	#linear_spawn_timer.start(linear_spawn_time)
 	#elite_timer.start(elite_spawn_time)
+	
+	mutation_timer.start(mutation_cooldown)
 
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0

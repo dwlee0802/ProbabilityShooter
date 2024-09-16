@@ -21,7 +21,6 @@ spawn_radius = 5000
 time_difficulty_modifier = 0.5
 enemy_base_health = 50
 enemy_base_speed = 150
-mutation_cooldown = 11.0
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
@@ -31,6 +30,7 @@ _base_heavy_chance = 0.5
 _base_quick_chance = 0.5
 
 [node name="MutationTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Background" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 1)
