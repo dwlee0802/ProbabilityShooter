@@ -64,6 +64,15 @@ func start_roulette(_options) -> void:
 	current_count += 1
 	
 	roulette_timer.start(option_wait_time)
+
+func stop_roulette() -> void:
+	print("Stop roulette")
+	roulette_timer.stop()
+	current_count = 0
+	#selection_animation.play("roulette_selected")
+	
+	mutation_time_label.visible = false
+	$VBoxContainer.visible = false
 	
 func select_current_option() -> void:
 	print("Selected " + str(current_option))

@@ -277,6 +277,7 @@ func game_over() -> void:
 	linear_spawn_timer.stop()
 	elite_timer.stop()
 	mutation_timer.stop()
+	user_interface.mutation_roulette.stop_roulette()
 	
 	# remove all remaining enemy units
 	remove_child(enemies)
@@ -344,6 +345,7 @@ func start() -> void:
 	#elite_timer.start(elite_spawn_time)
 	
 	mutation_timer.start(mutation_cooldown)
+	user_interface.mutation_roulette.mutation_time_label.visible = true
 
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
