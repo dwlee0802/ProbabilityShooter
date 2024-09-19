@@ -27,8 +27,6 @@ mutation_cooldown = 5.0
 script = ExtResource("2_quhko")
 _base_health_range = Vector2i(1, 50)
 _base_move_speed_range = Vector2i(50, 100)
-_base_heavy_chance = 0.5
-_base_quick_chance = 0.5
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true

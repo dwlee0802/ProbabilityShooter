@@ -80,11 +80,15 @@ func load_option(no_duplicates: bool = false) -> void:
 	var list = []
 	if no_duplicates:
 		for item in options:
+			print(item)
 			if item != current_option:
 				list.append(item)
+			else:
+				print("skip duplicate")
 	else:
-		list = options
+		list = options.duplicate()
 	var new_option = list.pick_random()
+	list.clear()
 	current_option = new_option
 	
 	# update ui elements
