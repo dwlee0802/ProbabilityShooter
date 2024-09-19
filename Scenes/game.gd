@@ -452,10 +452,8 @@ func get_mutation_options(count: int = 4):
 # show mutation selection ui
 # start mutation roulette
 func on_mutation_timer_timeout():
-	# generate mutation options
-	mutation_options = get_mutation_options(3)
 	# show mutation selection ui
-	user_interface.mutation_roulette.start_roulette(mutation_options)
+	user_interface.mutation_roulette.start_roulette(Game.mutation_data)
 
 func on_mutation_selected(option: Mutation):
 	mutation_timer.stop()

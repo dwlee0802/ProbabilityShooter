@@ -44,7 +44,7 @@ func on_roulette_timer_timeout() -> void:
 		return
 		
 	# if we have rolls left, load new option
-	load_option(true)
+	load_option()
 	current_count += 1
 	print("Roll count: " + str(current_count))
 	
@@ -53,11 +53,11 @@ func on_roulette_timer_timeout() -> void:
 	return
 
 func start_roulette(_options) -> void:
-	print("Starting roulette with " + str(_options.size()) + " options")
+	print("Starting roulette with " + str(_options) + " options")
 	mutation_time_label.visible = false
 	$VBoxContainer.visible = true
 	
-	options = _options
+	options = _options.duplicate()
 	if options.size() == 0:
 		push_warning("No options given for roulette!")
 	load_option()
@@ -76,18 +76,18 @@ func select_current_option() -> void:
 	
 	option_selected.emit(current_option)
 	
-func load_option(no_duplicates: bool = false) -> void:
+func load_option(no_duplicates: bool = true) -> void:
+	print("load option. current: " + str(current_option))
 	var list = []
 	if no_duplicates:
 		for item in options:
-			print(item)
 			if item != current_option:
 				list.append(item)
-			else:
-				print("skip duplicate")
 	else:
 		list = options.duplicate()
 	var new_option = list.pick_random()
+	
+	print("picked " + str(new_option) + " among " + str(list))
 	list.clear()
 	current_option = new_option
 	
