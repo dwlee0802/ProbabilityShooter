@@ -31,8 +31,8 @@ var move_speed_range: Vector2i
 var _base_heavy_chance: float = 0
 var heavy_chance: float
 @export
-var _base_quick_chance: float = 0
-var quick_chance: float
+var _base_fast_chance: float = 0
+var fast_chance: float
 
 signal stats_changed
 
@@ -57,7 +57,7 @@ func reset_stats() -> void:
 	move_speed_range = _base_move_speed_range
 	
 	heavy_chance = _base_heavy_chance
-	quick_chance = _base_quick_chance
+	fast_chance = _base_fast_chance
 	
 	stats_changed.emit()
 	
@@ -71,7 +71,7 @@ func spawn_enemy_unit() -> EnemyUnit:
 	
 	if randf() < heavy_chance:
 		unit.apply_heavy()
-	if randf() < quick_chance:
+	if randf() < fast_chance:
 		unit.apply_quick()
 	
 	game_ref.add_enemy(unit)

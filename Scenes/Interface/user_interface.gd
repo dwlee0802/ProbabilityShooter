@@ -229,5 +229,9 @@ func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	values_label.text = str(spawner.health_range.x) + " - " + str(spawner.health_range.y) + "\n"
 	labels_label.text += "Speed Range:\n"
 	values_label.text += str(spawner.move_speed_range.x) + " - " + str(spawner.move_speed_range.y) + "\n"
-	labels_label.text += "Heavy:\n"
-	values_label.text += str(int(spawner.heavy_chance*1000)/10.0) + "%\n"
+	if spawner.heavy_chance != 0:
+		labels_label.text += "Heavy:\n"
+		values_label.text += str(int(spawner.heavy_chance*1000)/10.0) + "%\n"
+	if spawner.fast_chance != 0:
+		labels_label.text += "Fast:\n"
+		values_label.text += str(int(spawner.fast_chance*1000)/10.0) + "%\n"

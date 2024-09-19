@@ -24,6 +24,8 @@ var speed_range_bonus: Vector2i = Vector2i.ZERO
 @export_category("Trait Probability Changes")
 @export
 var heavy_spawn_chance_bonus: float = 0
+@export
+var fast_spawn_chance_bonus: float = 0
 
 
 func on_enter(spawner: EnemySpawnerComponent, level: int):
@@ -31,12 +33,14 @@ func on_enter(spawner: EnemySpawnerComponent, level: int):
 	spawner.move_speed_range += speed_range_bonus * level
 	
 	spawner.heavy_chance += heavy_spawn_chance_bonus * level
+	spawner.fast_chance += fast_spawn_chance_bonus * level
 	
 func on_exit(spawner: EnemySpawnerComponent, level: int):
 	spawner.health_range -= health_range_bonus * level
 	spawner.move_speed_range -= speed_range_bonus * level
 	
-	spawner.heavy_chance += heavy_spawn_chance_bonus * level
+	spawner.heavy_chance -= heavy_spawn_chance_bonus * level
+	spawner.fast_chance -= fast_spawn_chance_bonus * level
 
 func _to_string() -> String:
 	return mutation_name

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://cqpag8ts4u3ht"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_2fyn4"]
+
+[resource]
+script = ExtResource("1_2fyn4")
+mutation_name = "Fast"
+description = "Quick trait chance +5%. (Quick: x2 SPD, %2 Size)"
+color = Color(0.713614, 0.816, 0.903057, 1)
+disabled = false
+health_range_bonus = Vector2i(0, 0)
+speed_range_bonus = Vector2i(0, 0)
+heavy_spawn_chance_bonus = 0.0
+fast_spawn_chance_bonus = 0.05

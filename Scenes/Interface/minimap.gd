@@ -13,6 +13,9 @@ var center_global_position: Vector2
 
 @export
 var clip_markers: bool = true
+## Pan camera to position clicked on
+@export
+var click_enabled: bool = false
 
 @export
 ## max distance minimap points are away from center irl
@@ -133,7 +136,7 @@ func update_shootable_markers(center: Vector2, points: PackedVector2Array, color
 		shootable_markers.get_child(i).visible = false
 		
 func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_action_pressed("action_one"):
+	if event is InputEventMouseButton and event.is_action_pressed("action_one") and click_enabled:
 		var clicked_position: Vector2 = get_local_mouse_position()
 		# move camera to there
 		CameraControl.camera.center_camera_on(
