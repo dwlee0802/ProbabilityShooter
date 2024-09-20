@@ -228,7 +228,11 @@ func _process(_delta):
 		
 	if Input.is_action_just_pressed("action_one"):
 		$ClickSoundPlayer.play()
-
+		
+	CameraControl.camera.position = InputManager.selected_unit.get_local_mouse_position().normalized()
+	# limit the amount of camera position offset from cursor
+	CameraControl.camera.position *= min(InputManager.selected_unit.get_local_mouse_position().length()/5, 500)
+			
 func enemy_killed()-> void:
 	kill_count += 1
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
