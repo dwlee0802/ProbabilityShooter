@@ -22,6 +22,7 @@ var anti_armor_chance: float = 0
 var piercing_chance: float = 0
 var explosive_chance: float = 0
 var buckshot_chance: float = 0
+var quickshot_chance: float = 0
 #endregion
 
 @export
@@ -106,6 +107,12 @@ func generate_bullets(count: int):
 		new_bullet.piercing = randf() < piercing_chance
 		new_bullet.anti_armor = randf() < anti_armor_chance
 		new_bullet.explosive = randf() < explosive_chance
+		new_bullet.quickshot = randf() < quickshot_chance
+		
+		new_bullet.aim_time = 1
+		if new_bullet.quickshot:
+			new_bullet.aim_time = 0.5
+		
 		if randf() < buckshot_chance:
 			new_bullet.projectile_count = 4
 			
@@ -188,6 +195,12 @@ func add_buckshot_chance_bonus(amount: float) -> void:
 	buckshot_chance = max(buckshot_chance, 0)
 	if amount != 0:
 		print("Changed buckshot chance by " + str(amount))
+		
+func add_quickshot_chance_bonus(amount: float) -> void:
+	quickshot_chance += amount
+	quickshot_chance = max(quickshot_chance, 0)
+	if amount != 0:
+		print("Changed quickshot chance by " + str(amount))
 	
 func get_damage_range() -> Vector2i:
 	return damage_range + bonus_damage_range
@@ -205,8 +218,8 @@ func get_reload_time() -> float:
 	return data.reload_time / (1 + reload_speed_modifier)
 func get_aim_time() -> float:
 	if 1 + aim_speed_modifier <= 0:
-		return Gun.max_aim_time
-	return data.aim_time * (1 - aim_speed_modifier)
+		return bullets.front().aim_time
+	return bullets.front().aim_time * (1 - aim_speed_modifier)
 func get_penetration() -> float:
 	if data.penetration + bonus_penetration < 0:
 		return 0

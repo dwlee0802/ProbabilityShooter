@@ -24,6 +24,8 @@ var piercing_chance: float = 0
 var explosive_chance: float = 0
 @export
 var buckshot_chance: float = 0
+@export
+var quickshot_chance: float = 0
 
 
 func on_enter(unit: PlayerUnit, level: int):
@@ -41,6 +43,7 @@ func on_enter(unit: PlayerUnit, level: int):
 		equipment.add_piercing_chance_bonus(piercing_chance)
 		equipment.add_explosive_chance_bonus(explosive_chance)
 		equipment.add_buckshot_chance_bonus(buckshot_chance)
+		equipment.add_quickshot_chance_bonus(quickshot_chance)
 		
 func on_exit(unit: PlayerUnit, level: int):
 	super.on_exit(unit, level)
@@ -57,3 +60,4 @@ func on_exit(unit: PlayerUnit, level: int):
 		equipment.add_piercing_chance_bonus(-piercing_chance)
 		equipment.add_explosive_chance_bonus(-explosive_chance)
 		equipment.add_buckshot_chance_bonus(-buckshot_chance)
+		equipment.add_quickshot_chance_bonus(-quickshot_chance)

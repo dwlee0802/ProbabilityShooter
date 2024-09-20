@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="GunItemData" load_steps=2 format=3 uid="uid://034giyd2oh7h"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_nvl6l"]
+
+[resource]
+script = ExtResource("1_nvl6l")
+projectile_speed = 0.0
+spread = 0.0
+projectile_count = 0
+magazine_size = 0
+penetration_chance = 0.0
+anti_armor_chance = 0.0
+piercing_chance = 0.0
+explosive_chance = 0.0
+buckshot_chance = 0.0
+quickshot_chance = 0.2
+damage_range = Vector2i(0, 0)
+damage_modifier = 0.0
+reload_speed_modifier = 0.0
+aim_speed_modifier = 0.0
+item_name = "Quickshot"
+description = ""
+color = Color(1, 0.825313, 0.573305, 1)
+disabled = false
