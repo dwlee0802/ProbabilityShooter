@@ -25,7 +25,7 @@ var projectile: PackedScene = null
 @export
 var attack_range: float = 500
 @export
-var projectile_speed: float = 500
+var projectile_speed: float = 800
 @export
 var projectile_damage: int = 50
 @export
@@ -93,6 +93,10 @@ func apply_quick() -> void:
 	movement_speed = max_movement_speed
 	increase_size(0.5)
 	$Sprite2D.self_modulate = Color.HOT_PINK
+	
+func apply_ranged() -> void:
+	attack_range = 1000
+	attack_cooldown = 1.5
 	
 func _ready():
 	state_machine.init(self)

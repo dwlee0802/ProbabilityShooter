@@ -259,6 +259,7 @@ bar_color = Color(0, 0.539768, 0.955463, 1)
 [node name="BleedTimer" type="Timer" parent="."]
 
 [node name="StateLabel" type="Label" parent="."]
+visible = false
 offset_left = -58.0
 offset_top = -158.0
 offset_right = 61.0

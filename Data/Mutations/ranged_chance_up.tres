@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://5hxil4ytq0jc"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_8hsxc"]
+
+[resource]
+script = ExtResource("1_8hsxc")
+mutation_name = "Ranged"
+description = "Ranged trait chance +5%"
+color = Color(0.848663, 0.778089, 0.817483, 1)
+disabled = false
+health_range_bonus = Vector2i(0, 0)
+speed_range_bonus = Vector2i(0, 0)
+heavy_spawn_chance_bonus = 0.0
+fast_spawn_chance_bonus = 0.0
+ranged_spawn_chance_bonus = 0.1
+spawn_cooltime_multiplier = 0.0
+wave_chance_bonus = 0.0

@@ -197,7 +197,7 @@ func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	var values_label: Label = enemy_spawn_info.get_node("MarginContainer/Values")
 	
 	labels_label.text = "Spawn Rate:\n"
-	values_label.text = str(1/spawner.spawn_cooldown) + " per second\n"
+	values_label.text = str(DW_ToolBox.TrimDecimalPoints(1/spawner.spawn_cooldown, 1)) + " per second\n"
 	labels_label.text += "Wave Chance:\n"
 	values_label.text += str(int(spawner.wave_chance * 1000)/10.0) + "%\n"
 	labels_label.text += "HP Range:\n"

@@ -9,8 +9,8 @@ var spawn_timer: Timer
 
 @export_category("Wave Stats")
 @export
-var _base_spawn_cooldown: float = 1.0
-var spawn_cooldown: float = 1.0
+var _base_spawn_cooldown: float = 3.0
+var spawn_cooldown: float = 3.0
 @export
 var _base_wave_count: int = 3
 var wave_count: int = 3
@@ -33,6 +33,9 @@ var heavy_chance: float
 @export
 var _base_fast_chance: float = 0
 var fast_chance: float
+@export
+var _base_ranged_chance: float = 0
+var ranged_chance: float
 
 signal stats_changed
 
@@ -58,6 +61,7 @@ func reset_stats() -> void:
 	
 	heavy_chance = _base_heavy_chance
 	fast_chance = _base_fast_chance
+	ranged_chance = _base_ranged_chance
 	
 	stats_changed.emit()
 	
@@ -73,6 +77,8 @@ func spawn_enemy_unit() -> EnemyUnit:
 		unit.apply_heavy()
 	if randf() < fast_chance:
 		unit.apply_quick()
+	if randf() < ranged_chance:
+		unit.apply_ranged()
 	
 	game_ref.add_enemy(unit)
 	
