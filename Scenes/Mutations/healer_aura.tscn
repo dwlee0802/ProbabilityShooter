@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj8geayluj57g"]
+
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_3uorx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gt2rt"]
+radius = 1000.0
+
+[node name="HealerAura" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+editor_description = "Add this to Enemy Unit if it has the Healer trait"
+shape = SubResource("CircleShape2D_gt2rt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.686275, 0.870588, 0, 0.25098)
+position = Vector2(3.05176e-05, -6.50003)
+scale = Vector2(4.08642, 4.11317)
+texture = ExtResource("1_3uorx")

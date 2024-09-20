@@ -53,7 +53,7 @@ func on_roulette_timer_timeout() -> void:
 	return
 
 func start_roulette(_options) -> void:
-	print("Starting roulette with " + str(_options) + " options")
+	#print("Starting roulette with " + str(_options) + " options")
 	mutation_time_label.visible = false
 	$VBoxContainer.visible = true
 	
@@ -86,7 +86,7 @@ func select_current_option() -> void:
 	option_selected.emit(current_option)
 	
 func load_option(no_duplicates: bool = true) -> void:
-	print("load option. current: " + str(current_option))
+	#print("load option. current: " + str(current_option))
 	var list = []
 	if no_duplicates:
 		for item in options:
@@ -96,7 +96,7 @@ func load_option(no_duplicates: bool = true) -> void:
 		list = options.duplicate()
 	var new_option = list.pick_random()
 	
-	print("picked " + str(new_option) + " among " + str(list))
+	#print("picked " + str(new_option) + " among " + str(list))
 	list.clear()
 	current_option = new_option
 	
