@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://i78nrrjkag4b"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_s326d"]
+
+[resource]
+script = ExtResource("1_s326d")
+mutation_name = "Wave"
+description = "Higher chance of enemies spawning in waves"
+color = Color(0.0509804, 0.764706, 0.658824, 1)
+disabled = false
+health_range_bonus = Vector2i(0, 0)
+speed_range_bonus = Vector2i(0, 0)
+heavy_spawn_chance_bonus = 0.0
+fast_spawn_chance_bonus = 0.0
+spawn_cooltime_multiplier = 0.0
+wave_chance_bonus = 0.05

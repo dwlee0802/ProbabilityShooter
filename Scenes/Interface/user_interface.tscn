@@ -1,7 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=19 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
-[ext_resource type="PackedScene" uid="uid://4ly04duxj5fu" path="res://Scenes/Interface/unit_portrait.tscn" id="2_mqlrt"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
 [ext_resource type="Script" path="res://Scenes/Interface/TemporaryTutorial.gd" id="4_vhvr1"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_fir5d"]
@@ -187,101 +186,6 @@ horizontal_alignment = 1
 [node name="RestartButton" type="Button" parent="GameOver"]
 layout_mode = 2
 text = "RESTART"
-
-[node name="UnitPortraits" type="VBoxContainer" parent="."]
-visible = false
-anchors_preset = -1
-anchor_top = 0.159
-anchor_bottom = 0.159
-offset_right = 165.0
-offset_bottom = 260.0
-theme_override_constants/separation = 40
-
-[node name="UnitPortrait" parent="UnitPortraits" instance=ExtResource("2_mqlrt")]
-layout_mode = 2
-
-[node name="UnitPortrait2" parent="UnitPortraits" instance=ExtResource("2_mqlrt")]
-layout_mode = 2
-
-[node name="UnitPortrait3" parent="UnitPortraits" instance=ExtResource("2_mqlrt")]
-layout_mode = 2
-
-[node name="UnitPortrait4" parent="UnitPortraits" instance=ExtResource("2_mqlrt")]
-layout_mode = 2
-
-[node name="UnitShortcutLabels" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="ShortcutLabel" type="Label" parent="UnitShortcutLabels"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "1"
-
-[node name="ShortcutLabel2" type="Label" parent="UnitShortcutLabels"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "2"
-
-[node name="ShortcutLabel3" type="Label" parent="UnitShortcutLabels"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "3"
-
-[node name="ShortcutLabel4" type="Label" parent="UnitShortcutLabels"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "4"
 
 [node name="GameState" type="VBoxContainer" parent="."]
 anchors_preset = 10
@@ -489,46 +393,6 @@ autowrap_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_j30i2")
 }
-
-[node name="WaveInfo" type="PanelContainer" parent="."]
-visible = false
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 0.68
-anchor_right = 1.0
-anchor_bottom = 0.68
-offset_left = -128.0
-offset_top = -42.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="WaveInfo"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="HBoxContainer" type="VBoxContainer" parent="WaveInfo/MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="EnemyHealthRangeLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Enemy Health Range 0-0"
-
-[node name="EnemySpeedRangeLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Enemy Speed Range 0-0"
-
-[node name="PulseEnemyRatioLabel" type="Label" parent="WaveInfo/MarginContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "Lunger Spawn Rate: 0%"
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
 custom_minimum_size = Vector2(10, 10)

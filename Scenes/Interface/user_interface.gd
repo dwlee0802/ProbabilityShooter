@@ -6,10 +6,6 @@ var restart_button: Button = $GameOver/RestartButton
 @onready
 var game_over_ui = $GameOver
 @onready
-var unit_portraits: VBoxContainer = $UnitPortraits
-@onready
-var unit_shortcut_labels: Control = $UnitShortcutLabels
-@onready
 var experience_bar: DelayedProgressBar = $ExperienceBar
 @onready
 var experience_label: Label = $ExperienceBar/ExperienceBarLabel
@@ -31,14 +27,6 @@ var core_progress_bar: DelayedProgressBar = $GameState/CoreActivationBar
 var core_progress_label: Label = $GameState/CoreActivationBar/CoreProgressLabel
 @onready
 var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
-
-## wave info
-@onready
-var wave_health_range_label: Label = $WaveInfo/MarginContainer/HBoxContainer/EnemyHealthRangeLabel
-@onready
-var wave_speed_range_label: Label = $WaveInfo/MarginContainer/HBoxContainer/EnemySpeedRangeLabel
-@onready
-var wave_pulse_enemy_rate_label: Label = $WaveInfo/MarginContainer/HBoxContainer/PulseEnemyRatioLabel
 
 @onready
 var interaction_label: Label = $InteractionLabel
@@ -96,19 +84,6 @@ func _ready():
 func _process(_delta: float) -> void:
 	if InputManager.selected_unit != null:
 		charge_bar.value = InputManager.selected_unit.charge / InputManager.selected_unit.max_charge * 100
-	
-func update_unit_portraits(units) -> void:
-	for i in range(unit_portraits.get_child_count()):
-		var portrait: UnitPortrait = unit_portraits.get_child(i)
-		if i < units.size():
-			portrait.set_shortcut_label(i + 1)
-			portrait.set_unit(units[i])
-		else:
-			portrait.visible = false
-
-func update_unit_shortcut_labels(_camera_pos: Vector2, units) -> void:
-	for i in range(units.size()):
-		units[i].set_shortcut_label(i + 1)
 
 func show_game_over_screen(victory: bool = false):
 	$GameOver.visible = true
@@ -144,13 +119,6 @@ func show_mutation_info(item: Mutation):
 	await get_tree().create_timer(UserInterface.item_info_show_time).timeout
 	
 	item_info.get_node("AnimationPlayer").play("item_info_fadeout_animation")
-
-func update_wave_info(health_range: Vector2, speed_range: Vector2):
-	var vec_to_range = func(vec: Vector2):
-		return str(vec.x) + " - " + str(vec.y)
-		
-	wave_health_range_label.text = "Enemy Health Range: "  + vec_to_range.call(health_range)
-	wave_speed_range_label.text = "Enemy Speed Range: "  + vec_to_range.call(speed_range)
 
 ## show upgrade menu and populate it with upgrade options
 func show_upgrade_menu() -> void:
@@ -228,8 +196,12 @@ func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")
 	var values_label: Label = enemy_spawn_info.get_node("MarginContainer/Values")
 	
-	labels_label.text = "HP Range:\n"
-	values_label.text = str(spawner.health_range.x) + " - " + str(spawner.health_range.y) + "\n"
+	labels_label.text = "Spawn Rate:\n"
+	values_label.text = str(1/spawner.spawn_cooldown) + " per second\n"
+	labels_label.text += "Wave Chance:\n"
+	values_label.text += str(int(spawner.wave_chance * 1000)/10.0) + "%\n"
+	labels_label.text += "HP Range:\n"
+	values_label.text += str(spawner.health_range.x) + " - " + str(spawner.health_range.y) + "\n"
 	labels_label.text += "Speed Range:\n"
 	values_label.text += str(spawner.move_speed_range.x) + " - " + str(spawner.move_speed_range.y) + "\n"
 	if spawner.heavy_chance != 0:

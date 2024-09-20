@@ -3,7 +3,6 @@ class_name Game
 
 @onready
 var user_interface: UserInterface = $UserInterface
-var portraits_set: bool = false
 
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
@@ -33,12 +32,6 @@ var enemy_speed_range: Vector2i = Vector2i(25, 100)
 ## timer for resting periods between waves
 @onready
 var wave_timer: Timer = $WaveTimer
-@onready
-var linear_spawn_timer: Timer = $LinearSpawnTimer
-@export
-var linear_spawn_time: float = 4
-@export
-var linear_spawn_count: int = 1
 ## distance from core where enemy units spawn at
 @onready
 var elite_timer: Timer = $EliteTimer
@@ -155,10 +148,6 @@ func _ready():
 		shootables.add_child(new_shootable)
 	
 func _process(_delta):
-	if !portraits_set:
-		user_interface.update_unit_portraits(units)
-		portraits_set = true
-		
 	var reload_times = []
 	for unit: PlayerUnit in units:
 		reload_times.append(unit.action_one_reload_timer.time_left)
@@ -176,11 +165,6 @@ func _process(_delta):
 	
 	user_interface.game_time_label.text = str(int(time_since_start)) + " s"
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
-	
-	user_interface.update_wave_info(
-		Vector2(enemy_base_health, enemy_base_health + int(power_budget)),
-		Vector2(enemy_base_speed, enemy_base_speed + int(power_budget/2))
-		)
 	
 	# update minimap
 	if InputManager.selected_unit:
@@ -228,10 +212,11 @@ func _process(_delta):
 		
 	if Input.is_action_just_pressed("action_one"):
 		$ClickSoundPlayer.play()
-		
-	CameraControl.camera.position = InputManager.selected_unit.get_local_mouse_position().normalized()
+	
+	var local_mouse_pos: Vector2 = InputManager.selected_unit.get_local_mouse_position()
+	CameraControl.camera.position = local_mouse_pos.normalized()
 	# limit the amount of camera position offset from cursor
-	CameraControl.camera.position *= min(InputManager.selected_unit.get_local_mouse_position().length()/5, 500)
+	CameraControl.camera.position *= min(local_mouse_pos.length()/7, 300)
 			
 func enemy_killed()-> void:
 	kill_count += 1
@@ -278,7 +263,6 @@ func game_over() -> void:
 	print("***GAME OVER***")
 	spawner_component.spawn_timer.stop()
 	wave_timer.stop()
-	linear_spawn_timer.stop()
 	elite_timer.stop()
 	mutation_timer.stop()
 	user_interface.mutation_roulette.stop_roulette()
