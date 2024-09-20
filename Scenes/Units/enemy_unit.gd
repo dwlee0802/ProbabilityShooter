@@ -214,6 +214,7 @@ func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float 
 	var particles: CPUParticles2D = new_dead_eff.get_node("CPUParticles2D")
 	particles.direction = direction
 	particles.amount = count
+	particles.color = $Sprite2D.self_modulate
 	if is_elite:
 		particles.amount *= 2
 		intensity_scale += 0.5

@@ -229,9 +229,9 @@ func check_active_reload() -> void:
 		return
 		
 	# determine active reload success
-	print("range: " + str(active_reload_range))
+	#print("range: " + str(active_reload_range))
 	var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
-	print("selected: " + str(selected_point))
+	#print("selected: " + str(selected_point))
 	if active_reload_available and active_reload_range.x < selected_point + 2 and selected_point - 2 < active_reload_range.y:
 		print("active reload success!")
 		action_one_reload_timer.stop()
@@ -557,7 +557,7 @@ func get_magazine_status() -> String:
 	var output = ""
 	
 	output += str(get_current_equipment().current_magazine_count - queued_count)
-	output += "(" + str(queued_count) + ")"
+	#output += "(" + str(queued_count) + ")"
 	output += " / " + str(get_current_equipment().get_magazine_size())
 	
 	return output
