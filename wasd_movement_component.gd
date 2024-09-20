@@ -10,7 +10,7 @@ var deceleration: float = 10
 
 var dash_timer: Timer = Timer.new()
 var dash_modifier: float = 1
-var dash_strength: float = 2
+var dash_strength: float = 10
 var dash_cooldown: float = 0.5
 
 var run_modifier: float = 1
@@ -49,9 +49,9 @@ func physics_update(unit: RigidBody2D, delta: float) -> bool:
 			input_dir += Vector2.RIGHT
 	input_dir = input_dir.normalized()
 	
-	if Input.is_action_just_pressed("dash"):
-		if dash_timer.is_stopped():
-			dash_modifier = dash_strength
+	#if Input.is_action_just_pressed("dash"):
+		#if dash_timer.is_stopped():
+			#dash_modifier = dash_strength
 		
 	if Input.is_action_pressed("run"):
 		run_modifier = run_strength
