@@ -21,7 +21,7 @@ spawn_radius = 5000
 time_difficulty_modifier = 0.5
 enemy_base_health = 50
 enemy_base_speed = 150
-mutation_cooldown = 5.0
+mutation_cooldown = 60.0
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
