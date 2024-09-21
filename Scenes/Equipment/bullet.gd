@@ -9,12 +9,16 @@ var anti_armor: bool = false
 var quickshot: bool = false
 var projectile_count: int = 1
 
+var color: Color
+
+
 func _to_string() -> String:
-	var output = "BULLET INFO:\n"
+	var output = ""
 	if projectile_count != 1:
 		output += "DMG: " + str(int(damage_amount/float(projectile_count))) + " x" + str(projectile_count)
 	else:
 		output += "DMG: " + str(damage_amount)
+	output += "\n[color=blue]"
 	if anti_armor:
 		output += " AA"
 	if piercing:
@@ -23,4 +27,6 @@ func _to_string() -> String:
 		output += " EXPL"
 	if quickshot:
 		output += " QCK"
+	output += "[/color]"
+	
 	return output

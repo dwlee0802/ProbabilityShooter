@@ -476,7 +476,7 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+[node name="Label" type="RichTextLabel" parent="BulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
 
@@ -580,16 +580,14 @@ show_percentage = false
 [node name="MutationRoulette" type="Control" parent="."]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.2
 anchor_right = 0.5
-anchor_bottom = 0.2
 offset_left = -54.5
-offset_top = -42.5
+offset_top = 100.0
 offset_right = 54.5
-offset_bottom = 42.5
+offset_bottom = 85.0
 grow_horizontal = 2
-grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("8_ghxnf")
 option_wait_time = 1.0

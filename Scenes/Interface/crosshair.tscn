@@ -4,21 +4,6 @@
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
 [ext_resource type="Script" path="res://Scenes/Interface/active_reload_component.gd" id="3_27vr4"]
 
-[sub_resource type="Animation" id="Animation_67551"]
-resource_name = "reload_finished"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:bar_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_6l0yw"]
 length = 0.001
 tracks/0/type = "value"
@@ -34,25 +19,25 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_i6mhj"]
-_data = {
-"RESET": SubResource("Animation_6l0yw"),
-"reload_finished": SubResource("Animation_67551")
-}
-
-[sub_resource type="Animation" id="Animation_vlg83"]
-resource_name = "click_effect"
+[sub_resource type="Animation" id="Animation_67551"]
+resource_name = "reload_finished"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath(".:bar_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i6mhj"]
+_data = {
+"RESET": SubResource("Animation_6l0yw"),
+"reload_finished": SubResource("Animation_67551")
 }
 
 [sub_resource type="Animation" id="Animation_djyso"]
@@ -68,6 +53,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vlg83"]
+resource_name = "click_effect"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_midib"]
@@ -148,14 +148,17 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 text = "0 / 0"
 
-[node name="InfoLabel" type="Label" parent="."]
+[node name="InfoLabel" type="RichTextLabel" parent="."]
 offset_left = 15.0
 offset_top = 32.0
-offset_right = 66.0
-offset_bottom = 55.0
+offset_right = 175.0
+offset_bottom = 108.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
+bbcode_enabled = true
 text = "0 - 100"
+fit_content = true
+scroll_active = false
 
 [node name="ActiveReloadComponent" type="Node" parent="."]
 script = ExtResource("3_27vr4")

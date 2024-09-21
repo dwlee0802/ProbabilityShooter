@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready
-var info_label: Label = $InfoLabel
+var info_label: RichTextLabel = $InfoLabel
 @onready
 var mag_label: Label = $MagazineLabel
 @onready
@@ -40,7 +40,7 @@ func _process(_delta):
 			if num >= current_eq.bullets.size():
 				info_label.text = ""
 			else:
-				info_label.text = str(int(current_eq.bullets[num].damage_amount * (1 + InputManager.selected_unit.charge/100)))
+				info_label.text = str(current_eq.bullets[num])
 		else:
 			info_label.text = ""
 		

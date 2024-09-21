@@ -8,13 +8,13 @@ static var max_reload_time: float = 60
 static var max_aim_time: float = 60
 
 @export
-var current_magazine_count: int = 5
+var current_magazine_count: int = 6
 
 #region Random Bullets System
 ## array that holds the randomly generated Bullet objects
 var bullets = []
 ## Max number of bullets gun can have
-var max_bullet_count: int = 5
+var max_bullet_count: int = 6
 
 ## probabilities of bullets spawning with types
 var damage_range: Vector2i = Vector2i(25,125)

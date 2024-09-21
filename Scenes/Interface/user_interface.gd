@@ -158,7 +158,10 @@ func update_bullet_menu() -> void:
 		bullets = InputManager.selected_unit.get_current_equipment().bullets
 		
 	for i in range(bullets.size()):
-		var new_label: Label = Label.new()
+		var new_label: RichTextLabel = RichTextLabel.new()
+		new_label.fit_content = true
+		new_label.scroll_active = false
+		new_label.bbcode_enabled = true
 		if i == 0:
 			new_label.add_theme_color_override("font_color", Color.GREEN)
 		new_label.add_theme_font_size_override("font_size", 12)

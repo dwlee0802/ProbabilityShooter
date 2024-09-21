@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -14,14 +14,25 @@
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7fped"]
+friction = 0.0
+bounce = 1.0
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_el7xj"]
+size = Vector2(202, 3728)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d2tib"]
+size = Vector2(5461, 486)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
 spawn_radius = 5000
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
-_base_health_range = Vector2i(1, 50)
-_base_move_speed_range = Vector2i(50, 100)
+_base_health_range = Vector2i(25, 100)
+_base_move_speed_range = Vector2i(100, 150)
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
@@ -29,6 +40,12 @@ one_shot = true
 [node name="Background" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 1)
 scale = Vector2(10000, 10000)
+texture = ExtResource("2_jamf8")
+
+[node name="Ground" type="Sprite2D" parent="."]
+self_modulate = Color(0.262932, 0.262932, 0.262932, 1)
+position = Vector2(-37, -38.5)
+scale = Vector2(147.563, 107.906)
 texture = ExtResource("2_jamf8")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -53,6 +70,7 @@ script = ExtResource("2_webe7")
 [node name="PlayerUnits" type="Node2D" parent="."]
 
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+collision_mask = 138
 movement_speed = 500.0
 temp_color = Color(0.356863, 0.643137, 1, 1)
 health_points = 300.0
@@ -113,3 +131,44 @@ text = "Fabrication Bench"
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_7elte")
 volume_db = -5.0
+
+[node name="MoveLimit" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MoveLimit"]
+collision_layer = 128
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_7fped")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveLimit/StaticBody2D"]
+position = Vector2(-2464, -68)
+shape = SubResource("RectangleShape2D_el7xj")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="MoveLimit"]
+position = Vector2(4868, 71)
+collision_layer = 128
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_7fped")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveLimit/StaticBody2D2"]
+position = Vector2(-2464, -68)
+shape = SubResource("RectangleShape2D_el7xj")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="MoveLimit"]
+position = Vector2(1605, -1784)
+collision_layer = 128
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_7fped")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveLimit/StaticBody2D3"]
+position = Vector2(-1642, -133)
+shape = SubResource("RectangleShape2D_d2tib")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="MoveLimit"]
+position = Vector2(1529, 2030)
+collision_layer = 128
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_7fped")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MoveLimit/StaticBody2D4"]
+position = Vector2(-1642, -133)
+shape = SubResource("RectangleShape2D_d2tib")

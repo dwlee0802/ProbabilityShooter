@@ -173,6 +173,7 @@ select_roulette={
 2d_physics/layer_5="Critical"
 2d_physics/layer_6="Pickup"
 2d_physics/layer_7="Shootables"
+2d_physics/layer_8="Wall"
 
 [physics]
 
