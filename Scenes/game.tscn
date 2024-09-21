@@ -43,7 +43,7 @@ scale = Vector2(10000, 10000)
 texture = ExtResource("2_jamf8")
 
 [node name="Ground" type="Sprite2D" parent="."]
-self_modulate = Color(0.262932, 0.262932, 0.262932, 1)
+self_modulate = Color(0.201527, 0.201527, 0.201527, 1)
 position = Vector2(-37, -38.5)
 scale = Vector2(147.563, 107.906)
 texture = ExtResource("2_jamf8")

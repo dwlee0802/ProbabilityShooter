@@ -87,7 +87,7 @@ func have_bullets() -> bool:
 func reload() -> void:
 	current_magazine_count = get_magazine_size()
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
-	bullets = generate_bullets(max_bullet_count)
+	bullets = generate_bullets(get_magazine_size())
 	
 	if print_bullet_info:
 		for bullet: Bullet in bullets:
@@ -209,7 +209,7 @@ func get_projectile_speed() -> float:
 func get_spread() -> float:
 	return max(data.get_spread_in_rad() + bonus_spread, Gun.min_spread)
 func get_magazine_size() -> int:
-	return data.magazine_size + bonus_magazine_size
+	return max_bullet_count
 func get_projectile_count() -> int:
 	return data.projectile_count + bonus_projectile_count
 func get_reload_time() -> float:
