@@ -130,6 +130,7 @@ signal revived
 signal equipment_changed
 signal picked_up_item(item)
 signal experience_changed
+signal added_experience(amount)
 signal level_increased
 signal stats_changed
 signal actioned
@@ -535,6 +536,7 @@ func add_experience(amount: int) -> void:
 	print("add " + str(amount) + " experience")
 	experience_gained += amount
 	experience_changed.emit()
+	added_experience.emit(amount)
 
 func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)

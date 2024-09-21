@@ -8,6 +8,21 @@
 [ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://minimap.tscn" id="7_a8odi"]
 [ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
 
+[sub_resource type="Animation" id="Animation_a84oq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_mfhy1"]
 resource_name = "killcount_up"
 length = 0.5
@@ -22,21 +37,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_a84oq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a6087"]
@@ -172,33 +172,6 @@ _data = {
 "item_info_fadeout_animation": SubResource("Animation_308bu")
 }
 
-[sub_resource type="Animation" id="Animation_pirnj"]
-resource_name = "mutation_soon"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-28.5, 0), Vector2(-36.5, 0), Vector2(-28.5, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_jioqa"]
 length = 0.001
 tracks/0/type = "value"
@@ -224,6 +197,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(-28.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pirnj"]
+resource_name = "mutation_soon"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-28.5, 0), Vector2(-36.5, 0), Vector2(-28.5, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gk30j"]

@@ -14,42 +14,10 @@ var projectiles: Node2D = $Projectiles
 @onready
 var shootables: Node2D = $Shootables
 
-##region Wave settings
-#@export_category("Wave Setting")
 var time_since_start: float = 0
 var pause: bool = false
-### number of units per wave
-#@export
-#var wave_unit_count: int = 10
-### time in seconds between enemy unit spawns
-#@export
-#var time_between_waves: float = 30
-#@export
-#var base_enemy_health_range: Vector2i = Vector2i(50, 150)
-#var enemy_health_range: Vector2i = Vector2i(50, 150)
-#@export
-#var enemy_speed_range: Vector2i = Vector2i(25, 100)
-### timer for resting periods between waves
-#@onready
-#var wave_timer: Timer = $WaveTimer
-### distance from core where enemy units spawn at
-#@onready
-#var elite_timer: Timer = $EliteTimer
-#@export
-#var elite_spawn_time: float = 60
-#@export
-#var elite_unit_modifier: float = 2
 @export
 var spawn_radius: int = 1000
-### how much stronger enemies get with time
-#var time_difficulty: int = 0
-#@export
-#var time_difficulty_modifier: float = 1.0
-#var power_budget: float = 0
-#@export
-#var enemy_base_health: int = 100
-#@export
-#var enemy_base_speed: int = 50
 
 ## dictionary<Mutation, int level> to store mutations
 var mutations = {}
@@ -134,6 +102,7 @@ func _ready():
 	for unit: PlayerUnit in units:
 		#unit.picked_up_item.connect(user_interface.show_item_info)
 		unit.experience_changed.connect(on_experience_changed)
+		unit.added_experience.connect(user_interface.make_exp_popup)
 		unit.was_selected.connect(bind_selected_unit_signals)
 		unit.level_increased.connect(on_level_up)
 		unit.stats_changed.connect(user_interface.update_bullet_menu)

@@ -7,6 +7,7 @@ var restart_button: Button = $GameOver/RestartButton
 var game_over_ui = $GameOver
 @onready
 var experience_bar: DelayedProgressBar = $ExperienceBar
+var exp_popup = preload("res://Scenes/Effects/exp_popup.tscn")
 @onready
 var experience_label: Label = $ExperienceBar/ExperienceBarLabel
 
@@ -216,3 +217,8 @@ func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	if spawner.fast_chance != 0:
 		labels_label.text += "Fast:\n"
 		values_label.text += str(int(spawner.fast_chance*1000)/10.0) + "%\n"
+
+func make_exp_popup(amount: int) -> void:
+	var new_popup = exp_popup.instantiate()
+	new_popup.get_node("Label").text = "+" + str(amount)
+	experience_bar.add_child(new_popup)
