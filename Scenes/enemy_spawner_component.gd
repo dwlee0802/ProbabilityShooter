@@ -9,8 +9,8 @@ var spawn_timer: Timer
 
 @export_category("Wave Stats")
 @export
-var _base_spawn_cooldown: float = 3.0
-var spawn_cooldown: float = 3.0
+var _base_spawn_cooldown: float = 2.0
+var spawn_cooldown: float = 2.0
 @export
 var _base_wave_count: int = 3
 var wave_count: int = 3

@@ -14,42 +14,42 @@ var projectiles: Node2D = $Projectiles
 @onready
 var shootables: Node2D = $Shootables
 
-#region Wave settings
-@export_category("Wave Setting")
+##region Wave settings
+#@export_category("Wave Setting")
 var time_since_start: float = 0
 var pause: bool = false
-## number of units per wave
-@export
-var wave_unit_count: int = 10
-## time in seconds between enemy unit spawns
-@export
-var time_between_waves: float = 30
-@export
-var base_enemy_health_range: Vector2i = Vector2i(50, 150)
-var enemy_health_range: Vector2i = Vector2i(50, 150)
-@export
-var enemy_speed_range: Vector2i = Vector2i(25, 100)
-## timer for resting periods between waves
-@onready
-var wave_timer: Timer = $WaveTimer
-## distance from core where enemy units spawn at
-@onready
-var elite_timer: Timer = $EliteTimer
-@export
-var elite_spawn_time: float = 60
-@export
-var elite_unit_modifier: float = 2
+### number of units per wave
+#@export
+#var wave_unit_count: int = 10
+### time in seconds between enemy unit spawns
+#@export
+#var time_between_waves: float = 30
+#@export
+#var base_enemy_health_range: Vector2i = Vector2i(50, 150)
+#var enemy_health_range: Vector2i = Vector2i(50, 150)
+#@export
+#var enemy_speed_range: Vector2i = Vector2i(25, 100)
+### timer for resting periods between waves
+#@onready
+#var wave_timer: Timer = $WaveTimer
+### distance from core where enemy units spawn at
+#@onready
+#var elite_timer: Timer = $EliteTimer
+#@export
+#var elite_spawn_time: float = 60
+#@export
+#var elite_unit_modifier: float = 2
 @export
 var spawn_radius: int = 1000
-## how much stronger enemies get with time
-var time_difficulty: int = 0
-@export
-var time_difficulty_modifier: float = 1.0
-var power_budget: float = 0
-@export
-var enemy_base_health: int = 100
-@export
-var enemy_base_speed: int = 50
+### how much stronger enemies get with time
+#var time_difficulty: int = 0
+#@export
+#var time_difficulty_modifier: float = 1.0
+#var power_budget: float = 0
+#@export
+#var enemy_base_health: int = 100
+#@export
+#var enemy_base_speed: int = 50
 
 ## dictionary<Mutation, int level> to store mutations
 var mutations = {}
@@ -59,9 +59,10 @@ var mutation_options
 var spawner_component: EnemySpawnerComponent = $EnemySpawnerComponent
 @onready
 var mutation_timer: Timer = $MutationTimer
+## Time between mutation roulette runs
 @export
-var mutation_cooldown: float = 100
-#endregion
+var mutation_cooldown: float = 30
+##endregion
 
 ## node to hold enemy units
 @onready
@@ -157,8 +158,8 @@ func _process(_delta):
 	
 	if !pause:
 		time_since_start += _delta
-		power_budget += _delta * time_difficulty_modifier
-	time_difficulty = int(time_since_start * time_difficulty_modifier)
+		#power_budget += _delta * time_difficulty_modifier
+	#time_difficulty = int(time_since_start * time_difficulty_modifier)
 	
 	#pulse_enemy_ratio += _delta * 0.01 * time_difficulty
 	#pulse_enemy_ratio = min(pulse_enemy_ratio, 0.2)
@@ -222,33 +223,8 @@ func enemy_killed()-> void:
 	kill_count += 1
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
 	
-func spawn_wave() -> void:
-	for i in range(wave_unit_count + time_since_start/120):
-		spawner_component.spawn_enemy_unit()
-		
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
-	enemies.add_child(newEnemy)
-	if InputManager.selected_unit != null:
-		newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
-	else:
-		newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
-	newEnemy.on_death.connect(enemy_killed)
-	
-func spawn_elite_unit() -> void:
-	var newEnemy: EnemyUnit
-	newEnemy = enemy_scene.instantiate()
-	
-	## split power budget
-	var speed_bonus: int = randi_range(0, int((power_budget * elite_unit_modifier)/2))
-	var hp_bonus: int = int((power_budget * elite_unit_modifier) - speed_bonus)
-	
-	newEnemy.game_ref = self
-	newEnemy.on_spawn(
-		enemy_base_speed + speed_bonus,
-		enemy_base_health + hp_bonus)
-	newEnemy.increase_size(2)
-	newEnemy.is_elite = true
 	enemies.add_child(newEnemy)
 	if InputManager.selected_unit != null:
 		newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
@@ -262,8 +238,6 @@ func game_over() -> void:
 		
 	print("***GAME OVER***")
 	spawner_component.spawn_timer.stop()
-	wave_timer.stop()
-	elite_timer.stop()
 	mutation_timer.stop()
 	user_interface.mutation_roulette.stop_roulette()
 	
@@ -293,8 +267,6 @@ func victory() -> void:
 		return
 		
 	print("***VICTORY***")
-	wave_timer.stop()
-	
 	# remove all remaining enemy units
 	remove_child(enemies)
 	enemies.queue_free()
