@@ -66,7 +66,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		new_bullet.launch(
 			mouse_position.normalized().rotated(random_spread_offset * current_bullet.projectile_count), 
 			get_projectile_speed(), 
-			int(current_bullet.damage_amount * unit.get_charge_damage_modifier() / float(current_bullet.projectile_count)), 
+			int(current_bullet.damage_amount / float(current_bullet.projectile_count)), 
 			data.knock_back_force)
 		new_bullet.global_position = unit.global_position
 		

@@ -16,11 +16,13 @@ var game_time_label: Label = $GameState/GameTimeLabel
 @onready
 var kill_count_label: Label = $GameState/KillsLabel
 @onready
+var kill_count_animation: AnimationPlayer = $GameState/KillsLabel/AnimationPlayer
+@onready
 var resource_label: Label = $GameState/ResourceLabel
 @onready
-var core_health_bar: DelayedProgressBar = $GameState/CoreHealthBar
+var core_health_bar: DelayedProgressBar = $CoreHealthBar
 @onready
-var core_health_label: Label = $GameState/CoreHealthBar/CoreHealthLabel
+var core_health_label: Label = $CoreHealthBar/CoreHealthLabel
 @onready
 var core_progress_bar: DelayedProgressBar = $GameState/CoreActivationBar
 @onready
@@ -162,6 +164,7 @@ func update_bullet_menu() -> void:
 		new_label.fit_content = true
 		new_label.scroll_active = false
 		new_label.bbcode_enabled = true
+		new_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if i == 0:
 			new_label.add_theme_color_override("font_color", Color.GREEN)
 		new_label.add_theme_font_size_override("font_size", 12)

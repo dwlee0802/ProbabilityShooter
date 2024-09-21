@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=25 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -7,6 +7,43 @@
 [ext_resource type="PackedScene" uid="uid://baabjk2sesuiw" path="res://Scenes/Interface/upgrade_option.tscn" id="6_2cgu3"]
 [ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://minimap.tscn" id="7_a8odi"]
 [ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
+
+[sub_resource type="Animation" id="Animation_mfhy1"]
+resource_name = "killcount_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a84oq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a6087"]
+_data = {
+"RESET": SubResource("Animation_a84oq"),
+"killcount_up": SubResource("Animation_mfhy1")
+}
 
 [sub_resource type="Animation" id="Animation_dcoc7"]
 length = 0.001
@@ -135,6 +172,66 @@ _data = {
 "item_info_fadeout_animation": SubResource("Animation_308bu")
 }
 
+[sub_resource type="Animation" id="Animation_pirnj"]
+resource_name = "mutation_soon"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-28.5, 0), Vector2(-36.5, 0), Vector2(-28.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jioqa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-28.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gk30j"]
+_data = {
+"RESET": SubResource("Animation_jioqa"),
+"mutation_soon": SubResource("Animation_pirnj")
+}
+
 [sub_resource type="Animation" id="Animation_pqi10"]
 length = 0.001
 
@@ -187,22 +284,30 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "RESTART"
 
-[node name="GameState" type="VBoxContainer" parent="."]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 75.0
-grow_horizontal = 2
-
-[node name="CoreHealthBar" parent="GameState" instance=ExtResource("3_038ea")]
+[node name="CoreHealthBar" parent="." instance=ExtResource("3_038ea")]
 custom_minimum_size = Vector2(10, 10)
-layout_mode = 2
+anchors_preset = -1
+anchor_top = 0.841
+anchor_bottom = 0.841
+offset_left = -162.0
+offset_top = -9.96802
+offset_right = 163.0
+offset_bottom = 0.0319824
+grow_vertical = 0
 
-[node name="CoreHealthLabel" type="Label" parent="GameState/CoreHealthBar"]
+[node name="CoreHealthLabel" type="Label" parent="CoreHealthBar"]
 layout_mode = 0
 offset_right = 114.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 8
 text = " Core Health: 0"
+
+[node name="GameState" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+offset_top = 20.0
+offset_bottom = 75.0
+grow_horizontal = 2
 
 [node name="CoreActivationBar" parent="GameState" instance=ExtResource("3_038ea")]
 visible = false
@@ -226,6 +331,11 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "0 Kills"
 horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameState/KillsLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_a6087")
+}
 
 [node name="ResourceLabel" type="Label" parent="GameState"]
 visible = false
@@ -344,15 +454,16 @@ vertical_alignment = 1
 [node name="NewItemInfo" type="PanelContainer" parent="."]
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.85
+anchor_top = 0.75
 anchor_right = 0.5
-anchor_bottom = 0.85
+anchor_bottom = 0.75
 offset_left = -114.5
 offset_top = -40.0
 offset_right = 114.5
 offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="NewItemInfo"]
 layout_mode = 2
@@ -396,13 +507,12 @@ libraries = {
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
 custom_minimum_size = Vector2(10, 10)
-anchors_preset = 12
-anchor_left = 0.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 0.0
-offset_right = 0.0
+anchors_preset = -1
+anchor_top = 0.87
+anchor_bottom = 0.87
+offset_left = -162.0
+offset_top = -10.0
+offset_right = 163.0
 grow_vertical = 0
 bar_color = Color(0.294339, 0.495578, 1, 1)
 
@@ -459,9 +569,9 @@ self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -84.0
-offset_right = 290.0
-offset_bottom = 84.0
+offset_top = -87.5
+offset_right = 124.0
+offset_bottom = 87.5
 grow_vertical = 2
 mouse_filter = 2
 
@@ -478,6 +588,7 @@ theme_override_constants/separation = 10
 
 [node name="Label" type="RichTextLabel" parent="BulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
+mouse_filter = 2
 text = "Bullet info 1"
 
 [node name="Label2" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
@@ -504,9 +615,8 @@ text = "Bullet info 1"
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -82.0
+offset_top = -67.0
 offset_right = 188.0
-offset_bottom = -15.0
 grow_vertical = 0
 size_flags_vertical = 8
 mouse_filter = 2
@@ -569,6 +679,7 @@ text = "0 - 0
 horizontal_alignment = 2
 
 [node name="ChargeProgressBar" type="ProgressBar" parent="."]
+visible = false
 offset_left = 17.0
 offset_top = 89.0
 offset_right = 29.0
@@ -604,6 +715,11 @@ grow_horizontal = 2
 text = "Next Mutation in: 00s"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MutationRoulette/MutationTimeLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_gk30j")
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MutationRoulette"]
 visible = false

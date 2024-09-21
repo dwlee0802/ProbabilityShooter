@@ -5,7 +5,7 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_joiiy"]
 texture = ExtResource("2_rrukd")
-modulate_color = Color(0, 0, 0, 1)
+modulate_color = Color(0.136826, 0.136826, 0.136826, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5wc8w"]
 texture = ExtResource("2_rrukd")

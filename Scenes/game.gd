@@ -222,6 +222,7 @@ func _process(_delta):
 func enemy_killed()-> void:
 	kill_count += 1
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
+	user_interface.kill_count_animation.play("killcount_up")
 	
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
