@@ -3,6 +3,10 @@ class_name DelayedProgressBar
 
 @export
 var bar_color: Color = Color.BLUE
+@export
+var increase_blink: bool = false
+@onready
+var blink_animation: AnimationPlayer = $ColorRect/AnimationPlayer
 
 @onready
 var health_bar: ProgressBar = $HealthBar
@@ -30,5 +34,8 @@ func change_value(new_val: float, immediate: bool = false) -> void:
 	else:
 		# immediately change health bar
 		damage_bar.value = new_val
+	
+	if increase_blink:
+		blink_animation.play("exp_gained")
 		
 	return

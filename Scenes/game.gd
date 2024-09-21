@@ -210,7 +210,11 @@ func _process(_delta):
 	
 	if !mutation_timer.is_stopped():
 		user_interface.mutation_roulette.mutation_time_label.text = "Next Mutation in: " + str(int(mutation_timer.time_left) + 1) + "s"
-		
+		if mutation_timer.time_left < 10:
+			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.YELLOW
+		else:
+			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.WHITE
+			
 	if Input.is_action_just_pressed("action_one"):
 		$ClickSoundPlayer.play()
 	
