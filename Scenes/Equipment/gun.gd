@@ -81,6 +81,14 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	
 	super.on_activation(unit, mouse_position)
 
+func reset_stats() -> void:
+	damage_range = Vector2i(25,125)
+	anti_armor_chance = 0
+	piercing_chance = 0
+	explosive_chance = 0
+	buckshot_chance = 0
+	quickshot_chance = 0
+	
 func have_bullets() -> bool:
 	return current_magazine_count > 0
 	

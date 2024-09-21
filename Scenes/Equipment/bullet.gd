@@ -18,7 +18,7 @@ func _to_string() -> String:
 		output += "DMG: " + str(int(damage_amount/float(projectile_count))) + " x" + str(projectile_count)
 	else:
 		output += "DMG: " + str(damage_amount)
-	output += "\n[color=blue]"
+	output += "\n[color=yellow]"
 	if anti_armor:
 		output += " AA"
 	if piercing:

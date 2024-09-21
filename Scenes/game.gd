@@ -317,6 +317,9 @@ func start() -> void:
 		unit.reset_exp()
 		unit.reset_items()
 		unit.reload_action()
+		unit.global_position = Vector2.ZERO
+		
+	spawner_component.reset_stats()
 
 	# randomly place dynamite on the map
 	for i in range(5):
