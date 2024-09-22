@@ -125,6 +125,7 @@ action_name = "action_one"
 [node name="Reload" type="Node" parent="WeaponOne/StateMachine" node_paths=PackedStringArray("ready_state")]
 script = ExtResource("4_61t70")
 ready_state = NodePath("../Ready")
+active_reload_available = null
 
 [node name="AimCone" type="Polygon2D" parent="WeaponOne"]
 visible = false

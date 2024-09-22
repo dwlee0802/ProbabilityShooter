@@ -4,7 +4,6 @@ extends State
 var ready_state: State
 
 var active_reload_length: int = 10
-var active_reload_range: Vector2i = Vector2i.ZERO
 @export
 var active_reload_available: bool = true
 var active_reload_failed: bool = false
@@ -24,6 +23,18 @@ func process_frame(_delta: float) -> State:
 		return ready_state
 	return null
 	
+func process_input(_event: InputEvent) -> State:
+	# determine active reload success
+	if Input.is_action_just_pressed("reload"):
+		check_active_reload()
+		
+	## click to active reload
+	if !parent.reload_timer.is_stopped():
+		if Input.is_action_just_pressed("action_one") and active_reload_available:
+			check_active_reload()
+			
+	return null
+	
 func start_reload_process(_eq_num: int = 0) -> void:
 	if parent.reload_timer.is_stopped():
 		print("Start Reload Process")
@@ -31,7 +42,7 @@ func start_reload_process(_eq_num: int = 0) -> void:
 		active_reload_failed = false
 		parent.reload_timer.start(parent.weapon.data.reload_time)
 		var active_reload_start_point: int = randi_range(50, 70)
-		active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
+		parent.active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
 		#print("active reload range: " + str(active_reload_range))
 		parent.reload_started.emit()
 		
@@ -41,19 +52,19 @@ func check_active_reload() -> void:
 	var timer: Timer = parent.reload_timer
 	
 	# determine active reload success
-	#print("range: " + str(active_reload_range))
+	print("range: " + str(parent.active_reload_range))
 	var selected_point: float = (1 - timer.time_left / timer.wait_time) * 100
-	#print("selected: " + str(selected_point))
-	if active_reload_available and active_reload_range.x < selected_point + 2 and selected_point - 2 < active_reload_range.y:
+	print("selected: " + str(selected_point))
+	if active_reload_available and parent.active_reload_range.x < selected_point + 2 and selected_point - 2 < parent.active_reload_range.y:
 		print("active reload success!")
 		timer.stop()
 		timer.timeout.emit()
-		#active_reload_sound_player.stream = active_reload_success_sound
-		#active_reload_sound_player.play()
+		active_reload_sound_player.stream = active_reload_success_sound
+		active_reload_sound_player.play()
 	else:
 		print("active reload fail!")
-		#active_reload_sound_player.stream = active_reload_fail_sound
-		#active_reload_sound_player.play()
+		active_reload_sound_player.stream = active_reload_fail_sound
+		active_reload_sound_player.play()
 		active_reload_failed = true
 	
 	active_reload_available = false

@@ -35,6 +35,7 @@ var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 
 #region Active Reload
+var active_reload_range: Vector2i = Vector2i.ZERO
 #endregion
 
 signal bullets_changed

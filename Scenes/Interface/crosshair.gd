@@ -23,10 +23,10 @@ func _input(event: InputEvent) -> void:
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if !InputManager.selected_unit.reload_started.is_connected(active_reload_component.update_reload_marker):
-		InputManager.selected_unit.reload_started.connect(active_reload_component.update_reload_marker)
-	if !InputManager.selected_unit.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
-		InputManager.selected_unit.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
+	if !InputManager.selected_unit.weapon_one.reload_started.is_connected(active_reload_component.update_reload_marker):
+		InputManager.selected_unit.weapon_one.reload_started.connect(active_reload_component.update_reload_marker)
+	if !InputManager.selected_unit.weapon_one.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
+		InputManager.selected_unit.weapon_one.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
 		
 	global_position = get_global_mouse_position()
 	
