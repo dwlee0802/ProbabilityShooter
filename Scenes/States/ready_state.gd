@@ -84,9 +84,8 @@ func on_aim_finished() -> void:
 		push_error("Aim finished but no attack direction.")
 	else:
 		var target: Vector2 = attack_direction_queue.pop_front()
-		#parent.gunshot_sfx.stream = parent.weapon.data.equipment_use_sound
-		#parent.gunshot_sfx.play()
-		#parent.arm.rotation = target.angle()
+		parent.gunshot_sfx.stream = parent.weapon.data.equipment_use_sound
+		parent.gunshot_sfx.play()
 		print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
 		if queued_attack_cones.size() > 0:
 			queued_attack_cones.pop_front().queue_free()

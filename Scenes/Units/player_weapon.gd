@@ -28,6 +28,12 @@ var queued_color: Color = Color.ORANGE
 @export
 var background_color: Color = Color.BLACK
 
+## sound
+@onready 
+var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
+@onready 
+var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
+
 #region Active Reload
 #endregion
 
