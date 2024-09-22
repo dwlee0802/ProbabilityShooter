@@ -14,6 +14,7 @@ var active_reload_fail_sound = preload("res://Sound/UI/error_006.ogg")
 
 func enter() -> void:
 	super()
+	parent.weapon.clear_bullets()
 	start_reload_process()
 	if !parent.reload_timer.timeout.is_connected(reload_action):
 		parent.reload_timer.timeout.connect(reload_action)

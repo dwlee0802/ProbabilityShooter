@@ -26,6 +26,9 @@ func enter() -> void:
 
 func exit() -> void:
 	super()
+	parent.attack_full_cone.visible = false
+	clear_attack_queues()
+	aim_timer.stop()
 
 func process_physics(_delta: float) -> State:
 	if parent.weapon.have_bullets():
@@ -41,6 +44,9 @@ func process_frame(_delta: float) -> State:
 	return null
 
 func process_input(_event: InputEvent) -> State:
+	if Input.is_action_just_pressed("reload"):
+		return reload_state
+		
 	## action queue input
 	if _event.is_action_pressed(action_name):
 		if parent.weapon.ready:
@@ -99,3 +105,9 @@ func on_aim_finished() -> void:
 	if !attack_direction_queue.is_empty():
 		if parent.weapon.have_bullets():
 			start_attack_process()
+
+func clear_attack_queues():
+	attack_direction_queue.clear()
+	for item in queued_attack_cones:
+		item.queue_free()
+	queued_attack_cones.clear()
