@@ -7,8 +7,7 @@ var weapon: Gun
 @onready
 var state_machine: StateMachine = $StateMachine
 
-@onready
-var reload_timer: Timer = $WeaponOne/ReloadTimer
+var reload_timer: Timer
 
 @onready
 var attack_cone: Polygon2D = $AttackFullCone/AttackCone
@@ -33,15 +32,23 @@ var background_color: Color = Color.BLACK
 
 signal bullets_changed
 signal reload_started
+signal reload_complete
+
 
 func _ready() -> void:
 	state_machine.init(self)
 	weapon = Gun.new(weapon_data)
 	
+	reload_timer = Timer.new()
+	reload_timer.autostart = false
+	reload_timer.one_shot = true
+	add_child(reload_timer)
+	
 	update_aim_cone()
 	aim_cone.color = aim_color
 	attack_cone.color = attack_color
 	attack_full_cone.color = background_color
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	state_machine.process_input(event)
