@@ -108,6 +108,11 @@ acceleration = 12000.0
 script = ExtResource("3_d8l28")
 weapon_data = ExtResource("4_s5eeb")
 
+[node name="ReloadTimer" type="Timer" parent="WeaponOne"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
 [node name="StateMachine" type="Node" parent="WeaponOne" node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_us0md")
 starting_state = NodePath("Ready")
@@ -120,11 +125,6 @@ action_name = "action_one"
 [node name="Reload" type="Node" parent="WeaponOne/StateMachine" node_paths=PackedStringArray("ready_state")]
 script = ExtResource("4_61t70")
 ready_state = NodePath("../Ready")
-
-[node name="ReloadTimer" type="Timer" parent="WeaponOne"]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
 
 [node name="AimCone" type="Polygon2D" parent="WeaponOne"]
 visible = false

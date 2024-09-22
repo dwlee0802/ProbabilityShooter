@@ -54,7 +54,9 @@ var upgrade_option_4 = $UpgradeMenu/LevelUp/Option4
 var minimap: Minimap = $Minimap
 
 @onready
-var bullet_info_menu_container: Container = $BulletInfoMenu/MarginContainer/GridContainer
+var left_bullet_info_menu_container: Container = $LeftBulletInfoMenu/MarginContainer/GridContainer
+@onready
+var right_bullet_info_menu_container: Container = $RightBulletInfoMenu/MarginContainer/GridContainer
 @onready
 var bullet_generation_info: Control = $BulletGenerationInfoMenu
 
@@ -152,7 +154,7 @@ func upgrade_option_selected(data: ItemData) -> void:
 		show_upgrade_menu()
 
 func update_bullet_menu() -> void:
-	DW_ToolBox.RemoveAllChildren(bullet_info_menu_container)
+	DW_ToolBox.RemoveAllChildren(left_bullet_info_menu_container)
 	if InputManager.selected_unit == null:
 		return
 	
@@ -172,7 +174,7 @@ func update_bullet_menu() -> void:
 		if i < InputManager.selected_unit.get_queued_attack_count():
 			new_label.add_theme_color_override("font_color", Color.YELLOW)
 		new_label.text = str(bullets[i])
-		bullet_info_menu_container.add_child(new_label)
+		left_bullet_info_menu_container.add_child(new_label)
 
 func update_bullet_generation_info_menu() -> void:
 	var labels_label: Label = bullet_generation_info.get_node("MarginContainer/Labels")

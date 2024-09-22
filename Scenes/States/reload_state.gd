@@ -11,12 +11,12 @@ var active_reload_failed: bool = false
 var active_reload_success_sound = preload("res://Sound/UI/confirmation_002.ogg")
 var active_reload_fail_sound = preload("res://Sound/UI/error_006.ogg")
 
-func _ready() -> void:
-	parent.reload_timer.timeout.connect(reload_action)
-	
+
 func enter() -> void:
 	super()
 	start_reload_process()
+	if !parent.reload_timer.timeout.is_connected(reload_action):
+		parent.reload_timer.timeout.connect(reload_action)
 
 func process_frame(_delta: float) -> State:
 	if parent.weapon.have_bullets():

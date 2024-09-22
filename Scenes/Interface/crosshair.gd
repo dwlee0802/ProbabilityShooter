@@ -34,7 +34,7 @@ func _process(_delta):
 	if InputManager.selected_unit != null:
 		# show damage range
 		image.progress = 100
-		var current_eq: Equipment = InputManager.selected_unit.get_current_equipment()
+		var current_eq: Equipment = InputManager.selected_unit.weapon_one.weapon
 		if current_eq is Gun and current_eq.bullets.size() > 0:
 			var num: int = InputManager.selected_unit.get_queued_attack_count()
 			if num >= current_eq.bullets.size():
@@ -45,8 +45,8 @@ func _process(_delta):
 			info_label.text = ""
 		
 		# reloading
-		if !current_eq.ready:
-			var timer: Timer = InputManager.selected_unit.get_current_equipment_timer()
+		if !current_eq.have_bullets():
+			var timer: Timer = InputManager.selected_unit.weapon_one.reload_timer
 			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
 			if InputManager.selected_unit.active_reload_available:
 				image.bar_color = Color.YELLOW

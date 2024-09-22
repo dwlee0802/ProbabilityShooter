@@ -55,6 +55,10 @@ var starting_equipments = []
 var items = {}
 @export
 var starting_item: ItemData = null
+
+@onready
+var weapon_one: WeaponComponent = $WeaponOne
+
 #endregion
 
 @onready
@@ -156,7 +160,7 @@ func _ready() -> void:
 	$SecondaryReloadTimer.timeout.connect(reload_action.bind(1))
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
-	print("equipped " + get_current_equipment().data.equipment_name)
+	print("equipped " + weapon_one.weapon_data.equipment_name)
 	
 	aim_line.default_color = aim_color
 	attack_line.default_color = attack_color
@@ -175,7 +179,7 @@ func _ready() -> void:
 	
 	if get_current_equipment() is Gun:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
-		
+	
 	# make starting item
 	
 	stats_changed.emit()

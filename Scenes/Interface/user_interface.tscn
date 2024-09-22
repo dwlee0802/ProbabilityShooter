@@ -565,50 +565,106 @@ layout_mode = 2
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
 offset_bottom = -10.0
 
-[node name="BulletInfoMenu" type="PanelContainer" parent="."]
+[node name="LeftBulletInfoMenu" type="PanelContainer" parent="."]
 self_modulate = Color(1, 1, 1, 0)
-anchors_preset = 4
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -87.5
-offset_right = 124.0
-offset_bottom = 87.5
+offset_left = -303.0
+offset_top = 69.0
+offset_right = -179.0
+offset_bottom = 244.0
+grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="BulletInfoMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="LeftBulletInfoMenu"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="GridContainer" type="VBoxContainer" parent="BulletInfoMenu/MarginContainer"]
+[node name="GridContainer" type="VBoxContainer" parent="LeftBulletInfoMenu/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="RichTextLabel" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+[node name="Label" type="RichTextLabel" parent="LeftBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 mouse_filter = 2
 text = "Bullet info 1"
 
-[node name="Label2" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+[node name="Label2" type="Label" parent="LeftBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
 
-[node name="Label3" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+[node name="Label3" type="Label" parent="LeftBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
 
-[node name="Label4" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+[node name="Label4" type="Label" parent="LeftBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
 
-[node name="Label5" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+[node name="Label5" type="Label" parent="LeftBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
 
-[node name="Label6" type="Label" parent="BulletInfoMenu/MarginContainer/GridContainer"]
+[node name="Label6" type="Label" parent="LeftBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="RightBulletInfoMenu" type="PanelContainer" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 186.0
+offset_top = 65.0
+offset_right = 310.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RightBulletInfoMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="VBoxContainer" parent="RightBulletInfoMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="RichTextLabel" parent="RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "Bullet info 1"
+
+[node name="Label2" type="Label" parent="RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label3" type="Label" parent="RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label4" type="Label" parent="RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label5" type="Label" parent="RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label6" type="Label" parent="RightBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
 
