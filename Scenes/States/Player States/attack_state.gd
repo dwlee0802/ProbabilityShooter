@@ -22,6 +22,7 @@ var this_frame: bool = false
 
 func enter() -> void:
 	super()
+	return
 	is_first_frame = true
 	parent.state_label.text = "Action1"
 	
@@ -84,6 +85,7 @@ func exit() -> void:
 	timer.stop()
 	
 func process_input(_event: InputEvent) -> State:
+	return null
 	if Input.is_action_just_pressed("ui_cancel"):
 		return idle_state
 	if Input.is_action_just_pressed('right_click'):
@@ -98,11 +100,11 @@ func process_input(_event: InputEvent) -> State:
 						if parent.get_queued_attack_count() < parent.get_current_equipment().current_magazine_count:
 							save_mouse_position()
 							parent.bullets_changed.emit()
-					else:
-						if !parent.active_reload_available:
-							if parent.get_queued_attack_count() < parent.get_current_equipment().get_magazine_size():
-								save_mouse_position()
-								parent.bullets_changed.emit()
+					#else:
+						#if !parent.active_reload_available:
+							#if parent.get_queued_attack_count() < parent.get_current_equipment().get_magazine_size():
+								#save_mouse_position()
+								#parent.bullets_changed.emit()
 							
 					#if !Input.is_physical_key_pressed(KEY_SHIFT):
 						## empty attack queue
