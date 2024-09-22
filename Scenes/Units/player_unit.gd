@@ -194,19 +194,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	state_machine.process_input(event)
 	
-	#if Input.is_action_just_pressed("action_one"):
-		## do we need to reload?
-		#if get_current_equipment() != null and !get_current_equipment().ready:
-			## start reload
-			#if action_one_reload_timer.is_stopped():
-				#action_one_reload_timer.start(get_reload_time())
-				
-	if Input.is_action_just_pressed("switch_equipment"):
-		current_equipped_index += 1
-		current_equipped_index = current_equipped_index % equipments.size()
-		equipment_changed.emit()
-		print("current equipment: " + get_current_equipment().data.equipment_name)
-		
 	## manual reload
 	if Input.is_action_just_pressed("reload"):
 		# reload not in process. start reload process
