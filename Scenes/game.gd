@@ -110,6 +110,7 @@ func _ready():
 		unit.was_selected.connect(user_interface.update_bullet_menu)
 		unit.actioned.connect(user_interface.update_bullet_menu)
 		unit.weapon_one.bullets_changed.connect(user_interface.update_bullet_menu)
+		unit.weapon_two.bullets_changed.connect(user_interface.update_bullet_menu)
 	
 	# randomly place dynamite on the map
 	for i in range(5):

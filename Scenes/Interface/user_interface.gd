@@ -155,8 +155,7 @@ func upgrade_option_selected(data: ItemData) -> void:
 
 func update_bullet_menu() -> void:
 	DW_ToolBox.RemoveAllChildren(left_bullet_info_menu_container)
-	if InputManager.selected_unit == null:
-		return
+	DW_ToolBox.RemoveAllChildren(right_bullet_info_menu_container)
 	
 	var bullets = []
 	bullets = InputManager.selected_unit.weapon_one.weapon.bullets
@@ -174,6 +173,23 @@ func update_bullet_menu() -> void:
 			new_label.add_theme_color_override("font_color", Color.YELLOW)
 		new_label.text = str(bullets[i])
 		left_bullet_info_menu_container.add_child(new_label)
+		
+	bullets = []
+	bullets = InputManager.selected_unit.weapon_two.weapon.bullets
+		
+	for i in range(bullets.size()):
+		var new_label: RichTextLabel = RichTextLabel.new()
+		new_label.fit_content = true
+		new_label.scroll_active = false
+		new_label.bbcode_enabled = true
+		new_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if i == 0:
+			new_label.add_theme_color_override("font_color", Color.GREEN)
+		new_label.add_theme_font_size_override("font_size", 12)
+		if i < InputManager.selected_unit.weapon_two.get_queued_attack_count():
+			new_label.add_theme_color_override("font_color", Color.YELLOW)
+		new_label.text = str(bullets[i])
+		right_bullet_info_menu_container.add_child(new_label)
 
 func update_bullet_generation_info_menu() -> void:
 	var labels_label: Label = bullet_generation_info.get_node("MarginContainer/Labels")

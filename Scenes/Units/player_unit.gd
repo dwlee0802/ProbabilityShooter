@@ -56,6 +56,8 @@ var starting_item: ItemData = null
 
 @onready
 var weapon_one: WeaponComponent = $WeaponOne
+@onready
+var weapon_two: WeaponComponent = $WeaponTwo
 
 #endregion
 
@@ -159,6 +161,7 @@ func _ready() -> void:
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
 	print("equipped " + weapon_one.weapon_data.equipment_name)
+	print("equipped " + weapon_two.weapon_data.equipment_name)
 	
 	aim_line.default_color = aim_color
 	attack_line.default_color = attack_color
