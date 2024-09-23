@@ -3,8 +3,6 @@ class_name PlayerUnit
 
 @onready
 var state_label: Label = $StateLabel
-@onready
-var state_machine: StateMachine = $StateMachine
 
 @onready
 var shortcut_label: Label = $ShortcutLabel
@@ -169,7 +167,6 @@ func _ready() -> void:
 	attack_cone.color = attack_color
 	attack_full_cone.color = background_color
 	
-	state_machine.init(self)
 	$Sprite2D.self_modulate = temp_color
 	
 	# unit health
@@ -195,89 +192,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	if is_unconscious():
 		return
-		
-	state_machine.process_input(event)
-	
-	### manual reload
-	#if Input.is_action_just_pressed("reload"):
-		## reload not in process. start reload process
-		#if action_one_reload_timer.is_stopped():
-			#equipments[0].ready = false
-			#if equipments[0] is Gun:
-				#equipments[0].clear_bullets()
-				#$StateMachine/ActionOne.clear_attack_queues()
-			#start_reload_process()
-		#else:
-			## determine active reload success
-			#check_active_reload()
-	
-	## click to active reload
-	if !action_one_reload_timer.is_stopped():
-		if Input.is_action_just_pressed("action_one") and active_reload_available:
-			check_active_reload()
 
-func check_active_reload() -> void:
-	if action_one_reload_timer.is_stopped():
-		return
-		
-	# determine active reload success
-	#print("range: " + str(active_reload_range))
-	var selected_point: float = (1 - action_one_reload_timer.time_left / action_one_reload_timer.wait_time) * 100
-	#print("selected: " + str(selected_point))
-	if active_reload_available and active_reload_range.x < selected_point + 2 and selected_point - 2 < active_reload_range.y:
-		print("active reload success!")
-		action_one_reload_timer.stop()
-		action_one_reload_timer.timeout.emit()
-		active_reload_sound_player.stream = active_reload_success_sound
-		active_reload_sound_player.play()
-	else:
-		print("active reload fail!")
-		active_reload_sound_player.stream = active_reload_fail_sound
-		active_reload_sound_player.play()
-		active_reload_failed = true
-	
-	active_reload_available = false
-	
 func _physics_process(delta: float) -> void:
 	if is_unconscious():
 		return
 		
-	state_machine.process_physics(delta)
 	movement_component.physics_update(self, delta)
 		
-	# make aim line follow mouse cursor
-	#aim_line.visible = InputManager.IsSelected(self)
 	aim_cone.visible = InputManager.IsSelected(self)
 	if InputManager.IsSelected(self):
 		aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
 		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 
 func _process(delta: float) -> void:
-	## always reload stuff unless knocked out
-	#if equipments.size() >= 1 and !equipments[0].ready:
-		#start_reload_process()
-	#if equipments.size() >= 2 and !equipments[1].ready:
-		#if secondary_reload_timer.is_stopped():
-			#secondary_reload_timer.start(get_reload_time(1))
-			
-	state_machine.process_frame(delta)
-	
-	# reduce charge
-	charge -= delta * int(charge/10 + 1) * 2
-	if charge < 0:
-		charge = 0
-		
-	# charge particle effect
-	var charge_level: int = int(charge / max_charge * 10)
-	if charge_level == 0:
-		if charge_particles.emitting == true:
-			charge_particles.emitting = false
-	else:
-		if charge_particles.emitting == false:
-			charge_particles.emitting = true
-	if charge_particles.amount != max(charge_level * 2, 1):
-		charge_particles.amount = max(charge_level * 2, 1)
-		
+	return
 	## autofail active reload if past range
 	#if !equipments[0].ready and !action_one_reload_timer.is_stopped():
 		#if active_reload_available:
@@ -546,17 +474,14 @@ func required_exp_amount(level: int) -> int:
 #endregion
 
 func get_magazine_status() -> String:
-	var queued_count: int = get_queued_attack_count()
+	var queued_count: int = weapon_one.get_queued_attack_count()
 	var output = ""
 	
-	output += str(get_current_equipment().current_magazine_count - queued_count)
+	output += str(weapon_one.weapon.current_magazine_count - queued_count)
 	#output += "(" + str(queued_count) + ")"
 	output += " / " + str(get_current_equipment().get_magazine_size())
 	
 	return output
-
-func get_queued_attack_count() -> int:
-	return $StateMachine/ActionOne.attack_direction_queue.size()
 
 ## how much damage is increased from current charge. 100 charge means x2 damage
 func get_charge_damage_modifier() -> float:

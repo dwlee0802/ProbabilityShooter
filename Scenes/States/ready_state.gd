@@ -7,7 +7,6 @@ var reload_state: State
 @export
 var action_name: String = ""
 
-var attack_direction_queue = []
 var queued_attack_cones = []
 
 var aim_timer: Timer
@@ -32,7 +31,7 @@ func exit() -> void:
 
 func process_physics(_delta: float) -> State:
 	if parent.weapon.have_bullets():
-		if !attack_direction_queue.is_empty() and aim_timer.is_stopped():
+		if !parent.attack_direction_queue.is_empty() and aim_timer.is_stopped():
 			start_attack_process()
 		return null
 	else:
@@ -50,7 +49,7 @@ func process_input(_event: InputEvent) -> State:
 	## action queue input
 	if _event.is_action_pressed(action_name):
 		if parent.weapon.ready:
-			if attack_direction_queue.size() < parent.weapon.current_magazine_count:
+			if parent.attack_direction_queue.size() < parent.weapon.current_magazine_count:
 				save_mouse_position()
 				parent.bullets_changed.emit()
 					
@@ -58,9 +57,9 @@ func process_input(_event: InputEvent) -> State:
 
 # save local mouse position vector to attack dir queue
 func save_mouse_position() -> void:
-	attack_direction_queue.push_back(parent.get_local_mouse_position())
-	make_queued_attack_cone(attack_direction_queue.back())
-	print("Attack queued. Current queue count: " + str(attack_direction_queue.size()))
+	parent.attack_direction_queue.push_back(parent.get_local_mouse_position())
+	make_queued_attack_cone(parent.attack_direction_queue.back())
+	print("Attack queued. Current queue count: " + str(parent.attack_direction_queue.size()))
 	
 func make_queued_attack_cone(dir: Vector2) -> void:
 	var new_attack_cone: Polygon2D = Polygon2D.new()
@@ -71,7 +70,7 @@ func make_queued_attack_cone(dir: Vector2) -> void:
 	queued_attack_cones.append(new_attack_cone)
 	
 func start_attack_process() -> void:
-	if attack_direction_queue.is_empty():
+	if parent.attack_direction_queue.is_empty():
 		return
 	
 	print("start attack process")	
@@ -81,18 +80,18 @@ func start_attack_process() -> void:
 	aim_timer.start(1)
 	
 	# front end
-	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(attack_direction_queue.front())
+	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(parent.attack_direction_queue.front())
 	queued_attack_cones.front().visible = false
 	parent.attack_full_cone.visible = true
 	
 func on_aim_finished() -> void:
-	if attack_direction_queue.size() == 0:
+	if parent.attack_direction_queue.size() == 0:
 		push_error("Aim finished but no attack direction.")
 	else:
-		var target: Vector2 = attack_direction_queue.pop_front()
+		var target: Vector2 = parent.attack_direction_queue.pop_front()
 		parent.gunshot_sfx.stream = parent.weapon.data.equipment_use_sound
 		parent.gunshot_sfx.play()
-		print("Attack finished. Current queue count: " + str(attack_direction_queue.size()))
+		print("Attack finished. Current queue count: " + str(parent.attack_direction_queue.size()))
 		if queued_attack_cones.size() > 0:
 			queued_attack_cones.pop_front().queue_free()
 		parent.attack_full_cone.visible = false
@@ -102,12 +101,12 @@ func on_aim_finished() -> void:
 	
 	# if attack direction queue has stuff in it, start next attack process
 	# reload if we are out of bullets
-	if !attack_direction_queue.is_empty():
+	if !parent.attack_direction_queue.is_empty():
 		if parent.weapon.have_bullets():
 			start_attack_process()
 
 func clear_attack_queues():
-	attack_direction_queue.clear()
+	parent.attack_direction_queue.clear()
 	for item in queued_attack_cones:
 		item.queue_free()
 	queued_attack_cones.clear()

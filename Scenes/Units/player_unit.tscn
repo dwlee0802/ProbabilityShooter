@@ -1,17 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=25 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
-[ext_resource type="Script" path="res://Scenes/States/Player States/idle_state.gd" id="3_2iym7"]
 [ext_resource type="Script" path="res://Scenes/States/ready_state.gd" id="3_6cqsg"]
 [ext_resource type="Script" path="res://Scenes/Units/player_weapon.gd" id="3_d8l28"]
 [ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="4_61t70"]
-[ext_resource type="Script" path="res://Scenes/States/Player States/move_state.gd" id="4_jlt6l"]
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="4_s5eeb"]
-[ext_resource type="Script" path="res://Scenes/States/Player States/attack_state.gd" id="6_3pdj6"]
-[ext_resource type="Script" path="res://Scenes/States/Player States/unconscious_state.gd" id="6_yjtio"]
-[ext_resource type="Script" path="res://Scenes/States/Player States/revive_state.gd" id="8_5ttnm"]
-[ext_resource type="Script" path="res://Scenes/States/Player States/interact_state.gd" id="8_voe6n"]
 [ext_resource type="Script" path="res://wasd_movement_component.gd" id="9_0efpd"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
@@ -125,7 +119,6 @@ action_name = "action_one"
 [node name="Reload" type="Node" parent="WeaponOne/StateMachine" node_paths=PackedStringArray("ready_state")]
 script = ExtResource("4_61t70")
 ready_state = NodePath("../Ready")
-active_reload_available = null
 
 [node name="AimCone" type="Polygon2D" parent="WeaponOne"]
 visible = false
@@ -164,54 +157,6 @@ max_polyphony = 10
 stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("2_us0md")
-starting_state = NodePath("Idle")
-
-[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("action_one_state", "unconscious_state", "revive_state", "interact_state")]
-script = ExtResource("3_2iym7")
-action_one_state = NodePath("../ActionOne")
-unconscious_state = NodePath("../Unconscious")
-revive_state = NodePath("../Revive")
-interact_state = NodePath("../Interact")
-
-[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state", "unconscious_state")]
-script = ExtResource("4_jlt6l")
-idle_state = NodePath("../Idle")
-action_one_state = NodePath("../ActionOne")
-unconscious_state = NodePath("../Unconscious")
-
-[node name="Unconscious" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state")]
-script = ExtResource("6_yjtio")
-idle_state = NodePath("../Idle")
-
-[node name="ActionOne" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "unconscious_state")]
-script = ExtResource("6_3pdj6")
-idle_state = NodePath("../Idle")
-unconscious_state = NodePath("../Unconscious")
-
-[node name="Timer" type="Timer" parent="StateMachine/ActionOne"]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
-
-[node name="Revive" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state", "move_state", "unconscious_state")]
-script = ExtResource("8_5ttnm")
-idle_state = NodePath("../Idle")
-action_one_state = NodePath("../ActionOne")
-move_state = NodePath("../Move")
-unconscious_state = NodePath("../Unconscious")
-
-[node name="Timer" type="Timer" parent="StateMachine/Revive"]
-one_shot = true
-
-[node name="Interact" type="Node" parent="StateMachine" node_paths=PackedStringArray("idle_state", "action_one_state", "move_state", "unconscious_state")]
-script = ExtResource("8_voe6n")
-idle_state = NodePath("../Idle")
-action_one_state = NodePath("../ActionOne")
-move_state = NodePath("../Move")
-unconscious_state = NodePath("../Unconscious")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.262431, 0.639506, 1, 1)

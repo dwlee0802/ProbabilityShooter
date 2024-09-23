@@ -8,7 +8,12 @@ var weapon: Gun
 @onready
 var state_machine: StateMachine = $StateMachine
 
+var attack_direction_queue = []
 var reload_timer: Timer
+
+@export
+var active_reload_available: bool = true
+var active_reload_failed: bool = false
 
 @onready
 var attack_cone: Polygon2D = $AttackFullCone/AttackCone
@@ -33,6 +38,8 @@ var background_color: Color = Color.BLACK
 var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 @onready 
 var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
+@onready
+var active_reload_sound_player: AudioStreamPlayer = $ActiveReloadSound
 
 #region Active Reload
 var active_reload_range: Vector2i = Vector2i.ZERO
@@ -82,3 +89,6 @@ func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	cone.append(Vector2.from_angle(angle/2) * radius)
 	cone.append(Vector2.from_angle(-angle/2) * radius)
 	return cone
+
+func get_queued_attack_count() -> int:
+	return attack_direction_queue.size()
