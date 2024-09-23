@@ -159,8 +159,7 @@ func update_bullet_menu() -> void:
 		return
 	
 	var bullets = []
-	if InputManager.selected_unit.get_current_equipment() is Gun:
-		bullets = InputManager.selected_unit.get_current_equipment().bullets
+	bullets = InputManager.selected_unit.weapon_one.weapon.bullets
 		
 	for i in range(bullets.size()):
 		var new_label: RichTextLabel = RichTextLabel.new()
