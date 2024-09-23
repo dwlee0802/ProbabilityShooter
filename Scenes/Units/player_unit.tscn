@@ -158,6 +158,66 @@ stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
 
+[node name="WeaponTwo" type="Node2D" parent="."]
+script = ExtResource("3_d8l28")
+weapon_data = ExtResource("4_s5eeb")
+
+[node name="ReloadTimer" type="Timer" parent="WeaponTwo"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="WeaponTwo" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_us0md")
+starting_state = NodePath("Ready")
+
+[node name="Ready" type="Node" parent="WeaponTwo/StateMachine" node_paths=PackedStringArray("reload_state")]
+script = ExtResource("3_6cqsg")
+reload_state = NodePath("../Reload")
+action_name = "action_two"
+
+[node name="Reload" type="Node" parent="WeaponTwo/StateMachine" node_paths=PackedStringArray("ready_state")]
+script = ExtResource("4_61t70")
+ready_state = NodePath("../Ready")
+
+[node name="AimCone" type="Polygon2D" parent="WeaponTwo"]
+visible = false
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="QueuedCones" type="Node2D" parent="WeaponTwo"]
+
+[node name="AttackFullCone" type="Polygon2D" parent="WeaponTwo"]
+visible = false
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="AttackCone" type="Polygon2D" parent="WeaponTwo/AttackFullCone"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
+
+[node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
+stream = ExtResource("10_2kui5")
+pitch_scale = 0.8
+max_distance = 20000.0
+max_polyphony = 10
+
+[node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
+stream = ExtResource("11_vvwcf")
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
+stream = ExtResource("11_7sg32")
+pitch_scale = 0.8
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="ActiveReloadSound" type="AudioStreamPlayer" parent="WeaponTwo"]
+stream = ExtResource("15_1vmhr")
+volume_db = -7.0
+pitch_scale = 1.2
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.262431, 0.639506, 1, 1)
 material = SubResource("ShaderMaterial_ablmn")
