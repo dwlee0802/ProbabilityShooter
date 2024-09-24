@@ -86,9 +86,9 @@ func _ready():
 	
 	mutation_roulette.option_selected.connect(show_mutation_info)
 
-func _process(_delta: float) -> void:
-	if InputManager.selected_unit != null:
-		charge_bar.value = InputManager.selected_unit.charge / InputManager.selected_unit.max_charge * 100
+#func _process(_delta: float) -> void:
+	#if InputManager.selected_unit != null:
+		#charge_bar.value = InputManager.selected_unit.charge / InputManager.selected_unit.max_charge * 100
 
 func show_game_over_screen(victory: bool = false):
 	$GameOver.visible = true

@@ -113,12 +113,12 @@ var current_level: int = 1
 var upgrade_options = []
 #endregion
 
-#region Charge System
-var charge: float = 0
-var max_charge: float = 1000
-@onready
-var charge_particles: CPUParticles2D = $ChargeParticles
-#endregion
+##region Charge System
+#var charge: float = 0
+#var max_charge: float = 1000
+#@onready
+#var charge_particles: CPUParticles2D = $ChargeParticles
+##endregion
 
 ## WASD Movement Component Node
 @onready
@@ -486,6 +486,6 @@ func get_magazine_status() -> String:
 	
 	return output
 
-## how much damage is increased from current charge. 100 charge means x2 damage
-func get_charge_damage_modifier() -> float:
-	return 1 + charge/100.0
+### how much damage is increased from current charge. 100 charge means x2 damage
+#func get_charge_damage_modifier() -> float:
+	#return 1 + charge/100.0

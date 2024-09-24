@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=23 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -69,13 +69,6 @@ gradient = SubResource("Gradient_o1o5u")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.834862, 0.224771)
-
-[sub_resource type="Curve" id="Curve_3xcw1"]
-_data = [Vector2(0, 0.78022), 0.0, 0.0, 0, 0, Vector2(1, 0.637363), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_0xn4u"]
-colors = PackedColorArray(1, 1, 1, 0.423529, 1, 1, 1, 0)
 
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("CanvasItemMaterial_bm0v7")
@@ -348,24 +341,6 @@ color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="Effects" type="Node" parent="."]
-
-[node name="ChargeParticles" type="CPUParticles2D" parent="."]
-amount = 10
-lifetime = 0.2
-emission_shape = 2
-emission_sphere_radius = 47.54
-direction = Vector2(0, -1)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 500.0
-initial_velocity_max = 800.0
-scale_amount_min = 10.0
-scale_amount_max = 10.0
-split_scale = true
-scale_curve_x = SubResource("Curve_3xcw1")
-scale_curve_y = null
-color = Color(0, 0.890196, 1, 1)
-color_ramp = SubResource("Gradient_0xn4u")
 
 [node name="ActiveReloadSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_1vmhr")
