@@ -45,6 +45,8 @@ var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 var active_reload_sound_player: AudioStreamPlayer = $ActiveReloadSound
 
 #region Active Reload
+@export
+var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
 #endregion
 
@@ -95,3 +97,13 @@ func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 
 func get_queued_attack_count() -> int:
 	return attack_direction_queue.size()
+
+func get_magazine_status() -> String:
+	var queued_count: int = get_queued_attack_count()
+	var output = ""
+	
+	output += str(weapon.current_magazine_count - queued_count)
+	#output += "(" + str(queued_count) + ")"
+	output += " / " + str(weapon.get_magazine_size())
+	
+	return output

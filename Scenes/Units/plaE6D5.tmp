@@ -100,6 +100,7 @@ script = ExtResource("3_sf8iw")
 script = ExtResource("3_d8l28")
 weapon_data = ExtResource("4_s5eeb")
 action_name = "action_one"
+active_reload_length = 20
 
 [node name="ReloadTimer" type="Timer" parent="WeaponOne"]
 process_callback = 0

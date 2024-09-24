@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=13 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://c8ry85qvmva7r" path="res://Art/cursor_none.svg" id="4_u0bnh"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_18m8i"]
 [ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://active_reload_bar_texture.tres" id="5_jp2bk"]
-[ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://active_reload_fill_texture.tres" id="6_dknah"]
 
 [sub_resource type="Animation" id="Animation_6l0yw"]
 length = 0.001
@@ -184,7 +183,6 @@ fit_content = true
 scroll_active = false
 
 [node name="ActiveReloadBar" type="ProgressBar" parent="WeaponOne"]
-clip_contents = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -198,17 +196,16 @@ offset_bottom = 38.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = ExtResource("5_jp2bk")
-theme_override_styles/fill = ExtResource("6_dknah")
 fill_mode = 3
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="WeaponOne/ActiveReloadBar"]
 self_modulate = Color(0, 0, 0, 0.611765)
 custom_minimum_size = Vector2(10, 10)
-layout_mode = 0
-offset_top = 100.0
+layout_mode = 1
+offset_top = 23.0
 offset_right = 10.0
-offset_bottom = 150.0
+offset_bottom = 33.0
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
@@ -254,7 +251,6 @@ offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = ExtResource("5_jp2bk")
-theme_override_styles/fill = ExtResource("6_dknah")
 fill_mode = 3
 show_percentage = false
 

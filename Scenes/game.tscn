@@ -29,6 +29,9 @@ size = Vector2(5461, 486)
 script = ExtResource("1_entdd")
 spawn_radius = 5000
 
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource("2_webe7")
+
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
 _base_health_range = Vector2i(25, 100)
@@ -64,9 +67,6 @@ wait_time = 4.0
 wait_time = 4.0
 
 [node name="GameDurationTimer" type="Timer" parent="."]
-
-[node name="InputManager" type="Node" parent="."]
-script = ExtResource("2_webe7")
 
 [node name="BloodSplatter" type="Node2D" parent="."]
 

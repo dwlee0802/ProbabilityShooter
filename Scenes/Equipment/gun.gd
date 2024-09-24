@@ -1,6 +1,8 @@
 extends Equipment
 class_name Gun
 
+static var bullet_generator: BulletGenerator
+
 var reload_speed_modifier: float = 0
 var aim_speed_modifier: float = 0
 
@@ -50,7 +52,6 @@ signal spread_changed
 
 func _init(_data: EquipmentData):
 	super(_data)
-	reload()
 	
 func on_activation(unit: Unit, mouse_position: Vector2):
 	var current_bullet: Bullet = bullets.pop_front()
@@ -95,7 +96,7 @@ func have_bullets() -> bool:
 func reload() -> void:
 	current_magazine_count = get_magazine_size()
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
-	bullets = generate_bullets(get_magazine_size())
+	bullets = Gun.bullet_generator.generate_bullets(get_magazine_size())
 	
 	if print_bullet_info:
 		for bullet: Bullet in bullets:
@@ -113,6 +114,7 @@ func generate_bullets(count: int):
 		var new_bullet: Bullet = Bullet.new()
 		new_bullet.damage_amount = randi_range(get_damage_range().x, get_damage_range().y)
 		new_bullet.piercing = randf() < piercing_chance
+		print(randf())
 		new_bullet.anti_armor = randf() < anti_armor_chance
 		new_bullet.explosive = randf() < explosive_chance
 		new_bullet.quickshot = randf() < quickshot_chance
@@ -125,6 +127,7 @@ func generate_bullets(count: int):
 			new_bullet.projectile_count = 4
 			
 		output.append(new_bullet)
+	print(output)
 	return output
 #endregion
 	

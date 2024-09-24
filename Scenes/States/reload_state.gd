@@ -3,7 +3,6 @@ extends State
 @export
 var ready_state: State
 
-var active_reload_length: int = 10
 var active_reload_success_sound = preload("res://Sound/UI/confirmation_002.ogg")
 var active_reload_fail_sound = preload("res://Sound/UI/error_006.ogg")
 
@@ -39,9 +38,9 @@ func start_reload_process(_eq_num: int = 0) -> void:
 		parent.active_reload_available = true
 		parent.active_reload_failed = false
 		parent.reload_timer.start(parent.weapon.data.reload_time)
-		var active_reload_start_point: int = randi_range(50, 70)
-		parent.active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + active_reload_length)
-		#print("active reload range: " + str(active_reload_range))
+		var active_reload_start_point: int = randi_range(40, 70)
+		parent.active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + parent.active_reload_length)
+		print("active reload range: " + str(parent.active_reload_range))
 		parent.reload_started.emit()
 		
 func check_active_reload() -> void:
@@ -53,14 +52,14 @@ func check_active_reload() -> void:
 	print("range: " + str(parent.active_reload_range))
 	var selected_point: float = (1 - timer.time_left / timer.wait_time) * 100
 	print("selected: " + str(selected_point))
-	if parent.active_reload_available and parent.active_reload_range.x < selected_point + 2 and selected_point - 2 < parent.active_reload_range.y:
-		print("active reload success!")
+	if parent.active_reload_available and parent.active_reload_range.x - 3 < selected_point and selected_point < parent.active_reload_range.y + 3:
+		#print("active reload success!")
 		timer.stop()
 		timer.timeout.emit()
 		parent.active_reload_sound_player.stream = active_reload_success_sound
 		parent.active_reload_sound_player.play()
 	else:
-		print("active reload fail!")
+		#print("active reload fail!")
 		parent.active_reload_sound_player.stream = active_reload_fail_sound
 		parent.active_reload_sound_player.play()
 		parent.active_reload_failed = true

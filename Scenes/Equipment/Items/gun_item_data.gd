@@ -38,12 +38,11 @@ func on_enter(unit: PlayerUnit, level: int):
 		equipment.add_bonus_magazine_size(magazine_size * level)
 		equipment.add_penetration_bonus(penetration_chance * level)
 		
-		# change bullet generation chance
-		equipment.add_anti_armor_chance_bonus(anti_armor_chance)
-		equipment.add_piercing_chance_bonus(piercing_chance)
-		equipment.add_explosive_chance_bonus(explosive_chance)
-		equipment.add_buckshot_chance_bonus(buckshot_chance)
-		equipment.add_quickshot_chance_bonus(quickshot_chance)
+	# change bullet generation chance
+	unit.bullet_generator_component.add_piercing_chance_bonus(piercing_chance)
+	unit.bullet_generator_component.add_explosive_chance_bonus(explosive_chance)
+	unit.bullet_generator_component.add_buckshot_chance_bonus(buckshot_chance)
+	unit.bullet_generator_component.add_quickshot_chance_bonus(quickshot_chance)
 		
 func on_exit(unit: PlayerUnit, level: int):
 	super.on_exit(unit, level)
@@ -55,9 +54,8 @@ func on_exit(unit: PlayerUnit, level: int):
 		equipment.add_bonus_magazine_size(-magazine_size * level)
 		equipment.add_penetration_bonus(-penetration_chance * level)
 		
-		# change bullet generation chance
-		equipment.add_anti_armor_chance_bonus(-anti_armor_chance)
-		equipment.add_piercing_chance_bonus(-piercing_chance)
-		equipment.add_explosive_chance_bonus(-explosive_chance)
-		equipment.add_buckshot_chance_bonus(-buckshot_chance)
-		equipment.add_quickshot_chance_bonus(-quickshot_chance)
+	# change bullet generation chance
+	unit.bullet_generator_component.add_piercing_chance_bonus(-piercing_chance)
+	unit.bullet_generator_component.add_explosive_chance_bonus(-explosive_chance)
+	unit.bullet_generator_component.add_buckshot_chance_bonus(-buckshot_chance)
+	unit.bullet_generator_component.add_quickshot_chance_bonus(-quickshot_chance)

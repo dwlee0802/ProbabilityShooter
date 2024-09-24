@@ -1,17 +1,9 @@
 extends Node2D
 
 @onready
-var right_info_label: RichTextLabel = $Rightside/InfoLabel
+var weapon_one_ui: Control = $WeaponOne
 @onready
-var left_info_label: RichTextLabel = $Leftside/InfoLabel
-
-@onready
-var right_mag_label: Label = $Rightside/MagazineLabel
-@onready
-var left_mag_label: Label = $Leftside/MagazineLabel
-
-@onready
-var image: RadialProgress = $Control/RadialProgress
+var weapon_two_ui: Control = $WeaponTwo
 
 @onready
 var active_reload_component: ActiveReloadComponent = $ActiveReloadComponent
@@ -22,6 +14,11 @@ var reload_finished_animation: AnimationPlayer = $Control/ReloadFinishedEffect/A
 @onready
 var click_animation: AnimationPlayer = $Control/AnimationPlayer
 
+var player_unit: PlayerUnit
+
+func _ready() -> void:
+	player_unit = InputManager.selected_unit
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -29,82 +26,61 @@ func _input(event: InputEvent) -> void:
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if !InputManager.selected_unit.weapon_one.reload_started.is_connected(active_reload_component.update_reload_marker):
-		InputManager.selected_unit.weapon_one.reload_started.connect(active_reload_component.update_reload_marker)
-	if !InputManager.selected_unit.weapon_one.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
-		InputManager.selected_unit.weapon_one.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
+	player_unit = InputManager.selected_unit
+	if player_unit.weapon_one != null:
+		if !player_unit.weapon_one.reload_started.is_connected(active_reload_component.update_reload_marker):
+			player_unit.weapon_one.reload_started.connect(active_reload_component.update_reload_marker.bind(weapon_one_ui.get_node("ActiveReloadBar"), player_unit.weapon_one))
+		if !player_unit.weapon_one.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
+			player_unit.weapon_one.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
+	
+	if player_unit.weapon_two != null:
+		if !player_unit.weapon_two.reload_started.is_connected(active_reload_component.update_reload_marker):
+			player_unit.weapon_two.reload_started.connect(active_reload_component.update_reload_marker.bind(weapon_two_ui.get_node("ActiveReloadBar"), player_unit.weapon_two))
+		if !player_unit.weapon_two.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
+			player_unit.weapon_two.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
 		
 	global_position = get_global_mouse_position()
-	
-	# depending on attack available, change infolabel content
-	if InputManager.selected_unit != null:
-		# show damage range
-		image.progress = 100
-		var current_eq: Equipment = InputManager.selected_unit.weapon_one.weapon
-		if current_eq is Gun and current_eq.bullets.size() > 0:
-			var num: int = InputManager.selected_unit.weapon_one.get_queued_attack_count()
-			if num >= current_eq.bullets.size():
-				left_info_label.text = ""
-			else:
-				left_info_label.text = str(current_eq.bullets[num])
-		else:
-			left_info_label.text = ""
-		
-		# reloading
-		if !current_eq.have_bullets():
-			var timer: Timer = InputManager.selected_unit.weapon_one.reload_timer
-			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-			if InputManager.selected_unit.weapon_one.active_reload_available:
-				image.bar_color = Color.YELLOW
-			else:
-				if InputManager.selected_unit.active_reload_failed:
-					image.bar_color = Color.ORANGE_RED
-				else:
-					image.bar_color = Color.GREEN
-					#image.progress = 100
-				
-			if current_eq is Gun:
-				left_mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
-		else:
-			image.bar_color = Color.GREEN
-			if current_eq is Gun:
-				left_mag_label.text = InputManager.selected_unit.get_magazine_status()
-			else:
-				left_mag_label.text = "0/0"
+	update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
+	update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
 
-	# weapon two
-	if InputManager.selected_unit != null:
-		# show damage range
-		image.progress = 100
-		var current_eq: Equipment = InputManager.selected_unit.weapon_two.weapon
-		if current_eq is Gun and current_eq.bullets.size() > 0:
-			var num: int = InputManager.selected_unit.weapon_two.get_queued_attack_count()
-			if num >= current_eq.bullets.size():
-				right_info_label.text = ""
-			else:
-				right_info_label.text = str(current_eq.bullets[num])
+func update_weapon_info_label(weapon_ui, weapon) -> void:
+	# show damage range
+	var current_eq: Equipment = weapon.weapon
+	
+	var bullet_info_label: RichTextLabel = weapon_ui.get_node("InfoLabel")
+	var active_reload_ui: ProgressBar = weapon_ui.get_node("ActiveReloadBar")
+	var mag_label: Label = weapon_ui.get_node("MagazineLabel")
+	
+	if current_eq is Gun and current_eq.bullets.size() > 0:
+		var queued_count: int = weapon.get_queued_attack_count()
+		# queued all bullets. nothing to show
+		if queued_count >= current_eq.bullets.size():
+			bullet_info_label.text = ""
 		else:
-			right_info_label.text = ""
-		
-		if InputManager.selected_unit.weapon_two != null:
-			# reloading
-			if !current_eq.have_bullets():
-				var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
-				image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-				if InputManager.selected_unit.weapon_two.active_reload_available:
-					image.bar_color = Color.YELLOW
-				else:
-					if InputManager.selected_unit.active_reload_failed:
-						image.bar_color = Color.ORANGE_RED
-					else:
-						image.bar_color = Color.GREEN
-						#image.progress = 100
-					
-				if current_eq is Gun:
-					right_mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
+			# show next bullet info
+			bullet_info_label.text = str(current_eq.bullets[queued_count])
+	else:
+		bullet_info_label.text = ""
+	
+	# reloading
+	if !current_eq.have_bullets():
+		active_reload_ui.visible = true
+		var timer: Timer = weapon.reload_timer
+		active_reload_ui.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
+		if weapon.active_reload_available:
+			active_reload_ui.self_modulate = Color.YELLOW
+		else:
+			if weapon.active_reload_failed:
+				active_reload_ui.self_modulate = Color.RED
 			else:
-				image.bar_color = Color.GREEN
-				if current_eq is Gun:
-					right_mag_label.text = InputManager.selected_unit.get_magazine_status(false)
-				else:
-					right_mag_label.text = "0/0"
+				active_reload_ui.self_modulate = Color.GREEN
+				#image.progress = 100
+			
+		if current_eq is Gun:
+			mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
+	else:
+		active_reload_ui.visible = false
+		if current_eq is Gun:
+			mag_label.text = weapon.get_magazine_status()
+		else:
+			mag_label.text = "0/0"

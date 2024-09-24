@@ -59,6 +59,8 @@ var weapon_one: WeaponComponent = $WeaponOne
 @onready
 var weapon_two: WeaponComponent = $WeaponTwo
 
+@onready
+var bullet_generator_component: BulletGenerator = $BulletGeneratorComponent
 #endregion
 
 @onready
@@ -155,6 +157,10 @@ func _ready() -> void:
 			equipments.append(Effector.new(eq))
 		else:
 			equipments.append(Gun.new(eq))
+			
+	Gun.bullet_generator = bullet_generator_component
+	weapon_one.weapon.reload()
+	weapon_two.weapon.reload()
 	
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
@@ -322,7 +328,6 @@ func set_current_equipment(num: int) -> void:
 func reload_action() -> void:
 	print("Reload complete")
 	if weapon_one != null:
-		weapon_one
 		weapon_one.active_reload_available = true
 		weapon_one.weapon.reload()
 	if weapon_two != null:
@@ -468,20 +473,6 @@ func required_exp_amount(level: int) -> int:
 	return 1000 + level * 250
 	
 #endregion
-
-func get_magazine_status(is_weapon_one: bool = true) -> String:
-	var weapon: WeaponComponent = weapon_one
-	if !is_weapon_one:
-		weapon = weapon_two
-		
-	var queued_count: int = weapon.get_queued_attack_count()
-	var output = ""
-	
-	output += str(weapon.weapon.current_magazine_count - queued_count)
-	#output += "(" + str(queued_count) + ")"
-	output += " / " + str(weapon.weapon.get_magazine_size())
-	
-	return output
 
 ### how much damage is increased from current charge. 100 charge means x2 damage
 #func get_charge_damage_modifier() -> float:
