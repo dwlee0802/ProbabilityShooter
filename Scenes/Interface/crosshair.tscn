@@ -164,6 +164,7 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="WeaponOne"]
+visible = false
 layout_mode = 0
 offset_left = -59.0
 offset_top = -23.0
@@ -223,6 +224,7 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="WeaponTwo"]
+visible = false
 layout_mode = 0
 offset_left = 23.0
 offset_top = -22.0

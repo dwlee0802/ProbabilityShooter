@@ -193,7 +193,7 @@ func _ready() -> void:
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if !InputManager.IsSelected(self):
 		return
 		
@@ -211,7 +211,7 @@ func _physics_process(delta: float) -> void:
 		aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
 		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	return
 	## autofail active reload if past range
 	#if !equipments[0].ready and !action_one_reload_timer.is_stopped():

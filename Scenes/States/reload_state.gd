@@ -22,8 +22,8 @@ func process_frame(_delta: float) -> State:
 	
 func process_input(_event: InputEvent) -> State:
 	# determine active reload success
-	if Input.is_action_just_pressed("reload"):
-		check_active_reload()
+	#if Input.is_action_just_pressed("reload"):
+		#check_active_reload()
 		
 	## click to active reload
 	if !parent.reload_timer.is_stopped():
