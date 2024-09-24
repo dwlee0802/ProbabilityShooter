@@ -1,9 +1,15 @@
 extends Node2D
 
 @onready
-var info_label: RichTextLabel = $InfoLabel
+var right_info_label: RichTextLabel = $Rightside/InfoLabel
 @onready
-var mag_label: Label = $MagazineLabel
+var left_info_label: RichTextLabel = $Leftside/InfoLabel
+
+@onready
+var right_mag_label: Label = $Rightside/MagazineLabel
+@onready
+var left_mag_label: Label = $Leftside/MagazineLabel
+
 @onready
 var image: RadialProgress = $Control/RadialProgress
 
@@ -38,11 +44,11 @@ func _process(_delta):
 		if current_eq is Gun and current_eq.bullets.size() > 0:
 			var num: int = InputManager.selected_unit.weapon_one.get_queued_attack_count()
 			if num >= current_eq.bullets.size():
-				info_label.text = ""
+				left_info_label.text = ""
 			else:
-				info_label.text = str(current_eq.bullets[num])
+				left_info_label.text = str(current_eq.bullets[num])
 		else:
-			info_label.text = ""
+			left_info_label.text = ""
 		
 		# reloading
 		if !current_eq.have_bullets():
@@ -58,10 +64,46 @@ func _process(_delta):
 					#image.progress = 100
 				
 			if current_eq is Gun:
-				mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
+				left_mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
 		else:
 			image.bar_color = Color.GREEN
 			if current_eq is Gun:
-				mag_label.text = InputManager.selected_unit.get_magazine_status()
+				left_mag_label.text = InputManager.selected_unit.get_magazine_status()
 			else:
-				mag_label.text = "0/0"
+				left_mag_label.text = "0/0"
+
+	# weapon two
+	if InputManager.selected_unit != null:
+		# show damage range
+		image.progress = 100
+		var current_eq: Equipment = InputManager.selected_unit.weapon_two.weapon
+		if current_eq is Gun and current_eq.bullets.size() > 0:
+			var num: int = InputManager.selected_unit.weapon_two.get_queued_attack_count()
+			if num >= current_eq.bullets.size():
+				right_info_label.text = ""
+			else:
+				right_info_label.text = str(current_eq.bullets[num])
+		else:
+			right_info_label.text = ""
+		
+		# reloading
+		if !current_eq.have_bullets():
+			var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
+			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
+			if InputManager.selected_unit.weapon_two.active_reload_available:
+				image.bar_color = Color.YELLOW
+			else:
+				if InputManager.selected_unit.active_reload_failed:
+					image.bar_color = Color.ORANGE_RED
+				else:
+					image.bar_color = Color.GREEN
+					#image.progress = 100
+				
+			if current_eq is Gun:
+				right_mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
+		else:
+			image.bar_color = Color.GREEN
+			if current_eq is Gun:
+				right_mag_label.text = InputManager.selected_unit.get_magazine_status(false)
+			else:
+				right_mag_label.text = "0/0"

@@ -54,9 +54,9 @@ var upgrade_option_4 = $UpgradeMenu/LevelUp/Option4
 var minimap: Minimap = $Minimap
 
 @onready
-var left_bullet_info_menu_container: Container = $LeftBulletInfoMenu/MarginContainer/GridContainer
+var left_bullet_info_menu_container: Container = $ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer
 @onready
-var right_bullet_info_menu_container: Container = $RightBulletInfoMenu/MarginContainer/GridContainer
+var right_bullet_info_menu_container: Container = $ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer
 @onready
 var bullet_generation_info: Control = $BulletGenerationInfoMenu
 
@@ -234,6 +234,9 @@ func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	if spawner.fast_chance != 0:
 		labels_label.text += "Fast:\n"
 		values_label.text += str(int(spawner.fast_chance*1000)/10.0) + "%\n"
+	if spawner.ranged_chance != 0:
+		labels_label.text += "Ranged:\n"
+		values_label.text += str(int(spawner.ranged_chance*1000)/10.0) + "%\n"
 
 func make_exp_popup(amount: int) -> void:
 	var new_popup = exp_popup.instantiate()

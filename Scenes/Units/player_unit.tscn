@@ -94,6 +94,7 @@ acceleration = 12000.0
 [node name="WeaponOne" type="Node2D" parent="."]
 script = ExtResource("3_d8l28")
 weapon_data = ExtResource("4_s5eeb")
+action_name = "action_one"
 
 [node name="ReloadTimer" type="Timer" parent="WeaponOne"]
 process_callback = 0
@@ -154,6 +155,7 @@ pitch_scale = 1.2
 [node name="WeaponTwo" type="Node2D" parent="."]
 script = ExtResource("3_d8l28")
 weapon_data = ExtResource("4_s5eeb")
+action_name = "action_two"
 
 [node name="ReloadTimer" type="Timer" parent="WeaponTwo"]
 process_callback = 0

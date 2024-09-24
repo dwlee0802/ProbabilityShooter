@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=11 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
 [ext_resource type="Script" path="res://Scenes/Interface/active_reload_component.gd" id="3_27vr4"]
+[ext_resource type="Texture2D" uid="uid://c8ry85qvmva7r" path="res://Art/cursor_none.svg" id="4_u0bnh"]
 
 [sub_resource type="Animation" id="Animation_6l0yw"]
 length = 0.001
@@ -81,6 +82,7 @@ process_mode = 3
 script = ExtResource("1_4pkdk")
 
 [node name="Control" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -139,20 +141,38 @@ libraries = {
 }
 speed_scale = 5.0
 
-[node name="MagazineLabel" type="Label" parent="."]
-offset_left = 15.0
-offset_top = 12.0
-offset_right = 66.0
-offset_bottom = 35.0
+[node name="ActiveReloadComponent" type="Node" parent="."]
+script = ExtResource("3_27vr4")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -5.0
+offset_top = -2.0
+offset_right = 19.0
+offset_bottom = 22.0
+mouse_filter = 2
+texture = ExtResource("4_u0bnh")
+expand_mode = 1
+
+[node name="Rightside" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="MagazineLabel" type="Label" parent="Rightside"]
+offset_left = 14.0
+offset_top = -23.0
+offset_right = 65.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 text = "0 / 0"
 
-[node name="InfoLabel" type="RichTextLabel" parent="."]
-offset_left = 15.0
-offset_top = 32.0
-offset_right = 175.0
-offset_bottom = 108.0
+[node name="InfoLabel" type="RichTextLabel" parent="Rightside"]
+offset_left = 14.0
+offset_top = 20.0
+offset_right = 174.0
+offset_bottom = 96.0
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
@@ -161,5 +181,31 @@ text = "0 - 100"
 fit_content = true
 scroll_active = false
 
-[node name="ActiveReloadComponent" type="Node" parent="."]
-script = ExtResource("3_27vr4")
+[node name="Leftside" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="MagazineLabel" type="Label" parent="Leftside"]
+offset_left = -62.0
+offset_top = -23.0
+offset_right = -11.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+text = "0 / 0"
+horizontal_alignment = 2
+
+[node name="InfoLabel" type="RichTextLabel" parent="Leftside"]
+offset_left = -62.0
+offset_top = 19.0
+offset_right = 98.0
+offset_bottom = 95.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+bbcode_enabled = true
+text = "0 - 100"
+fit_content = true
+scroll_active = false

@@ -185,7 +185,7 @@ func _process(_delta):
 		else:
 			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.WHITE
 			
-	if Input.is_action_just_pressed("action_one"):
+	if Input.is_action_just_pressed("action_one") or Input.is_action_just_pressed("action_two"):
 		$ClickSoundPlayer.play()
 	
 	var local_mouse_pos: Vector2 = InputManager.selected_unit.get_local_mouse_position()

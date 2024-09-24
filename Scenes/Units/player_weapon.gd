@@ -5,6 +5,9 @@ class_name WeaponComponent
 var weapon_data: GunData = null
 var weapon: Gun
 
+@export
+var action_name: String
+
 @onready
 var state_machine: StateMachine = $StateMachine
 

@@ -14,6 +14,7 @@ func enter() -> void:
 	start_reload_process()
 	if !parent.reload_timer.timeout.is_connected(reload_action):
 		parent.reload_timer.timeout.connect(reload_action)
+	parent.bullets_changed.emit()
 
 func process_frame(_delta: float) -> State:
 	if parent.weapon.have_bullets():
@@ -27,7 +28,7 @@ func process_input(_event: InputEvent) -> State:
 		
 	## click to active reload
 	if !parent.reload_timer.is_stopped():
-		if Input.is_action_just_pressed("action_one") and parent.active_reload_available:
+		if Input.is_action_just_pressed(parent.action_name) and parent.active_reload_available:
 			check_active_reload()
 			
 	return null

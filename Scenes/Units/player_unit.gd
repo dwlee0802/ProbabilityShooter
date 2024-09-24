@@ -476,13 +476,17 @@ func required_exp_amount(level: int) -> int:
 	
 #endregion
 
-func get_magazine_status() -> String:
-	var queued_count: int = weapon_one.get_queued_attack_count()
+func get_magazine_status(is_weapon_one: bool = true) -> String:
+	var weapon: WeaponComponent = weapon_one
+	if !is_weapon_one:
+		weapon = weapon_two
+		
+	var queued_count: int = weapon.get_queued_attack_count()
 	var output = ""
 	
-	output += str(weapon_one.weapon.current_magazine_count - queued_count)
+	output += str(weapon.weapon.current_magazine_count - queued_count)
 	#output += "(" + str(queued_count) + ")"
-	output += " / " + str(get_current_equipment().get_magazine_size())
+	output += " / " + str(weapon.weapon.get_magazine_size())
 	
 	return output
 

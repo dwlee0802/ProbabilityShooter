@@ -47,7 +47,7 @@ func process_input(_event: InputEvent) -> State:
 		return reload_state
 		
 	## action queue input
-	if _event.is_action_pressed(action_name):
+	if _event.is_action_pressed(parent.action_name):
 		if parent.weapon.ready:
 			if parent.attack_direction_queue.size() < parent.weapon.current_magazine_count:
 				save_mouse_position()
