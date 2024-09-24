@@ -191,6 +191,13 @@ func _process(_delta):
 		user_interface.weapon_one_active_reload.visible = true
 		var timer: Timer = InputManager.selected_unit.weapon_one.reload_timer
 		user_interface.weapon_one_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
+	
+	if InputManager.selected_unit.weapon_two.reload_timer.is_stopped():
+		user_interface.weapon_two_active_reload.visible = false
+	else:
+		user_interface.weapon_two_active_reload.visible = true
+		var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
+		user_interface.weapon_two_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
 			
 func enemy_killed()-> void:
 	kill_count += 1

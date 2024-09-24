@@ -186,6 +186,7 @@ fit_content = true
 scroll_active = false
 
 [node name="ActiveReloadBar" type="ProgressBar" parent="WeaponOne"]
+visible = false
 clip_contents = true
 layout_mode = 1
 anchors_preset = 8
@@ -245,6 +246,7 @@ fit_content = true
 scroll_active = false
 
 [node name="ActiveReloadBar" type="ProgressBar" parent="WeaponTwo"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

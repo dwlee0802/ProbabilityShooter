@@ -243,7 +243,6 @@ func make_exp_popup(amount: int) -> void:
 	experience_bar.add_child(new_popup)
 
 func update_reload_marker(node, weapon):
-	
 	var marker: Control = node.get_node("TextureRect")
 	## Set active reload marker size
 	var ratio: float = InputManager.selected_unit.weapon_one.active_reload_length / 100.0
