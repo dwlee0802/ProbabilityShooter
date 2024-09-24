@@ -206,7 +206,7 @@ show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="WeaponOne/ActiveReloadBar"]
 self_modulate = Color(0, 0, 0, 0.611765)
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 0
 offset_top = 100.0
 offset_right = 10.0
@@ -264,7 +264,7 @@ show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="WeaponTwo/ActiveReloadBar"]
 self_modulate = Color(0, 0, 0, 0.611765)
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5

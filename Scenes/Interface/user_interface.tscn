@@ -542,12 +542,10 @@ show_percentage = false
 [node name="TextureRect" type="TextureRect" parent="ExperienceBar/WeaponOneActiveReloadBar"]
 self_modulate = Color(0, 0, 0, 0.611765)
 custom_minimum_size = Vector2(10, 10)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -5.0
-offset_bottom = -5.0
+layout_mode = 0
+offset_top = 163.0
+offset_right = 10.0
+offset_bottom = 173.0
 texture = ExtResource("5_fir5d")
 expand_mode = 1
 
@@ -571,12 +569,9 @@ show_percentage = false
 [node name="TextureRect" type="TextureRect" parent="ExperienceBar/WeaponTwoActiveReloadBar"]
 self_modulate = Color(0, 0, 0, 0.611765)
 custom_minimum_size = Vector2(10, 10)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -5.0
-offset_bottom = -5.0
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
 texture = ExtResource("5_fir5d")
 expand_mode = 1
 

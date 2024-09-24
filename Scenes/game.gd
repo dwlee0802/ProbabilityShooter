@@ -183,6 +183,14 @@ func _process(_delta):
 	CameraControl.camera.position = local_mouse_pos.normalized()
 	# limit the amount of camera position offset from cursor
 	CameraControl.camera.position *= min(local_mouse_pos.length()/7, 300)
+	
+	## Active reload UI
+	if InputManager.selected_unit.weapon_one.reload_timer.is_stopped():
+		user_interface.weapon_one_active_reload.visible = false
+	else:
+		user_interface.weapon_one_active_reload.visible = true
+		var timer: Timer = InputManager.selected_unit.weapon_one.reload_timer
+		user_interface.weapon_one_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
 			
 func enemy_killed()-> void:
 	kill_count += 1

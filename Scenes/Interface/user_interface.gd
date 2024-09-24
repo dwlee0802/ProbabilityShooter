@@ -243,11 +243,15 @@ func make_exp_popup(amount: int) -> void:
 	experience_bar.add_child(new_popup)
 
 func update_reload_marker(node, weapon):
-	var marker: Control = node.get_node("TextureRect")
 	
-	var mid_point: float = (weapon.active_reload_range.x + weapon.active_reload_range.y)/2.0
+	var marker: Control = node.get_node("TextureRect")
+	## Set active reload marker size
+	var ratio: float = InputManager.selected_unit.weapon_one.active_reload_length / 100.0
+	marker.size.y = weapon_one_active_reload.size.y * ratio
+	
+	var mid_point: float = (weapon.active_reload_range.x + weapon.active_reload_range.y) / 2.0
 	# set marker position
-	marker.size.y = weapon.active_reload_length
-	marker.position.y = 100 - mid_point - weapon.active_reload_length / 2.0
+	marker.position.y = weapon_one_active_reload.size.y * (1 - mid_point/100.0) - marker.size.y / 2
 	
 	print("mid point: " + str(mid_point))
+	
