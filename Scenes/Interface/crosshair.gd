@@ -64,7 +64,7 @@ func update_weapon_info_label(weapon_ui, weapon) -> void:
 	
 	# reloading
 	if !current_eq.have_bullets():
-		active_reload_ui.visible = true
+		#active_reload_ui.visible = true
 		var timer: Timer = weapon.reload_timer
 		active_reload_ui.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
 		if weapon.active_reload_available:

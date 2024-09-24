@@ -543,9 +543,9 @@ show_percentage = false
 self_modulate = Color(0, 0, 0, 0.611765)
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
-offset_top = 163.0
+offset_top = 50.0
 offset_right = 10.0
-offset_bottom = 173.0
+offset_bottom = 60.0
 texture = ExtResource("5_fir5d")
 expand_mode = 1
 
@@ -579,13 +579,16 @@ expand_mode = 1
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -284.0
-offset_right = 124.0
+anchor_left = -0.378462
+anchor_top = 1.024
+anchor_right = -0.378462
+anchor_bottom = 1.024
+offset_left = -200.0
+offset_top = -175.0
+offset_right = 103.0
 grow_vertical = 0
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="ExperienceBar/LeftBulletInfoMenu"]
 layout_mode = 2

@@ -77,7 +77,7 @@ func start_attack_process() -> void:
 	
 	# back end
 	aim_timer.stop()
-	aim_timer.start(1)
+	aim_timer.start(parent.weapon.bullets.front().aim_time)
 	
 	# front end
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(parent.attack_direction_queue.front())

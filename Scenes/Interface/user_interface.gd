@@ -173,7 +173,7 @@ func update_bullet_menu() -> void:
 		new_label.add_theme_font_size_override("font_size", 12)
 		if i < InputManager.selected_unit.weapon_one.get_queued_attack_count():
 			new_label.self_modulate = Color.YELLOW
-		new_label.text = str(bullets[i])
+		new_label.text = "[right]" + str(bullets[i]) + "[/right]"
 		left_bullet_info_menu_container.add_child(new_label)
 		
 	bullets = []

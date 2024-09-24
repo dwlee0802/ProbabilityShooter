@@ -98,10 +98,6 @@ func reload() -> void:
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
 	bullets = Gun.bullet_generator.generate_bullets(get_magazine_size())
 	
-	if print_bullet_info:
-		for bullet: Bullet in bullets:
-			print(bullet)
-
 func clear_bullets() -> void:
 	print("removed " + str(current_magazine_count) + " bullets")
 	current_magazine_count = 0
