@@ -167,10 +167,10 @@ func update_bullet_menu() -> void:
 		new_label.bbcode_enabled = true
 		new_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if i == 0:
-			new_label.add_theme_color_override("font_color", Color.GREEN)
+			new_label.self_modulate = Color.GREEN
 		new_label.add_theme_font_size_override("font_size", 12)
 		if i < InputManager.selected_unit.weapon_one.get_queued_attack_count():
-			new_label.add_theme_color_override("font_color", Color.YELLOW)
+			new_label.self_modulate = Color.YELLOW
 		new_label.text = str(bullets[i])
 		left_bullet_info_menu_container.add_child(new_label)
 		
@@ -184,10 +184,10 @@ func update_bullet_menu() -> void:
 		new_label.bbcode_enabled = true
 		new_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if i == 0:
-			new_label.add_theme_color_override("font_color", Color.GREEN)
+			new_label.self_modulate = Color.GREEN
 		new_label.add_theme_font_size_override("font_size", 12)
 		if i < InputManager.selected_unit.weapon_two.get_queued_attack_count():
-			new_label.add_theme_color_override("font_color", Color.YELLOW)
+			new_label.self_modulate = Color.YELLOW
 		new_label.text = str(bullets[i])
 		right_bullet_info_menu_container.add_child(new_label)
 

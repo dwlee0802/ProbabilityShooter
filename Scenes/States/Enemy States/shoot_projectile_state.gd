@@ -41,6 +41,9 @@ func shoot_projectile() -> void:
 		var new_bullet: Projectile = parent.projectile.instantiate()
 		new_bullet.is_player = false
 		
+		new_bullet.apply_scale(Vector2(2,2))
+		new_bullet.get_node("Sprite2D").self_modulate = Color.RED
+		
 		# set stats
 		# save origin unit to call back for experience gain
 		new_bullet.origin_unit = self

@@ -33,6 +33,7 @@ spawn_radius = 5000
 script = ExtResource("2_quhko")
 _base_health_range = Vector2i(25, 100)
 _base_move_speed_range = Vector2i(100, 150)
+_base_ranged_chance = 0.5
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
