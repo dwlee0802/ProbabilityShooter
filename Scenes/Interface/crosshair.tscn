@@ -159,12 +159,13 @@ expand_mode = 1
 [node name="WeaponOne" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 16.0
+offset_top = 20.0
+offset_right = 56.0
+offset_bottom = 60.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="WeaponOne"]
-visible = false
 layout_mode = 0
 offset_left = -59.0
 offset_top = -23.0
@@ -219,12 +220,12 @@ expand_mode = 1
 [node name="WeaponTwo" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
+offset_top = 20.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 60.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="WeaponTwo"]
-visible = false
 layout_mode = 0
 offset_left = 23.0
 offset_top = -22.0

@@ -45,6 +45,9 @@ var blood_splatter: Node2D = $BloodSplatter
 #@onready
 #var resource_node: Node2D = $Resources
 
+@export
+var safe_zone_radius: float = 2000.0
+
 @export_category("Debugging")
 @export
 var no_game_over: bool = false
@@ -66,6 +69,8 @@ static func _static_init():
 func _ready():
 	# delegate front end management to input manager
 	$InputManager.game = self
+	
+	set_safezone_sprite(safe_zone_radius)
 	
 	units = $PlayerUnits.get_children()
 	user_interface.core_health_bar.set_max(units[0].max_health_points)
@@ -206,7 +211,11 @@ func _process(_delta):
 			user_interface.weapon_two_active_reload.self_modulate = Color.RED
 		else:
 			user_interface.weapon_two_active_reload.self_modulate = Color.WHITE
-			
+	
+	## Player outside safe zone
+	if InputManager.selected_unit.global_position.length() > safe_zone_radius:
+		InputManager.selected_unit.receive_hit(_delta * 10)
+	
 func enemy_killed()-> void:
 	kill_count += 1
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
@@ -321,7 +330,7 @@ func on_core_hit() -> void:
 	user_interface.core_hit_effect.play("RESET")
 	user_interface.core_hit_effect.play("core_hit_animation")
 	user_interface.core_health_bar.change_value(InputManager.selected_unit.health_points)
-	user_interface.core_health_label.text = "HP: " + str(InputManager.selected_unit.health_points)
+	user_interface.core_health_label.text = "HP: " + str(int(InputManager.selected_unit.health_points))
 
 #func change_resource(amount: int) -> void:
 	#resource_stock += amount
@@ -417,3 +426,7 @@ func on_mutation_selected(option: Mutation):
 	mutation_timer.start(mutation_cooldown)
 	
 #endregion
+
+func set_safezone_sprite(radius: float) -> void:
+	var sprite: Sprite2D = $Safezone
+	sprite.scale = Vector2(radius * 2 / 486.0, radius * 2 / 486.0)
