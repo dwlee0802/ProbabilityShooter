@@ -86,6 +86,9 @@ func _ready():
 	
 	mutation_roulette.option_selected.connect(show_mutation_info)
 
+func _input(event: InputEvent) -> void:
+	pass
+	
 #func _process(_delta: float) -> void:
 	#if InputManager.selected_unit != null:
 		#charge_bar.value = InputManager.selected_unit.charge / InputManager.selected_unit.max_charge * 100
@@ -195,14 +198,11 @@ func update_bullet_generation_info_menu() -> void:
 	var labels_label: Label = bullet_generation_info.get_node("MarginContainer/Labels")
 	var values_label: Label = bullet_generation_info.get_node("MarginContainer/Values")
 	
-	var gun = InputManager.selected_unit.get_current_equipment()
+	var gun: BulletGenerator = InputManager.selected_unit.bullet_generator_component
 	
 	labels_label.text = "DMG Range:\n"
-	values_label.text = str(gun.get_damage_range().x) + " - " + str(gun.get_damage_range().y) + "\n"
+	values_label.text = str(gun.damage_range.x) + " - " + str(gun.damage_range.y) + "\n"
 	
-	if gun.anti_armor_chance > 0:
-		labels_label.text += "Anti-Armor:\n"
-		values_label.text += str(int(gun.anti_armor_chance * 100)) + "%\n"
 	if gun.piercing_chance > 0:
 		labels_label.text += "Piercing:\n"
 		values_label.text += str(int(gun.piercing_chance * 100)) + "%\n"
