@@ -292,6 +292,7 @@ func start() -> void:
 		unit.reset_exp()
 		unit.reset_items()
 		unit.reload_action()
+		user_interface.update_bullet_menu()
 		unit.global_position = Vector2.ZERO
 		
 	spawner_component.reset_stats()

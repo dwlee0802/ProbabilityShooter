@@ -86,24 +86,25 @@ func _process(_delta):
 		else:
 			right_info_label.text = ""
 		
-		# reloading
-		if !current_eq.have_bullets():
-			var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
-			image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-			if InputManager.selected_unit.weapon_two.active_reload_available:
-				image.bar_color = Color.YELLOW
-			else:
-				if InputManager.selected_unit.active_reload_failed:
-					image.bar_color = Color.ORANGE_RED
+		if InputManager.selected_unit.weapon_two != null:
+			# reloading
+			if !current_eq.have_bullets():
+				var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
+				image.progress = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
+				if InputManager.selected_unit.weapon_two.active_reload_available:
+					image.bar_color = Color.YELLOW
 				else:
-					image.bar_color = Color.GREEN
-					#image.progress = 100
-				
-			if current_eq is Gun:
-				right_mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
-		else:
-			image.bar_color = Color.GREEN
-			if current_eq is Gun:
-				right_mag_label.text = InputManager.selected_unit.get_magazine_status(false)
+					if InputManager.selected_unit.active_reload_failed:
+						image.bar_color = Color.ORANGE_RED
+					else:
+						image.bar_color = Color.GREEN
+						#image.progress = 100
+					
+				if current_eq is Gun:
+					right_mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
 			else:
-				right_mag_label.text = "0/0"
+				image.bar_color = Color.GREEN
+				if current_eq is Gun:
+					right_mag_label.text = InputManager.selected_unit.get_magazine_status(false)
+				else:
+					right_mag_label.text = "0/0"

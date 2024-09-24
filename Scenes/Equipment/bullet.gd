@@ -15,9 +15,9 @@ var color: Color
 func _to_string() -> String:
 	var output = ""
 	if projectile_count != 1:
-		output += "DMG: " + str(int(damage_amount/float(projectile_count))) + " x" + str(projectile_count)
+		output += "" + str(int(damage_amount/float(projectile_count))) + " x" + str(projectile_count)
 	else:
-		output += "DMG: " + str(damage_amount)
+		output += "" + str(damage_amount)
 	output += "\n[color=yellow]"
 	if anti_armor:
 		output += " AA"

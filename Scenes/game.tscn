@@ -35,7 +35,7 @@ _base_health_range = Vector2i(25, 100)
 _base_move_speed_range = Vector2i(100, 150)
 _base_heavy_chance = 0.01
 _base_fast_chance = 0.01
-_base_ranged_chance = 1.0
+_base_ranged_chance = 0.01
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true

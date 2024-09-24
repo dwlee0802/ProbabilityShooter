@@ -135,6 +135,7 @@ script = ExtResource("1_gjxg1")
 projectile = ExtResource("2_a2d0g")
 attack_range = 0.0
 projectile_speed = 1000.0
+projectile_damage = 10
 attack_cooldown = 3.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]

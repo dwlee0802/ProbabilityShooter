@@ -161,18 +161,18 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="Rightside"]
-offset_left = 14.0
-offset_top = -23.0
-offset_right = 65.0
+offset_left = 23.0
+offset_top = -22.0
+offset_right = 74.0
+offset_bottom = 1.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 text = "0 / 0"
 
 [node name="InfoLabel" type="RichTextLabel" parent="Rightside"]
-offset_left = 14.0
-offset_top = 20.0
-offset_right = 174.0
-offset_bottom = 96.0
+offset_left = 23.0
+offset_right = 183.0
+offset_bottom = 76.0
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
@@ -189,19 +189,17 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="Leftside"]
-offset_left = -62.0
+offset_left = -59.0
 offset_top = -23.0
-offset_right = -11.0
+offset_right = -8.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 text = "0 / 0"
-horizontal_alignment = 2
 
 [node name="InfoLabel" type="RichTextLabel" parent="Leftside"]
-offset_left = -62.0
-offset_top = 19.0
-offset_right = 98.0
-offset_bottom = 95.0
+offset_left = -59.0
+offset_right = 101.0
+offset_bottom = 76.0
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
