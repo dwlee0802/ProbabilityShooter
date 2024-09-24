@@ -252,5 +252,5 @@ func update_reload_marker(node, weapon):
 	# set marker position
 	marker.position.y = weapon_one_active_reload.size.y * (1 - mid_point/100.0) - marker.size.y / 2
 	
-	print("mid point: " + str(mid_point))
+	#print("mid point: " + str(mid_point))
 	

@@ -9,7 +9,7 @@ func update_reload_marker(node, weapon):
 	marker.size.y = weapon.active_reload_length
 	marker.position.y = 100 - mid_point - weapon.active_reload_length / 2.0
 	
-	print("mid point: " + str(mid_point))
+	#print("mid point: " + str(mid_point))
 	
 	#var angle: float = mid_point/100.0 * 360
 	#marker.rotation_degrees = angle - (marker.progress / 2.0) / 100 * 360
