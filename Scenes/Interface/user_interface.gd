@@ -60,6 +60,12 @@ var right_bullet_info_menu_container: Container = $ExperienceBar/RightBulletInfo
 @onready
 var bullet_generation_info: Control = $BulletGenerationInfoMenu
 
+## Active reload ui
+@onready
+var weapon_one_active_reload: Control = $ExperienceBar/WeaponOneActiveReloadBar
+@onready
+var weapon_two_active_reload: Control = $ExperienceBar/WeaponTwoActiveReloadBar
+
 @onready
 var enemy_spawn_info: Control = $EnemySpawnInfo
 
@@ -85,13 +91,6 @@ func _ready():
 	upgrade_menu.visible = false
 	
 	mutation_roulette.option_selected.connect(show_mutation_info)
-
-func _input(event: InputEvent) -> void:
-	pass
-	
-#func _process(_delta: float) -> void:
-	#if InputManager.selected_unit != null:
-		#charge_bar.value = InputManager.selected_unit.charge / InputManager.selected_unit.max_charge * 100
 
 func show_game_over_screen(victory: bool = false):
 	$GameOver.visible = true
@@ -242,3 +241,13 @@ func make_exp_popup(amount: int) -> void:
 	var new_popup = exp_popup.instantiate()
 	new_popup.get_node("Label").text = "+" + str(amount)
 	experience_bar.add_child(new_popup)
+
+func update_reload_marker(node, weapon):
+	var marker: Control = node.get_node("TextureRect")
+	
+	var mid_point: float = (weapon.active_reload_range.x + weapon.active_reload_range.y)/2.0
+	# set marker position
+	marker.size.y = weapon.active_reload_length
+	marker.position.y = 100 - mid_point - weapon.active_reload_length / 2.0
+	
+	print("mid point: " + str(mid_point))

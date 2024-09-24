@@ -164,6 +164,7 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="WeaponOne"]
+layout_mode = 0
 offset_left = -59.0
 offset_top = -23.0
 offset_right = -8.0
@@ -172,6 +173,7 @@ theme_override_constants/outline_size = 7
 text = "0 / 0"
 
 [node name="InfoLabel" type="RichTextLabel" parent="WeaponOne"]
+layout_mode = 0
 offset_left = -59.0
 offset_right = 101.0
 offset_bottom = 76.0
@@ -220,6 +222,7 @@ offset_bottom = 40.0
 mouse_filter = 2
 
 [node name="MagazineLabel" type="Label" parent="WeaponTwo"]
+layout_mode = 0
 offset_left = 23.0
 offset_top = -22.0
 offset_right = 74.0
@@ -229,6 +232,7 @@ theme_override_constants/outline_size = 7
 text = "0 / 0"
 
 [node name="InfoLabel" type="RichTextLabel" parent="WeaponTwo"]
+layout_mode = 0
 offset_left = 23.0
 offset_right = 183.0
 offset_bottom = 76.0

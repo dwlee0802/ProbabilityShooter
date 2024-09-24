@@ -111,6 +111,10 @@ func _ready():
 		unit.actioned.connect(user_interface.update_bullet_menu)
 		unit.weapon_one.bullets_changed.connect(user_interface.update_bullet_menu)
 		unit.weapon_two.bullets_changed.connect(user_interface.update_bullet_menu)
+		unit.weapon_one.reload_started.connect(
+			user_interface.update_reload_marker.bind(user_interface.weapon_one_active_reload, unit.weapon_one))
+		unit.weapon_two.reload_started.connect(
+			user_interface.update_reload_marker.bind(user_interface.weapon_two_active_reload, unit.weapon_two))
 	
 	# randomly place dynamite on the map
 	for i in range(5):
@@ -176,18 +180,19 @@ func _process(_delta):
 	else:
 		user_interface.minimap.update_markers(InputManager.selected_unit.global_position, [], [])
 		
-	user_interface.update_bullet_generation_info_menu()
-	
+	## Mutation timer
 	if !mutation_timer.is_stopped():
 		user_interface.mutation_roulette.mutation_time_label.text = "Next Mutation in: " + str(int(mutation_timer.time_left) + 1) + "s"
 		if mutation_timer.time_left < 10:
 			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.YELLOW
 		else:
 			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.WHITE
-			
+	
+	## Click sound
 	if Input.is_action_just_pressed("action_one") or Input.is_action_just_pressed("action_two"):
 		$ClickSoundPlayer.play()
 	
+	## Camera panning with cursor
 	var local_mouse_pos: Vector2 = InputManager.selected_unit.get_local_mouse_position()
 	CameraControl.camera.position = local_mouse_pos.normalized()
 	# limit the amount of camera position offset from cursor
