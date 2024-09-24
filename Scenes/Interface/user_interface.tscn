@@ -526,6 +526,7 @@ theme_override_font_sizes/font_size = 8
 text = "Progress: 0"
 
 [node name="WeaponOneActiveReloadBar" type="ProgressBar" parent="ExperienceBar"]
+self_modulate = Color(0.756863, 1, 1, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -534,6 +535,7 @@ offset_left = -20.0
 offset_top = -163.0
 offset_right = -10.0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/background = ExtResource("5_omcna")
 theme_override_styles/fill = ExtResource("6_auke1")
 fill_mode = 3
@@ -550,6 +552,7 @@ texture = ExtResource("5_fir5d")
 expand_mode = 1
 
 [node name="WeaponTwoActiveReloadBar" type="ProgressBar" parent="ExperienceBar"]
+self_modulate = Color(1, 0.8, 0.776471, 1)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -561,6 +564,7 @@ offset_top = -163.0
 offset_right = 20.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/background = ExtResource("5_omcna")
 theme_override_styles/fill = ExtResource("6_auke1")
 fill_mode = 3

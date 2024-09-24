@@ -17,15 +17,15 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
 spawn_radius = 5000
-safe_zone_radius = 1000.0
+safe_zone_radius = 2500.0
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
-_base_health_range = Vector2i(25, 100)
-_base_move_speed_range = Vector2i(100, 150)
+_base_health_range = Vector2i(25, 125)
+_base_move_speed_range = Vector2i(100, 200)
 _base_heavy_chance = 0.01
 _base_fast_chance = 0.01
 _base_ranged_chance = 0.01

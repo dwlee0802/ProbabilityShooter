@@ -157,6 +157,7 @@ texture = ExtResource("4_u0bnh")
 expand_mode = 1
 
 [node name="WeaponOne" type="Control" parent="."]
+modulate = Color(1, 0.788235, 0.756863, 1)
 layout_mode = 3
 anchors_preset = 0
 offset_left = 16.0
@@ -218,6 +219,7 @@ texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="WeaponTwo" type="Control" parent="."]
+modulate = Color(0.741176, 1, 1, 1)
 layout_mode = 3
 anchors_preset = 0
 offset_top = 20.0
