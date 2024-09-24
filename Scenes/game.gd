@@ -70,6 +70,7 @@ func _ready():
 	units = $PlayerUnits.get_children()
 	user_interface.core_health_bar.set_max(units[0].max_health_points)
 	user_interface.core_health_bar.change_value(units[0].health_points, true)
+	user_interface.core_health_label.text = "HP: " + str(units[0].health_points)
 	#InputManager._select_unit(units[0])
 	bind_selected_unit_signals()
 	
@@ -88,13 +89,6 @@ func _ready():
 	spawner_component = $EnemySpawnerComponent
 	spawner_component.on_spawn_timer_timeout()
 	#spawn_wave()
-	
-	#wave_timer.timeout.connect(spawn_wave)
-	#wave_timer.start(time_between_waves)
-	#linear_spawn_timer.timeout.connect(spawner_component.spawn_enemy_unit)
-	#linear_spawn_timer.start(4)
-	#elite_timer.timeout.connect(spawn_elite_unit)
-	#elite_timer.start(elite_spawn_time)
 	
 	#user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
@@ -128,18 +122,10 @@ func _process(_delta):
 		reload_times.append(unit.action_one_reload_timer.time_left)
 	InputManager.camera.scale_unit_shortcut_label(units)
 	InputManager.camera.scale_health_label(enemies.get_children())
-	user_interface.core_health_label.text = "Health: " + str(InputManager.selected_unit.health_points)
 	
 	if !pause:
 		time_since_start += _delta
-		#power_budget += _delta * time_difficulty_modifier
-	#time_difficulty = int(time_since_start * time_difficulty_modifier)
-	
-	#pulse_enemy_ratio += _delta * 0.01 * time_difficulty
-	#pulse_enemy_ratio = min(pulse_enemy_ratio, 0.2)
-	
 	user_interface.game_time_label.text = str(int(time_since_start)) + " s"
-	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
 	
 	# update minimap
 	if InputManager.selected_unit:
@@ -312,6 +298,7 @@ func on_core_hit() -> void:
 	user_interface.core_hit_effect.play("RESET")
 	user_interface.core_hit_effect.play("core_hit_animation")
 	user_interface.core_health_bar.change_value(InputManager.selected_unit.health_points)
+	user_interface.core_health_label.text = "HP: " + str(InputManager.selected_unit.health_points)
 
 #func change_resource(amount: int) -> void:
 	#resource_stock += amount
