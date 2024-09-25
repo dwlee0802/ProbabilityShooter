@@ -96,6 +96,7 @@ func _on_body_entered(body) -> void:
 		new_dynamite.radius = 500
 		new_dynamite.damage_amount = damage_amount
 		new_dynamite.call_deferred("activate")
+		new_dynamite.shooter = origin_unit
 		
 	if !bullet_data.piercing:
 		queue_free()

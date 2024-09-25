@@ -17,9 +17,7 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
 spawn_radius = 5000
-mutation_cooldown = null
 safe_zone_radius = 2500.0
-no_game_over = null
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")

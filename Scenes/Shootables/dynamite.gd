@@ -1,6 +1,8 @@
 extends Shootable
 class_name Explosive
 
+var shooter
+
 @onready
 var area: Area2D = $Area2D
 
@@ -31,7 +33,8 @@ func activate() -> void:
 		if unit is EnemyUnit and unit.health_points > 0 and unit.is_node_ready():
 			var dir: Vector2 = global_position.direction_to(unit.global_position)
 			# damage stuff inside range
-			unit.receive_hit(damage_amount, true, dir)
+			if shooter != null and shooter is PlayerUnit:
+				shooter.add_experience(unit.receive_hit(damage_amount, true, dir))
 			
 			# apply knock back
 			unit.apply_impulse(dir * 1000)

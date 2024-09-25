@@ -120,11 +120,11 @@ func _ready():
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)
+		
+	user_interface.update_bullet_menu(units[0].weapon_one, units[0].weapon_two)
+	user_interface.update_bullet_generation_info_menu(units[0].bullet_generator_component)
 	
 func _process(_delta):
-	var reload_times = []
-	for unit: PlayerUnit in units:
-		reload_times.append(unit.action_one_reload_timer.time_left)
 	InputManager.camera.scale_unit_shortcut_label(units)
 	InputManager.camera.scale_health_label(enemies.get_children())
 	
@@ -316,7 +316,6 @@ func start() -> void:
 		unit.reset_items()
 		unit.reset_exp()
 		unit.reload_action()
-		user_interface.update_bullet_menu()
 		unit.global_position = Vector2.ZERO
 		
 	spawner_component.reset_stats()

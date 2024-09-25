@@ -746,17 +746,13 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 12
-text = "HP Damage Range:
-AP Damage Range:
-Piercing:"
+text = "????"
 
 [node name="Values" type="Label" parent="BulletGenerationInfoMenu/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 12
-text = "0 - 0
-0 - 0
-0%"
+text = "?????"
 horizontal_alignment = 2
 
 [node name="EnemySpawnInfo" type="PanelContainer" parent="."]

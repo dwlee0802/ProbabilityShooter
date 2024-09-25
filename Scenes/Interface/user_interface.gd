@@ -155,12 +155,11 @@ func upgrade_option_selected(data: ItemData) -> void:
 	else:
 		show_upgrade_menu()
 
-func update_bullet_menu() -> void:
+func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weapon_two = InputManager.selected_unit.weapon_two) -> void:
 	DW_ToolBox.RemoveAllChildren(left_bullet_info_menu_container)
 	DW_ToolBox.RemoveAllChildren(right_bullet_info_menu_container)
 	
-	var bullets = []
-	bullets = InputManager.selected_unit.weapon_one.weapon.bullets
+	var bullets = weapon_one.weapon.bullets
 		
 	for i in range(bullets.size()):
 		var new_label: RichTextLabel = RichTextLabel.new()
@@ -171,13 +170,13 @@ func update_bullet_menu() -> void:
 		if i == 0:
 			new_label.self_modulate = Color.GREEN
 		new_label.add_theme_font_size_override("font_size", 12)
-		if i < InputManager.selected_unit.weapon_one.get_queued_attack_count():
+		if i < weapon_one.get_queued_attack_count():
 			new_label.self_modulate = Color.YELLOW
 		new_label.text = "[right]" + str(bullets[i]) + "[/right]"
 		left_bullet_info_menu_container.add_child(new_label)
 		
 	bullets = []
-	bullets = InputManager.selected_unit.weapon_two.weapon.bullets
+	bullets = weapon_two.weapon.bullets
 		
 	for i in range(bullets.size()):
 		var new_label: RichTextLabel = RichTextLabel.new()
@@ -188,16 +187,16 @@ func update_bullet_menu() -> void:
 		if i == 0:
 			new_label.self_modulate = Color.GREEN
 		new_label.add_theme_font_size_override("font_size", 12)
-		if i < InputManager.selected_unit.weapon_two.get_queued_attack_count():
+		if i < weapon_two.get_queued_attack_count():
 			new_label.self_modulate = Color.YELLOW
 		new_label.text = str(bullets[i])
 		right_bullet_info_menu_container.add_child(new_label)
 
-func update_bullet_generation_info_menu() -> void:
+func update_bullet_generation_info_menu(component = InputManager.selected_unit.bullet_generator_component) -> void:
 	var labels_label: Label = bullet_generation_info.get_node("MarginContainer/Labels")
 	var values_label: Label = bullet_generation_info.get_node("MarginContainer/Values")
 	
-	var gun: BulletGenerator = InputManager.selected_unit.bullet_generator_component
+	var gun: BulletGenerator = component
 	
 	labels_label.text = "DMG Range:\n"
 	values_label.text = str(gun.damage_range.x) + " - " + str(gun.damage_range.y) + "\n"
