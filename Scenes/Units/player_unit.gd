@@ -397,6 +397,7 @@ func reset_items() -> void:
 		item.on_exit(self, items[item])
 	items.clear()
 	stats_changed.emit()
+	bullet_generator_component.reset_stats()
 #endregion
 
 #region Effect System
