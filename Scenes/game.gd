@@ -295,6 +295,8 @@ func start() -> void:
 	# remove blood splatter
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	
+	spawner_component.reset_stats()
+	
 	# spawn first wave
 	spawner_component.on_spawn_timer_timeout()
 	#spawn_wave()
