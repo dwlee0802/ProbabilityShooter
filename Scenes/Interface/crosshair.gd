@@ -27,6 +27,9 @@ func _input(event: InputEvent) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	player_unit = InputManager.selected_unit
+	if player_unit == null:
+		return
+		
 	if player_unit.weapon_one != null:
 		if !player_unit.weapon_one.reload_started.is_connected(active_reload_component.update_reload_marker):
 			player_unit.weapon_one.reload_started.connect(active_reload_component.update_reload_marker.bind(weapon_one_ui.get_node("ActiveReloadBar"), player_unit.weapon_one))

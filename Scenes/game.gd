@@ -124,8 +124,6 @@ func _ready():
 	user_interface.update_bullet_menu(units[0].weapon_one, units[0].weapon_two)
 	user_interface.update_bullet_generation_info_menu(units[0].bullet_generator_component)
 	
-	get_tree().paused = true
-	
 func _process(_delta):
 	InputManager.camera.scale_unit_shortcut_label(units)
 	InputManager.camera.scale_health_label(enemies.get_children())

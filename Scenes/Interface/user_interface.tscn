@@ -912,6 +912,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 10
@@ -919,12 +920,14 @@ theme_override_constants/margin_bottom = 14
 
 [node name="VContainer" type="VBoxContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 
 [node name="Icon" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne/MarginContainer/VContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 expand_mode = 1
 
@@ -935,6 +938,7 @@ text = "Name"
 [node name="InfoLabel" type="RichTextLabel" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne/MarginContainer/VContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 13
 text = "asdfasdlk fjasdlkfjlasdkjflkasdjflaskdjflaskdjflasdjflaksdjfklasdjflasdkfjasdlkfjkldkfjdkjfkdjfkddfdfdfd"
 scroll_active = false
@@ -948,6 +952,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [node name="PressedShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne"]
@@ -959,6 +964,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [node name="OptionOne2" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
@@ -977,6 +983,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 10
@@ -984,12 +991,14 @@ theme_override_constants/margin_bottom = 14
 
 [node name="VContainer" type="VBoxContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 
 [node name="Icon" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2/MarginContainer/VContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 expand_mode = 1
 
@@ -1000,6 +1009,7 @@ text = "Name"
 [node name="InfoLabel" type="RichTextLabel" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2/MarginContainer/VContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 13
 text = "asdfasdlk fjasdlkfjlasdkjflkasdjflaskdjflaskdjflasdjflaksdjfklasdjflasdkfjasdlkfjkldkfjdkjfkdjfkddfdfdfd"
 scroll_active = false
@@ -1013,6 +1023,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [node name="PressedShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2"]
@@ -1024,6 +1035,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [node name="OptionOne3" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
@@ -1042,6 +1054,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 14
 theme_override_constants/margin_right = 10
@@ -1049,12 +1062,14 @@ theme_override_constants/margin_bottom = 14
 
 [node name="VContainer" type="VBoxContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 
 [node name="Icon" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3/MarginContainer/VContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 expand_mode = 1
 
@@ -1065,6 +1080,7 @@ text = "Name"
 [node name="InfoLabel" type="RichTextLabel" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3/MarginContainer/VContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 13
 text = "asdfasdlk fjasdlkfjlasdkjflkasdjflaskdjflaskdjflasdjflaksdjfklasdjflasdkfjasdlkfjkldkfjdkjfkdjfkddfdfdfd"
 scroll_active = false
@@ -1078,6 +1094,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [node name="PressedShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3"]
@@ -1089,6 +1106,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

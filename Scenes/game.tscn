@@ -58,6 +58,12 @@ wait_time = 4.0
 
 [node name="GameDurationTimer" type="Timer" parent="."]
 
+[node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
+process_mode = 3
+
+[node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
+position = Vector2(718, 279)
+
 [node name="BloodSplatter" type="Node2D" parent="."]
 
 [node name="PlayerUnits" type="Node2D" parent="."]
@@ -83,12 +89,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_tcb7a")
 
 [node name="Enemies" type="Node2D" parent="."]
-
-[node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
-process_mode = 3
-
-[node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
-position = Vector2(718, 279)
 
 [node name="Interactables" type="Node" parent="."]
 
