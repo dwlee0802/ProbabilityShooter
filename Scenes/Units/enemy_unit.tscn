@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=23 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_a2d0g"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_e5dnx"]
 [ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
 [ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
+[ext_resource type="PackedScene" uid="uid://b747av6ffwx3w" path="res://Scenes/Mutations/enemy_shield.tscn" id="12_e153q"]
 
 [sub_resource type="Animation" id="Animation_eonp3"]
 length = 0.001
@@ -268,3 +269,6 @@ offset_bottom = -135.0
 text = "State: Idle"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="EnemyShield" parent="." instance=ExtResource("12_e153q")]
+position = Vector2(4, 5)

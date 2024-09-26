@@ -53,6 +53,10 @@ var safe_zone_radius: float = 2000.0
 var no_game_over: bool = false
 
 static var upgrade_options
+@onready
+var upgrade_timer: Timer = $UpgradeTimer
+@export
+var upgrade_select_time_limit: float = 15.0
 
 ## shootable objects
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
@@ -124,6 +128,9 @@ func _ready():
 	user_interface.update_bullet_menu(units[0].weapon_one, units[0].weapon_two)
 	user_interface.update_bullet_generation_info_menu(units[0].bullet_generator_component)
 	
+	# auto select upgrade option if timeout
+	upgrade_timer.timeout.connect(on_upgrade_timeout)
+	
 func _process(_delta):
 	InputManager.camera.scale_unit_shortcut_label(units)
 	InputManager.camera.scale_health_label(enemies.get_children())
@@ -179,6 +186,10 @@ func _process(_delta):
 		else:
 			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.WHITE
 	
+	## player level up selection time limit
+	if !upgrade_timer.is_stopped():
+		user_interface.level_up_time_limit.progress = 1 - (upgrade_timer.time_left / upgrade_timer.wait_time) * 100
+		
 	## Click sound
 	if Input.is_action_just_pressed("action_one") or Input.is_action_just_pressed("action_two"):
 		$ClickSoundPlayer.play()
@@ -382,12 +393,17 @@ func on_level_up() -> void:
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		unit.upgrade_options = get_upgrade_options()
 		get_tree().paused = false
+		# start upgrade option selection timer
+		upgrade_timer.start(15)
 		
 func get_upgrade_options(count: int = 4):
 	var output = []
 	for i in range(count):
 		output.append(Game.upgrade_options.pick_random())
 	return output
+
+func on_upgrade_timeout():
+	user_interface.upgrade_option_selected(InputManager.selected_unit.upgrade_options.pick_random())
 	
 func pause_time(duration: float) -> void:
 	get_tree().paused = true

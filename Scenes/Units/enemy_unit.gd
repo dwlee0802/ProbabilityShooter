@@ -65,6 +65,7 @@ static var dynamite_drop_chance: float = 0.1
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
 
 signal on_death
+signal received_hit(total, effective)
 
 
 func on_spawn(speed: float, health: int) -> void:

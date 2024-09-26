@@ -81,6 +81,9 @@ func _on_body_entered(body) -> void:
 		new_exit_eff.rotation = dir.angle()
 		new_exit_eff.get_node("CPUParticles2D").emitting = true
 		get_tree().root.add_child(new_exit_eff)
+		
+		if !bullet_data.piercing:
+			return
 	
 	if body is PlayerUnit and !is_player:
 		body.receive_hit(damage_amount)
@@ -97,6 +100,5 @@ func _on_body_entered(body) -> void:
 		new_dynamite.damage_amount = damage_amount
 		new_dynamite.call_deferred("activate")
 		new_dynamite.shooter = origin_unit
-		
-	if !bullet_data.piercing:
-		queue_free()
+	
+	queue_free()

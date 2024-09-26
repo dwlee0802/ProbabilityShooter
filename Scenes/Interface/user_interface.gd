@@ -44,6 +44,8 @@ var upgrade_options = []
 var level_up_menu: Control = $LevelUpMenu
 @onready
 var level_up_menu_container: Control = $LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer
+@onready
+var level_up_time_limit: RadialProgress = $LevelUpMenu/SelectionTimeLimit
 
 @onready
 var minimap: Minimap = $Minimap

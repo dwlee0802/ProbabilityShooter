@@ -53,8 +53,8 @@ wait_time = 30.0
 [node name="LinearSpawnTimer" type="Timer" parent="."]
 wait_time = 4.0
 
-[node name="EliteTimer" type="Timer" parent="."]
-wait_time = 4.0
+[node name="UpgradeTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="GameDurationTimer" type="Timer" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=28 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://minimap.tscn" id="7_a8odi"]
 [ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
 [ext_resource type="Script" path="res://Scenes/Interface/upgrade_option.gd" id="9_ogj75"]
+[ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="10_acs6f"]
 
 [sub_resource type="Animation" id="Animation_a84oq"]
 length = 0.001
@@ -1108,6 +1109,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_fir5d")
+
+[node name="SelectionTimeLimit" type="Control" parent="LevelUpMenu"]
+anchors_preset = 0
+offset_left = 256.0
+offset_top = -123.0
+offset_right = 256.0
+offset_bottom = -123.0
+script = ExtResource("10_acs6f")
+radius = 20.0
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" method="_on_mouse_entered"]
