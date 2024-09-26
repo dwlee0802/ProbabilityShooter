@@ -154,10 +154,7 @@ func _process(_delta):
 		
 		for enemy: EnemyUnit in enemies.get_children():
 			points.append(enemy.global_position)
-			if enemy.is_elite:
-				color_arr.append(Color.PURPLE)
-			else:
-				color_arr.append(Color.RED)
+			color_arr.append(Color.RED)
 		user_interface.minimap.update_markers(InputManager.selected_unit.global_position, points, color_arr)
 		
 		var bullet_points = []

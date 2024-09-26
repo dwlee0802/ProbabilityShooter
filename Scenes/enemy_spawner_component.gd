@@ -36,6 +36,9 @@ var fast_chance: float
 @export
 var _base_ranged_chance: float = 0
 var ranged_chance: float
+@export
+var _base_shield_chance: float = 0
+var shield_chance: float
 
 signal stats_changed
 
@@ -62,6 +65,7 @@ func reset_stats() -> void:
 	heavy_chance = _base_heavy_chance
 	fast_chance = _base_fast_chance
 	ranged_chance = _base_ranged_chance
+	shield_chance = _base_shield_chance
 	
 	stats_changed.emit()
 	
@@ -79,6 +83,8 @@ func spawn_enemy_unit() -> EnemyUnit:
 		unit.apply_quick()
 	if randf() < ranged_chance:
 		unit.apply_ranged()
+	if randf() < shield_chance:
+		unit.apply_shield()
 	
 	game_ref.add_enemy(unit)
 	

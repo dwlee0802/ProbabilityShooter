@@ -30,6 +30,8 @@ var heavy_spawn_chance_bonus: float = 0
 var fast_spawn_chance_bonus: float = 0
 @export
 var ranged_spawn_chance_bonus: float = 0
+@export
+var shield_spawn_chance_bonus: float = 0
 
 @export_category("Wave Stat Chances")
 @export
@@ -45,6 +47,7 @@ func on_enter(spawner: EnemySpawnerComponent, level: int):
 	spawner.heavy_chance += heavy_spawn_chance_bonus * level
 	spawner.fast_chance += fast_spawn_chance_bonus * level
 	spawner.ranged_chance += ranged_spawn_chance_bonus * level
+	spawner.shield_chance += shield_spawn_chance_bonus * level
 	
 	spawner.wave_chance += wave_chance_bonus
 	
@@ -55,6 +58,7 @@ func on_exit(spawner: EnemySpawnerComponent, level: int):
 	spawner.heavy_chance -= heavy_spawn_chance_bonus * level
 	spawner.fast_chance -= fast_spawn_chance_bonus * level
 	spawner.ranged_chance -= ranged_spawn_chance_bonus * level
+	spawner.shield_chance -= shield_spawn_chance_bonus * level
 	
 	spawner.wave_chance -= wave_chance_bonus
 

@@ -229,6 +229,9 @@ func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	if spawner.ranged_chance != 0:
 		labels_label.text += "Ranged:\n"
 		values_label.text += str(int(spawner.ranged_chance*1000)/10.0) + "%\n"
+	if spawner.shield_chance != 0:
+		labels_label.text += "Shield:\n"
+		values_label.text += str(int(spawner.shield_chance*1000)/10.0) + "%\n"
 
 func make_exp_popup(amount: int) -> void:
 	var new_popup = exp_popup.instantiate()

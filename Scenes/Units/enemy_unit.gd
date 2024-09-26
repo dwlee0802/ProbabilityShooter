@@ -17,7 +17,6 @@ var armor_points: float = 10
 var max_armor_points: float = 10
 @onready
 var bleed_timer: Timer = $BleedTimer
-var is_elite: bool = false
 
 @export_category("Ranged Unit Stats")
 @export
@@ -43,6 +42,9 @@ var acceleration: float = 0
 var adjust_modifier: float = 8
 var speed_adjust_modifier: float = 4
 
+## ratio of current size compared to default size
+var size_modifier: float = 1
+
 @onready
 var health_label: Label = $HealthLabel
 var health_bar: DelayedProgressBar
@@ -56,6 +58,8 @@ var sprite: Sprite2D = $Sprite2D/Sprite2D
 var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
 var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
+
+var shield: PackedScene = preload("res://Scenes/Mutations/enemy_shield.tscn")
 
 static var resource_drop_chance: float = 0
 var resource_drop = preload("res://Scenes/resource.tscn")
@@ -99,6 +103,11 @@ func apply_ranged() -> void:
 	attack_range = 3000
 	attack_cooldown = 1.5
 	$Sprite2D.self_modulate = Color.YELLOW
+
+func apply_shield() -> void:
+	var new_shield: EnemyShield = shield.instantiate()
+	add_child(new_shield)
+	new_shield.increase_size(size_modifier)
 	
 func _ready():
 	state_machine.init(self)
@@ -216,9 +225,6 @@ func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float 
 	particles.direction = direction
 	particles.amount = count
 	particles.color = $Sprite2D.self_modulate
-	if is_elite:
-		particles.amount *= 2
-		intensity_scale += 0.5
 	particles.initial_velocity_min *= intensity_scale
 	particles.initial_velocity_max *= intensity_scale
 	particles.emitting = true
@@ -227,6 +233,7 @@ func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float 
 func increase_size(rate: float) -> void:
 	$Sprite2D.scale *= rate
 	$CollisionShape2D.scale *= rate
+	size_modifier *= rate
 
 ## returns whether player unit is inside attack range of self
 func player_inside_range() -> bool:
