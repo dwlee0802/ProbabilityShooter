@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=29 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -13,11 +13,121 @@
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
+[ext_resource type="Texture2D" uid="uid://c2ecsu8asley" path="res://Art/arrow.png" id="15_kw6ct"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bm0v7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
+
+[sub_resource type="Animation" id="Animation_6xhml"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../LevelUpRippleEffect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.50001, -78)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../LevelUpRippleEffect:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.63786, 0.15)]
+}
+
+[sub_resource type="Animation" id="Animation_5anas"]
+resource_name = "level_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../LevelUpRippleEffect:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -78), Vector2(0, -500)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../LevelUpRippleEffect:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.63786, 0.15), Vector2(1.5, 0.353)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w5xl4"]
+_data = {
+"RESET": SubResource("Animation_6xhml"),
+"level_up": SubResource("Animation_5anas")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pbu37"]
 radius = 93.0215
@@ -86,7 +196,6 @@ aim_color = Color(1, 1, 1, 0.196078)
 attack_color = Color(1, 0, 0, 0.392157)
 queued_color = Color(1, 0.647059, 0, 0.196078)
 background_color = Color(0, 0, 0, 0.196078)
-experience_gained = 10000
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("9_0efpd")
@@ -218,12 +327,36 @@ stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
 
+[node name="LevelUpRippleEffect" type="Sprite2D" parent="."]
+process_mode = 3
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-1, 75)
+scale = Vector2(0.63786, 0.15)
+texture = ExtResource("13_n3hms")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.262431, 0.639506, 1, 1)
 material = SubResource("ShaderMaterial_ablmn")
 use_parent_material = true
 scale = Vector2(4, 4)
 texture = ExtResource("11_cpb60")
+
+[node name="LevelUpEffect" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="LevelUpAnimationPlayer" type="AnimationPlayer" parent="LevelUpEffect"]
+process_mode = 3
+root_node = NodePath("../Arrow")
+libraries = {
+"": SubResource("AnimationLibrary_w5xl4")
+}
+speed_scale = 2.0
+
+[node name="Arrow" type="Sprite2D" parent="LevelUpEffect"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-1.50001, -78)
+scale = Vector2(1.07509, 0.864048)
+texture = ExtResource("15_kw6ct")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pbu37")
@@ -298,17 +431,20 @@ debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
 [node name="MoveLine" type="Line2D" parent="."]
 
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
 stream = ExtResource("10_2kui5")
 pitch_scale = 0.8
 max_distance = 20000.0
 max_polyphony = 10
 
 [node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
 stream = ExtResource("11_vvwcf")
 max_distance = 10000.0
 max_polyphony = 10
 
 [node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
 stream = ExtResource("11_7sg32")
 pitch_scale = 0.8
 max_distance = 10000.0

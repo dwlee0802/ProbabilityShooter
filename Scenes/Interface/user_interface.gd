@@ -39,16 +39,11 @@ var item_info: Control = $NewItemInfo
 static var item_info_show_time: float = 3
 
 @onready
-var upgrade_menu = $UpgradeMenu
 var upgrade_options = []
 @onready
-var upgrade_option_1 = $UpgradeMenu/LevelUp/Option1
+var level_up_menu: Control = $LevelUpMenu
 @onready
-var upgrade_option_2 = $UpgradeMenu/LevelUp/Option2
-@onready
-var upgrade_option_3 = $UpgradeMenu/LevelUp/Option3
-@onready
-var upgrade_option_4 = $UpgradeMenu/LevelUp/Option4
+var level_up_menu_container: Control = $LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer
 
 @onready
 var minimap: Minimap = $Minimap
@@ -80,15 +75,12 @@ func _ready():
 	game_over_ui.visible = false
 	item_info.visible = false
 	
-	upgrade_options.append(upgrade_option_1)
-	upgrade_options.append(upgrade_option_2)
-	upgrade_options.append(upgrade_option_3)
-	upgrade_options.append(upgrade_option_4)
+	upgrade_options = level_up_menu_container.get_children()
 	
 	for option in upgrade_options:
 		option.option_selected.connect(upgrade_option_selected)
 	
-	upgrade_menu.visible = false
+	level_up_menu.visible = false
 	
 	mutation_roulette.option_selected.connect(show_mutation_info)
 
@@ -132,12 +124,12 @@ func show_upgrade_menu() -> void:
 	for i in range(upgrade_options.size()):
 		upgrade_options[i].set_data(InputManager.selected_unit.upgrade_options[i])
 		
-	upgrade_menu.visible = true
+	level_up_menu.visible = true
 
 func upgrade_option_selected(data: ItemData) -> void:
 	if InputManager.selected_unit == null:
 		push_error("upgrade option selected but no unit selected.")
-		upgrade_menu.visible = false
+		level_up_menu.visible = false
 		return
 		
 	# add item to selected unit
@@ -151,7 +143,7 @@ func upgrade_option_selected(data: ItemData) -> void:
 	# if level up is still ready after leveling up, show new options
 	# otherwise, hide menu
 	if !InputManager.selected_unit.is_level_up_ready():
-		upgrade_menu.visible = false
+		level_up_menu.visible = false
 	else:
 		show_upgrade_menu()
 

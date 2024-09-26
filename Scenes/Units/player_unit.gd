@@ -113,6 +113,9 @@ var interaction_area: Area2D = $InteractionArea
 var experience_gained: int = 0
 var current_level: int = 1
 var upgrade_options = []
+
+@onready
+var level_up_animation: AnimationPlayer = $LevelUpEffect/LevelUpAnimationPlayer
 #endregion
 
 ##region Charge System

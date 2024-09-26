@@ -17,9 +17,7 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
 spawn_radius = 5000
-mutation_cooldown = null
 safe_zone_radius = 2500.0
-no_game_over = null
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
@@ -71,10 +69,9 @@ temp_color = Color(0.356863, 0.643137, 1, 1)
 health_points = 300.0
 max_health_points = 300
 starting_equipments = [ExtResource("10_gp80q")]
-experience_gained = 0
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]
-zoom = Vector2(0.3, 0.3)
+zoom = Vector2(0.1, 0.1)
 process_callback = 0
 script = ExtResource("2_iduqg")
 panning_disabled = true
@@ -88,6 +85,7 @@ texture = ExtResource("8_tcb7a")
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
+process_mode = 3
 
 [node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
 position = Vector2(718, 279)
@@ -125,5 +123,6 @@ text = "Fabrication Bench"
 [node name="Shootables" type="Node2D" parent="."]
 
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("18_7elte")
 volume_db = -5.0

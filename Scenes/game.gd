@@ -116,13 +116,15 @@ func _ready():
 			user_interface.update_reload_marker.bind(user_interface.weapon_two_active_reload, unit.weapon_two))
 	
 	# randomly place dynamite on the map
-	for i in range(5):
+	for i in range(10):
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)
 		
 	user_interface.update_bullet_menu(units[0].weapon_one, units[0].weapon_two)
 	user_interface.update_bullet_generation_info_menu(units[0].bullet_generator_component)
+	
+	get_tree().paused = true
 	
 func _process(_delta):
 	InputManager.camera.scale_unit_shortcut_label(units)
@@ -353,7 +355,7 @@ func bind_selected_unit_signals() -> void:
 				
 			user_interface.show_upgrade_menu()
 		else:
-			user_interface.upgrade_menu.visible = false
+			user_interface.level_up_menu.visible = false
 			
 		InputManager.selected_unit.knocked_out.connect(game_over)
 		InputManager.selected_unit.was_attacked.connect(on_core_hit)
@@ -366,9 +368,11 @@ func on_experience_changed() -> void:
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
-		if !user_interface.upgrade_menu.visible and unit.is_level_up_ready():
+		if !user_interface.level_up_menu.visible and unit.is_level_up_ready():
 			unit.upgrade_options = get_upgrade_options()
 			user_interface.show_upgrade_menu()
+			unit.level_up_animation.play("level_up")
+			get_tree().paused = true
 
 func on_level_up() -> void:
 	if InputManager.selected_unit != null:
@@ -377,6 +381,7 @@ func on_level_up() -> void:
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		unit.upgrade_options = get_upgrade_options()
+		get_tree().paused = false
 		
 func get_upgrade_options(count: int = 4):
 	var output = []

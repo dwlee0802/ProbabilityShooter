@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://Scenes/Interface/TemporaryTutorial.gd" id="4_vhvr1"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_fir5d"]
 [ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://active_reload_bar_texture.tres" id="5_omcna"]
-[ext_resource type="PackedScene" uid="uid://baabjk2sesuiw" path="res://Scenes/Interface/upgrade_option.tscn" id="6_2cgu3"]
 [ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://active_reload_fill_texture.tres" id="6_auke1"]
 [ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://minimap.tscn" id="7_a8odi"]
 [ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
+[ext_resource type="Script" path="res://Scenes/Interface/upgrade_option.gd" id="9_ogj75"]
 
 [sub_resource type="Animation" id="Animation_a84oq"]
 length = 0.001
@@ -683,6 +683,7 @@ layout_mode = 2
 text = "Bullet info 1"
 
 [node name="UpgradeMenu" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -706,19 +707,6 @@ size_flags_vertical = 4
 visible = false
 layout_mode = 2
 text = "SELECT UPGRADE"
-
-[node name="Option1" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
-layout_mode = 2
-
-[node name="Option2" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
-layout_mode = 2
-
-[node name="Option3" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
-layout_mode = 2
-
-[node name="Option4" parent="UpgradeMenu/LevelUp" instance=ExtResource("6_2cgu3")]
-visible = false
-layout_mode = 2
 
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
 offset_bottom = -10.0
@@ -868,4 +856,248 @@ libraries = {
 "": SubResource("AnimationLibrary_y7m2g")
 }
 
+[node name="LevelUpMenu" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="LevelUpMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = -128.0
+offset_right = 196.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LevelUpMenu/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LevelUpMenu/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+text = "LEVEL UP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="OptionOne" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(180, 256)
+layout_mode = 2
+texture_normal = ExtResource("5_fir5d")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("9_ogj75")
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 14
+
+[node name="VContainer" type="VBoxContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne/MarginContainer/VContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_fir5d")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne/MarginContainer/VContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="InfoLabel" type="RichTextLabel" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne/MarginContainer/VContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 13
+text = "asdfasdlk fjasdlkfjlasdkjflkasdjflaskdjflaskdjflasdjflaksdjfklasdjflasdkfjasdlkfjkldkfjdkjfkdjfkddfdfdfd"
+scroll_active = false
+
+[node name="HoverShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.0588235)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fir5d")
+
+[node name="PressedShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.619608)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fir5d")
+
+[node name="OptionOne2" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(180, 256)
+layout_mode = 2
+texture_normal = ExtResource("5_fir5d")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("9_ogj75")
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 14
+
+[node name="VContainer" type="VBoxContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2/MarginContainer/VContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_fir5d")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2/MarginContainer/VContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="InfoLabel" type="RichTextLabel" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2/MarginContainer/VContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 13
+text = "asdfasdlk fjasdlkfjlasdkjflkasdjflaskdjflaskdjflasdjflaksdjfklasdjflasdkfjasdlkfjkldkfjdkjfkdjfkddfdfdfd"
+scroll_active = false
+
+[node name="HoverShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.0588235)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fir5d")
+
+[node name="PressedShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.619608)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fir5d")
+
+[node name="OptionOne3" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(180, 256)
+layout_mode = 2
+texture_normal = ExtResource("5_fir5d")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("9_ogj75")
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 14
+
+[node name="VContainer" type="VBoxContainer" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Icon" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3/MarginContainer/VContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_fir5d")
+expand_mode = 1
+
+[node name="NameLabel" type="Label" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3/MarginContainer/VContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="InfoLabel" type="RichTextLabel" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3/MarginContainer/VContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 13
+text = "asdfasdlk fjasdlkfjlasdkjflkasdjflaskdjflaskdjflasdjflaksdjfklasdjflasdkfjasdlkfjkldkfjdkjfkdjfkddfdfdfd"
+scroll_active = false
+
+[node name="HoverShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3"]
+visible = false
+self_modulate = Color(1, 1, 1, 0.0588235)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fir5d")
+
+[node name="PressedShade" type="TextureRect" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3"]
+visible = false
+self_modulate = Color(0, 0, 0, 0.619608)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fir5d")
+
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
+[connection signal="mouse_entered" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" method="_on_mouse_exited"]
+[connection signal="pressed" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" method="_on_pressed"]
+[connection signal="mouse_entered" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2" method="_on_mouse_exited"]
+[connection signal="pressed" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne2" method="_on_pressed"]
+[connection signal="mouse_entered" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3" method="_on_mouse_exited"]
+[connection signal="pressed" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne3" method="_on_pressed"]

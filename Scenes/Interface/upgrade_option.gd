@@ -4,9 +4,9 @@ class_name UpgradeOption
 var data: ItemData
 
 @onready
-var name_label: Label = $MarginContainer/HBoxContainer/VBoxContainer/NameLabel
+var name_label: Label = $MarginContainer/VContainer/NameLabel
 @onready
-var info_label: Label = $MarginContainer/HBoxContainer/VBoxContainer/InfoLabel
+var info_label: RichTextLabel = $MarginContainer/VContainer/InfoLabel
 
 signal option_selected(data)
 
