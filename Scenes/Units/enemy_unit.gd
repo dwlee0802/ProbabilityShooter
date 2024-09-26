@@ -18,6 +18,13 @@ var max_armor_points: float = 10
 @onready
 var bleed_timer: Timer = $BleedTimer
 
+var autoheal_speed: float = 1
+## disable autoheal during timer
+var autoheal_stopped_timer: Timer
+var autoheal_cooldown: float = 3
+@onready
+var autoheal_particles: CPUParticles2D = $AutohealParticles
+
 @export_category("Ranged Unit Stats")
 @export
 var projectile: PackedScene = null
@@ -121,7 +128,13 @@ func _process(_delta: float) -> void:
 	target_position = InputManager.selected_unit.global_position
 	
 	state_machine.process_frame(_delta)
-
+	
+	if autoheal_stopped_timer.is_stopped() and health_points + _delta * autoheal_speed < max_health_points:
+		health_points += autoheal_speed * _delta
+		autoheal_particles.emitting = true
+	else:
+		autoheal_particles.emitting = false
+			
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
 	var new_popup = damage_popup.instantiate()
@@ -144,6 +157,9 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	
 	var effective_damage: int = min(damage_amount, health_points)
 	health_points -= damage_amount
+	# renew autoheal timer
+	autoheal_stopped_timer.stop()
+	autoheal_stopped_timer.start(autoheal_cooldown)
 	
 	# reduce speed if below half health
 	if health_points < max_health_points / 2:
