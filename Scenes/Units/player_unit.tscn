@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=30 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
 [ext_resource type="Texture2D" uid="uid://c2ecsu8asley" path="res://Art/arrow.png" id="15_kw6ct"]
+[ext_resource type="AudioStream" uid="uid://dmwgkp55r6ywh" path="res://Sound/level_up.mp3" id="16_x7mtf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bm0v7"]
 
@@ -357,6 +358,10 @@ self_modulate = Color(1, 1, 1, 0)
 position = Vector2(-1.50001, -78)
 scale = Vector2(1.07509, 0.864048)
 texture = ExtResource("15_kw6ct")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LevelUpEffect"]
+stream = ExtResource("16_x7mtf")
+pitch_scale = 0.9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pbu37")

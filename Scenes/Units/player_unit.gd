@@ -116,6 +116,8 @@ var upgrade_options = []
 
 @onready
 var level_up_animation: AnimationPlayer = $LevelUpEffect/LevelUpAnimationPlayer
+@onready
+var level_up_sound: AudioStreamPlayer = $LevelUpEffect/AudioStreamPlayer
 #endregion
 
 ##region Charge System
