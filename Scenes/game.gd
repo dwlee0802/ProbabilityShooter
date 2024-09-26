@@ -370,6 +370,7 @@ func on_experience_changed() -> void:
 			unit.upgrade_options = get_upgrade_options()
 			user_interface.show_upgrade_menu()
 			unit.level_up_animation.play("level_up")
+			await unit.level_up_animation.animation_finished
 			get_tree().paused = true
 
 func on_level_up() -> void:
