@@ -229,11 +229,16 @@ func _process(_delta: float) -> void:
 	
 #region Enemy Interaction
 func receive_hit(amount: float) -> void:
+	if is_unconscious():
+		return
+		
 	health_points -= amount
 	health_points = max(health_points, 0)
 	if health_points <= 0:
 		knocked_out.emit()
 		disable_enemy_collision()
+		weapon_one.process_mode = Node.PROCESS_MODE_DISABLED
+		weapon_two.process_mode = Node.PROCESS_MODE_DISABLED
 		
 	health_bar.change_value(health_points)
 	health_changed.emit()
@@ -255,6 +260,8 @@ func reset_health() -> void:
 	health_bar.change_value(max_health_points, true)
 	health_changed.emit()
 	enable_enemy_collision()
+	weapon_one.process_mode = Node.PROCESS_MODE_INHERIT
+	weapon_two.process_mode = Node.PROCESS_MODE_INHERIT
 
 func reset_exp() -> void:
 	experience_gained = 0
