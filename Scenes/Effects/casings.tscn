@@ -7,10 +7,9 @@
 rough = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ymq4o"]
-size = Vector2(793, 20)
+size = Vector2(1097, 20)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wpfo6"]
-bounce = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wng61"]
 size = Vector2(36.9934, 16.7452)
@@ -25,7 +24,7 @@ collision_mask = 512
 physics_material_override = SubResource("PhysicsMaterial_3atk5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-34.5, 0)
+position = Vector2(-45.5, 0)
 shape = SubResource("RectangleShape2D_ymq4o")
 
 [node name="CasingObjects" type="Node2D" parent="."]
@@ -48,6 +47,7 @@ shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing4"]
 self_modulate = Color(0.718825, 0.595029, 0, 1)
+position = Vector2(-26.1352, -27.6035)
 scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
@@ -69,6 +69,7 @@ shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing5"]
 self_modulate = Color(0.718825, 0.595029, 0, 1)
+position = Vector2(-2.98489, -18.1133)
 scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
@@ -90,6 +91,7 @@ shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing6"]
 self_modulate = Color(0.718825, 0.595029, 0, 1)
+position = Vector2(-6.29801, -82.1056)
 scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
@@ -100,8 +102,9 @@ collision_layer = 512
 collision_mask = 512
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_wpfo6")
-linear_velocity = Vector2(100, 0)
+linear_velocity = Vector2(100, -20)
 linear_damp_mode = 1
+linear_damp = 0.1
 angular_damp_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing7"]
@@ -111,6 +114,7 @@ shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing7"]
 self_modulate = Color(0.718825, 0.595029, 0, 1)
+position = Vector2(-3.31659, -52.2877)
 scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
@@ -121,9 +125,11 @@ collision_layer = 512
 collision_mask = 512
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_wpfo6")
+inertia = 100.0
 linear_velocity = Vector2(100, 0)
 linear_damp_mode = 1
 angular_damp_mode = 1
+angular_damp = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing8"]
 position = Vector2(-0.81192, 0.170959)
@@ -132,6 +138,7 @@ shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing8"]
 self_modulate = Color(0.718825, 0.595029, 0, 1)
+position = Vector2(0.259103, -9.48329)
 scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
@@ -153,5 +160,6 @@ shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing9"]
 self_modulate = Color(0.718825, 0.595029, 0, 1)
+position = Vector2(-0.936228, -12.0467)
 scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
