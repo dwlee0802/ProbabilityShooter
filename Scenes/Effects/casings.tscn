@@ -42,7 +42,6 @@ angular_damp_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing4"]
 position = Vector2(-0.81192, 0.170959)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing4"]
@@ -64,7 +63,6 @@ angular_damp_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing5"]
 position = Vector2(-0.81192, 0.170959)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing5"]
@@ -86,7 +84,6 @@ angular_damp_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing6"]
 position = Vector2(-0.81192, 0.170959)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing6"]
@@ -109,7 +106,6 @@ angular_damp_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing7"]
 position = Vector2(-0.81192, 0.170959)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing7"]
@@ -133,7 +129,6 @@ angular_damp = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing8"]
 position = Vector2(-0.81192, 0.170959)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing8"]
@@ -155,7 +150,6 @@ angular_damp_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing9"]
 position = Vector2(-0.81192, 0.170959)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_wng61")
 
 [node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing9"]

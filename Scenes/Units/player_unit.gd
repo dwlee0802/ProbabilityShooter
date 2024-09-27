@@ -7,6 +7,9 @@ var state_label: Label = $StateLabel
 @onready
 var shortcut_label: Label = $ShortcutLabel
 
+@onready
+var unit_sprite: Sprite2D = $UnitSprite
+
 #region Unit Stat Variables
 @export_category("Unit Stats")
 @export
@@ -198,6 +201,13 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	movement_component.physics_update(self, delta)
+		
+	if linear_velocity.x > 100:
+		unit_sprite.skew = 0.15
+	elif linear_velocity.x < -100:
+		unit_sprite.skew = -0.15
+	else:
+		unit_sprite.skew = 0
 		
 	aim_cone.visible = InputManager.IsSelected(self)
 	if InputManager.IsSelected(self):
