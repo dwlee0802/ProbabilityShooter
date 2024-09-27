@@ -203,9 +203,13 @@ func _physics_process(delta: float) -> void:
 	movement_component.physics_update(self, delta)
 		
 	if linear_velocity.x > 100:
-		unit_sprite.skew = 0.15
+		unit_sprite.skew = 0.10
+		if Input.is_action_pressed("run"):
+			unit_sprite.skew *= 2
 	elif linear_velocity.x < -100:
-		unit_sprite.skew = -0.15
+		unit_sprite.skew = -0.10
+		if Input.is_action_pressed("run"):
+			unit_sprite.skew *= 2
 	else:
 		unit_sprite.skew = 0
 		
