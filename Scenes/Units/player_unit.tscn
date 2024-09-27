@@ -334,7 +334,7 @@ root_node = NodePath("../Arrow")
 libraries = {
 "": SubResource("AnimationLibrary_w5xl4")
 }
-speed_scale = 2.0
+speed_scale = 1.5
 
 [node name="Arrow" type="Sprite2D" parent="LevelUpEffect"]
 self_modulate = Color(1, 1, 1, 0)
