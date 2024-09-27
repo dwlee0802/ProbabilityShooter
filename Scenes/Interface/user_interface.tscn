@@ -1133,7 +1133,10 @@ offset_top = -123.0
 offset_right = 256.0
 offset_bottom = -123.0
 script = ExtResource("10_acs6f")
-radius = 20.0
+radius = 15.0
+thickness = 15.0
+bg_color = Color(0.501961, 0.501961, 0.501961, 0.603922)
+bar_color = Color(1, 0.337255, 0.345098, 0.662745)
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" method="_on_mouse_entered"]
