@@ -709,8 +709,23 @@ visible = false
 layout_mode = 2
 text = "SELECT UPGRADE"
 
+[node name="EnemyCountLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -225.0
+offset_right = -2.0
+offset_bottom = -202.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Enemies: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
-offset_bottom = -10.0
 
 [node name="BulletGenerationInfoMenu" type="PanelContainer" parent="."]
 anchors_preset = 2

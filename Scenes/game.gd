@@ -225,6 +225,7 @@ func enemy_killed()-> void:
 	kill_count += 1
 	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
 	user_interface.kill_count_animation.play("killcount_up")
+	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
 	
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
@@ -234,6 +235,8 @@ func add_enemy(newEnemy: EnemyUnit) -> void:
 	else:
 		newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
+	
+	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
 	
 func game_over() -> void:
 	if no_game_over:

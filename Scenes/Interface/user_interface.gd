@@ -19,6 +19,8 @@ var kill_count_label: Label = $GameState/KillsLabel
 @onready
 var kill_count_animation: AnimationPlayer = $GameState/KillsLabel/AnimationPlayer
 @onready
+var enemy_count_label: Label = $EnemyCountLabel
+@onready
 var resource_label: Label = $GameState/ResourceLabel
 @onready
 var core_health_bar: DelayedProgressBar = $CoreHealthBar
