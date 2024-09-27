@@ -185,6 +185,10 @@ func _process(_delta):
 			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.YELLOW
 		else:
 			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.WHITE
+			
+	if Input.is_action_just_pressed("select_roulette"):
+		if !mutation_timer.is_stopped() and mutation_timer.time_left > 3.0:
+			mutation_timer.start(mutation_timer.time_left - 1.0)
 	
 	## Click sound
 	if Input.is_action_just_pressed("action_one") or Input.is_action_just_pressed("action_two"):
