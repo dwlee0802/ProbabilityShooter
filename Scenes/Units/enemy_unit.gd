@@ -8,6 +8,8 @@ var state_machine: StateMachine = $StateMachine
 @onready
 var state_label: Label = $StateLabel
 
+var color: Color = Color.DARK_RED
+
 var target_position: Vector2
 var follow_player: bool = true
 
@@ -105,17 +107,20 @@ func apply_heavy() -> void:
 	health_bar.change_value(health_points, true)
 	increase_size(2.5)
 	$Sprite2D.self_modulate = Color.OLIVE
+	color = Color.OLIVE
 
 func apply_quick() -> void:
 	max_movement_speed = max_movement_speed * 2.0
 	movement_speed = max_movement_speed
 	increase_size(0.5)
 	$Sprite2D.self_modulate = Color.HOT_PINK
+	color = Color.HOT_PINK
 	
 func apply_ranged() -> void:
 	attack_range = 3000
 	attack_cooldown = 1.5
 	$Sprite2D.self_modulate = Color.YELLOW
+	color = Color.YELLOW
 
 func apply_shield() -> void:
 	$Sprite2D.material = shield_material
