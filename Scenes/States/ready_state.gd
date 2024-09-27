@@ -40,6 +40,11 @@ func process_physics(_delta: float) -> State:
 func process_frame(_delta: float) -> State:
 	if !aim_timer.is_stopped():
 		parent.update_attack_cone((aim_timer.wait_time - aim_timer.time_left) / aim_timer.wait_time)
+	else:
+		# make hands follow mouse
+		if !parent.recoil_animation.is_playing():
+			parent.point_arm_at(parent.get_local_mouse_position())
+			
 	return null
 
 func process_input(_event: InputEvent) -> State:
@@ -99,6 +104,14 @@ func on_aim_finished() -> void:
 		
 		parent.weapon.on_activation(InputManager.selected_unit, target)
 		InputManager.selected_unit.actioned.emit()
+		parent.muzzle_flash.play("muzzle_flash")
+		
+		# left side
+		if parent.arm.get_node("Node2D/Hand").flip_v == true:
+			parent.recoil_animation.play("recoil_left")
+		# right side
+		else:
+			parent.recoil_animation.play("recoil_right")
 	
 	# if attack direction queue has stuff in it, start next attack process
 	# reload if we are out of bullets

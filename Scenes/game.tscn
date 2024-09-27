@@ -64,6 +64,8 @@ position = Vector2(718, 279)
 
 [node name="BloodSplatter" type="Node2D" parent="."]
 
+[node name="Casings" type="Node2D" parent="."]
+
 [node name="PlayerUnits" type="Node2D" parent="."]
 
 [node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]

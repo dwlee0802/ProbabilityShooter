@@ -6,6 +6,8 @@ var ready_state: State
 var active_reload_success_sound = preload("res://Sound/UI/confirmation_002.ogg")
 var active_reload_fail_sound = preload("res://Sound/UI/error_006.ogg")
 
+var casings: PackedScene = preload("res://Scenes/Effects/casings.tscn")
+
 
 func enter() -> void:
 	super()
@@ -15,9 +17,21 @@ func enter() -> void:
 		parent.reload_timer.timeout.connect(reload_action)
 	parent.bullets_changed.emit()
 
+func exit() -> void:
+	super()
+	var new_casing_eff: Node2D = casings.instantiate()
+	new_casing_eff.global_position = parent.global_position
+	get_tree().root.get_node("Game").casings.add_child(new_casing_eff)
+	parent.recoil_animation.play("reload")
+	
 func process_frame(_delta: float) -> State:
 	if parent.weapon.have_bullets():
 		return ready_state
+		
+	# make hands follow mouse
+	if !parent.recoil_animation.is_playing():
+		parent.point_arm_at(parent.get_local_mouse_position())
+			
 	return null
 	
 func process_input(_event: InputEvent) -> State:

@@ -1,0 +1,157 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqfwc2xy3cs2j"]
+
+[ext_resource type="Script" path="res://Scenes/Effects/casings.gd" id="1_1kl4j"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_l1b00"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3atk5"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ymq4o"]
+size = Vector2(793, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wpfo6"]
+bounce = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wng61"]
+size = Vector2(36.9934, 16.7452)
+
+[node name="CasingsEffect" type="Node2D"]
+position = Vector2(322, 276)
+script = ExtResource("1_1kl4j")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 512
+collision_mask = 512
+physics_material_override = SubResource("PhysicsMaterial_3atk5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-34.5, 0)
+shape = SubResource("RectangleShape2D_ymq4o")
+
+[node name="CasingObjects" type="Node2D" parent="."]
+
+[node name="Casing4" type="RigidBody2D" parent="CasingObjects"]
+position = Vector2(-118, -217)
+rotation = -0.349066
+collision_layer = 512
+collision_mask = 512
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_wpfo6")
+linear_velocity = Vector2(100, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing4"]
+position = Vector2(-0.81192, 0.170959)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_wng61")
+
+[node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing4"]
+self_modulate = Color(0.718825, 0.595029, 0, 1)
+scale = Vector2(1, 0.375)
+texture = ExtResource("2_l1b00")
+
+[node name="Casing5" type="RigidBody2D" parent="CasingObjects"]
+position = Vector2(-132, -233)
+rotation = -0.349066
+collision_layer = 512
+collision_mask = 512
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_wpfo6")
+linear_velocity = Vector2(100, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing5"]
+position = Vector2(-0.81192, 0.170959)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_wng61")
+
+[node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing5"]
+self_modulate = Color(0.718825, 0.595029, 0, 1)
+scale = Vector2(1, 0.375)
+texture = ExtResource("2_l1b00")
+
+[node name="Casing6" type="RigidBody2D" parent="CasingObjects"]
+position = Vector2(-98, -199)
+rotation = -0.349066
+collision_layer = 512
+collision_mask = 512
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_wpfo6")
+linear_velocity = Vector2(100, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing6"]
+position = Vector2(-0.81192, 0.170959)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_wng61")
+
+[node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing6"]
+self_modulate = Color(0.718825, 0.595029, 0, 1)
+scale = Vector2(1, 0.375)
+texture = ExtResource("2_l1b00")
+
+[node name="Casing7" type="RigidBody2D" parent="CasingObjects"]
+position = Vector2(-144, -186)
+rotation = -0.349066
+collision_layer = 512
+collision_mask = 512
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_wpfo6")
+linear_velocity = Vector2(100, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing7"]
+position = Vector2(-0.81192, 0.170959)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_wng61")
+
+[node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing7"]
+self_modulate = Color(0.718825, 0.595029, 0, 1)
+scale = Vector2(1, 0.375)
+texture = ExtResource("2_l1b00")
+
+[node name="Casing8" type="RigidBody2D" parent="CasingObjects"]
+position = Vector2(-74, -234)
+rotation = -0.349066
+collision_layer = 512
+collision_mask = 512
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_wpfo6")
+linear_velocity = Vector2(100, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing8"]
+position = Vector2(-0.81192, 0.170959)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_wng61")
+
+[node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing8"]
+self_modulate = Color(0.718825, 0.595029, 0, 1)
+scale = Vector2(1, 0.375)
+texture = ExtResource("2_l1b00")
+
+[node name="Casing9" type="RigidBody2D" parent="CasingObjects"]
+position = Vector2(-92, -255)
+rotation = -0.349066
+collision_layer = 512
+collision_mask = 512
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_wpfo6")
+linear_velocity = Vector2(100, 0)
+linear_damp_mode = 1
+angular_damp_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CasingObjects/Casing9"]
+position = Vector2(-0.81192, 0.170959)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_wng61")
+
+[node name="Sprite2D" type="Sprite2D" parent="CasingObjects/Casing9"]
+self_modulate = Color(0.718825, 0.595029, 0, 1)
+scale = Vector2(1, 0.375)
+texture = ExtResource("2_l1b00")

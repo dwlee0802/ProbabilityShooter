@@ -10,6 +10,8 @@ var units = []
 
 @onready
 var projectiles: Node2D = $Projectiles
+@onready
+var casings: Node2D = $Casings
 
 @onready
 var shootables: Node2D = $Shootables
@@ -405,6 +407,7 @@ func get_upgrade_options(count: int = 4):
 
 func on_upgrade_timeout():
 	user_interface.upgrade_option_selected(InputManager.selected_unit.upgrade_options.pick_random())
+	get_tree().paused = false
 	
 func pause_time(duration: float) -> void:
 	get_tree().paused = true

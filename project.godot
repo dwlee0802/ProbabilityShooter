@@ -24,7 +24,7 @@ mouse_cursor/custom_image="res://Art/empty_circle.png"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/radial_progress/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 
@@ -180,6 +180,7 @@ show_ui={
 2d_physics/layer_7="Shootables"
 2d_physics/layer_8="Wall"
 2d_physics/layer_9="Projectile"
+2d_physics/layer_10="Casings"
 
 [physics]
 

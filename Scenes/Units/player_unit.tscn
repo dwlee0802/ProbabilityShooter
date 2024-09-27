@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=27 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -11,14 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
-[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
-[ext_resource type="Texture2D" uid="uid://budg2mmu7eo76" path="res://Art/player_hand.png" id="15_53wne"]
 [ext_resource type="Texture2D" uid="uid://vf8d0ug5roo4" path="res://Art/triangle.png" id="15_hpy8o"]
 [ext_resource type="Texture2D" uid="uid://c2ecsu8asley" path="res://Art/arrow.png" id="15_kw6ct"]
+[ext_resource type="PackedScene" uid="uid://b7damp7si178x" path="res://player_arm.tscn" id="16_lckao"]
 [ext_resource type="AudioStream" uid="uid://dmwgkp55r6ywh" path="res://Sound/level_up.mp3" id="16_x7mtf"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bm0v7"]
@@ -183,14 +182,14 @@ position = Vector2(17, -50)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("13_n3hms")
 
-[node name="Sprite2D3" type="Sprite2D" parent="UnitSprite"]
-position = Vector2(-39.4228, -88.533)
-scale = Vector2(0.317329, 0.409352)
+[node name="Sprite2D4" type="Sprite2D" parent="UnitSprite"]
+position = Vector2(34.5503, -97.5469)
+scale = Vector2(0.418148, 0.553575)
 texture = ExtResource("15_hpy8o")
 
-[node name="Sprite2D4" type="Sprite2D" parent="UnitSprite"]
-position = Vector2(40.3087, -88.533)
-scale = Vector2(0.317329, 0.409352)
+[node name="Sprite2D5" type="Sprite2D" parent="UnitSprite"]
+position = Vector2(-34.1074, -97.2555)
+scale = Vector2(0.418148, 0.553575)
 texture = ExtResource("15_hpy8o")
 
 [node name="WeaponOne" type="Node2D" parent="."]
@@ -254,25 +253,7 @@ stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
 
-[node name="Arm" type="Node2D" parent="WeaponOne"]
-
-[node name="HandSprite" type="Sprite2D" parent="WeaponOne/Arm"]
-visible = false
-position = Vector2(120, 0)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("13_n3hms")
-
-[node name="WeaponSprite" type="Sprite2D" parent="WeaponOne/Arm/HandSprite"]
-visible = false
-self_modulate = Color(0, 0, 0, 1)
-position = Vector2(290, -200)
-scale = Vector2(35, 8.721)
-texture = ExtResource("11_cpb60")
-
-[node name="Hand" type="Sprite2D" parent="WeaponOne/Arm"]
-position = Vector2(148, 16)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("15_53wne")
+[node name="Arm" parent="WeaponOne" instance=ExtResource("16_lckao")]
 
 [node name="WeaponTwo" type="Node2D" parent="."]
 script = ExtResource("3_d8l28")
@@ -335,25 +316,7 @@ stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
 
-[node name="Arm" type="Node2D" parent="WeaponTwo"]
-
-[node name="HandSprite" type="Sprite2D" parent="WeaponTwo/Arm"]
-visible = false
-position = Vector2(120, 0)
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("13_n3hms")
-
-[node name="WeaponSprite" type="Sprite2D" parent="WeaponTwo/Arm/HandSprite"]
-visible = false
-self_modulate = Color(0, 0, 0, 1)
-position = Vector2(290, -200)
-scale = Vector2(35, 8.721)
-texture = ExtResource("11_cpb60")
-
-[node name="Hand" type="Sprite2D" parent="WeaponTwo/Arm"]
-position = Vector2(148, 16)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("15_53wne")
+[node name="Arm" parent="WeaponTwo" instance=ExtResource("16_lckao")]
 
 [node name="LevelUpRippleEffect" type="Sprite2D" parent="."]
 process_mode = 3

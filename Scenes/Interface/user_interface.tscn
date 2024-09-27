@@ -710,7 +710,7 @@ layout_mode = 2
 text = "SELECT UPGRADE"
 
 [node name="EnemyCountLabel" type="Label" parent="."]
-anchors_preset = -1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0

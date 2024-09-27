@@ -65,6 +65,6 @@ color = Color(1, 1, 1, 0.396078)
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(1, 1, 0.788235, 1)
 texture = SubResource("GradientTexture2D_br25l")
-texture_scale = 10.0
+texture_scale = 5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

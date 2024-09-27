@@ -62,38 +62,31 @@ func _on_body_entered(body) -> void:
 		return
 		
 	if body is EnemyUnit and is_player:
-		
 		if body.shield and !bullet_data.piercing:
 			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
 			queue_free()
-			return
-		
-		# apply damage
-		var eff_dmg: int = body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
+		else:
+			# apply damage
+			var eff_dmg: int = body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
 
-		# apply knock-back
-		body.apply_central_impulse(dir.normalized() * knock_back_amount)
-		# give exp to shooter
-		if origin_unit is PlayerUnit:
-			origin_unit.add_experience(eff_dmg)
-	
-		var new_eff: Node2D = on_hit_effect.instantiate()
-		new_eff.global_position = global_position
-		new_eff.rotation = dir.angle()
-		new_eff.get_node("CPUParticles2D").emitting = true
-		get_tree().root.add_child(new_eff)
+			# apply knock-back
+			body.apply_central_impulse(dir.normalized() * knock_back_amount)
+			# give exp to shooter
+			if origin_unit is PlayerUnit:
+				origin_unit.add_experience(eff_dmg)
 		
-		var new_exit_eff: Node2D = exit_effect.instantiate()
-		new_exit_eff.global_position = global_position
-		new_exit_eff.rotation = dir.angle()
-		new_exit_eff.get_node("CPUParticles2D").emitting = true
-		get_tree().root.add_child(new_exit_eff)
+			var new_eff: Node2D = on_hit_effect.instantiate()
+			new_eff.global_position = global_position
+			new_eff.rotation = dir.angle()
+			new_eff.get_node("CPUParticles2D").emitting = true
+			get_tree().root.add_child(new_eff)
+			
+			var new_exit_eff: Node2D = exit_effect.instantiate()
+			new_exit_eff.global_position = global_position
+			new_exit_eff.rotation = dir.angle()
+			new_exit_eff.get_node("CPUParticles2D").emitting = true
+			get_tree().root.add_child(new_exit_eff)
 		
-		if bullet_data.piercing:
-			return
-		
-		queue_free()
-	
 	if body is PlayerUnit and !is_player:
 		body.receive_hit(damage_amount)
 		queue_free()
@@ -112,4 +105,7 @@ func _on_body_entered(body) -> void:
 		new_dynamite.call_deferred("activate")
 		new_dynamite.shooter = origin_unit
 	
-	queue_free()
+	if bullet_data.piercing:
+		return
+	else:
+		queue_free()

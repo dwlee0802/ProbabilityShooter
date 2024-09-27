@@ -38,6 +38,10 @@ var background_color: Color = Color.BLACK
 
 @onready
 var arm: Node2D = $Arm
+@onready
+var muzzle_flash: AnimationPlayer = $Arm/Node2D/MuzzleFlash/AnimationPlayer
+@onready
+var recoil_animation: AnimationPlayer = $Arm/AnimationPlayer
 
 ## sound
 @onready 
@@ -116,5 +120,6 @@ func get_magazine_status() -> String:
 func point_arm_at(target_pos: Vector2) -> void:
 	var angle: float = Vector2.RIGHT.angle_to_point(target_pos)
 	arm.rotation = angle
-	var hand: Sprite2D = arm.get_node("Hand")
+	var hand: Sprite2D = arm.get_node("Node2D/Hand")
+	# flip v if hand is on the left side
 	hand.flip_v = (hand.global_position - global_position).x <= 0

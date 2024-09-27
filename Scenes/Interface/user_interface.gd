@@ -137,6 +137,9 @@ func show_upgrade_menu() -> void:
 	level_up_menu.visible = true
 
 func upgrade_option_selected(data: ItemData) -> void:
+	upgrade_timer.stop()
+	get_tree().paused = false
+	
 	if InputManager.selected_unit == null:
 		push_error("upgrade option selected but no unit selected.")
 		level_up_menu.visible = false
