@@ -249,13 +249,11 @@ func game_over() -> void:
 		return
 		
 	print("***GAME OVER***")
-	spawner_component.spawn_timer.stop()
+	#spawner_component.spawn_timer.stop()
 	mutation_timer.stop()
 	user_interface.mutation_roulette.stop_roulette()
-	for unit: EnemyUnit in enemies.get_children():
-		unit.die()
 	
-	remove_objects()
+	#remove_objects()
 	
 	user_interface.show_game_over_screen(false)
 	pause = true

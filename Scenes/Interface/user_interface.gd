@@ -2,7 +2,7 @@ extends CanvasLayer
 class_name UserInterface
 
 @onready
-var restart_button: Button = $GameOver/RestartButton
+var restart_button: Button = $GameOver/VBoxContainer/RestartButton
 @onready
 var game_over_ui = $GameOver
 @onready
@@ -94,10 +94,8 @@ func _process(_delta: float) -> void:
 	if !upgrade_timer.is_stopped():
 		level_up_time_limit.progress = (1 - (upgrade_timer.time_left / upgrade_timer.wait_time)) * 100
 		
-func show_game_over_screen(victory: bool = false):
+func show_game_over_screen(_victory: bool = false):
 	$GameOver.visible = true
-	$GameOver/Fail.visible = !victory
-	$GameOver/Victory.visible = victory
 
 func show_item_info(item: ItemData):
 	#item_info.visible = true

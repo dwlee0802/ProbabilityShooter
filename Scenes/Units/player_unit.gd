@@ -236,7 +236,7 @@ func receive_hit(amount: float) -> void:
 	health_points = max(health_points, 0)
 	if health_points <= 0:
 		knocked_out.emit()
-		disable_enemy_collision()
+		#disable_enemy_collision()
 		weapon_one.process_mode = Node.PROCESS_MODE_DISABLED
 		weapon_two.process_mode = Node.PROCESS_MODE_DISABLED
 		
@@ -274,10 +274,6 @@ func is_unconscious() -> bool:
 func _on_body_entered(body) -> void:
 	if body is EnemyUnit:
 		receive_hit(body.health_points)
-		
-		if is_unconscious():
-			return
-	
 		body.die()
 
 func disable_enemy_collision():
