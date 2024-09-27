@@ -380,9 +380,8 @@ func on_experience_changed() -> void:
 		if !user_interface.level_up_menu.visible and unit.is_level_up_ready():
 			unit.upgrade_options = get_upgrade_options()
 			user_interface.show_upgrade_menu()
-			unit.level_up_animation.play("level_up")
 			unit.level_up_sound.playing = true
-			await unit.level_up_animation.animation_finished
+			#await unit.level_up_animation.animation_finished
 			# start upgrade option selection timer
 			upgrade_timer.start(15)
 			get_tree().paused = true
@@ -395,6 +394,7 @@ func on_level_up() -> void:
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		unit.upgrade_options = get_upgrade_options()
 		get_tree().paused = false
+		unit.level_up_animation.play("level_up")
 		
 func get_upgrade_options(count: int = 4):
 	var output = []
