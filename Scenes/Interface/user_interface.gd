@@ -87,7 +87,7 @@ func _ready():
 	
 	mutation_roulette.option_selected.connect(show_mutation_info)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	## player level up selection time limit
 	if !upgrade_timer.is_stopped():
 		level_up_time_limit.progress = (1 - (upgrade_timer.time_left / upgrade_timer.wait_time)) * 100

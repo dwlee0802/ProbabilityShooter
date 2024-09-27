@@ -315,6 +315,8 @@ func start() -> void:
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
 	kill_count = 0
+	user_interface.kill_count_label.text = "Kills: " + str(kill_count)
+	
 	pause = false
 	for unit: PlayerUnit in units:
 		unit.reset_health()

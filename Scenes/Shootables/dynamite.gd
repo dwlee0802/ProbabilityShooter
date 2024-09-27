@@ -35,7 +35,9 @@ func activate() -> void:
 			# damage stuff inside range
 			if shooter != null and shooter is PlayerUnit:
 				shooter.add_experience(unit.receive_hit(damage_amount, true, dir))
-			
+			else:
+				unit.receive_hit(damage_amount, true, dir)
+				
 			# apply knock back
 			unit.apply_impulse(dir * 1000)
 		

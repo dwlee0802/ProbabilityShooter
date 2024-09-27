@@ -23,6 +23,7 @@ var shield: bool = false
 var shield_sound: AudioStreamPlayer = $ShieldHitSound
 @onready
 var shield_particles: CPUParticles2D = $ShieldParticle
+var shield_material = preload("res://Scenes/Units/enemy_unit_shield.tres")
 
 var autoheal_speed: float = 1
 ## disable autoheal during timer
@@ -117,7 +118,7 @@ func apply_ranged() -> void:
 	$Sprite2D.self_modulate = Color.YELLOW
 
 func apply_shield() -> void:
-	$Sprite2D.material.set_shader_parameter("width", 5)
+	$Sprite2D.material = shield_material
 	shield = true
 
 func break_shield() -> void:

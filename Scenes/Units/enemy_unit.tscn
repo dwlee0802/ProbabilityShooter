@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=24 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_a2d0g"]
@@ -9,18 +9,9 @@
 [ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="4_652yl"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="4_s1jtq"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_e5dnx"]
-[ext_resource type="Shader" path="res://Scenes/Units/outline.gdshader" id="6_0vdff"]
 [ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
 [ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
 [ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="13_h80fs"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h6sxi"]
-shader = ExtResource("6_0vdff")
-shader_parameter/color = Color(1, 1, 0.658824, 1)
-shader_parameter/width = 0.0
-shader_parameter/pattern = 1
-shader_parameter/inside = false
-shader_parameter/add_margins = true
 
 [sub_resource type="Animation" id="Animation_eonp3"]
 length = 0.001
@@ -175,7 +166,6 @@ color = Color(1, 1, 1, 0.396078)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.658824, 0, 0, 1)
-material = SubResource("ShaderMaterial_h6sxi")
 position = Vector2(0.999998, -1.5)
 scale = Vector2(5, 4.959)
 texture = ExtResource("2_ao2hf")
