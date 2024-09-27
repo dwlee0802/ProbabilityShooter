@@ -18,9 +18,14 @@ var max_armor_points: float = 10
 @onready
 var bleed_timer: Timer = $BleedTimer
 
+var shield: bool = false
+@onready
+var shield_sound: AudioStreamPlayer = $ShieldHitSound
+
 var autoheal_speed: float = 1
 ## disable autoheal during timer
-var autoheal_stopped_timer: Timer
+@onready
+var autoheal_stopped_timer: Timer = $AutohealTimer
 var autoheal_cooldown: float = 3
 @onready
 var autoheal_particles: CPUParticles2D = $AutohealParticles
@@ -66,8 +71,6 @@ var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
 var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
-var shield: PackedScene = preload("res://Scenes/Mutations/enemy_shield.tscn")
-
 static var resource_drop_chance: float = 0
 var resource_drop = preload("res://Scenes/resource.tscn")
 
@@ -112,9 +115,13 @@ func apply_ranged() -> void:
 	$Sprite2D.self_modulate = Color.YELLOW
 
 func apply_shield() -> void:
-	var new_shield: EnemyShield = shield.instantiate()
-	add_child(new_shield)
-	new_shield.increase_size(size_modifier)
+	$Sprite2D.material.set_shader_parameter("width", 5)
+	shield = true
+
+func break_shield() -> void:
+	$Sprite2D.material = null
+	shield = false
+	shield_sound.playing = true
 	
 func _ready():
 	state_machine.init(self)
@@ -138,6 +145,10 @@ func _process(_delta: float) -> void:
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
 	var new_popup = damage_popup.instantiate()
+
+	if shield:
+		break_shield()
+		return 0
 		
 	if critical:
 		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
