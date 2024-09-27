@@ -330,6 +330,8 @@ func start() -> void:
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)
+	
+	user_interface.update_bullet_menu()
 
 func on_core_hit() -> void:
 	user_interface.core_hit_effect.play("RESET")

@@ -28,16 +28,16 @@ var move_speed_range: Vector2i
 
 @export_category("Trait Chances")
 @export
-var _base_heavy_chance: float = 0
+var _base_heavy_chance: float = 0.01
 var heavy_chance: float
 @export
-var _base_fast_chance: float = 0
+var _base_fast_chance: float = 0.01
 var fast_chance: float
 @export
-var _base_ranged_chance: float = 0
+var _base_ranged_chance: float = 0.01
 var ranged_chance: float
 @export
-var _base_shield_chance: float = 0
+var _base_shield_chance: float = 0.01
 var shield_chance: float
 
 signal stats_changed
