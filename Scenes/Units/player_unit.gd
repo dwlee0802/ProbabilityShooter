@@ -80,12 +80,6 @@ var queued_color: Color = Color.ORANGE
 var background_color: Color = Color.BLACK
 
 @onready
-var arm: Node2D = $Arm
-@onready
-var aim_line: Line2D = $AimLine
-@onready
-var attack_line: Line2D = $AttackLine
-@onready
 var attack_cone: Polygon2D = $AttackFullCone/AttackCone
 @onready
 var attack_full_cone: Polygon2D = $AttackFullCone
@@ -93,8 +87,6 @@ var attack_full_cone: Polygon2D = $AttackFullCone
 var aim_cone: Polygon2D = $AimCone
 @onready
 var queued_cones: Node2D = $QueuedCones
-@onready
-var attack_line_anim: AnimationPlayer = $AttackLine/AnimationPlayer
 @onready
 var move_line: Line2D = $MoveLine
 #endregion
@@ -172,14 +164,10 @@ func _ready() -> void:
 	print("equipped " + weapon_one.weapon_data.equipment_name)
 	print("equipped " + weapon_two.weapon_data.equipment_name)
 	
-	aim_line.default_color = aim_color
-	attack_line.default_color = attack_color
 	# cone colors
 	aim_cone.color = aim_color
 	attack_cone.color = attack_color
 	attack_full_cone.color = background_color
-	
-	$Sprite2D.self_modulate = temp_color
 	
 	# unit health
 	health_points = int(max_health_points)
@@ -213,7 +201,6 @@ func _physics_process(delta: float) -> void:
 		
 	aim_cone.visible = InputManager.IsSelected(self)
 	if InputManager.IsSelected(self):
-		aim_line.set_point_position(1, get_local_mouse_position().normalized() * 10000)
 		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 
 func _process(_delta: float) -> void:

@@ -36,6 +36,9 @@ var queued_color: Color = Color.ORANGE
 @export
 var background_color: Color = Color.BLACK
 
+@onready
+var arm: Node2D = $Arm
+
 ## sound
 @onready 
 var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
@@ -49,6 +52,8 @@ var active_reload_sound_player: AudioStreamPlayer = $ActiveReloadSound
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
 #endregion
+
+var disabled: bool = false
 
 signal bullets_changed
 signal reload_started
@@ -69,9 +74,9 @@ func _ready() -> void:
 	attack_cone.color = attack_color
 	attack_full_cone.color = background_color
 	
-
 func _unhandled_input(event: InputEvent) -> void:
-	state_machine.process_input(event)
+	if !disabled:
+		state_machine.process_input(event)
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
@@ -107,3 +112,9 @@ func get_magazine_status() -> String:
 	output += " / " + str(weapon.get_magazine_size())
 	
 	return output
+
+func point_arm_at(target_pos: Vector2) -> void:
+	var angle: float = Vector2.RIGHT.angle_to_point(target_pos)
+	arm.rotation = angle
+	var hand: Sprite2D = arm.get_node("Hand")
+	hand.flip_v = (hand.global_position - global_position).x <= 0

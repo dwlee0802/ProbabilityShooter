@@ -83,6 +83,7 @@ func start_attack_process() -> void:
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(parent.attack_direction_queue.front())
 	queued_attack_cones.front().visible = false
 	parent.attack_full_cone.visible = true
+	parent.point_arm_at(parent.attack_direction_queue.front())
 	
 func on_aim_finished() -> void:
 	if parent.attack_direction_queue.size() == 0:

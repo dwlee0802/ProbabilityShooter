@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=28 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
+[ext_resource type="Texture2D" uid="uid://budg2mmu7eo76" path="res://Art/player_hand.png" id="15_53wne"]
+[ext_resource type="Texture2D" uid="uid://vf8d0ug5roo4" path="res://Art/triangle.png" id="15_hpy8o"]
 [ext_resource type="Texture2D" uid="uid://c2ecsu8asley" path="res://Art/arrow.png" id="15_kw6ct"]
 [ext_resource type="AudioStream" uid="uid://dmwgkp55r6ywh" path="res://Sound/level_up.mp3" id="16_x7mtf"]
 
@@ -134,54 +136,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewh10"]
 size = Vector2(157, 231)
 
-[sub_resource type="Animation" id="Animation_t56vo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackLine:width")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [10.0]
-}
-
-[sub_resource type="Animation" id="Animation_nwfdx"]
-resource_name = "aim_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackLine:width")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [15.0, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7runw"]
-_data = {
-"RESET": SubResource("Animation_t56vo"),
-"aim_animation": SubResource("Animation_nwfdx")
-}
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjobb"]
 resource_local_to_scene = true
 radius = 128.0
-
-[sub_resource type="Gradient" id="Gradient_o1o5u"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_fxuti"]
-gradient = SubResource("Gradient_o1o5u")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.834862, 0.224771)
 
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("CanvasItemMaterial_bm0v7")
@@ -206,6 +163,35 @@ acceleration = 12000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_sf8iw")
+
+[node name="UnitSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ablmn")
+use_parent_material = true
+position = Vector2(-1.50001, -0.5)
+scale = Vector2(1.12879, 1.14646)
+texture = ExtResource("14_wx8vp")
+
+[node name="Sprite2D" type="Sprite2D" parent="UnitSprite"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(-17, -50)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_n3hms")
+
+[node name="Sprite2D2" type="Sprite2D" parent="UnitSprite"]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(17, -50)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("13_n3hms")
+
+[node name="Sprite2D3" type="Sprite2D" parent="UnitSprite"]
+position = Vector2(-39.4228, -88.533)
+scale = Vector2(0.317329, 0.409352)
+texture = ExtResource("15_hpy8o")
+
+[node name="Sprite2D4" type="Sprite2D" parent="UnitSprite"]
+position = Vector2(40.3087, -88.533)
+scale = Vector2(0.317329, 0.409352)
+texture = ExtResource("15_hpy8o")
 
 [node name="WeaponOne" type="Node2D" parent="."]
 script = ExtResource("3_d8l28")
@@ -268,6 +254,26 @@ stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
 
+[node name="Arm" type="Node2D" parent="WeaponOne"]
+
+[node name="HandSprite" type="Sprite2D" parent="WeaponOne/Arm"]
+visible = false
+position = Vector2(120, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("13_n3hms")
+
+[node name="WeaponSprite" type="Sprite2D" parent="WeaponOne/Arm/HandSprite"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(290, -200)
+scale = Vector2(35, 8.721)
+texture = ExtResource("11_cpb60")
+
+[node name="Hand" type="Sprite2D" parent="WeaponOne/Arm"]
+position = Vector2(148, 16)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("15_53wne")
+
 [node name="WeaponTwo" type="Node2D" parent="."]
 script = ExtResource("3_d8l28")
 weapon_data = ExtResource("4_s5eeb")
@@ -329,19 +335,32 @@ stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
 
+[node name="Arm" type="Node2D" parent="WeaponTwo"]
+
+[node name="HandSprite" type="Sprite2D" parent="WeaponTwo/Arm"]
+visible = false
+position = Vector2(120, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("13_n3hms")
+
+[node name="WeaponSprite" type="Sprite2D" parent="WeaponTwo/Arm/HandSprite"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(290, -200)
+scale = Vector2(35, 8.721)
+texture = ExtResource("11_cpb60")
+
+[node name="Hand" type="Sprite2D" parent="WeaponTwo/Arm"]
+position = Vector2(148, 16)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("15_53wne")
+
 [node name="LevelUpRippleEffect" type="Sprite2D" parent="."]
 process_mode = 3
 self_modulate = Color(1, 1, 1, 0)
 position = Vector2(-1, 75)
 scale = Vector2(0.63786, 0.15)
 texture = ExtResource("13_n3hms")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_ablmn")
-use_parent_material = true
-position = Vector2(-0.500004, 5.72205e-06)
-scale = Vector2(1.29545, 1.28283)
-texture = ExtResource("14_wx8vp")
 
 [node name="LevelUpEffect" type="Node2D" parent="."]
 process_mode = 3
@@ -368,23 +387,6 @@ pitch_scale = 0.9
 position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_ewh10")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
-
-[node name="AimLine" type="Line2D" parent="."]
-visible = false
-points = PackedVector2Array(0, 0, 100, 0)
-width = 15.0
-antialiased = true
-
-[node name="AttackLine" type="Line2D" parent="."]
-visible = false
-points = PackedVector2Array(0, 0, 500, 0)
-antialiased = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AttackLine"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_7runw")
-}
 
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0
@@ -457,23 +459,6 @@ stream = ExtResource("11_7sg32")
 pitch_scale = 0.8
 max_distance = 10000.0
 max_polyphony = 10
-
-[node name="Arm" type="Node2D" parent="."]
-
-[node name="ArmSprite" type="Sprite2D" parent="Arm"]
-visible = false
-position = Vector2(63, 30)
-scale = Vector2(2.8125, 1)
-texture = ExtResource("11_cpb60")
-
-[node name="PointLight2D" type="PointLight2D" parent="Arm"]
-visible = false
-position = Vector2(-88, 93)
-color = Color(1, 1, 0.784314, 1)
-energy = 5.0
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_fxuti")
-texture_scale = 8.0
 
 [node name="AimCone" type="Polygon2D" parent="."]
 visible = false
