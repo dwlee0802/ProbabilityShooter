@@ -252,24 +252,10 @@ func game_over() -> void:
 	spawner_component.spawn_timer.stop()
 	mutation_timer.stop()
 	user_interface.mutation_roulette.stop_roulette()
+	for unit: EnemyUnit in enemies.get_children():
+		unit.die()
 	
-	# remove all remaining enemy units
-	remove_child(enemies)
-	enemies.queue_free()
-	enemies = Node2D.new()
-	add_child(enemies)
-	
-	# remove all remaining projectiles
-	call_deferred("remove_child", projectiles)
-	projectiles.queue_free()
-	projectiles = Node2D.new()
-	add_child(projectiles)
-	
-	# remove all remaining shootables
-	remove_child(shootables)
-	shootables.queue_free()
-	shootables = Node2D.new()
-	add_child(shootables)
+	remove_objects()
 	
 	user_interface.show_game_over_screen(false)
 	pause = true
@@ -279,61 +265,68 @@ func victory() -> void:
 		return
 		
 	print("***VICTORY***")
+	
+	user_interface.show_game_over_screen(true)
+	pause = true
+
+func remove_objects() -> void:
 	# remove all remaining enemy units
-	remove_child(enemies)
+	call_deferred("remove_child", enemies)
 	enemies.queue_free()
 	enemies = Node2D.new()
 	add_child(enemies)
 	
-	# remove all remaining projectiles
-	remove_child(projectiles)
-	projectiles.queue_free()
-	projectiles = Node2D.new()
-	add_child(projectiles)
-	
 	# remove all remaining shootables
-	remove_child(shootables)
+	call_deferred("remove_child", shootables)
 	shootables.queue_free()
 	shootables = Node2D.new()
 	add_child(shootables)
 	
-	user_interface.show_game_over_screen(true)
-	pause = true
-	#change_resource(0)
+	# remove all remaining projectiles
+	call_deferred("remove_child", projectiles)
+	projectiles.queue_free()
+	projectiles = Node2D.new()
+	add_child(projectiles)
+	
+	# remove all remaining projectiles
+	call_deferred("remove_child", casings)
+	casings.queue_free()
+	casings = Node2D.new()
+	add_child(casings)
+	
+	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	
 func start() -> void:
 	print("***START GAME***")
 	
 	# remove leftover resources
-	#DW_ToolBox.RemoveAllChildren(resource_node)
-	# remove blood splatter
-	DW_ToolBox.RemoveAllChildren(blood_splatter)
+	remove_objects()
 	
 	spawner_component.reset_stats()
 	
 	# spawn first wave
 	spawner_component.on_spawn_timer_timeout()
-	#spawn_wave()
-	#wave_timer.start(time_between_waves)
-	#linear_spawn_timer.start(linear_spawn_time)
-	#elite_timer.start(elite_spawn_time)
 	
+	# start mutation
 	mutation_timer.start(mutation_cooldown)
 	user_interface.mutation_roulette.mutation_time_label.visible = true
 
+	# reset game stats
 	user_interface.game_over_ui.visible = false
 	time_since_start = 0
 	kill_count = 0
 	user_interface.kill_count_label.text = "Kills: " + str(kill_count)
-	
 	pause = false
+	
+	# reset unit stats
 	for unit: PlayerUnit in units:
 		unit.reset_health()
 		unit.reset_items()
 		unit.reset_exp()
 		unit.reload_action()
 		unit.global_position = Vector2.ZERO
-		
+	
+	# reset enemy stats 
 	spawner_component.reset_stats()
 
 	# randomly place dynamite on the map
