@@ -154,11 +154,14 @@ func _process(_delta: float) -> void:
 	
 	if autoheal_stopped_timer.is_stopped() and health_points + _delta * autoheal_speed < max_health_points:
 		health_points += autoheal_speed * _delta
+		tweened_health_points = health_points
 		autoheal_particles.emitting = true
+		update_health_label(int(health_points))
 	else:
 		autoheal_particles.emitting = false
-		
-	update_health_label(int(tweened_health_points))
+	
+	if health_tween != null and health_tween.is_valid():
+		update_health_label(int(tweened_health_points))
 
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
@@ -193,8 +196,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	var new_tween: Tween = create_tween()
 	health_tween = new_tween
 	
-	var current_health: float = health_points - effective_damage
-	new_tween.tween_property(self, "tweened_health_points", health_points, 0.3)
+	new_tween.tween_property(self, "tweened_health_points", health_points, 0.25)
 	
 	# renew autoheal timer
 	autoheal_stopped_timer.stop()

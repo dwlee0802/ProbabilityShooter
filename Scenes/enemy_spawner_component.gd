@@ -20,10 +20,10 @@ var wave_chance: float = 0.1
 
 @export_category("Enemy Stats")
 @export
-var _base_health_range: Vector2i = Vector2i.ZERO
+var _base_health_range: Vector2i = Vector2i(25, 150)
 var health_range: Vector2i
 @export
-var _base_move_speed_range: Vector2i = Vector2i.ZERO
+var _base_move_speed_range: Vector2i = Vector2i(100, 200)
 var move_speed_range: Vector2i
 
 @export_category("Trait Chances")

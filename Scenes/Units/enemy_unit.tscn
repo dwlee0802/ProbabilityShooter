@@ -165,7 +165,6 @@ scale_amount_max = 10.0
 color = Color(1, 1, 1, 0.396078)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 self_modulate = Color(0.658824, 0, 0, 1)
 position = Vector2(0.999998, -1.5)
 scale = Vector2(5, 4.959)

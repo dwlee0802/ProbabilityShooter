@@ -24,8 +24,7 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
-_base_health_range = Vector2i(25, 125)
-_base_move_speed_range = Vector2i(100, 200)
+_base_health_range = Vector2i(300, 350)
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
@@ -58,7 +57,6 @@ one_shot = true
 
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
 process_mode = 3
-visible = false
 
 [node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
 position = Vector2(718, 279)
