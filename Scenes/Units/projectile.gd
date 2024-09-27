@@ -63,7 +63,7 @@ func _on_body_entered(body) -> void:
 		
 	if body is EnemyUnit and is_player:
 		
-		if body.shield:
+		if body.shield and !bullet_data.piercing:
 			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
 			queue_free()
 			return

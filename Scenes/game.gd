@@ -130,6 +130,7 @@ func _ready():
 	
 	# auto select upgrade option if timeout
 	upgrade_timer.timeout.connect(on_upgrade_timeout)
+	user_interface.upgrade_timer = upgrade_timer
 	
 func _process(_delta):
 	InputManager.camera.scale_unit_shortcut_label(units)
@@ -183,10 +184,6 @@ func _process(_delta):
 		else:
 			user_interface.mutation_roulette.mutation_time_label.self_modulate = Color.WHITE
 	
-	## player level up selection time limit
-	if !upgrade_timer.is_stopped():
-		user_interface.level_up_time_limit.progress = 1 - (upgrade_timer.time_left / upgrade_timer.wait_time) * 100
-		
 	## Click sound
 	if Input.is_action_just_pressed("action_one") or Input.is_action_just_pressed("action_two"):
 		$ClickSoundPlayer.play()
@@ -380,6 +377,8 @@ func on_experience_changed() -> void:
 			unit.level_up_animation.play("level_up")
 			unit.level_up_sound.playing = true
 			await unit.level_up_animation.animation_finished
+			# start upgrade option selection timer
+			upgrade_timer.start(15)
 			get_tree().paused = true
 
 func on_level_up() -> void:
@@ -390,8 +389,6 @@ func on_level_up() -> void:
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		unit.upgrade_options = get_upgrade_options()
 		get_tree().paused = false
-		# start upgrade option selection timer
-		upgrade_timer.start(15)
 		
 func get_upgrade_options(count: int = 4):
 	var output = []

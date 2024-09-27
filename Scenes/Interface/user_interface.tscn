@@ -789,6 +789,7 @@ fill_mode = 3
 show_percentage = false
 
 [node name="MutationRoulette" type="Control" parent="."]
+process_mode = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 5

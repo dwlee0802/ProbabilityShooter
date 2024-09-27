@@ -55,6 +55,7 @@ wait_time = 30.0
 wait_time = 4.0
 
 [node name="UpgradeTimer" type="Timer" parent="."]
+process_mode = 2
 one_shot = true
 
 [node name="GameDurationTimer" type="Timer" parent="."]

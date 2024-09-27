@@ -72,6 +72,7 @@ var charge_bar: ProgressBar = $ChargeProgressBar
 @onready
 var mutation_roulette: Roulette = $MutationRoulette
 
+var upgrade_timer: Timer
 
 func _ready():
 	game_over_ui.visible = false
@@ -86,6 +87,11 @@ func _ready():
 	
 	mutation_roulette.option_selected.connect(show_mutation_info)
 
+func _process(delta: float) -> void:
+	## player level up selection time limit
+	if !upgrade_timer.is_stopped():
+		level_up_time_limit.progress = (1 - (upgrade_timer.time_left / upgrade_timer.wait_time)) * 100
+		
 func show_game_over_screen(victory: bool = false):
 	$GameOver.visible = true
 	$GameOver/Fail.visible = !victory

@@ -21,6 +21,8 @@ var bleed_timer: Timer = $BleedTimer
 var shield: bool = false
 @onready
 var shield_sound: AudioStreamPlayer = $ShieldHitSound
+@onready
+var shield_particles: CPUParticles2D = $ShieldParticle
 
 var autoheal_speed: float = 1
 ## disable autoheal during timer
@@ -122,6 +124,7 @@ func break_shield() -> void:
 	$Sprite2D.material = null
 	shield = false
 	shield_sound.playing = true
+	shield_particles.emitting = true
 	
 func _ready():
 	state_machine.init(self)
@@ -139,6 +142,7 @@ func _process(_delta: float) -> void:
 	if autoheal_stopped_timer.is_stopped() and health_points + _delta * autoheal_speed < max_health_points:
 		health_points += autoheal_speed * _delta
 		autoheal_particles.emitting = true
+		health_label.text = str(int(health_points))
 	else:
 		autoheal_particles.emitting = false
 			
