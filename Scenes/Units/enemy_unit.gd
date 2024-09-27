@@ -19,6 +19,9 @@ var armor_points: float = 10
 var max_armor_points: float = 10
 @onready
 var bleed_timer: Timer = $BleedTimer
+var health_tween: Tween = null
+## variable to hold health point amount used for tweening effect
+var tweened_health_points: float = 100
 
 var shield: bool = false
 @onready
@@ -92,6 +95,7 @@ func on_spawn(speed: float, health: int) -> void:
 	apply_central_impulse(move_dir * speed)
 	health_points = health
 	max_health_points = health
+	tweened_health_points = health
 	movement_speed = speed
 	max_movement_speed = speed
 	health_bar = $HealthBar
@@ -102,6 +106,7 @@ func on_spawn(speed: float, health: int) -> void:
 func apply_heavy() -> void:
 	max_health_points = max_health_points * 2
 	health_points = max_health_points
+	tweened_health_points = max_health_points
 	health_bar = $HealthBar
 	health_bar.set_max(health_points)
 	health_bar.change_value(health_points, true)
@@ -135,10 +140,12 @@ func break_shield() -> void:
 func _ready():
 	state_machine.init(self)
 	
-	health_label.text = str(int(health_points))
+	update_health_label(int(health_points))
 	#health_label.text = "(" + str(int(armor_points)) + ")" + str(int(health_points))
 	bleed_timer.timeout.connect(
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
+		
+	tweened_health_points = health_points
 		
 func _process(_delta: float) -> void:
 	target_position = InputManager.selected_unit.global_position
@@ -148,10 +155,11 @@ func _process(_delta: float) -> void:
 	if autoheal_stopped_timer.is_stopped() and health_points + _delta * autoheal_speed < max_health_points:
 		health_points += autoheal_speed * _delta
 		autoheal_particles.emitting = true
-		health_label.text = str(int(health_points))
 	else:
 		autoheal_particles.emitting = false
-			
+		
+	update_health_label(int(tweened_health_points))
+
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
 	var new_popup = damage_popup.instantiate()
@@ -178,6 +186,16 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	
 	var effective_damage: int = min(damage_amount, health_points)
 	health_points -= damage_amount
+	
+	if health_tween:
+		health_tween.kill()
+		health_tween = null
+	var new_tween: Tween = create_tween()
+	health_tween = new_tween
+	
+	var current_health: float = health_points - effective_damage
+	new_tween.tween_property(self, "tweened_health_points", health_points, 0.3)
+	
 	# renew autoheal timer
 	autoheal_stopped_timer.stop()
 	autoheal_stopped_timer.start(autoheal_cooldown)
@@ -187,13 +205,13 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 		movement_speed = max_movement_speed * 0.75
 		
 	if health_points <= 0:
+		health_tween.kill()
 		die()
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 50)
 	else:
 		health_bar.change_value(int(health_points))
-		#health_label.text = "(" + str(int(armor_points)) + ")" + str(int(health_points))
-		health_label.text = str(int(health_points))
+		#update_health_label(int(health_points))
 		
 		if health_points < max_health_points:
 			bleed_timer.start(2)
@@ -203,6 +221,9 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	CameraControl.camera.shake_screen(10,200)
 	
 	return effective_damage
+
+func update_health_label(value: int) -> void:
+	health_label.text = str(value)
 	
 func die():
 	var new_effect: CPUParticles2D = death_effect.instantiate()
