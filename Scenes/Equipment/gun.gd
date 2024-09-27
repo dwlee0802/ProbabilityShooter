@@ -65,7 +65,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		# save origin unit to call back for experience gain
 		new_bullet.origin_unit = unit
 		new_bullet.launch(
-			mouse_position.normalized().rotated(random_spread_offset * current_bullet.projectile_count), 
+			mouse_position.normalized().rotated(random_spread_offset * (current_bullet.projectile_count)), 
 			get_projectile_speed(), 
 			int(current_bullet.damage_amount / float(current_bullet.projectile_count)), 
 			data.knock_back_force)

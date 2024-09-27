@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="11_cpb60"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
-[ext_resource type="Texture2D" uid="uid://cg8gpc4wxh1ns" path="res://Art/snuffles.png" id="14_xhw8b"]
+[ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
 [ext_resource type="Texture2D" uid="uid://c2ecsu8asley" path="res://Art/arrow.png" id="15_kw6ct"]
 [ext_resource type="AudioStream" uid="uid://dmwgkp55r6ywh" path="res://Sound/level_up.mp3" id="16_x7mtf"]
@@ -131,8 +131,8 @@ _data = {
 "level_up": SubResource("Animation_5anas")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pbu37"]
-radius = 93.0215
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewh10"]
+size = Vector2(157, 231)
 
 [sub_resource type="Animation" id="Animation_t56vo"]
 length = 0.001
@@ -339,9 +339,9 @@ texture = ExtResource("13_n3hms")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ablmn")
 use_parent_material = true
-position = Vector2(5.00002, -5)
-scale = Vector2(0.211151, 0.20625)
-texture = ExtResource("14_xhw8b")
+position = Vector2(-0.500004, 5.72205e-06)
+scale = Vector2(1.29545, 1.28283)
+texture = ExtResource("14_wx8vp")
 
 [node name="LevelUpEffect" type="Node2D" parent="."]
 process_mode = 3
@@ -365,7 +365,8 @@ stream = ExtResource("16_x7mtf")
 pitch_scale = 0.9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_pbu37")
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_ewh10")
 debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="AimLine" type="Line2D" parent="."]
@@ -427,6 +428,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InteractionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 4
 collision_mask = 4
 
