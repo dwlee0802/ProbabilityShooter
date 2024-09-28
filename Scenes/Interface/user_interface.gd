@@ -166,6 +166,7 @@ func upgrade_option_selected(data: ItemData) -> void:
 		level_up_menu.visible = false
 	else:
 		show_upgrade_menu()
+		get_tree().paused = true
 
 func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weapon_two = InputManager.selected_unit.weapon_two) -> void:
 	DW_ToolBox.RemoveAllChildren(left_bullet_info_menu_container)
