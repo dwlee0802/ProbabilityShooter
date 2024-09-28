@@ -7,15 +7,15 @@
 radius = 20.0
 
 [sub_resource type="Gradient" id="Gradient_gy85f"]
-offsets = PackedFloat32Array(0, 0.233766, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.318182, 0.766234, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_br25l"]
 gradient = SubResource("Gradient_gy85f")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.151376, 0.894495)
+fill_to = Vector2(0.174312, 0.857798)
 
 [node name="Bullet" type="Area2D"]
 position = Vector2(267, 145)
@@ -28,8 +28,12 @@ shape = SubResource("CircleShape2D_e5j5t")
 debug_color = Color(0, 0.6, 0.701961, 0.168627)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(6, 6, 0, 1)
-scale = Vector2(0.0823046, 0.0823045)
+self_modulate = Color(1, 0.752941, 0, 1)
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("3_ovmwv")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+scale = Vector2(0.09, 0.09)
 texture = ExtResource("3_ovmwv")
 
 [node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
@@ -44,9 +48,8 @@ scale_amount_max = 10.0
 color = Color(1, 1, 1, 0.396078)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
 color = Color(1, 1, 0.788235, 1)
 texture = SubResource("GradientTexture2D_br25l")
-texture_scale = 5.0
+texture_scale = 2.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

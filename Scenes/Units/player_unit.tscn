@@ -181,7 +181,7 @@ acceleration = 12000.0
 script = ExtResource("3_sf8iw")
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
-self_modulate = Color(2, 2, 2, 1)
+self_modulate = Color(4, 4, 4, 1)
 material = SubResource("ShaderMaterial_ablmn")
 use_parent_material = true
 position = Vector2(-1.50001, -0.5)
