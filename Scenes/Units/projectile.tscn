@@ -1,30 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4dvwh48btf1b"]
+[gd_scene load_steps=6 format=3 uid="uid://d4dvwh48btf1b"]
 
 [ext_resource type="Script" path="res://Scenes/Units/projectile.gd" id="1_g0oia"]
-[ext_resource type="Shader" path="res://Scenes/Units/outline.gdshader" id="2_x2maq"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="3_ovmwv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e5j5t"]
 radius = 20.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s73g8"]
-shader = ExtResource("2_x2maq")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 5.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-
-[sub_resource type="Gradient" id="Gradient_w1uqg"]
-offsets = PackedFloat32Array(0.123377, 1)
-colors = PackedColorArray(1, 0.85098, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_th7mi"]
-gradient = SubResource("Gradient_w1uqg")
-width = 40
-height = 40
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.788991, 0.211009)
 
 [sub_resource type="Gradient" id="Gradient_gy85f"]
 offsets = PackedFloat32Array(0, 0.233766, 1)
@@ -48,8 +28,9 @@ shape = SubResource("CircleShape2D_e5j5t")
 debug_color = Color(0, 0.6, 0.701961, 0.168627)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_s73g8")
-texture = SubResource("GradientTexture2D_th7mi")
+self_modulate = Color(6, 6, 0, 1)
+scale = Vector2(0.0823046, 0.0823045)
+texture = ExtResource("3_ovmwv")
 
 [node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
 lifetime = 2.0
@@ -63,6 +44,7 @@ scale_amount_max = 10.0
 color = Color(1, 1, 1, 0.396078)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 color = Color(1, 1, 0.788235, 1)
 texture = SubResource("GradientTexture2D_br25l")
 texture_scale = 5.0

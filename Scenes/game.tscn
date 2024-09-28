@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -15,6 +15,13 @@
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
+
+[sub_resource type="Environment" id="Environment_by1cx"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 0.1
+glow_blend_mode = 1
+glow_hdr_threshold = 1.5
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -43,6 +50,7 @@ scale = Vector2(8, 8)
 texture = ExtResource("8_tcb7a")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_by1cx")
 
 [node name="WaveTimer" type="Timer" parent="."]
 process_callback = 0
