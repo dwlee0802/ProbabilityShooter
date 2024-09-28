@@ -64,6 +64,12 @@ script = ExtResource("15_8b1o7")
 [node name="Crosshair" parent="GameOverScreen" instance=ExtResource("7_xccla")]
 position = Vector2(718, 279)
 
+[node name="WeaponOne" parent="GameOverScreen/Crosshair" index="3"]
+visible = false
+
+[node name="WeaponTwo" parent="GameOverScreen/Crosshair" index="4"]
+visible = false
+
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
 process_mode = 3
 
