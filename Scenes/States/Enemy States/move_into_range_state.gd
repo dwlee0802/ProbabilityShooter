@@ -26,9 +26,10 @@ func process_physics(delta: float) -> State:
 	parent.apply_central_impulse(adjustment_force_dir * parent.adjust_modifier)
 	
 	# bring speed back to normal
-	if current_speed > parent.get_movement_speed():
-		parent.apply_central_impulse(abs(current_speed - parent.get_movement_speed()) * -current_direction * parent.speed_adjust_modifier * delta)
+	var spd: float = parent.get_movement_speed()
+	if current_speed > spd:
+		parent.apply_central_impulse(abs(current_speed - spd) * -current_direction * parent.speed_adjust_modifier * delta)
 	else:
-		parent.apply_central_impulse(abs(current_speed - parent.get_movement_speed()) * parent.speed_adjust_modifier * current_direction * delta)
+		parent.apply_central_impulse(abs(current_speed - spd) * parent.speed_adjust_modifier * current_direction * delta)
 	
 	return null

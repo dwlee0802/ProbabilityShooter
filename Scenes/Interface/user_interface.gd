@@ -103,6 +103,7 @@ func show_item_info(item: ItemData):
 	var item_icon: TextureRect = item_info.get_node("MarginContainer/HBoxContainer/ItemIcon")
 	if item.icon != null:
 		item_icon.texture = item.icon
+		item_icon.self_modulate = Color.WHITE
 	else:
 		item_icon.texture = item.default_icon
 		
@@ -122,6 +123,9 @@ func show_mutation_info(item: Mutation):
 	var item_icon: TextureRect = item_info.get_node("MarginContainer/HBoxContainer/ItemIcon")
 	#item_icon.texture = item.icon
 	item_icon.self_modulate = item.color
+	if item.icon == null:
+		item_icon.texture = item.default_icon
+		
 	var name_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/NameLabel")
 	name_label.text = item.mutation_name
 	var info_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/InfoLabel")
@@ -137,6 +141,7 @@ func show_upgrade_menu() -> void:
 		upgrade_options[i].set_data(InputManager.selected_unit.upgrade_options[i])
 		
 	level_up_menu.visible = true
+	$LevelUpMenu/AnimationPlayer.play("show_level_up_menu")
 
 func upgrade_option_selected(data: ItemData) -> void:
 	upgrade_timer.stop()

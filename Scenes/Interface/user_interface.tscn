@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=33 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -255,6 +255,66 @@ shader_parameter/line_width = 0.1
 shader_parameter/angle = 0.785398
 shader_parameter/speed = 1.0
 shader_parameter/wait_cycles = 2.0
+
+[sub_resource type="Animation" id="Animation_a4qmx"]
+resource_name = "show_level_up_menu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mouse_filter")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_t2yik"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mouse_filter")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kcsno"]
+_data = {
+"RESET": SubResource("Animation_t2yik"),
+"show_level_up_menu": SubResource("Animation_a4qmx")
+}
 
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
@@ -901,6 +961,7 @@ libraries = {
 
 [node name="LevelUpMenu" type="Control" parent="."]
 process_mode = 3
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -909,7 +970,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="LevelUpMenu"]
 layout_mode = 1
@@ -1166,6 +1227,12 @@ radius = 15.0
 thickness = 15.0
 bg_color = Color(0.501961, 0.501961, 0.501961, 0.603922)
 bar_color = Color(1, 0.337255, 0.345098, 0.662745)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelUpMenu"]
+libraries = {
+"": SubResource("AnimationLibrary_kcsno")
+}
+speed_scale = 2.0
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]
 [connection signal="mouse_entered" from="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" to="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer/OptionOne" method="_on_mouse_entered"]

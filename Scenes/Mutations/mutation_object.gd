@@ -7,6 +7,7 @@ class_name Mutation
 var mutation_name: String = "Null"
 @export
 var icon: Texture2D
+var default_icon = preload("res://Art/32x32_white_square.png")
 @export_multiline
 var description: String = "null"
 @export
