@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=32 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -154,6 +154,17 @@ size = Vector2(157, 231)
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjobb"]
 resource_local_to_scene = true
 radius = 128.0
+
+[sub_resource type="Gradient" id="Gradient_gy85f"]
+offsets = PackedFloat32Array(0.318182, 0.766234, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rvijk"]
+gradient = SubResource("Gradient_gy85f")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.174312, 0.857798)
 
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("CanvasItemMaterial_bm0v7")
@@ -466,5 +477,10 @@ polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 stream = ExtResource("15_1vmhr")
 volume_db = -7.0
 pitch_scale = 1.2
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.8
+texture = SubResource("GradientTexture2D_rvijk")
+texture_scale = 10.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
