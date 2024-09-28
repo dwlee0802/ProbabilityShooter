@@ -13,5 +13,6 @@ speed_range_bonus = Vector2i(0, 0)
 heavy_spawn_chance_bonus = 0.0
 fast_spawn_chance_bonus = 0.0
 ranged_spawn_chance_bonus = 0.05
+shield_spawn_chance_bonus = 0.0
 spawn_cooltime_multiplier = 0.0
 wave_chance_bonus = 0.0

@@ -122,8 +122,7 @@ func apply_quick() -> void:
 	color = Color.HOT_PINK
 	
 func apply_ranged() -> void:
-	attack_range = 3000
-	attack_cooldown = 1.5
+	attack_range = 2000
 	$Sprite2D.self_modulate = Color.YELLOW
 	color = Color.YELLOW
 
