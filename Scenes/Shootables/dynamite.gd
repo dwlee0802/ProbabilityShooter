@@ -29,6 +29,7 @@ func activate() -> void:
 	$Sprite2D.visible = false
 	$CollisionShape2D.disabled = true
 	var bodies = area.get_overlapping_bodies()
+	print("COUNT: " + str(bodies.size()))
 	for unit in bodies:
 		if unit is EnemyUnit and unit.health_points > 0 and unit.is_node_ready():
 			var dir: Vector2 = global_position.direction_to(unit.global_position)

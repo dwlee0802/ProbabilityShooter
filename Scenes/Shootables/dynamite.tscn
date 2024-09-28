@@ -45,7 +45,8 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_68uiw"]
 radius = 119.78
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s7bwy"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0q6iw"]
+resource_local_to_scene = true
 radius = 1500.0
 
 [sub_resource type="Animation" id="Animation_mqmx1"]
@@ -132,7 +133,7 @@ collision_layer = 0
 collision_mask = 72
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_s7bwy")
+shape = SubResource("CircleShape2D_0q6iw")
 
 [node name="ExplosionEffect" type="Node2D" parent="."]
 
