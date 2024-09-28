@@ -26,8 +26,7 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
-_base_spawn_cooldown = 1.0
-_base_wave_count = 10
+_base_wave_count = 4
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
