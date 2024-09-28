@@ -138,7 +138,6 @@ func _ready():
 	user_interface.upgrade_timer = upgrade_timer
 	
 func _process(_delta):
-	InputManager.camera.scale_unit_shortcut_label(units)
 	InputManager.camera.scale_health_label(enemies.get_children())
 	
 	if !pause:

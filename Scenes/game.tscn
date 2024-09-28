@@ -26,6 +26,8 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
+_base_spawn_cooldown = 1.0
+_base_wave_count = 10
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
@@ -81,7 +83,6 @@ movement_speed = 500.0
 health_points = 300.0
 max_health_points = 300
 starting_equipments = [ExtResource("10_gp80q")]
-experience_gained = 1000
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]
 zoom = Vector2(0.1, 0.1)
@@ -133,3 +134,5 @@ text = "Fabrication Bench"
 process_mode = 3
 stream = ExtResource("18_7elte")
 volume_db = -5.0
+
+[editable path="GameOverScreen/Crosshair"]

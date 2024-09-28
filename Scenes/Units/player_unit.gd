@@ -5,9 +5,6 @@ class_name PlayerUnit
 var state_label: Label = $StateLabel
 
 @onready
-var shortcut_label: Label = $ShortcutLabel
-
-@onready
 var unit_sprite: Sprite2D = $UnitSprite
 
 #region Unit Stat Variables
@@ -113,6 +110,10 @@ var upgrade_options = []
 var level_up_animation: AnimationPlayer = $LevelUpEffect/LevelUpAnimationPlayer
 @onready
 var level_up_sound: AudioStreamPlayer = $LevelUpEffect/AudioStreamPlayer
+@onready
+var push_back_area: Area2D = $LevelUpEffect/PushBackArea
+@export
+var push_back_strength: float = 1000
 #endregion
 
 ##region Charge System
@@ -482,6 +483,11 @@ func level_up() -> void:
 	current_level += 1
 	print("level up to " + str(current_level))
 	level_increased.emit()
+	
+	for body in push_back_area.get_overlapping_bodies():
+		if body is EnemyUnit:
+			var strength: float = push_back_strength * body.global_position.distance_to(global_position) / 1500.0
+			body.apply_central_impulse(strength * global_position.direction_to(body.global_position))
 	return
 
 func is_level_up_ready() -> bool:
@@ -489,6 +495,7 @@ func is_level_up_ready() -> bool:
 
 ## amount needed to proceed to next level
 func required_exp_amount(level: int) -> int:
+	return 300
 	return 1000 + level * 250
 	
 #endregion

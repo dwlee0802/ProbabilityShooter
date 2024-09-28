@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=28 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -96,7 +96,7 @@ tracks/1/path = NodePath("../../LevelUpRippleEffect:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0)]
@@ -109,9 +109,9 @@ tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
-"values": [Vector2(0, -78), Vector2(0, -500)]
+"values": [Vector2(0, -78), Vector2(0, -1000)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -121,9 +121,9 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(0.1, 1),
 "update": 0,
-"values": [Vector2(0.63786, 0.15), Vector2(3, 0.707)]
+"values": [Vector2(2, 0.47), Vector2(5, 1.178)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w5xl4"]
@@ -131,6 +131,10 @@ _data = {
 "RESET": SubResource("Animation_6xhml"),
 "level_up": SubResource("Animation_5anas")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3g6r"]
+resource_local_to_scene = true
+radius = 1500.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewh10"]
 size = Vector2(157, 231)
@@ -154,6 +158,7 @@ aim_color = Color(1, 1, 1, 0.196078)
 attack_color = Color(1, 0, 0, 0.392157)
 queued_color = Color(1, 0.647059, 0, 0.196078)
 background_color = Color(0, 0, 0, 0.196078)
+push_back_strength = 1500.0
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("9_0efpd")
@@ -346,6 +351,14 @@ texture = ExtResource("15_kw6ct")
 stream = ExtResource("16_x7mtf")
 pitch_scale = 0.9
 
+[node name="PushBackArea" type="Area2D" parent="LevelUpEffect"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelUpEffect/PushBackArea"]
+shape = SubResource("CircleShape2D_q3g6r")
+debug_color = Color(0.832682, 0.390898, 0, 0.42)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_ewh10")
@@ -360,17 +373,6 @@ one_shot = true
 process_callback = 0
 wait_time = 2.0
 one_shot = true
-
-[node name="ShortcutLabel" type="Label" parent="."]
-visible = false
-offset_left = -65.0
-offset_top = -64.0
-offset_right = -25.0
-offset_bottom = -9.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 20
-text = "1"
 
 [node name="HealthBar" parent="." instance=ExtResource("9_hb35g")]
 visible = false
