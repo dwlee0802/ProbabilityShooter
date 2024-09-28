@@ -30,3 +30,23 @@ func _to_string() -> String:
 	output += "[/color]"
 	
 	return output
+
+func to_crosshair_string() -> String:
+	var output = ""
+	if projectile_count != 1:
+		output += "" + str(int(damage_amount/float(projectile_count))) + " x" + str(projectile_count)
+	else:
+		output += "" + str(damage_amount)
+	output += "\n[color=aqua]"
+	if anti_armor:
+		output += "AA\n"
+	if piercing:
+		output += "PIER\n"
+	if explosive:
+		output += "EXPL\n"
+	if quickshot:
+		output += "QCK\n"
+	output += "[/color]"
+	
+	return output
+	

@@ -20,6 +20,7 @@ func enter() -> void:
 func exit() -> void:
 	super()
 	var new_casing_eff: Node2D = casings.instantiate()
+	new_casing_eff.set_direction(Vector2.from_angle(parent.rotation + PI))
 	new_casing_eff.global_position = parent.global_position
 	get_tree().root.get_node("Game").casings.add_child(new_casing_eff)
 	parent.recoil_animation.play("reload")

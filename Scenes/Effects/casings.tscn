@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqfwc2xy3cs2j"]
+[gd_scene load_steps=8 format=3 uid="uid://bqfwc2xy3cs2j"]
 
 [ext_resource type="Script" path="res://Scenes/Effects/casings.gd" id="1_1kl4j"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_l1b00"]
@@ -7,7 +7,10 @@
 rough = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ymq4o"]
-size = Vector2(1097, 20)
+size = Vector2(1493, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j828i"]
+size = Vector2(1, 454)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wpfo6"]
 
@@ -15,28 +18,35 @@ size = Vector2(1097, 20)
 size = Vector2(36.9934, 16.7452)
 
 [node name="CasingsEffect" type="Node2D"]
-position = Vector2(322, 276)
 script = ExtResource("1_1kl4j")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-1, 226)
 collision_layer = 512
 collision_mask = 512
 physics_material_override = SubResource("PhysicsMaterial_3atk5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-45.5, 0)
+position = Vector2(-17.5, 0)
 shape = SubResource("RectangleShape2D_ymq4o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-572.5, -219)
+shape = SubResource("RectangleShape2D_j828i")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(636, -217)
+shape = SubResource("RectangleShape2D_j828i")
 
 [node name="CasingObjects" type="Node2D" parent="."]
 
 [node name="Casing4" type="RigidBody2D" parent="CasingObjects"]
-position = Vector2(-118, -217)
 rotation = -0.349066
 collision_layer = 512
 collision_mask = 512
 mass = 0.5
 physics_material_override = SubResource("PhysicsMaterial_wpfo6")
-linear_velocity = Vector2(100, 0)
+linear_velocity = Vector2(-200, 0)
 linear_damp_mode = 1
 angular_damp_mode = 1
 
@@ -51,7 +61,6 @@ scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
 [node name="Casing5" type="RigidBody2D" parent="CasingObjects"]
-position = Vector2(-132, -233)
 rotation = -0.349066
 collision_layer = 512
 collision_mask = 512
@@ -72,7 +81,6 @@ scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
 [node name="Casing6" type="RigidBody2D" parent="CasingObjects"]
-position = Vector2(-98, -199)
 rotation = -0.349066
 collision_layer = 512
 collision_mask = 512
@@ -93,7 +101,6 @@ scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
 [node name="Casing7" type="RigidBody2D" parent="CasingObjects"]
-position = Vector2(-144, -186)
 rotation = -0.349066
 collision_layer = 512
 collision_mask = 512
@@ -115,7 +122,6 @@ scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
 [node name="Casing8" type="RigidBody2D" parent="CasingObjects"]
-position = Vector2(-74, -234)
 rotation = -0.349066
 collision_layer = 512
 collision_mask = 512
@@ -138,7 +144,6 @@ scale = Vector2(1, 0.375)
 texture = ExtResource("2_l1b00")
 
 [node name="Casing9" type="RigidBody2D" parent="CasingObjects"]
-position = Vector2(-92, -255)
 rotation = -0.349066
 collision_layer = 512
 collision_mask = 512

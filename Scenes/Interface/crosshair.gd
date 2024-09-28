@@ -62,7 +62,7 @@ func update_weapon_info_label(weapon_ui, weapon) -> void:
 			bullet_info_label.text = ""
 		else:
 			# show next bullet info
-			bullet_info_label.text = str(current_eq.bullets[queued_count])
+			bullet_info_label.text = current_eq.bullets[queued_count].to_crosshair_string()
 	else:
 		bullet_info_label.text = ""
 	
