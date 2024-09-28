@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="10_gp80q"]
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
+[ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
 [node name="Game" type="Node2D"]
@@ -56,9 +57,15 @@ one_shot = true
 
 [node name="GameDurationTimer" type="Timer" parent="."]
 
+[node name="GameOverScreen" parent="." instance=ExtResource("14_jbor4")]
+visible = false
+script = ExtResource("15_8b1o7")
+
+[node name="Crosshair" parent="GameOverScreen" instance=ExtResource("7_xccla")]
+position = Vector2(718, 279)
+
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
 process_mode = 3
-visible = false
 
 [node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
 position = Vector2(718, 279)
@@ -126,5 +133,3 @@ text = "Fabrication Bench"
 process_mode = 3
 stream = ExtResource("18_7elte")
 volume_db = -5.0
-
-[node name="GameOverScreen" parent="." instance=ExtResource("14_jbor4")]

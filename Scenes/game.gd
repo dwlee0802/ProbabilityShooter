@@ -3,6 +3,8 @@ class_name Game
 
 @onready
 var user_interface: UserInterface = $UserInterface
+@onready
+var game_over_screen: GameOverScreen = $GameOverScreen
 
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
@@ -103,6 +105,7 @@ func _ready():
 	
 	#user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
+	game_over_screen.restart_button.pressed.connect(start)
 	
 	for unit: PlayerUnit in units:
 		#unit.picked_up_item.connect(user_interface.show_item_info)
@@ -254,8 +257,10 @@ func game_over() -> void:
 	user_interface.mutation_roulette.stop_roulette()
 	
 	#remove_objects()
-	
-	user_interface.show_game_over_screen(false)
+	#user_interface.show_game_over_screen(false)
+	user_interface.visible = false
+	set_game_over_stats()
+	game_over_screen.visible = true
 	pause = true
 
 func victory() -> void:
@@ -293,9 +298,18 @@ func remove_objects() -> void:
 	add_child(casings)
 	
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
+
+func set_game_over_stats() -> void:
+	game_over_screen.survival_time_label.text = str(int(time_since_start)) + " seconds"
+	game_over_screen.kill_count_label.text = str(int(kill_count)) + " kills"
+	game_over_screen.level_label.text = "Lv. " + str(units[0].current_level)
 	
 func start() -> void:
 	print("***START GAME***")
+	
+	user_interface.visible = true
+	game_over_screen.visible = false
+	pause = false
 	
 	# remove leftover resources
 	remove_objects()
@@ -314,7 +328,6 @@ func start() -> void:
 	time_since_start = 0
 	kill_count = 0
 	user_interface.kill_count_label.text = "Kills: " + str(kill_count)
-	pause = false
 	
 	# reset unit stats
 	for unit: PlayerUnit in units:

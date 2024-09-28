@@ -26,8 +26,10 @@ func _input(event: InputEvent) -> void:
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	global_position = get_global_mouse_position()
+	
 	player_unit = InputManager.selected_unit
-	if player_unit == null:
+	if player_unit == null or player_unit.is_unconscious():
 		return
 		
 	if player_unit.weapon_one != null:
@@ -42,7 +44,6 @@ func _process(_delta):
 		if !player_unit.weapon_two.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
 			player_unit.weapon_two.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
 		
-	global_position = get_global_mouse_position()
 	update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
 	update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
 
