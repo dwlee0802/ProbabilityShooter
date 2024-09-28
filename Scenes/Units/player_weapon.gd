@@ -18,6 +18,7 @@ var reload_timer: Timer
 var active_reload_available: bool = true
 var active_reload_failed: bool = false
 
+var queued_attack_cones = []
 @onready
 var attack_cone: Polygon2D = $AttackFullCone/AttackCone
 @onready
@@ -123,3 +124,10 @@ func point_arm_at(target_pos: Vector2) -> void:
 	var hand: Sprite2D = arm.get_node("Node2D/Hand")
 	# flip v if hand is on the left side
 	hand.flip_v = (hand.global_position - global_position).x <= 0
+
+func clear_attack_queues():
+	attack_direction_queue.clear()
+	for item in queued_attack_cones:
+		item.queue_free()
+	queued_attack_cones.clear()
+	attack_full_cone.visible = false

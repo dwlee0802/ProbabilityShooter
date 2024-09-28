@@ -235,15 +235,21 @@ func receive_hit(amount: float) -> void:
 	health_points -= amount
 	health_points = max(health_points, 0)
 	if health_points <= 0:
-		knocked_out.emit()
-		#disable_enemy_collision()
-		weapon_one.process_mode = Node.PROCESS_MODE_DISABLED
-		weapon_two.process_mode = Node.PROCESS_MODE_DISABLED
+		make_unconscious()
 		
 	health_bar.change_value(health_points)
 	health_changed.emit()
 	was_attacked.emit()
 
+func make_unconscious() -> void:
+	knocked_out.emit()
+	#disable_enemy_collision()
+	weapon_one.clear_attack_queues()
+	weapon_two.clear_attack_queues()
+	weapon_one.process_mode = Node.PROCESS_MODE_DISABLED
+	weapon_two.process_mode = Node.PROCESS_MODE_DISABLED
+	aim_cone.visible = false
+	
 func add_health(amount: float) -> void:
 	if health_points <= 0 and amount > 0:
 		revived.emit()
@@ -262,6 +268,9 @@ func reset_health() -> void:
 	enable_enemy_collision()
 	weapon_one.process_mode = Node.PROCESS_MODE_INHERIT
 	weapon_two.process_mode = Node.PROCESS_MODE_INHERIT
+	weapon_one.clear_attack_queues()
+	weapon_two.clear_attack_queues()
+	aim_cone.visible = false
 
 func reset_exp() -> void:
 	experience_gained = 0

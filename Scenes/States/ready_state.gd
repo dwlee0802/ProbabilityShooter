@@ -7,8 +7,6 @@ var reload_state: State
 @export
 var action_name: String = ""
 
-var queued_attack_cones = []
-
 var aim_timer: Timer
 
 
@@ -26,7 +24,7 @@ func enter() -> void:
 func exit() -> void:
 	super()
 	parent.attack_full_cone.visible = false
-	clear_attack_queues()
+	parent.clear_attack_queues()
 	aim_timer.stop()
 
 func process_physics(_delta: float) -> State:
@@ -72,7 +70,7 @@ func make_queued_attack_cone(dir: Vector2) -> void:
 	new_attack_cone.color = parent.queued_color
 	new_attack_cone.rotate(dir.angle())
 	parent.queued_cones.add_child(new_attack_cone)
-	queued_attack_cones.append(new_attack_cone)
+	parent.queued_attack_cones.append(new_attack_cone)
 	
 func start_attack_process() -> void:
 	if parent.attack_direction_queue.is_empty():
@@ -86,20 +84,20 @@ func start_attack_process() -> void:
 	
 	# front end
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(parent.attack_direction_queue.front())
-	queued_attack_cones.front().visible = false
+	parent.queued_attack_cones.front().visible = false
 	parent.attack_full_cone.visible = true
 	parent.point_arm_at(parent.attack_direction_queue.front())
 	
 func on_aim_finished() -> void:
 	if parent.attack_direction_queue.size() == 0:
-		push_error("Aim finished but no attack direction.")
+		push_warning("Aim finished but no attack direction.")
 	else:
 		var target: Vector2 = parent.attack_direction_queue.pop_front()
 		parent.gunshot_sfx.stream = parent.weapon.data.equipment_use_sound
 		parent.gunshot_sfx.play()
 		print("Attack finished. Current queue count: " + str(parent.attack_direction_queue.size()))
-		if queued_attack_cones.size() > 0:
-			queued_attack_cones.pop_front().queue_free()
+		if parent.queued_attack_cones.size() > 0:
+			parent.queued_attack_cones.pop_front().queue_free()
 		parent.attack_full_cone.visible = false
 		
 		parent.weapon.on_activation(InputManager.selected_unit, target)
@@ -118,9 +116,3 @@ func on_aim_finished() -> void:
 	if !parent.attack_direction_queue.is_empty():
 		if parent.weapon.have_bullets():
 			start_attack_process()
-
-func clear_attack_queues():
-	parent.attack_direction_queue.clear()
-	for item in queued_attack_cones:
-		item.queue_free()
-	queued_attack_cones.clear()
