@@ -162,7 +162,6 @@ acceleration = 12000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_sf8iw")
-_base_explosive_chance = 1.0
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ablmn")

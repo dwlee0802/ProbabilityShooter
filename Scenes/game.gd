@@ -239,10 +239,10 @@ func enemy_killed()-> void:
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
 	enemies.add_child(newEnemy)
-	if InputManager.selected_unit != null:
-		newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
-	else:
-		newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
+	#if InputManager.selected_unit != null:
+		#newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
+	#else:
+	newEnemy.position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius
 	newEnemy.on_death.connect(enemy_killed)
 	
 	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())

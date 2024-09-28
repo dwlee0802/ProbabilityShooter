@@ -130,4 +130,8 @@ func clear_attack_queues():
 	for item in queued_attack_cones:
 		item.queue_free()
 	queued_attack_cones.clear()
+
+func reset() -> void:
+	clear_attack_queues()
 	attack_full_cone.visible = false
+	reload_timer.stop()

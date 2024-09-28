@@ -90,7 +90,8 @@ func start_attack_process() -> void:
 	
 func on_aim_finished() -> void:
 	if parent.attack_direction_queue.size() == 0:
-		push_warning("Aim finished but no attack direction.")
+		#push_warning("Aim finished but no attack direction.")
+		pass
 	else:
 		var target: Vector2 = parent.attack_direction_queue.pop_front()
 		parent.gunshot_sfx.stream = parent.weapon.data.equipment_use_sound

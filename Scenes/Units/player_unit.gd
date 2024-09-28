@@ -244,8 +244,8 @@ func receive_hit(amount: float) -> void:
 func make_unconscious() -> void:
 	knocked_out.emit()
 	#disable_enemy_collision()
-	weapon_one.clear_attack_queues()
-	weapon_two.clear_attack_queues()
+	weapon_one.reset()
+	weapon_two.reset()
 	weapon_one.process_mode = Node.PROCESS_MODE_DISABLED
 	weapon_two.process_mode = Node.PROCESS_MODE_DISABLED
 	aim_cone.visible = false
@@ -262,14 +262,14 @@ func add_health(amount: float) -> void:
 	health_changed.emit()
 
 func reset_health() -> void:
+	weapon_one.process_mode = Node.PROCESS_MODE_INHERIT
+	weapon_two.process_mode = Node.PROCESS_MODE_INHERIT
 	health_points = max_health_points
 	health_bar.change_value(max_health_points, true)
 	health_changed.emit()
 	enable_enemy_collision()
-	weapon_one.process_mode = Node.PROCESS_MODE_INHERIT
-	weapon_two.process_mode = Node.PROCESS_MODE_INHERIT
-	weapon_one.clear_attack_queues()
-	weapon_two.clear_attack_queues()
+	weapon_one.reset()
+	weapon_two.reset()
 	aim_cone.visible = false
 
 func reset_exp() -> void:
