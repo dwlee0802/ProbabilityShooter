@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=30 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -23,6 +23,22 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bm0v7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q3g6r"]
+resource_local_to_scene = true
+radius = 1500.0
+
+[sub_resource type="Gradient" id="Gradient_vnrnt"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5vrd8"]
+gradient = SubResource("Gradient_vnrnt")
+width = 1500
+height = 1500
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.1)
 
 [sub_resource type="Animation" id="Animation_6xhml"]
 length = 0.001
@@ -74,6 +90,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0.63786, 0.15)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../PointLight2D:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_5anas"]
 resource_name = "level_up"
@@ -96,8 +124,8 @@ tracks/1/path = NodePath("../../LevelUpRippleEffect:self_modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0.784314), Color(1, 1, 1, 0)]
 }
@@ -125,16 +153,24 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(2, 0.47), Vector2(5, 1.178)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../PointLight2D:color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w5xl4"]
 _data = {
 "RESET": SubResource("Animation_6xhml"),
 "level_up": SubResource("Animation_5anas")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_q3g6r"]
-resource_local_to_scene = true
-radius = 1500.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewh10"]
 size = Vector2(157, 231)
@@ -333,14 +369,6 @@ texture = ExtResource("13_n3hms")
 [node name="LevelUpEffect" type="Node2D" parent="."]
 process_mode = 3
 
-[node name="LevelUpAnimationPlayer" type="AnimationPlayer" parent="LevelUpEffect"]
-process_mode = 3
-root_node = NodePath("../Arrow")
-libraries = {
-"": SubResource("AnimationLibrary_w5xl4")
-}
-speed_scale = 1.5
-
 [node name="Arrow" type="Sprite2D" parent="LevelUpEffect"]
 self_modulate = Color(1, 1, 1, 0)
 position = Vector2(-1.50001, -78)
@@ -352,12 +380,25 @@ stream = ExtResource("16_x7mtf")
 pitch_scale = 0.9
 
 [node name="PushBackArea" type="Area2D" parent="LevelUpEffect"]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelUpEffect/PushBackArea"]
 shape = SubResource("CircleShape2D_q3g6r")
 debug_color = Color(0.832682, 0.390898, 0, 0.42)
+
+[node name="PointLight2D" type="PointLight2D" parent="LevelUpEffect"]
+energy = 10.0
+texture = SubResource("GradientTexture2D_5vrd8")
+
+[node name="LevelUpAnimationPlayer" type="AnimationPlayer" parent="LevelUpEffect"]
+process_mode = 3
+root_node = NodePath("../Arrow")
+libraries = {
+"": SubResource("AnimationLibrary_w5xl4")
+}
+speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1.5)

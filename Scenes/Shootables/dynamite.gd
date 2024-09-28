@@ -35,7 +35,7 @@ func activate() -> void:
 			var dir: Vector2 = global_position.direction_to(unit.global_position)
 			# damage stuff inside range
 			if shooter != null and shooter is PlayerUnit:
-				shooter.add_experience(unit.receive_hit(damage_amount, true, dir))
+				shooter.add_experience(int(unit.receive_hit(damage_amount, true, dir) * 0.5))
 			else:
 				unit.receive_hit(damage_amount, true, dir)
 				
