@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="GunItemData" load_steps=2 format=3 uid="uid://cwh6ah5yjf7ok"]
+[gd_resource type="Resource" script_class="GunItemData" load_steps=3 format=3 uid="uid://cwh6ah5yjf7ok"]
 
 [ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_1h3iy"]
+[ext_resource type="Texture2D" uid="uid://dv2b2ejpp4h1b" path="res://Art/Icons/Upgrades/explosive_icon.png" id="1_x7jjk"]
 
 [resource]
 script = ExtResource("1_1h3iy")
@@ -19,6 +20,7 @@ damage_modifier = 0.0
 reload_speed_modifier = 0.0
 aim_speed_modifier = 0.0
 item_name = "Explosive"
+icon = ExtResource("1_x7jjk")
 description = "Deals damage to units nearby."
 color = Color(0.85098, 0.733333, 0, 1)
 disabled = false

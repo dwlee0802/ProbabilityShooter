@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="GunItemData" load_steps=2 format=3 uid="uid://034giyd2oh7h"]
+[gd_resource type="Resource" script_class="GunItemData" load_steps=3 format=3 uid="uid://034giyd2oh7h"]
 
 [ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_nvl6l"]
+[ext_resource type="Texture2D" uid="uid://dv356tpkwwbxj" path="res://Art/Icons/Upgrades/quickshot_icon.png" id="1_p88b1"]
 
 [resource]
 script = ExtResource("1_nvl6l")
@@ -19,6 +20,7 @@ damage_modifier = 0.0
 reload_speed_modifier = 0.0
 aim_speed_modifier = 0.0
 item_name = "Quickshot"
-description = "Aim time halved"
+icon = ExtResource("1_p88b1")
+description = "Aim time reduced by half."
 color = Color(1, 0.825313, 0.573305, 1)
 disabled = false

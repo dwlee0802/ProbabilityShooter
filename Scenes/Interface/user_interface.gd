@@ -101,8 +101,12 @@ func show_item_info(item: ItemData):
 	#item_info.visible = true
 	item_info.get_node("AnimationPlayer").play("RESET")
 	var item_icon: TextureRect = item_info.get_node("MarginContainer/HBoxContainer/ItemIcon")
-	#item_icon.texture = item.icon
-	item_icon.self_modulate = item.color
+	if item.icon != null:
+		item_icon.texture = item.icon
+	else:
+		item_icon.texture = item.default_icon
+		
+	#item_icon.self_modulate = item.color
 	var name_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/NameLabel")
 	name_label.text = item.item_name
 	var info_label: Label = item_info.get_node("MarginContainer/HBoxContainer/VBoxContainer/InfoLabel")

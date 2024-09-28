@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=30 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://active_reload_fill_texture.tres" id="6_auke1"]
 [ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://minimap.tscn" id="7_a8odi"]
 [ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
+[ext_resource type="Shader" path="res://Scenes/Units/shine.gdshader" id="9_l4wqd"]
 [ext_resource type="Script" path="res://Scenes/Interface/upgrade_option.gd" id="9_ogj75"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="10_acs6f"]
 
@@ -246,6 +247,14 @@ _data = {
 "RESET": SubResource("Animation_pqi10"),
 "roulette_selected": SubResource("Animation_ljopj")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dbfn8"]
+shader = ExtResource("9_l4wqd")
+shader_parameter/shine_color = Color(1, 1, 1, 0.25)
+shader_parameter/line_width = 0.1
+shader_parameter/angle = 0.785398
+shader_parameter/speed = 1.0
+shader_parameter/wait_cycles = 2.0
 
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
@@ -892,7 +901,6 @@ libraries = {
 
 [node name="LevelUpMenu" type="Control" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -932,7 +940,8 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="OptionOne" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0.458824)
+material = SubResource("ShaderMaterial_dbfn8")
 custom_minimum_size = Vector2(180, 256)
 layout_mode = 2
 texture_normal = ExtResource("5_fir5d")
@@ -1003,7 +1012,8 @@ mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [node name="OptionOne2" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0.458824)
+material = SubResource("ShaderMaterial_dbfn8")
 custom_minimum_size = Vector2(180, 256)
 layout_mode = 2
 texture_normal = ExtResource("5_fir5d")
@@ -1074,7 +1084,8 @@ mouse_filter = 2
 texture = ExtResource("5_fir5d")
 
 [node name="OptionOne3" type="TextureButton" parent="LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0, 0, 0, 0.458824)
+material = SubResource("ShaderMaterial_dbfn8")
 custom_minimum_size = Vector2(180, 256)
 layout_mode = 2
 texture_normal = ExtResource("5_fir5d")

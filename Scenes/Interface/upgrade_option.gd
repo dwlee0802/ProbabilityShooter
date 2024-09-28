@@ -11,10 +11,18 @@ var info_label: RichTextLabel = $MarginContainer/VContainer/InfoLabel
 signal option_selected(data)
 
 func set_data(_data) -> void:
+	if _data == null:
+		push_error("Upgrade option data null")
+		return
+		
 	$PressedShade.visible = false
 	data = _data
 	name_label.text = data.item_name
 	info_label.text = data.description
+	if data.icon != null:
+		$MarginContainer/VContainer/Icon.texture = _data.icon
+	else:
+		$MarginContainer/VContainer/Icon.texture = _data.default_icon
 
 func _on_pressed():
 	$PressedShade.visible = true
