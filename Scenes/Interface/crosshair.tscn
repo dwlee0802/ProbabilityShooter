@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=20 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_48mbm"]
 [ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://active_reload_bar_texture.tres" id="5_jp2bk"]
 [ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://active_reload_fill_texture.tres" id="6_dknah"]
+[ext_resource type="Shader" path="res://Scenes/Units/outline.gdshader" id="6_o7n8q"]
 
 [sub_resource type="Animation" id="Animation_6l0yw"]
 length = 0.001
@@ -81,8 +82,24 @@ _data = {
 "click_effect": SubResource("Animation_vlg83")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1xluu"]
+shader = ExtResource("6_o7n8q")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hww4v"]
 texture = ExtResource("5_18m8i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sdjvn"]
+shader = ExtResource("6_o7n8q")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evi6y"]
 texture = ExtResource("5_18m8i")
@@ -215,41 +232,48 @@ grow_vertical = 2
 alignment = 1
 
 [node name="MagazineContainer" type="HBoxContainer" parent="WeaponOne/VBoxContainer"]
+material = SubResource("ShaderMaterial_1xluu")
 layout_mode = 2
 theme_override_constants/separation = 5
 alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect6" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
@@ -356,40 +380,47 @@ grow_vertical = 2
 alignment = 1
 
 [node name="MagazineContainer" type="HBoxContainer" parent="WeaponTwo/VBoxContainer"]
+material = SubResource("ShaderMaterial_sdjvn")
 layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="TextureRect" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="TextureRect6" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(9, 16)
 layout_mode = 2
 texture = ExtResource("5_18m8i")
@@ -440,6 +471,7 @@ show_percentage = false
 [node name="TextureRect" type="TextureRect" parent="WeaponTwo/ActiveReloadBar"]
 self_modulate = Color(1, 1, 1, 0.117647)
 custom_minimum_size = Vector2(12, 0)
+layout_mode = 0
 offset_top = 50.0
 offset_right = 12.0
 offset_bottom = 60.0
@@ -465,6 +497,7 @@ expand_mode = 1
 
 [node name="ColorRect" type="ColorRect" parent="WeaponTwo/ActiveReloadBar"]
 self_modulate = Color(1, 1, 1, 0.133333)
+layout_mode = 0
 offset_left = -2.0
 offset_top = -2.0
 offset_right = 14.0

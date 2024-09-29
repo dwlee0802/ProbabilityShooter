@@ -23,6 +23,9 @@ var player_unit: PlayerUnit
 
 func _ready() -> void:
 	player_unit = InputManager.selected_unit
+	if player_unit != null:
+		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
+		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
