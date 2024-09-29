@@ -2,53 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://budg2mmu7eo76" path="res://Art/player_hand.png" id="3_xt3s2"]
 
-[sub_resource type="Gradient" id="Gradient_vd74d"]
-interpolation_mode = 2
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_undft"]
-gradient = SubResource("Gradient_vd74d")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.848624, 0.825688)
-
-[sub_resource type="Animation" id="Animation_fwgh5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_8a01f"]
-resource_name = "muzzle_flash"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 0, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjojk"]
-_data = {
-"RESET": SubResource("Animation_fwgh5"),
-"muzzle_flash": SubResource("Animation_8a01f")
-}
-
 [sub_resource type="Animation" id="Animation_myu6w"]
 length = 0.001
 tracks/0/type = "value"
@@ -132,24 +85,59 @@ _data = {
 "reload": SubResource("Animation_0v76n")
 }
 
+[sub_resource type="Gradient" id="Gradient_fv5sn"]
+offsets = PackedFloat32Array(0, 0.136364, 0.415584, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.313726, 1, 1, 1, 0.156863, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_undft"]
+gradient = SubResource("Gradient_fv5sn")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.848624, 0.825688)
+
+[sub_resource type="Animation" id="Animation_fwgh5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8a01f"]
+resource_name = "muzzle_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjojk"]
+_data = {
+"RESET": SubResource("Animation_fwgh5"),
+"muzzle_flash": SubResource("Animation_8a01f")
+}
+
 [node name="Arm" type="Node2D"]
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="MuzzleFlash" type="PointLight2D" parent="Node2D"]
-position = Vector2(213, 0)
-color = Color(1, 1, 1, 0)
-energy = 10.0
-texture = SubResource("GradientTexture2D_undft")
-texture_scale = 20.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/MuzzleFlash"]
-libraries = {
-"": SubResource("AnimationLibrary_pjojk")
-}
-
 [node name="Hand" type="Sprite2D" parent="Node2D"]
-self_modulate = Color(0.762404, 0.762404, 0.762404, 1)
+self_modulate = Color(0.564962, 0.564962, 0.564961, 1)
 position = Vector2(148, 16)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_xt3s2")
@@ -158,3 +146,17 @@ texture = ExtResource("3_xt3s2")
 libraries = {
 "": SubResource("AnimationLibrary_77bmn")
 }
+
+[node name="MuzzleFlash" type="PointLight2D" parent="."]
+position = Vector2(213, 0)
+color = Color(1, 1, 1, 0)
+energy = 2.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_undft")
+texture_scale = 30.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MuzzleFlash"]
+libraries = {
+"": SubResource("AnimationLibrary_pjojk")
+}
+speed_scale = 0.85

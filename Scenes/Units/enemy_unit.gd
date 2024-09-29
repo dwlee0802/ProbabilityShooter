@@ -71,6 +71,8 @@ var health_bar: DelayedProgressBar
 
 @onready
 var sprite: Sprite2D = $Sprite2D/Sprite2D
+@onready
+var unit_sprite: Sprite2D = $Sprite2D
 
 @onready var hit_sound_player: AudioStreamPlayer2D = $HitSoundPlayer
 @onready var crit_sound_player: AudioStreamPlayer2D = $CritSoundPlayer
@@ -123,8 +125,8 @@ func apply_quick() -> void:
 	
 func apply_ranged() -> void:
 	attack_range = 2000
-	$Sprite2D.self_modulate = Color.YELLOW
-	color = Color.YELLOW
+	$Sprite2D.self_modulate = Color.ORANGE
+	color = Color.ORANGE
 
 func apply_shield() -> void:
 	$Sprite2D.material = shield_material
@@ -171,7 +173,6 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 		return 0
 		
 	if critical:
-		$CritArea/Sprite2D2/AnimationPlayer.play("crit_hit_animation")
 		damage_amount *= 2
 		new_popup.modulate = Color.YELLOW
 		crit_sound_player.play()
@@ -217,7 +218,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 		if health_points < max_health_points:
 			bleed_timer.start(2)
 		
-		$Sprite2D/AnimationPlayer.play("hit_animation")
+		$Sprite2D/HitEffect/AnimationPlayer.play("hit_animation")
 		
 	CameraControl.camera.shake_screen(10,200)
 	
@@ -253,6 +254,13 @@ func _physics_process(delta) -> void:
 	# flip sprite based on movement
 	# right is false
 	sprite.flip_h = linear_velocity.x <= 0
+	
+	if linear_velocity.x > 100:
+		unit_sprite.skew = 0.20
+	elif linear_velocity.x < -100:
+		unit_sprite.skew = -0.20
+	else:
+		unit_sprite.skew = 0
 
 func get_movement_speed() -> float:
 	return movement_speed * movement_speed_multiplier + movement_speed_modifier

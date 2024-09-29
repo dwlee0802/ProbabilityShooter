@@ -40,7 +40,7 @@ var background_color: Color = Color.BLACK
 @onready
 var arm: Node2D = $Arm
 @onready
-var muzzle_flash: AnimationPlayer = $Arm/Node2D/MuzzleFlash/AnimationPlayer
+var muzzle_flash: AnimationPlayer = $Arm/MuzzleFlash/AnimationPlayer
 @onready
 var recoil_animation: AnimationPlayer = $Arm/AnimationPlayer
 

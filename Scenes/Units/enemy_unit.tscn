@@ -1,46 +1,49 @@
-[gd_scene load_steps=24 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=22 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_a2d0g"]
-[ext_resource type="Texture2D" uid="uid://bunsnh361sj31" path="res://Art/slime_body.png" id="2_ao2hf"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_e0gvr"]
 [ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="3_0jrip"]
-[ext_resource type="Texture2D" uid="uid://rqsc5uda8y7f" path="res://Art/slime_eye.png" id="3_146dn"]
 [ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="4_652yl"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="4_s1jtq"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_e5dnx"]
+[ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="6_lfusx"]
 [ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
 [ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
 [ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="13_h80fs"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lacsx"]
+polygon = PackedVector2Array(-50.1176, -80.28, -65.114, -51.0266, -64.2281, -30.9649, -52.7113, -13.5199, -38.5368, -2.18063, -62.4562, 99.0004, 64.2281, 98.1282, 39.4228, -2.18063, 54.4831, -13.5199, 65.114, -32.7094, 65.9999, -50.1544, 52.2353, -81, 20.8188, -95.5114, -0.442943, -98.1281, -19.0469, -95.5114)
 
 [sub_resource type="Animation" id="Animation_eonp3"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
+tracks/0/path = NodePath("HitEffect:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.658824, 0, 0, 1)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_mtwn4"]
 resource_name = "hit_animation"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
+tracks/0/path = NodePath("HitEffect:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Color(1, 1, 1, 1), Color(0.658824, 0, 0, 1)]
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m6kw4"]
@@ -49,41 +52,8 @@ _data = {
 "hit_animation": SubResource("Animation_mtwn4")
 }
 
-[sub_resource type="Animation" id="Animation_i51dn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D2:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 0, 0.447059)]
-}
-
-[sub_resource type="Animation" id="Animation_s2tin"]
-resource_name = "crit_hit_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D2:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.411765, 0, 0, 1), Color(1, 1, 0, 0.447059)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tbe5p"]
-_data = {
-"RESET": SubResource("Animation_i51dn"),
-"crit_hit_animation": SubResource("Animation_s2tin")
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72c86"]
+size = Vector2(197, 287)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wv3ub"]
 radius = 30.0
@@ -163,23 +133,39 @@ scale_amount_max = 10.0
 color = Color(1, 1, 1, 0.396078)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.658824, 0, 0, 1)
-position = Vector2(0.999998, -1.5)
-scale = Vector2(5, 4.959)
-texture = ExtResource("2_ao2hf")
+self_modulate = Color(0.831373, 0, 0, 1)
+position = Vector2(0, -13.5)
+scale = Vector2(1.41667, 1.38889)
+texture = ExtResource("6_lfusx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
-texture = ExtResource("3_146dn")
+position = Vector2(-15.5294, -45.72)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("5_e5dnx")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/Sprite2D"]
+position = Vector2(600, 0)
+texture = ExtResource("5_e5dnx")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+visible = false
+occluder = SubResource("OccluderPolygon2D_lacsx")
+
+[node name="HitEffect" type="Sprite2D" parent="Sprite2D"]
+visible = false
+texture = ExtResource("6_lfusx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/HitEffect"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_m6kw4")
 }
-speed_scale = 4.0
+speed_scale = 2.0
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-polygon = PackedVector2Array(103, 84, -103, 82, -123, 30, -119, -31, -72, -90, -13, -112, 22, -112, 75, -90, 114, -39, 127, -1, 121, 40)
+position = Vector2(-0.5, -9.5)
+shape = SubResource("RectangleShape2D_72c86")
 
 [node name="AutohealTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -202,36 +188,44 @@ scale_amount_max = 0.1
 color = Color(0.713726, 1, 0, 0.603922)
 
 [node name="HealthLabel" type="Label" parent="."]
-offset_left = -65.0
-offset_top = -64.0
-offset_right = -25.0
-offset_bottom = -9.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 150.0
+offset_right = 20.0
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 20
 text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DamagePopupTimer" type="Timer" parent="."]
 wait_time = 0.5
 
 [node name="CritArea" type="Area2D" parent="."]
-position = Vector2(61, -10)
+position = Vector2(1, 1)
 collision_layer = 16
 collision_mask = 0
 monitoring = false
 
+[node name="Sprite2D3" type="Sprite2D" parent="CritArea"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("5_e5dnx")
+
 [node name="Sprite2D2" type="Sprite2D" parent="CritArea"]
-self_modulate = Color(1, 1, 0, 0.447059)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_e5dnx")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CritArea/Sprite2D2"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_tbe5p")
-}
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CritArea"]
+visible = false
 shape = SubResource("CircleShape2D_wv3ub")
 
 [node name="HitLine" type="Line2D" parent="."]

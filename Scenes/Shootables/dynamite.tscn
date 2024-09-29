@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bklnq54w5br57"]
+[gd_scene load_steps=18 format=3 uid="uid://bklnq54w5br57"]
 
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_imyjt"]
 [ext_resource type="Script" path="res://Scenes/Shootables/dynamite.gd" id="1_nwh7f"]
@@ -109,6 +109,53 @@ _data = {
 "explosion_animation": SubResource("Animation_7kanc")
 }
 
+[sub_resource type="Gradient" id="Gradient_vd74d"]
+offsets = PackedFloat32Array(0, 0.136364, 0.415584, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.313726, 1, 1, 1, 0.156863, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_yidjb"]
+gradient = SubResource("Gradient_vd74d")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.848624, 0.825688)
+
+[sub_resource type="Animation" id="Animation_fwgh5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8a01f"]
+resource_name = "muzzle_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjojk"]
+_data = {
+"RESET": SubResource("Animation_fwgh5"),
+"muzzle_flash": SubResource("Animation_8a01f")
+}
+
 [node name="Dynamite" type="StaticBody2D"]
 collision_layer = 64
 collision_mask = 0
@@ -153,6 +200,19 @@ initial_velocity_max = 1500.0
 libraries = {
 "": SubResource("AnimationLibrary_q1xa5")
 }
+
+[node name="MuzzleFlash" type="PointLight2D" parent="ExplosionEffect"]
+color = Color(1, 1, 1, 0)
+energy = 2.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_yidjb")
+texture_scale = 50.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ExplosionEffect/MuzzleFlash"]
+libraries = {
+"": SubResource("AnimationLibrary_pjojk")
+}
+speed_scale = 0.85
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_m1160")

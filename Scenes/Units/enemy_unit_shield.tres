@@ -4,8 +4,8 @@
 
 [resource]
 shader = ExtResource("1_yferq")
-shader_parameter/color = Color(1, 1, 0.658824, 1)
-shader_parameter/width = 5.0
-shader_parameter/pattern = 1
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 8.0
+shader_parameter/pattern = 2
 shader_parameter/inside = false
 shader_parameter/add_margins = true
