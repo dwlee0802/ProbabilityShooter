@@ -8,7 +8,7 @@ var game_over_screen: GameOverScreen = $GameOverScreen
 
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
-var units = []
+var player_unit: PlayerUnit
 
 @onready
 var projectiles: Node2D = $Projectiles
@@ -86,10 +86,11 @@ func _ready():
 	
 	set_safezone_sprite(safe_zone_radius)
 	
-	units = $PlayerUnits.get_children()
-	user_interface.core_health_bar.set_max(units[0].max_health_points)
-	user_interface.core_health_bar.change_value(units[0].health_points, true)
-	user_interface.core_health_label.text = "HP: " + str(units[0].health_points)
+	player_unit = $PlayerUnit
+	
+	user_interface.core_health_bar.set_max(player_unit.max_health_points)
+	user_interface.core_health_bar.change_value(player_unit.health_points, true)
+	user_interface.core_health_label.text = "HP: " + str(player_unit.health_points)
 	#InputManager._select_unit(units[0])
 	bind_selected_unit_signals()
 	
@@ -113,26 +114,25 @@ func _ready():
 	user_interface.restart_button.pressed.connect(start)
 	game_over_screen.restart_button.pressed.connect(start)
 	
-	for unit: PlayerUnit in units:
-		unit.set_eye_colors(weapon_one_color, weapon_two_color)
-		unit.weapon_one.set_color(weapon_one_color)
-		unit.weapon_two.set_color(weapon_two_color)
-		
-		#unit.picked_up_item.connect(user_interface.show_item_info)
-		unit.experience_changed.connect(on_experience_changed)
-		unit.added_experience.connect(user_interface.make_exp_popup)
-		unit.was_selected.connect(bind_selected_unit_signals)
-		unit.level_increased.connect(on_level_up)
-		unit.stats_changed.connect(user_interface.update_bullet_menu)
-		unit.stats_changed.connect(user_interface.update_bullet_generation_info_menu)
-		unit.was_selected.connect(user_interface.update_bullet_menu)
-		unit.actioned.connect(user_interface.update_bullet_menu)
-		unit.weapon_one.bullets_changed.connect(user_interface.update_bullet_menu)
-		unit.weapon_two.bullets_changed.connect(user_interface.update_bullet_menu)
-		unit.weapon_one.reload_started.connect(
-			user_interface.update_reload_marker.bind(user_interface.weapon_one_active_reload, unit.weapon_one))
-		unit.weapon_two.reload_started.connect(
-			user_interface.update_reload_marker.bind(user_interface.weapon_two_active_reload, unit.weapon_two))
+	player_unit.set_eye_colors(weapon_one_color, weapon_two_color)
+	player_unit.weapon_one.set_color(weapon_one_color)
+	player_unit.weapon_two.set_color(weapon_two_color)
+	
+	#unit.picked_up_item.connect(user_interface.show_item_info)
+	player_unit.experience_changed.connect(on_experience_changed)
+	player_unit.added_experience.connect(user_interface.make_exp_popup)
+	player_unit.was_selected.connect(bind_selected_unit_signals)
+	player_unit.level_increased.connect(on_level_up)
+	player_unit.stats_changed.connect(user_interface.update_bullet_menu)
+	player_unit.stats_changed.connect(user_interface.update_bullet_generation_info_menu)
+	player_unit.was_selected.connect(user_interface.update_bullet_menu)
+	player_unit.actioned.connect(user_interface.update_bullet_menu)
+	player_unit.weapon_one.bullets_changed.connect(user_interface.update_bullet_menu)
+	player_unit.weapon_two.bullets_changed.connect(user_interface.update_bullet_menu)
+	player_unit.weapon_one.reload_started.connect(
+		user_interface.update_reload_marker.bind(user_interface.weapon_one_active_reload, player_unit.weapon_one))
+	player_unit.weapon_two.reload_started.connect(
+		user_interface.update_reload_marker.bind(user_interface.weapon_two_active_reload, player_unit.weapon_two))
 	
 	# randomly place dynamite on the map
 	for i in range(10):
@@ -140,8 +140,8 @@ func _ready():
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)
 		
-	user_interface.update_bullet_menu(units[0].weapon_one, units[0].weapon_two)
-	user_interface.update_bullet_generation_info_menu(units[0].bullet_generator_component)
+	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
+	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
 	
 	# auto select upgrade option if timeout
 	upgrade_timer.timeout.connect(on_upgrade_timeout)
@@ -158,14 +158,6 @@ func _process(_delta):
 	if InputManager.selected_unit:
 		var points: PackedVector2Array = PackedVector2Array()
 		var color_arr: PackedColorArray = PackedColorArray()
-		# add player units
-		#for unit: PlayerUnit in units:
-			#points.append(unit.global_position)
-			#color_arr.append(unit.temp_color)
-			
-		# add camera
-		#points.append(CameraControl.camera.global_position)
-		#color_arr.append(Color.GREEN_YELLOW)
 		
 		for enemy: EnemyUnit in enemies.get_children():
 			points.append(enemy.global_position)
@@ -211,29 +203,6 @@ func _process(_delta):
 	CameraControl.camera.position = local_mouse_pos.normalized()
 	# limit the amount of camera position offset from cursor
 	CameraControl.camera.position *= min(local_mouse_pos.length()/7, 300)
-	
-	## Active reload UI
-	#if InputManager.selected_unit.weapon_one.reload_timer.is_stopped():
-		#user_interface.weapon_one_active_reload.visible = false
-	#else:
-		#user_interface.weapon_one_active_reload.visible = true
-		#var timer: Timer = InputManager.selected_unit.weapon_one.reload_timer
-		#user_interface.weapon_one_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-		#if InputManager.selected_unit.weapon_one.active_reload_failed:
-			#user_interface.weapon_one_active_reload.self_modulate = Color.RED
-		#else:
-			#user_interface.weapon_one_active_reload.self_modulate = weapon_one_color
-	#
-	#if InputManager.selected_unit.weapon_two.reload_timer.is_stopped():
-		#user_interface.weapon_two_active_reload.visible = false
-	#else:
-		#user_interface.weapon_two_active_reload.visible = true
-		#var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
-		#user_interface.weapon_two_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-		#if InputManager.selected_unit.weapon_two.active_reload_failed:
-			#user_interface.weapon_two_active_reload.self_modulate = Color.RED
-		#else:
-			#user_interface.weapon_two_active_reload.self_modulate = weapon_two_color
 	
 	## Player outside safe zone
 	if InputManager.selected_unit.global_position.length() > safe_zone_radius:
@@ -311,7 +280,7 @@ func remove_objects() -> void:
 func set_game_over_stats() -> void:
 	game_over_screen.survival_time_label.text = str(int(time_since_start)) + " seconds"
 	game_over_screen.kill_count_label.text = str(int(kill_count)) + " kills"
-	game_over_screen.level_label.text = "Lv. " + str(units[0].current_level)
+	game_over_screen.level_label.text = "Lv. " + str(player_unit.current_level)
 	
 func start() -> void:
 	print("***START GAME***")
@@ -339,12 +308,11 @@ func start() -> void:
 	user_interface.kill_count_label.text = "Kills: " + str(kill_count)
 	
 	# reset unit stats
-	for unit: PlayerUnit in units:
-		unit.reset_health()
-		unit.reset_items()
-		unit.reset_exp()
-		unit.reload_action()
-		unit.global_position = Vector2.ZERO
+	player_unit.reset_health()
+	player_unit.reset_items()
+	player_unit.reset_exp()
+	player_unit.reload_action()
+	player_unit.global_position = Vector2.ZERO
 	
 	# reset enemy stats 
 	spawner_component.reset_stats()

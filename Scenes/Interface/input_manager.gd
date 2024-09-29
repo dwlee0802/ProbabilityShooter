@@ -12,7 +12,7 @@ var slice_angle_size: float = PI/2
 	
 func _physics_process(_delta):
 	if InputManager.selected_unit == null:
-		_select_unit(game.units[0])
+		_select_unit(game.player_unit)
 		
 	var unit_index: int = 0
 	if Input.is_action_just_pressed("select_unit_one"):

@@ -1,0 +1,163 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1ijv8y3qg1sq"]
+
+[ext_resource type="Shader" path="res://Scenes/Units/outline.gdshader" id="1_jtge2"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_i7ii5"]
+[ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://active_reload_bar_texture.tres" id="3_khbge"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1xluu"]
+shader = ExtResource("1_jtge2")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 2.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hww4v"]
+texture = ExtResource("2_i7ii5")
+
+[node name="WeaponOne" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -38.5
+offset_right = -10.0
+offset_bottom = 38.5
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 1
+
+[node name="MagazineContainer" type="HBoxContainer" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_1xluu")
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MagazineContainer"]
+use_parent_material = true
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/MagazineContainer"]
+use_parent_material = true
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/MagazineContainer"]
+use_parent_material = true
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/MagazineContainer"]
+use_parent_material = true
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="VBoxContainer/MagazineContainer"]
+use_parent_material = true
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="VBoxContainer/MagazineContainer"]
+use_parent_material = true
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="MagazineLabel" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "0 / 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DamageLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 5
+text = "000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TraitsLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 3
+text = "EXPL PIER"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ActiveReloadBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -70.0
+offset_right = 12.0
+offset_bottom = 30.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/background = ExtResource("3_khbge")
+theme_override_styles/fill = SubResource("StyleBoxTexture_hww4v")
+value = 20.0
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="ActiveReloadBar"]
+self_modulate = Color(1, 1, 1, 0.117647)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 0
+offset_top = 50.0
+offset_right = 10.0
+offset_bottom = 60.0
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="ActiveReloadBar/TextureRect"]
+self_modulate = Color(1, 1, 1, 0.0392157)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 0
+offset_top = -5.0
+offset_right = 12.0
+offset_bottom = 5.0
+texture = ExtResource("2_i7ii5")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="ActiveReloadBar"]
+self_modulate = Color(1, 1, 1, 0.133333)
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 14.0
+offset_bottom = 102.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
+[ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
 [node name="Game" type="Node2D"]
@@ -92,9 +93,7 @@ position = Vector2(718, 279)
 
 [node name="Casings" type="Node2D" parent="."]
 
-[node name="PlayerUnits" type="Node2D" parent="."]
-
-[node name="PlayerUnit" parent="PlayerUnits" instance=ExtResource("2_jg501")]
+[node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 collision_mask = 138
 movement_speed = 500.0
 health_points = 300.0
@@ -102,13 +101,13 @@ max_health_points = 300
 starting_equipments = [ExtResource("10_gp80q")]
 invinsible = true
 
-[node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]
+[node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
 zoom = Vector2(0.1, 0.1)
 process_callback = 0
 script = ExtResource("2_iduqg")
 panning_disabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayerUnits/PlayerUnit/Camera2D"]
+[node name="Sprite2D" type="Sprite2D" parent="PlayerUnit/Camera2D"]
 visible = false
 self_modulate = Color(1, 1, 1, 0.309804)
 scale = Vector2(0.5, 0.5)
@@ -152,5 +151,8 @@ text = "Fabrication Bench"
 process_mode = 3
 stream = ExtResource("18_7elte")
 volume_db = -5.0
+
+[node name="StatisticsComponent" type="Node" parent="."]
+script = ExtResource("15_ophms")
 
 [editable path="GameOverScreen/Crosshair"]
