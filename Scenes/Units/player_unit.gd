@@ -127,6 +127,10 @@ var push_back_strength: float = 1000
 @onready
 var movement_component: WASDMovementComponent = $MovementComponent
 
+@export_category("Debugging")
+@export
+var invinsible: bool = false
+
 #region Signals
 signal was_selected
 signal deselected
@@ -214,10 +218,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		unit_sprite.skew = 0
 		
-	aim_cone.visible = InputManager.IsSelected(self)
-	if InputManager.IsSelected(self):
-		aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
-
+func _input(_event: InputEvent) -> void:
+	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
+		
 func _process(_delta: float) -> void:
 	return
 	## autofail active reload if past range
@@ -235,7 +238,7 @@ func receive_hit(amount: float) -> void:
 		
 	health_points -= amount
 	health_points = max(health_points, 0)
-	if health_points <= 0:
+	if health_points <= 0 and !invinsible:
 		make_unconscious()
 		
 	health_bar.change_value(health_points)
@@ -243,6 +246,9 @@ func receive_hit(amount: float) -> void:
 	was_attacked.emit()
 
 func make_unconscious() -> void:
+	if invinsible:
+		return
+		
 	knocked_out.emit()
 	#disable_enemy_collision()
 	weapon_one.reset()
@@ -279,7 +285,7 @@ func reset_exp() -> void:
 	experience_changed.emit()
 	
 func is_unconscious() -> bool:
-	return health_points <= 0
+	return health_points <= 0 and !invinsible
 	
 func _on_body_entered(body) -> void:
 	if body is EnemyUnit:
@@ -499,6 +505,6 @@ func required_exp_amount(level: int) -> int:
 	
 #endregion
 
-### how much damage is increased from current charge. 100 charge means x2 damage
-#func get_charge_damage_modifier() -> float:
-	#return 1 + charge/100.0
+func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
+	$UnitSprite/LeftEye.self_modulate = left
+	$UnitSprite/RightEye.self_modulate = right

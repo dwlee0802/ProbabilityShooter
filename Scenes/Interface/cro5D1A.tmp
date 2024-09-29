@@ -82,6 +82,7 @@ _data = {
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hww4v"]
 texture = ExtResource("5_18m8i")
+modulate_color = Color(0, 0.509804, 1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evi6y"]
 texture = ExtResource("5_18m8i")
@@ -198,64 +199,50 @@ grow_horizontal = 0
 grow_vertical = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WeaponOne/VBoxContainer"]
-layout_mode = 2
-
 [node name="MagazineLabel" type="Label" parent="WeaponOne/VBoxContainer"]
-visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 text = "0 / 0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="DamageLabel" type="Label" parent="WeaponOne/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 text = "000"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="TraitsLabel" type="Label" parent="WeaponOne/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 text = "EXPL PIER"
 horizontal_alignment = 2
 vertical_alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="WeaponOne"]
-visible = false
-layout_mode = 0
-offset_left = -2.0
-offset_top = -32.0
-offset_right = 14.0
-offset_bottom = 72.0
 
 [node name="ActiveReloadBar" type="ProgressBar" parent="WeaponOne"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -70.0
-offset_right = 12.0
-offset_bottom = 30.0
+offset_left = -19.0
+offset_top = -71.0
+offset_right = -9.0
+offset_bottom = 29.0
 grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/background = ExtResource("5_jp2bk")
 theme_override_styles/fill = SubResource("StyleBoxTexture_hww4v")
-value = 50.0
+value = 60.0
 fill_mode = 3
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="WeaponOne/ActiveReloadBar"]
-self_modulate = Color(1, 1, 1, 0.439216)
-custom_minimum_size = Vector2(12, 10)
+self_modulate = Color(0, 0, 0, 0.611765)
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_top = 50.0
 offset_right = 10.0
@@ -292,65 +279,50 @@ offset_bottom = 38.5
 grow_vertical = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTwo/VBoxContainer"]
-layout_mode = 2
-
 [node name="MagazineLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
-visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 text = "0 / 0"
 vertical_alignment = 1
 
 [node name="DamageLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 text = "000"
 vertical_alignment = 1
 
 [node name="TraitsLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 text = "EXPL PIER"
 vertical_alignment = 1
 
 [node name="ActiveReloadBar" type="ProgressBar" parent="WeaponTwo"]
-custom_minimum_size = Vector2(12, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = -70.0
-offset_right = 40.0
-offset_bottom = 30.0
+offset_left = 47.0
+offset_top = -71.0
+offset_right = 57.0
+offset_bottom = 29.0
 grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_evi6y")
 theme_override_styles/fill = ExtResource("6_dknah")
-value = 50.0
+value = 60.0
 fill_mode = 3
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="WeaponTwo/ActiveReloadBar"]
-self_modulate = Color(1, 1, 1, 0.439216)
-custom_minimum_size = Vector2(12, 10)
+self_modulate = Color(0, 0, 0, 0.611765)
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
 offset_top = 50.0
-offset_right = 12.0
+offset_right = 10.0
 offset_bottom = 60.0
 texture = ExtResource("5_18m8i")
 expand_mode = 1
-
-[node name="ColorRect" type="ColorRect" parent="WeaponTwo/ActiveReloadBar"]
-visible = false
-self_modulate = Color(1, 1, 1, 0)
-offset_left = -2.0
-offset_top = -2.0
-offset_right = 14.0
-offset_bottom = 102.0

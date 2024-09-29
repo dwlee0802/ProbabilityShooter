@@ -28,6 +28,8 @@ var aim_cone: Polygon2D = $AimCone
 @onready
 var queued_cones: Node2D = $QueuedCones
 
+var weapon_color: Color = Color.HOT_PINK
+
 @export
 var aim_color: Color = Color.DIM_GRAY
 @export
@@ -75,8 +77,12 @@ func _ready() -> void:
 	add_child(reload_timer)
 	
 	update_aim_cone()
-	aim_cone.color = aim_color
-	attack_cone.color = attack_color
+	
+func set_color(color: Color) -> void:
+	weapon_color = color
+	queued_color = weapon_color.lightened(0.4)
+	aim_cone.color = weapon_color.darkened(0.8)
+	attack_cone.color = weapon_color
 	attack_full_cone.color = background_color
 	
 func _unhandled_input(event: InputEvent) -> void:

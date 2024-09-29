@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=34 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -176,6 +176,9 @@ _data = {
 "item_info_fadeout_animation": SubResource("Animation_308bu")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7dcnx"]
+texture = ExtResource("5_fir5d")
+
 [sub_resource type="Animation" id="Animation_jioqa"]
 length = 0.001
 tracks/0/type = "value"
@@ -256,33 +259,6 @@ shader_parameter/angle = 0.785398
 shader_parameter/speed = 1.0
 shader_parameter/wait_cycles = 2.0
 
-[sub_resource type="Animation" id="Animation_a4qmx"]
-resource_name = "show_level_up_menu"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:mouse_filter")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 1]
-}
-
 [sub_resource type="Animation" id="Animation_t2yik"]
 length = 0.001
 tracks/0/type = "value"
@@ -308,6 +284,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_a4qmx"]
+resource_name = "show_level_up_menu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mouse_filter")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [2, 1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kcsno"]
@@ -613,7 +616,7 @@ theme_override_font_sizes/font_size = 8
 text = "Progress: 0"
 
 [node name="WeaponOneActiveReloadBar" type="ProgressBar" parent="ExperienceBar"]
-self_modulate = Color(0.756863, 1, 1, 1)
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
@@ -624,12 +627,13 @@ offset_right = -10.0
 grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/background = ExtResource("5_omcna")
-theme_override_styles/fill = ExtResource("6_auke1")
+theme_override_styles/fill = SubResource("StyleBoxTexture_7dcnx")
+value = 50.0
 fill_mode = 3
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="ExperienceBar/WeaponOneActiveReloadBar"]
-self_modulate = Color(0, 0, 0, 0.611765)
+self_modulate = Color(1, 1, 1, 0.392157)
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_top = 50.0
@@ -639,6 +643,7 @@ texture = ExtResource("5_fir5d")
 expand_mode = 1
 
 [node name="WeaponTwoActiveReloadBar" type="ProgressBar" parent="ExperienceBar"]
+visible = false
 self_modulate = Color(1, 0.8, 0.776471, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -658,7 +663,7 @@ fill_mode = 3
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="ExperienceBar/WeaponTwoActiveReloadBar"]
-self_modulate = Color(0, 0, 0, 0.611765)
+self_modulate = Color(1, 1, 1, 0.392157)
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 0
 offset_right = 10.0

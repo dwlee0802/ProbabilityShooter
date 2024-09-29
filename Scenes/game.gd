@@ -52,6 +52,12 @@ var blood_splatter: Node2D = $BloodSplatter
 @export
 var safe_zone_radius: float = 2000.0
 
+@export_category("Weapon Colors")
+@export_color_no_alpha
+var weapon_one_color: Color = Color.DARK_ORANGE
+@export_color_no_alpha
+var weapon_two_color: Color = Color.NAVY_BLUE
+
 @export_category("Debugging")
 @export
 var no_game_over: bool = false
@@ -108,6 +114,10 @@ func _ready():
 	game_over_screen.restart_button.pressed.connect(start)
 	
 	for unit: PlayerUnit in units:
+		unit.set_eye_colors(weapon_one_color, weapon_two_color)
+		unit.weapon_one.set_color(weapon_one_color)
+		unit.weapon_two.set_color(weapon_two_color)
+		
 		#unit.picked_up_item.connect(user_interface.show_item_info)
 		unit.experience_changed.connect(on_experience_changed)
 		unit.added_experience.connect(user_interface.make_exp_popup)
@@ -203,27 +213,27 @@ func _process(_delta):
 	CameraControl.camera.position *= min(local_mouse_pos.length()/7, 300)
 	
 	## Active reload UI
-	if InputManager.selected_unit.weapon_one.reload_timer.is_stopped():
-		user_interface.weapon_one_active_reload.visible = false
-	else:
-		user_interface.weapon_one_active_reload.visible = true
-		var timer: Timer = InputManager.selected_unit.weapon_one.reload_timer
-		user_interface.weapon_one_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-		if InputManager.selected_unit.weapon_one.active_reload_failed:
-			user_interface.weapon_one_active_reload.self_modulate = Color.RED
-		else:
-			user_interface.weapon_one_active_reload.self_modulate = Color.WHITE
-	
-	if InputManager.selected_unit.weapon_two.reload_timer.is_stopped():
-		user_interface.weapon_two_active_reload.visible = false
-	else:
-		user_interface.weapon_two_active_reload.visible = true
-		var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
-		user_interface.weapon_two_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-		if InputManager.selected_unit.weapon_two.active_reload_failed:
-			user_interface.weapon_two_active_reload.self_modulate = Color.RED
-		else:
-			user_interface.weapon_two_active_reload.self_modulate = Color.WHITE
+	#if InputManager.selected_unit.weapon_one.reload_timer.is_stopped():
+		#user_interface.weapon_one_active_reload.visible = false
+	#else:
+		#user_interface.weapon_one_active_reload.visible = true
+		#var timer: Timer = InputManager.selected_unit.weapon_one.reload_timer
+		#user_interface.weapon_one_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
+		#if InputManager.selected_unit.weapon_one.active_reload_failed:
+			#user_interface.weapon_one_active_reload.self_modulate = Color.RED
+		#else:
+			#user_interface.weapon_one_active_reload.self_modulate = weapon_one_color
+	#
+	#if InputManager.selected_unit.weapon_two.reload_timer.is_stopped():
+		#user_interface.weapon_two_active_reload.visible = false
+	#else:
+		#user_interface.weapon_two_active_reload.visible = true
+		#var timer: Timer = InputManager.selected_unit.weapon_two.reload_timer
+		#user_interface.weapon_two_active_reload.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
+		#if InputManager.selected_unit.weapon_two.active_reload_failed:
+			#user_interface.weapon_two_active_reload.self_modulate = Color.RED
+		#else:
+			#user_interface.weapon_two_active_reload.self_modulate = weapon_two_color
 	
 	## Player outside safe zone
 	if InputManager.selected_unit.global_position.length() > safe_zone_radius:

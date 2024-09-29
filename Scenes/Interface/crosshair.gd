@@ -51,40 +51,40 @@ func update_weapon_info_label(weapon_ui, weapon) -> void:
 	# show damage range
 	var current_eq: Equipment = weapon.weapon
 	
-	var bullet_info_label: RichTextLabel = weapon_ui.get_node("InfoLabel")
-	var active_reload_ui: ProgressBar = weapon_ui.get_node("ActiveReloadBar")
-	var mag_label: Label = weapon_ui.get_node("MagazineLabel")
+	var mag_label: Label = weapon_ui.get_node("VBoxContainer/MagazineLabel")
+	var dmg_label: Label = weapon_ui.get_node("VBoxContainer/DamageLabel")
+	var traits_label: Label = weapon_ui.get_node("VBoxContainer/TraitsLabel")
 	
-	if current_eq is Gun and current_eq.bullets.size() > 0:
+	var active_reload_bar: Control = weapon_ui.get_node("ActiveReloadBar")
+	
+	mag_label.add_theme_color_override("font_color", weapon.weapon_color)
+	dmg_label.add_theme_color_override("font_color", weapon.weapon_color)
+	
+	if current_eq.have_bullets():
+		active_reload_bar.visible = false
 		var queued_count: int = weapon.get_queued_attack_count()
-		# queued all bullets. nothing to show
 		if queued_count >= current_eq.bullets.size():
-			bullet_info_label.text = ""
+			mag_label.text = "EMPTY"
 		else:
-			# show next bullet info
-			bullet_info_label.text = current_eq.bullets[queued_count].to_crosshair_string()
-	else:
-		bullet_info_label.text = ""
-	
-	# reloading
-	if !current_eq.have_bullets():
-		#active_reload_ui.visible = true
-		var timer: Timer = weapon.reload_timer
-		active_reload_ui.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
-		if weapon.active_reload_available:
-			active_reload_ui.self_modulate = Color.YELLOW
-		else:
-			if weapon.active_reload_failed:
-				active_reload_ui.self_modulate = Color.RED
-			else:
-				active_reload_ui.self_modulate = Color.GREEN
-				#image.progress = 100
-			
-		if current_eq is Gun:
-			mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
-	else:
-		active_reload_ui.visible = false
-		if current_eq is Gun:
+			# mag label
 			mag_label.text = weapon.get_magazine_status()
+			
+			# dmg label
+			dmg_label.text = current_eq.bullets[queued_count].to_string_crosshair(true)
+			
+			# traits label
+			traits_label.text = current_eq.bullets[queued_count].print_traits()
+	else:
+		var timer: Timer = weapon.reload_timer
+		mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
+		dmg_label.text = ""
+		traits_label.text = ""
+		active_reload_bar.value = int((timer.wait_time - timer.time_left) / (timer.wait_time) * 100)
+		active_reload_bar.visible = true
+		
+		# make marker and mag label light up when inside range
+		
+		if weapon.active_reload_failed:
+			active_reload_bar.self_modulate = weapon.weapon_color.darkened(0.5)
 		else:
-			mag_label.text = "0/0"
+			active_reload_bar.self_modulate = weapon.weapon_color

@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=15 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
-[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_jamf8"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/enemy_spawner_component.gd" id="2_quhko"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
@@ -20,6 +19,9 @@
 script = ExtResource("1_entdd")
 spawn_radius = 5000
 safe_zone_radius = 2500.0
+weapon_one_color = Color(0, 0.556863, 0.8, 1)
+weapon_two_color = Color(1, 0.6, 0.0980392, 1)
+upgrade_select_time_limit = 30.0
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
@@ -27,23 +29,22 @@ script = ExtResource("2_webe7")
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
 _base_wave_count = 4
-_base_ranged_chance = 1.0
+_base_move_speed_range = Vector2i(500, 500)
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
 [node name="Background" type="Sprite2D" parent="."]
-self_modulate = Color(0, 0, 0, 1)
-scale = Vector2(10000, 10000)
-texture = ExtResource("2_jamf8")
+self_modulate = Color(0.154876, 0.154876, 0.154876, 1)
+scale = Vector2(100, 100)
+texture = ExtResource("8_tcb7a")
 
 [node name="Safezone" type="Sprite2D" parent="."]
 self_modulate = Color(0.201527, 0.201527, 0.201527, 1)
-position = Vector2(-37, -38.5)
-scale = Vector2(8, 8)
+scale = Vector2(10, 10)
 texture = ExtResource("8_tcb7a")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="WaveTimer" type="Timer" parent="."]
 process_callback = 0
@@ -71,6 +72,11 @@ visible = false
 [node name="WeaponTwo" parent="GameOverScreen/Crosshair" index="4"]
 visible = false
 
+[node name="TextureRect" parent="GameOverScreen/Crosshair/WeaponTwo/ActiveReloadBar" index="0"]
+layout_mode = 0
+offset_top = 0.0
+offset_bottom = 10.0
+
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
 process_mode = 3
 
@@ -89,6 +95,7 @@ movement_speed = 500.0
 health_points = 300.0
 max_health_points = 300
 starting_equipments = [ExtResource("10_gp80q")]
+invinsible = true
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnits/PlayerUnit"]
 zoom = Vector2(0.1, 0.1)

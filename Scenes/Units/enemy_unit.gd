@@ -163,7 +163,7 @@ func _process(_delta: float) -> void:
 	
 	if health_tween != null and health_tween.is_valid():
 		update_health_label(int(tweened_health_points))
-
+		
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
 	var new_popup = damage_popup.instantiate()
@@ -291,7 +291,7 @@ func make_blood_splatter_eff(direction, count: int = 50, intensity_scale: float 
 	var particles: CPUParticles2D = new_dead_eff.get_node("CPUParticles2D")
 	particles.direction = direction
 	particles.amount = count
-	particles.color = color
+	#particles.color = color
 	particles.initial_velocity_min *= intensity_scale
 	particles.initial_velocity_max *= intensity_scale
 	particles.emitting = true

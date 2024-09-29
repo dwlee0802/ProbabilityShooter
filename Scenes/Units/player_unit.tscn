@@ -158,12 +158,12 @@ size = Vector2(157, 231)
 resource_local_to_scene = true
 radius = 128.0
 
-[sub_resource type="Gradient" id="Gradient_gy85f"]
+[sub_resource type="Gradient" id="Gradient_4qwj3"]
 offsets = PackedFloat32Array(0.318182, 0.766234, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rvijk"]
-gradient = SubResource("Gradient_gy85f")
+gradient = SubResource("Gradient_4qwj3")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -193,7 +193,6 @@ acceleration = 12000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_sf8iw")
-_base_piercing_chance = 1.0
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
 self_modulate = Color(4, 4, 4, 1)
@@ -203,13 +202,13 @@ position = Vector2(-1.50001, -0.5)
 scale = Vector2(1.12879, 1.14646)
 texture = ExtResource("14_wx8vp")
 
-[node name="Sprite2D" type="Sprite2D" parent="UnitSprite"]
+[node name="LeftEye" type="Sprite2D" parent="UnitSprite"]
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(-17, -50)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("13_n3hms")
 
-[node name="Sprite2D2" type="Sprite2D" parent="UnitSprite"]
+[node name="RightEye" type="Sprite2D" parent="UnitSprite"]
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(17, -50)
 scale = Vector2(0.05, 0.05)

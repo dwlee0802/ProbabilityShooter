@@ -31,12 +31,15 @@ func _to_string() -> String:
 	
 	return output
 
-func to_crosshair_string() -> String:
+func to_string_crosshair(only_damage: bool = false) -> String:
 	var output = ""
 	if projectile_count != 1:
 		output += "" + str(int(damage_amount/float(projectile_count))) + " x" + str(projectile_count)
 	else:
 		output += "" + str(damage_amount)
+	if only_damage:
+		return output
+		
 	output += "\n[color=aqua]"
 	if anti_armor:
 		output += "AA\n"
@@ -47,6 +50,19 @@ func to_crosshair_string() -> String:
 	if quickshot:
 		output += "QCK\n"
 	output += "[/color]"
+	
+	return output
+
+func print_traits() -> String:
+	var output: String = ""
+	if anti_armor:
+		output += "AA\n"
+	if piercing:
+		output += "PIER\n"
+	if explosive:
+		output += "EXPL\n"
+	if quickshot:
+		output += "QCK\n"
 	
 	return output
 	
