@@ -26,6 +26,10 @@ mouse_cursor/custom_image="res://Art/empty_circle.png"
 
 enabled=PackedStringArray()
 
+[gui]
+
+theme/custom_font="res://Fonts/SUSE-Regular.otf"
+
 [input]
 
 right_click={
