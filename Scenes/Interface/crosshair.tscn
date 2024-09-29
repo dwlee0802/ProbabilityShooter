@@ -198,8 +198,46 @@ grow_horizontal = 0
 grow_vertical = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WeaponOne/VBoxContainer"]
+[node name="MagazineContainer" type="HBoxContainer" parent="WeaponOne/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="WeaponOne/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
 
 [node name="MagazineLabel" type="Label" parent="WeaponOne/VBoxContainer"]
 visible = false
@@ -213,9 +251,8 @@ vertical_alignment = 1
 
 [node name="DamageLabel" type="Label" parent="WeaponOne/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_constants/outline_size = 5
 text = "000"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -292,8 +329,45 @@ offset_bottom = 38.5
 grow_vertical = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WeaponTwo/VBoxContainer"]
+[node name="MagazineContainer" type="HBoxContainer" parent="WeaponTwo/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
+custom_minimum_size = Vector2(9, 16)
+layout_mode = 2
+texture = ExtResource("5_18m8i")
+expand_mode = 1
 
 [node name="MagazineLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
 visible = false
@@ -306,9 +380,8 @@ vertical_alignment = 1
 
 [node name="DamageLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 3
+theme_override_constants/outline_size = 5
 text = "000"
 vertical_alignment = 1
 

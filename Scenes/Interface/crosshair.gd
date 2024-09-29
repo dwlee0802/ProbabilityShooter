@@ -52,22 +52,34 @@ func update_weapon_info_label(weapon_ui, weapon) -> void:
 	var current_eq: Equipment = weapon.weapon
 	
 	var mag_label: Label = weapon_ui.get_node("VBoxContainer/MagazineLabel")
+	var mag_container: HBoxContainer = weapon_ui.get_node("VBoxContainer/MagazineContainer")
 	var dmg_label: Label = weapon_ui.get_node("VBoxContainer/DamageLabel")
 	var traits_label: Label = weapon_ui.get_node("VBoxContainer/TraitsLabel")
 	
 	var active_reload_bar: Control = weapon_ui.get_node("ActiveReloadBar")
 	
-	mag_label.add_theme_color_override("font_color", weapon.weapon_color)
-	dmg_label.add_theme_color_override("font_color", weapon.weapon_color)
+	mag_label.add_theme_color_override("font_outline_color", weapon.weapon_color)
+	dmg_label.add_theme_color_override("font_outline_color", weapon.weapon_color)
 	
 	if current_eq.have_bullets():
 		active_reload_bar.visible = false
 		var queued_count: int = weapon.get_queued_attack_count()
 		if queued_count >= current_eq.bullets.size():
-			mag_label.text = "EMPTY"
+			#mag_label.visible = true
+			#mag_container.visible = false
+			#mag_label.text = "EMPTY"
+			pass
 		else:
 			# mag label
+			mag_label.visible = false
 			mag_label.text = weapon.get_magazine_status()
+			mag_container.visible = true
+			for i: int in mag_container.get_child_count():
+				#mag_container.get_child(i).visible = i < current_eq.bullets.size() - queued_count
+				if i < current_eq.bullets.size() - queued_count:
+					mag_container.get_child(i).self_modulate = weapon.weapon_color
+				else:
+					mag_container.get_child(i).self_modulate = weapon.weapon_color.darkened(0.8)
 			
 			# dmg label
 			dmg_label.text = current_eq.bullets[queued_count].to_string_crosshair(true)
