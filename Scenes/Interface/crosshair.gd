@@ -117,7 +117,7 @@ func update_active_reload_bar(bar: ProgressBar, weapon: WeaponComponent) -> void
 	# show indicator if inside success range
 	var highlight: ColorRect = bar.get_node("ColorRect")
 	if !highlight.visible:
-		if weapon.inside_active_reload_range():
+		if weapon.inside_active_reload_range() >= WeaponComponent.ActiveReloadResult.GOOD:
 			highlight.visible = true
 	else:
 		if !weapon.inside_active_reload_range():

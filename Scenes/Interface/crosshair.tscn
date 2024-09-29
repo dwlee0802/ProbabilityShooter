@@ -294,17 +294,27 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/background = ExtResource("5_jp2bk")
 theme_override_styles/fill = SubResource("StyleBoxTexture_hww4v")
-value = 50.0
+value = 20.0
 fill_mode = 3
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="WeaponOne/ActiveReloadBar"]
-self_modulate = Color(1, 1, 1, 0.439216)
-custom_minimum_size = Vector2(12, 10)
+self_modulate = Color(1, 1, 1, 0.117647)
+custom_minimum_size = Vector2(12, 0)
 layout_mode = 0
 offset_top = 50.0
 offset_right = 10.0
 offset_bottom = 60.0
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="WeaponOne/ActiveReloadBar/TextureRect"]
+self_modulate = Color(1, 1, 1, 0.0392157)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 0
+offset_top = -5.0
+offset_right = 12.0
+offset_bottom = 5.0
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
@@ -423,16 +433,33 @@ grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_evi6y")
 theme_override_styles/fill = ExtResource("6_dknah")
-value = 50.0
+value = 30.0
 fill_mode = 3
 show_percentage = false
 
 [node name="TextureRect" type="TextureRect" parent="WeaponTwo/ActiveReloadBar"]
-self_modulate = Color(1, 1, 1, 0.439216)
-custom_minimum_size = Vector2(12, 10)
+self_modulate = Color(1, 1, 1, 0.117647)
+custom_minimum_size = Vector2(12, 0)
 offset_top = 50.0
 offset_right = 12.0
 offset_bottom = 60.0
+texture = ExtResource("5_18m8i")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="WeaponTwo/ActiveReloadBar/TextureRect"]
+self_modulate = Color(1, 1, 1, 0.0392157)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_top = -30.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 0
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 

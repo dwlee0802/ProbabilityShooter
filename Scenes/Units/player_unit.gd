@@ -146,6 +146,7 @@ signal actioned
 signal bullets_changed
 signal reload_started
 signal reload_complete
+signal active_reload_success
 #endregion
 
 

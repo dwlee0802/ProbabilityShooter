@@ -60,16 +60,21 @@ var active_reload_fail_sound = preload("res://Sound/UI/error_006.ogg")
 @export
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
-## If active reload selected time is within tolerance, consider it a success
+### If active reload selected time is within tolerance, consider it a success
+#@export
+#var active_reload_tolerance: int = 3
 @export
-var active_reload_tolerance: int = 3
+var active_reload_rim_length: int = 10
 #endregion
 
 var disabled: bool = false
 
+enum ActiveReloadResult {FAIL, GOOD, PERFECT}
+
 signal bullets_changed
 signal reload_started
 signal reload_complete
+signal active_reload_success
 
 
 func _ready() -> void:
@@ -86,7 +91,7 @@ func _ready() -> void:
 func set_color(color: Color) -> void:
 	weapon_color = color
 	queued_color = weapon_color.lightened(0.4)
-	aim_cone.color = weapon_color.darkened(0.8)
+	aim_cone.color = Color(weapon_color, 0.2)
 	attack_cone.color = weapon_color
 	attack_full_cone.color = background_color
 	
@@ -96,6 +101,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	state_machine.process_physics(delta)
+	
+	point_aim_cone_at(get_local_mouse_position())
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
@@ -135,6 +142,10 @@ func point_arm_at(target_pos: Vector2) -> void:
 	var hand: Sprite2D = arm.get_node("Node2D/Hand")
 	# flip v if hand is on the left side
 	hand.flip_v = (hand.global_position - global_position).x <= 0
+	
+func point_aim_cone_at(target_pos: Vector2) -> void:
+	var angle: float = Vector2.RIGHT.angle_to_point(target_pos)
+	aim_cone.rotation = angle
 
 func clear_attack_queues():
 	attack_direction_queue.clear()
@@ -154,28 +165,51 @@ func check_active_reload_success() -> bool:
 		return false
 	
 	# determine active reload success
-	#print("range: " + str(active_reload_range))
-	#print("selected: " + str(selected_point))
-	if inside_active_reload_range():
-		#print("active reload success!")
-		timer.stop()
-		timer.timeout.emit()
-		active_reload_sound_player.stream = active_reload_success_sound
-		active_reload_sound_player.play()
-		active_reload_available = false
+	match inside_active_reload_range():
+		ActiveReloadResult.PERFECT:
+			print("active reload success!")
+			timer.stop()
+			timer.timeout.emit()
+			active_reload_sound_player.stream = active_reload_success_sound
+			active_reload_sound_player.play()
+			active_reload_available = false
+			
+			active_reload_success.emit()
+			return true
+		ActiveReloadResult.GOOD:
+			print("active reload kinda success...")
+			var left_time: float = timer.time_left
+			timer.stop()
+			timer.start(left_time / 2.0)
+			active_reload_sound_player.stream = active_reload_success_sound
+			active_reload_sound_player.play()
+			active_reload_available = false
+			
+			active_reload_success.emit()
+			return true
+		_:
+			print("active reload fail!")
+			active_reload_sound_player.stream = active_reload_fail_sound
+			active_reload_sound_player.play()
+			active_reload_failed = true
+			active_reload_available = false
 		
-		return true
-	else:
-		#print("active reload fail!")
-		active_reload_sound_player.stream = active_reload_fail_sound
-		active_reload_sound_player.play()
-		active_reload_failed = true
-		active_reload_available = false
-		
-		return false
+			return false
 
-func inside_active_reload_range() -> bool:
+func inside_active_reload_range() -> int:
 	if reload_timer.is_stopped():
 		return false
 	var selected_point: float = (1 - reload_timer.time_left / reload_timer.wait_time) * 100
-	return active_reload_available and active_reload_range.x - active_reload_tolerance < selected_point and selected_point < active_reload_range.y + active_reload_tolerance
+	
+	#print("perfect range: " + str(active_reload_range))
+	#print("good range: " + str(active_reload_range + Vector2i(-active_reload_rim_length, active_reload_rim_length)))
+	#print("current point: " + str(selected_point))
+	
+	if !active_reload_available:
+		return false
+	if active_reload_range.x < selected_point and selected_point < active_reload_range.y:
+		return ActiveReloadResult.PERFECT
+	elif active_reload_range.x < selected_point and selected_point < active_reload_range.y + active_reload_rim_length:
+		return ActiveReloadResult.GOOD
+	else:
+		return ActiveReloadResult.FAIL

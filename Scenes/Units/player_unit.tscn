@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=34 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scenes/Units/bullet_generator_component.gd" id="3_sf8iw"]
 [ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="4_61t70"]
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="4_s5eeb"]
+[ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="4_yaiqc"]
 [ext_resource type="Script" path="res://wasd_movement_component.gd" id="9_0efpd"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
@@ -193,6 +194,9 @@ acceleration = 12000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_sf8iw")
+
+[node name="StatisticsComponent" type="Node" parent="."]
+script = ExtResource("4_yaiqc")
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
 self_modulate = Color(4, 4, 4, 1)

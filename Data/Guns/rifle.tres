@@ -9,7 +9,7 @@
 script = ExtResource("1_boncp")
 projectile_scene = ExtResource("1_crcsf")
 aim_time = 2.0
-reload_time = 4.0
+reload_time = 5.0
 magazine_size = 5
 projectile_speed = 4000.0
 damage_range = Vector2i(25, 125)
