@@ -29,7 +29,7 @@ script = ExtResource("2_webe7")
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
 _base_wave_count = 4
-_base_move_speed_range = Vector2i(500, 500)
+_base_move_speed_range = Vector2i(150, 300)
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
@@ -76,6 +76,13 @@ visible = false
 layout_mode = 0
 offset_top = 0.0
 offset_bottom = 10.0
+
+[node name="ColorRect" parent="GameOverScreen/Crosshair/WeaponTwo/ActiveReloadBar" index="1"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 16.0
+offset_bottom = 104.0
 
 [node name="UserInterface" parent="." instance=ExtResource("6_tejxs")]
 process_mode = 3

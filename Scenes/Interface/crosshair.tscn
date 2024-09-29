@@ -266,14 +266,6 @@ text = "EXPL PIER"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="WeaponOne"]
-visible = false
-layout_mode = 0
-offset_left = -2.0
-offset_top = -32.0
-offset_right = 14.0
-offset_bottom = 72.0
-
 [node name="ActiveReloadBar" type="ProgressBar" parent="WeaponOne"]
 layout_mode = 1
 anchors_preset = -1
@@ -299,6 +291,14 @@ offset_right = 10.0
 offset_bottom = 60.0
 texture = ExtResource("5_18m8i")
 expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="WeaponOne/ActiveReloadBar"]
+self_modulate = Color(1, 1, 1, 0.133333)
+layout_mode = 0
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 14.0
+offset_bottom = 102.0
 
 [node name="WeaponTwo" type="Control" parent="."]
 layout_mode = 3
@@ -421,8 +421,7 @@ texture = ExtResource("5_18m8i")
 expand_mode = 1
 
 [node name="ColorRect" type="ColorRect" parent="WeaponTwo/ActiveReloadBar"]
-visible = false
-self_modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0.133333)
 offset_left = -2.0
 offset_top = -2.0
 offset_right = 14.0

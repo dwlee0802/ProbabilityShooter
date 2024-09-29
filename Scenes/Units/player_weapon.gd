@@ -53,11 +53,16 @@ var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 @onready
 var active_reload_sound_player: AudioStreamPlayer = $ActiveReloadSound
+var active_reload_success_sound = preload("res://Sound/UI/confirmation_002.ogg")
+var active_reload_fail_sound = preload("res://Sound/UI/error_006.ogg")
 
 #region Active Reload
 @export
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
+## If active reload selected time is within tolerance, consider it a success
+@export
+var active_reload_tolerance: int = 3
 #endregion
 
 var disabled: bool = false
@@ -141,3 +146,36 @@ func reset() -> void:
 	clear_attack_queues()
 	attack_full_cone.visible = false
 	reload_timer.stop()
+	
+# check active reload success
+func check_active_reload_success() -> bool:
+	var timer: Timer = reload_timer
+	if timer.is_stopped():
+		return false
+	
+	# determine active reload success
+	#print("range: " + str(active_reload_range))
+	#print("selected: " + str(selected_point))
+	if inside_active_reload_range():
+		#print("active reload success!")
+		timer.stop()
+		timer.timeout.emit()
+		active_reload_sound_player.stream = active_reload_success_sound
+		active_reload_sound_player.play()
+		active_reload_available = false
+		
+		return true
+	else:
+		#print("active reload fail!")
+		active_reload_sound_player.stream = active_reload_fail_sound
+		active_reload_sound_player.play()
+		active_reload_failed = true
+		active_reload_available = false
+		
+		return false
+
+func inside_active_reload_range() -> bool:
+	if reload_timer.is_stopped():
+		return false
+	var selected_point: float = (1 - reload_timer.time_left / reload_timer.wait_time) * 100
+	return active_reload_available and active_reload_range.x - active_reload_tolerance < selected_point and selected_point < active_reload_range.y + active_reload_tolerance
