@@ -33,6 +33,9 @@ var total_exp_gained: int = 0
 var level: int = 1
 
 
+func _process(delta: float) -> void:
+	survival_time += delta * int(!get_tree().paused)
+
 func reset_stats() -> void:
 	survival_time = 0
 	

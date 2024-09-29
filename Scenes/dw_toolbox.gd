@@ -24,6 +24,18 @@ static func TrimDecimalPoints(num: float, count: int) -> float:
 	var decnum: float = pow(10, count)
 	return int(num * decnum) / decnum
 
+### Returns the number with specified number of decimal points as a String
+### Adds 0s to the end if decimal points is lower than input count
+#static func TrimDecimalPointsString(num: float, count: int) -> String:
+	#num = TrimDecimalPoints(num, count)
+	#var decimal_part: float = num - int(num)
+	## number of decimals already present
+	#var decimal_count: int = str(decimal_part).length()
+	#if decimal_count != 0:
+		#return str(num) + "0".repeat(max(0, count - decimal_count + 2))
+	#else:
+		#return str(num) + "." + "0".repeat(max(0, count - decimal_count + 1))
+
 ## reads all resources in path. Assumes all files in directory path are resources
 static func ImportResources(path: String, filter: Callable = func do_nothing(_target): return true, print_output: bool = false) -> Array:
 	var file_path: String = path + "/"

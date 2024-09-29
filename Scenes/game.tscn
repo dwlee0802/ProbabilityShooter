@@ -153,6 +153,7 @@ stream = ExtResource("18_7elte")
 volume_db = -5.0
 
 [node name="StatisticsComponent" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("15_ophms")
 
 [editable path="GameOverScreen/Crosshair"]

@@ -11,15 +11,15 @@ var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 var player_unit: PlayerUnit
 
 @onready
+var stats_component: StatisticsComponent = $StatisticsComponent
+
+@onready
 var projectiles: Node2D = $Projectiles
 @onready
 var casings: Node2D = $Casings
-
 @onready
 var shootables: Node2D = $Shootables
 
-var time_since_start: float = 0
-var pause: bool = false
 @export
 var spawn_radius: int = 1000
 
@@ -39,7 +39,6 @@ var mutation_cooldown: float = 30
 ## node to hold enemy units
 @onready
 var enemies: Node2D = $Enemies
-var kill_count: int = 0
 @onready
 var blood_splatter: Node2D = $BloodSplatter
 
@@ -150,9 +149,7 @@ func _ready():
 func _process(_delta):
 	InputManager.camera.scale_health_label(enemies.get_children())
 	
-	if !pause:
-		time_since_start += _delta
-	user_interface.game_time_label.text = str(int(time_since_start)) + " s"
+	user_interface.game_time_label.text = str(DW_ToolBox.TrimDecimalPoints(stats_component.survival_time, 0)) + " s"
 	
 	# update minimap
 	if InputManager.selected_unit:
@@ -209,8 +206,8 @@ func _process(_delta):
 		InputManager.selected_unit.receive_hit(_delta * 10)
 	
 func enemy_killed()-> void:
-	kill_count += 1
-	user_interface.kill_count_label.text = str(int(kill_count)) + " Kills"
+	stats_component.kill_count += 1
+	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
 	user_interface.kill_count_animation.play("killcount_up")
 	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
 	
@@ -235,11 +232,9 @@ func game_over() -> void:
 	user_interface.mutation_roulette.stop_roulette()
 	
 	#remove_objects()
-	#user_interface.show_game_over_screen(false)
 	user_interface.visible = false
 	set_game_over_stats()
 	game_over_screen.visible = true
-	pause = true
 
 func victory() -> void:
 	if no_game_over:
@@ -248,8 +243,7 @@ func victory() -> void:
 	print("***VICTORY***")
 	
 	user_interface.show_game_over_screen(true)
-	pause = true
-
+	
 func remove_objects() -> void:
 	# remove all remaining enemy units
 	call_deferred("remove_child", enemies)
@@ -278,16 +272,17 @@ func remove_objects() -> void:
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
 
 func set_game_over_stats() -> void:
-	game_over_screen.survival_time_label.text = str(int(time_since_start)) + " seconds"
-	game_over_screen.kill_count_label.text = str(int(kill_count)) + " kills"
+	game_over_screen.survival_time_label.text = str(DW_ToolBox.TrimDecimalPoints(stats_component.survival_time, 0)) + " seconds"
+	game_over_screen.kill_count_label.text = str(int(stats_component.kill_count)) + " kills"
 	game_over_screen.level_label.text = "Lv. " + str(player_unit.current_level)
 	
 func start() -> void:
 	print("***START GAME***")
 	
+	stats_component.reset_stats()
+	
 	user_interface.visible = true
 	game_over_screen.visible = false
-	pause = false
 	
 	# remove leftover resources
 	remove_objects()
@@ -303,10 +298,6 @@ func start() -> void:
 
 	# reset game stats
 	user_interface.game_over_ui.visible = false
-	time_since_start = 0
-	kill_count = 0
-	user_interface.kill_count_label.text = "Kills: " + str(kill_count)
-	
 	# reset unit stats
 	player_unit.reset_health()
 	player_unit.reset_items()
@@ -322,6 +313,8 @@ func start() -> void:
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)
+	
+	user_interface.kill_count_label.text = "Kills: " + str(stats_component.kill_count)
 	
 	user_interface.update_bullet_menu()
 
