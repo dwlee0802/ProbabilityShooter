@@ -14,21 +14,6 @@ func _physics_process(_delta):
 	if InputManager.selected_unit == null:
 		_select_unit(game.player_unit)
 		
-	var unit_index: int = 0
-	if Input.is_action_just_pressed("select_unit_one"):
-		unit_index = 1
-	if Input.is_action_just_pressed("select_unit_two"):
-		unit_index = 2
-	if Input.is_action_just_pressed("select_unit_three"):
-		unit_index = 3
-	if Input.is_action_just_pressed("select_unit_four"):
-		unit_index = 4
-	
-	if unit_index > 0 and unit_index <= game.units.size():
-		var selected_now: PlayerUnit = game.units[unit_index - 1]
-		if selected_now != null:
-			_select_unit(selected_now)
-	
 	## distance function to find our next unit
 	#var in_slice = func(origin: Vector2, target: Vector2, _range: Vector2) -> bool:
 		#var angle: float = origin.angle_to_point(target)
