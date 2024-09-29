@@ -73,12 +73,10 @@ visible = false
 visible = false
 
 [node name="TextureRect" parent="GameOverScreen/Crosshair/WeaponTwo/ActiveReloadBar" index="0"]
-layout_mode = 0
 offset_top = 0.0
 offset_bottom = 10.0
 
 [node name="ColorRect" parent="GameOverScreen/Crosshair/WeaponTwo/ActiveReloadBar" index="1"]
-layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 16.0

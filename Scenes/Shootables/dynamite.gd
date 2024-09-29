@@ -29,7 +29,7 @@ func activate() -> void:
 	$Sprite2D.visible = false
 	$CollisionShape2D.disabled = true
 	var bodies = area.get_overlapping_bodies()
-	print("COUNT: " + str(bodies.size()))
+	#print("COUNT: " + str(bodies.size()))
 	for unit in bodies:
 		if unit is EnemyUnit and unit.health_points > 0 and unit.is_node_ready():
 			var dir: Vector2 = global_position.direction_to(unit.global_position)
@@ -45,6 +45,11 @@ func activate() -> void:
 		# chain reaction
 		if unit is Shootable and unit != self and !unit.activated:
 			unit.activate()
+	
+	var areas = area.get_overlapping_areas()
+	for item in areas:
+		if item is Projectile and !item.is_player:
+			item.queue_free()
 			
 	# screen shake
 	CameraControl.camera.shake_screen(40,200)
