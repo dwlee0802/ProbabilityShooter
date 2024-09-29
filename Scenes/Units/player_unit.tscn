@@ -251,7 +251,6 @@ script = ExtResource("4_61t70")
 ready_state = NodePath("../Ready")
 
 [node name="AimCone" type="Polygon2D" parent="WeaponOne"]
-visible = false
 color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
@@ -314,7 +313,6 @@ script = ExtResource("4_61t70")
 ready_state = NodePath("../Ready")
 
 [node name="AimCone" type="Polygon2D" parent="WeaponTwo"]
-visible = false
 color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
@@ -438,8 +436,6 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_tjobb")
 debug_color = Color(0.660559, 0.514788, 3.85046e-07, 0.0784314)
-
-[node name="MoveLine" type="Line2D" parent="."]
 
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3

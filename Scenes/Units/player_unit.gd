@@ -87,8 +87,6 @@ var attack_full_cone: Polygon2D = $AttackFullCone
 var aim_cone: Polygon2D = $AimCone
 @onready
 var queued_cones: Node2D = $QueuedCones
-@onready
-var move_line: Line2D = $MoveLine
 #endregion
 
 ## interaction
@@ -366,12 +364,6 @@ func remove_equipment(num: int) -> void:
 #endregion
 		
 #region Attack UI
-func set_movement_line(points) -> void:
-	move_line.clear_points()
-	move_line.add_point(Vector2.ZERO)
-	for pt: Vector2 in points:
-		move_line.add_point(pt)
-
 func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	# calculate three points of triangle
 	var cone = []

@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=17 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
 [ext_resource type="Script" path="res://Scenes/Interface/active_reload_component.gd" id="3_27vr4"]
 [ext_resource type="Texture2D" uid="uid://drlxsyjqp0lk6" path="res://Art/crosshair054.png" id="4_betbx"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_18m8i"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_48mbm"]
 [ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://active_reload_bar_texture.tres" id="5_jp2bk"]
 [ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://active_reload_fill_texture.tres" id="6_dknah"]
 
@@ -168,6 +169,21 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_betbx")
+expand_mode = 1
+
+[node name="Crosshair2" type="TextureRect" parent="Crosshair"]
+self_modulate = Color(1, 1, 1, 0.0705882)
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_48mbm")
 expand_mode = 1
 
 [node name="WeaponOne" type="Control" parent="."]
