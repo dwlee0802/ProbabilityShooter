@@ -75,6 +75,7 @@ signal bullets_changed
 signal reload_started
 signal reload_complete
 signal active_reload_success
+signal shot_bullet(dmg_amount)
 
 
 func _ready() -> void:

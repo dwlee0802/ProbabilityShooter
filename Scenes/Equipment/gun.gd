@@ -81,6 +81,8 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	CameraControl.camera.shake_screen(20,200)
 	
 	super.on_activation(unit, mouse_position)
+	
+	return current_bullet.damage_amount
 
 func reset_stats() -> void:
 	damage_range = Vector2i(25,125)

@@ -30,7 +30,7 @@ var critical_hit_count: int = 0
 @export
 var total_exp_gained: int = 0
 @export
-var level: int = 1
+var level_reached: int = 1
 
 
 func _process(delta: float) -> void:
@@ -51,5 +51,10 @@ func reset_stats() -> void:
 	critical_hit_count = 0
 	
 	total_exp_gained = 0
-	level = 1
+	level_reached = 1
+
+func add_exp_gained(amount: int) -> void:
+	total_exp_gained += amount
 	
+func add_total_damage_output(amount: int) -> void:
+	total_damage_output += amount

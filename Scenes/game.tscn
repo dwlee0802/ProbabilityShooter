@@ -99,7 +99,6 @@ movement_speed = 500.0
 health_points = 300.0
 max_health_points = 300
 starting_equipments = [ExtResource("10_gp80q")]
-invinsible = true
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
 zoom = Vector2(0.1, 0.1)

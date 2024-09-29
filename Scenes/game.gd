@@ -133,6 +133,11 @@ func _ready():
 	player_unit.weapon_two.reload_started.connect(
 		user_interface.update_reload_marker.bind(user_interface.weapon_two_active_reload, player_unit.weapon_two))
 	
+	# connect player unit with stats component
+	player_unit.added_experience.connect(stats_component.add_exp_gained)
+	player_unit.weapon_one.shot_bullet.connect(stats_component.add_total_damage_output)
+	player_unit.weapon_two.shot_bullet.connect(stats_component.add_total_damage_output)
+	
 	# randomly place dynamite on the map
 	for i in range(10):
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
@@ -233,7 +238,7 @@ func game_over() -> void:
 	
 	#remove_objects()
 	user_interface.visible = false
-	set_game_over_stats()
+	game_over_screen.set_game_over_stats(stats_component)
 	game_over_screen.visible = true
 
 func victory() -> void:
@@ -270,11 +275,6 @@ func remove_objects() -> void:
 	add_child(casings)
 	
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
-
-func set_game_over_stats() -> void:
-	game_over_screen.survival_time_label.text = str(DW_ToolBox.TrimDecimalPoints(stats_component.survival_time, 0)) + " seconds"
-	game_over_screen.kill_count_label.text = str(int(stats_component.kill_count)) + " kills"
-	game_over_screen.level_label.text = "Lv. " + str(player_unit.current_level)
 	
 func start() -> void:
 	print("***START GAME***")
@@ -353,8 +353,8 @@ func bind_selected_unit_signals() -> void:
 		unit.health_changed.connect(on_core_hit)
 			
 func on_experience_changed() -> void:
-	if InputManager.selected_unit != null:
-		var unit: PlayerUnit = InputManager.selected_unit
+	if player_unit != null:
+		var unit: PlayerUnit = player_unit
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		
@@ -368,14 +368,15 @@ func on_experience_changed() -> void:
 			get_tree().paused = true
 
 func on_level_up() -> void:
-	if InputManager.selected_unit != null:
-		var unit: PlayerUnit = InputManager.selected_unit
-		user_interface.experience_bar.set_max(unit.required_exp_amount(unit.current_level))
-		user_interface.experience_bar.change_value(unit.experience_gained, true)
-		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
-		unit.upgrade_options = get_upgrade_options()
+	if player_unit != null:
+		user_interface.experience_bar.set_max(player_unit.required_exp_amount(player_unit.current_level))
+		user_interface.experience_bar.change_value(player_unit.experience_gained, true)
+		user_interface.experience_label.text = "LV " + str(player_unit.current_level) + "  " + str(player_unit.experience_gained) + "/" + str(player_unit.required_exp_amount(player_unit.current_level))
+		player_unit.upgrade_options = get_upgrade_options()
 		get_tree().paused = false
-		unit.level_up_animation.play("level_up")
+		player_unit.level_up_animation.play("level_up")
+		
+		stats_component.level_reached += 1
 		
 func get_upgrade_options(count: int = 4):
 	var output = []

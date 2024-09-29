@@ -101,7 +101,8 @@ func on_aim_finished() -> void:
 			parent.queued_attack_cones.pop_front().queue_free()
 		parent.attack_full_cone.visible = false
 		
-		parent.weapon.on_activation(InputManager.selected_unit, target)
+		var dmg_amount: int = parent.weapon.on_activation(InputManager.selected_unit, target)
+		parent.shot_bullet.emit(dmg_amount)
 		InputManager.selected_unit.actioned.emit()
 		parent.muzzle_flash.play("muzzle_flash")
 		
