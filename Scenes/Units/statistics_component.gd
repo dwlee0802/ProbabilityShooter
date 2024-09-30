@@ -56,5 +56,19 @@ func reset_stats() -> void:
 func add_exp_gained(amount: int) -> void:
 	total_exp_gained += amount
 	
-func add_total_damage_output(amount: int) -> void:
-	total_damage_output += amount
+func add_enemy_received_damage(total: int, eff: int) -> void:
+	total_damage_output += total
+	total_effective_damage_output += eff
+
+func add_critical_hit_count(amount: int) -> void:
+	critical_hit_count += amount
+
+func add_bullets_fired_count(amount: int) -> void:
+	bullets_fired_count += amount
+	print("Add bullets fired count " + str(amount))
+	print("Result: " + str(bullets_fired_count))
+	
+func add_bullets_hit_count(amount: int) -> void:
+	bullets_hit_count += amount
+	print("Add bullets hit count " + str(amount))
+	print("Result: " + str(bullets_hit_count))

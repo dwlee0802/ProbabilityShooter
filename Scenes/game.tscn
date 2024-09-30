@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=14 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -8,9 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="8_tcb7a"]
-[ext_resource type="PackedScene" uid="uid://ck3odqtieabpc" path="res://Scenes/Units/heal_station.tscn" id="10_5tay6"]
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="10_gp80q"]
-[ext_resource type="PackedScene" uid="uid://cxlw2ixu3j4bd" path="res://Scenes/Units/fabrication_bench.tscn" id="11_jiksj"]
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
@@ -50,9 +48,6 @@ texture = ExtResource("8_tcb7a")
 [node name="WaveTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 30.0
-
-[node name="LinearSpawnTimer" type="Timer" parent="."]
-wait_time = 4.0
 
 [node name="UpgradeTimer" type="Timer" parent="."]
 process_mode = 2
@@ -113,32 +108,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_tcb7a")
 
 [node name="Enemies" type="Node2D" parent="."]
-
-[node name="Interactables" type="Node" parent="."]
-
-[node name="HealStation" parent="Interactables" instance=ExtResource("10_5tay6")]
-visible = false
-position = Vector2(-385, -506)
-
-[node name="Label" type="Label" parent="Interactables/HealStation"]
-offset_left = -145.0
-offset_top = -114.0
-offset_right = 151.0
-offset_bottom = -45.0
-theme_override_font_sizes/font_size = 50
-text = "Heal Station"
-
-[node name="FabricationBench" parent="Interactables" instance=ExtResource("11_jiksj")]
-visible = false
-position = Vector2(-138, -246)
-
-[node name="Label" type="Label" parent="Interactables/FabricationBench"]
-offset_left = -211.0
-offset_top = -139.0
-offset_right = 227.0
-offset_bottom = -70.0
-theme_override_font_sizes/font_size = 50
-text = "Fabrication Bench"
 
 [node name="Resources" type="Node2D" parent="."]
 

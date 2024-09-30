@@ -135,8 +135,8 @@ func _ready():
 	
 	# connect player unit with stats component
 	player_unit.added_experience.connect(stats_component.add_exp_gained)
-	player_unit.weapon_one.shot_bullet.connect(stats_component.add_total_damage_output)
-	player_unit.weapon_two.shot_bullet.connect(stats_component.add_total_damage_output)
+	player_unit.weapon_one.shot_bullet.connect(stats_component.add_bullets_fired_count)
+	player_unit.weapon_two.shot_bullet.connect(stats_component.add_bullets_fired_count)
 	
 	# randomly place dynamite on the map
 	for i in range(10):
@@ -226,6 +226,11 @@ func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.on_death.connect(enemy_killed)
 	
 	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
+	
+	# connect signals to stat component
+	newEnemy.critical_hit.connect(stats_component.add_critical_hit_count.bind(1))
+	newEnemy.received_hit.connect(stats_component.add_enemy_received_damage)
+	newEnemy.bullet_hit.connect(stats_component.add_bullets_hit_count.bind(1))
 	
 func game_over() -> void:
 	if no_game_over:

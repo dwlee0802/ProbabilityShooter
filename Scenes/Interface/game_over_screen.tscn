@@ -64,7 +64,11 @@ text = "LEVEL:"
 
 [node name="Label4" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
 layout_mode = 2
-text = "DMG"
+text = "DMG:"
+
+[node name="Label5" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "SHOTS:"
 
 [node name="StatLabels" type="VBoxContainer" parent="Control/vBoxContainer/StatsContainer"]
 layout_mode = 2
@@ -86,6 +90,11 @@ text = "000"
 horizontal_alignment = 2
 
 [node name="DamageOutput" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 2
+
+[node name="ShotsCount" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
 layout_mode = 2
 text = "000"
 horizontal_alignment = 2

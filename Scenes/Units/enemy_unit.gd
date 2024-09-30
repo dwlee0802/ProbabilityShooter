@@ -89,7 +89,9 @@ static var dynamite_drop_chance: float = 0.1
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
 
 signal on_death
+signal bullet_hit
 signal received_hit(total, effective)
+signal critical_hit
 
 
 func on_spawn(speed: float, health: int) -> void:
@@ -178,6 +180,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 		crit_sound_player.play()
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 15, 2)
+		critical_hit.emit()
 	else:
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 5)
@@ -188,6 +191,8 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	get_tree().root.add_child(new_popup)
 	
 	var effective_damage: int = min(damage_amount, health_points)
+	received_hit.emit(damage_amount, effective_damage)
+	bullet_hit.emit()
 	health_points -= damage_amount
 	
 	if health_tween:

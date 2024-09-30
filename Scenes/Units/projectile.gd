@@ -68,7 +68,7 @@ func _on_body_entered(body) -> void:
 		else:
 			# apply damage
 			var eff_dmg: int = body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
-
+			
 			# apply knock-back
 			body.apply_central_impulse(dir.normalized() * knock_back_amount)
 			# give exp to shooter
