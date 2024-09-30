@@ -21,11 +21,16 @@ var click_animation: AnimationPlayer = $Control/AnimationPlayer
 
 var player_unit: PlayerUnit
 
+var first_frame: bool = true
+
+
 func _ready() -> void:
 	player_unit = InputManager.selected_unit
 	if player_unit != null:
 		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
 		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
+	
+	_input(null)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -43,6 +48,11 @@ func _process(_delta):
 	player_unit = InputManager.selected_unit
 	if player_unit == null or player_unit.is_unconscious():
 		return
+	
+	if first_frame:
+		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
+		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
+		first_frame = false
 		
 	if player_unit.weapon_one != null:
 		if !player_unit.weapon_one.reload_started.is_connected(active_reload_component.update_reload_marker):
