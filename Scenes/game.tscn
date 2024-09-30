@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/enemy_spawner_component.gd" id="2_quhko"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
+[ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
+[ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="8_tcb7a"]
@@ -54,6 +56,30 @@ process_mode = 2
 one_shot = true
 
 [node name="GameDurationTimer" type="Timer" parent="."]
+
+[node name="PauseScreen" parent="." instance=ExtResource("5_m4kpe")]
+process_mode = 2
+visible = false
+script = ExtResource("6_ljvbn")
+
+[node name="Crosshair" parent="PauseScreen" instance=ExtResource("7_xccla")]
+position = Vector2(718, 279)
+
+[node name="WeaponOne" parent="PauseScreen/Crosshair" index="3"]
+visible = false
+
+[node name="WeaponTwo" parent="PauseScreen/Crosshair" index="4"]
+visible = false
+
+[node name="TextureRect" parent="PauseScreen/Crosshair/WeaponTwo/ActiveReloadBar" index="0"]
+offset_top = 0.0
+offset_bottom = 10.0
+
+[node name="ColorRect" parent="PauseScreen/Crosshair/WeaponTwo/ActiveReloadBar" index="1"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 16.0
+offset_bottom = 104.0
 
 [node name="GameOverScreen" parent="." instance=ExtResource("14_jbor4")]
 visible = false
@@ -124,4 +150,5 @@ volume_db = -5.0
 process_mode = 3
 script = ExtResource("15_ophms")
 
+[editable path="PauseScreen/Crosshair"]
 [editable path="GameOverScreen/Crosshair"]

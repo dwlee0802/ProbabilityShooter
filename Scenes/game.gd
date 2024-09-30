@@ -5,6 +5,8 @@ class_name Game
 var user_interface: UserInterface = $UserInterface
 @onready
 var game_over_screen: GameOverScreen = $GameOverScreen
+@onready
+var game_paused_screen = $PauseScreen
 
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
@@ -200,6 +202,18 @@ func _process(_delta):
 		if !mutation_timer.is_stopped() and mutation_timer.time_left > 3.0:
 			mutation_timer.start(mutation_timer.time_left - 1.0)
 	
+	## Pause Menu
+	if Input.is_action_just_pressed("pause_game"):
+		if get_tree().paused == true:
+			# unpause game
+			get_tree().paused = false
+			game_paused_screen.visible = false
+			user_interface.visible = true
+		else:
+			get_tree().paused = true
+			game_paused_screen.visible = true
+			user_interface.visible = false
+			
 	## Click sound
 	if Input.is_action_just_pressed("action_one") or Input.is_action_just_pressed("action_two"):
 		$ClickSoundPlayer.play()
