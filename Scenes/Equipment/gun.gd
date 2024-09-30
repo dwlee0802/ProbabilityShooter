@@ -25,6 +25,7 @@ var piercing_chance: float = 0
 var explosive_chance: float = 0
 var buckshot_chance: float = 0
 var quickshot_chance: float = 0
+var fire_chance: float = 0
 #endregion
 
 @export
@@ -210,6 +211,12 @@ func add_quickshot_chance_bonus(amount: float) -> void:
 	quickshot_chance = max(quickshot_chance, 0)
 	if amount != 0:
 		print("Changed quickshot chance by " + str(amount))
+		
+func add_fire_chance_bonus(amount: float) -> void:
+	fire_chance += amount
+	fire_chance = max(fire_chance, 0)
+	if amount != 0:
+		print("Changed fire chance by " + str(amount))
 	
 func get_damage_range() -> Vector2i:
 	return damage_range + bonus_damage_range

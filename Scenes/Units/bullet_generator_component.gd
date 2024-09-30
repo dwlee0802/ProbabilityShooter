@@ -20,6 +20,9 @@ var buckshot_chance: float = 0
 @export
 var _base_quickshot_chance: float = 0
 var quickshot_chance: float = 0
+@export
+var _base_fire_chance: float = 0
+var fire_chance: float = 0
 #endregion
 
 
@@ -35,6 +38,7 @@ func generate_bullets(count: int):
 		new_bullet.piercing = randf() < piercing_chance
 		new_bullet.explosive = randf() < explosive_chance
 		new_bullet.quickshot = randf() < quickshot_chance
+		new_bullet.fire = randf() < fire_chance
 		
 		new_bullet.aim_time = 1
 		if new_bullet.quickshot:
@@ -53,6 +57,7 @@ func reset_stats() -> void:
 	explosive_chance = _base_explosive_chance
 	buckshot_chance = _base_buckshot_chance
 	quickshot_chance = _base_quickshot_chance
+	fire_chance = _base_fire_chance
 
 ## Bullet Generation chance modifiers
 func add_bonus_damage(bonus: Vector2i) -> void:
@@ -87,4 +92,10 @@ func add_quickshot_chance_bonus(amount: float) -> void:
 	quickshot_chance = max(quickshot_chance, 0)
 	if amount != 0:
 		print("Changed quickshot chance by " + str(amount))
+		
+func add_fire_chance_bonus(amount: float) -> void:
+	fire_chance += amount
+	fire_chance = max(fire_chance, 0)
+	if amount != 0:
+		print("Changed fire chance by " + str(amount))
 	

@@ -7,6 +7,7 @@ var piercing: bool = false
 var explosive: bool = false
 var anti_armor: bool = false
 var quickshot: bool = false
+var fire: bool = false
 var projectile_count: int = 1
 
 var color: Color
@@ -27,6 +28,8 @@ func _to_string() -> String:
 		output += " EXPL"
 	if quickshot:
 		output += " QCK"
+	if fire:
+		output += " FIRE"
 	output += "[/color]"
 	
 	return output
@@ -49,6 +52,8 @@ func to_string_crosshair(only_damage: bool = false) -> String:
 		output += "EXPL\n"
 	if quickshot:
 		output += "QCK\n"
+	if fire:
+		output += " FIRE"
 	output += "[/color]"
 	
 	return output
@@ -63,6 +68,8 @@ func print_traits() -> String:
 		output += "EXPL\n"
 	if quickshot:
 		output += "QCK\n"
+	if fire:
+		output += " FIRE"
 	
 	return output
 	

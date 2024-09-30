@@ -26,6 +26,8 @@ var explosive_chance: float = 0
 var buckshot_chance: float = 0
 @export
 var quickshot_chance: float = 0
+@export
+var fire_chance: float = 0
 
 
 func on_enter(unit: PlayerUnit, level: int):
@@ -43,6 +45,7 @@ func on_enter(unit: PlayerUnit, level: int):
 	unit.bullet_generator_component.add_explosive_chance_bonus(explosive_chance)
 	unit.bullet_generator_component.add_buckshot_chance_bonus(buckshot_chance)
 	unit.bullet_generator_component.add_quickshot_chance_bonus(quickshot_chance)
+	unit.bullet_generator_component.add_fire_chance_bonus(fire_chance)
 		
 func on_exit(unit: PlayerUnit, level: int):
 	super.on_exit(unit, level)
@@ -59,3 +62,4 @@ func on_exit(unit: PlayerUnit, level: int):
 	unit.bullet_generator_component.add_explosive_chance_bonus(-explosive_chance)
 	unit.bullet_generator_component.add_buckshot_chance_bonus(-buckshot_chance)
 	unit.bullet_generator_component.add_quickshot_chance_bonus(-quickshot_chance)
+	unit.bullet_generator_component.add_fire_chance_bonus(-fire_chance)

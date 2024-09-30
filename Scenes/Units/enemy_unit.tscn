@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=25 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_a2d0g"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="6_lfusx"]
 [ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
 [ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
+[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://glow_sprite.tres" id="8_ito6i"]
 [ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="13_h80fs"]
 
 [sub_resource type="Animation" id="Animation_eonp3"]
@@ -54,6 +55,13 @@ polygon = PackedVector2Array(-49.4118, -81, -65.114, -51.0266, -64.2281, -30.964
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72c86"]
 size = Vector2(197, 287)
+
+[sub_resource type="Gradient" id="Gradient_ygy2d"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ygdkf"]
+offsets = PackedFloat32Array(0.00666667, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wv3ub"]
 radius = 30.0
@@ -186,8 +194,50 @@ scale_amount_min = 0.01
 scale_amount_max = 0.1
 color = Color(0.713726, 1, 0, 0.603922)
 
+[node name="BurningEffect" type="Node2D" parent="."]
+position = Vector2(-1, 88)
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="BurningEffect"]
+position = Vector2(-3, 7)
+amount = 20
+texture = ExtResource("5_e5dnx")
+direction = Vector2(0, -1)
+spread = 60.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+damping_min = 0.5
+damping_max = 0.5
+scale_amount_min = 0.01
+scale_amount_max = 0.1
+color = Color(0.151276, 0.151276, 0.151276, 0.470588)
+color_ramp = SubResource("Gradient_ygy2d")
+
+[node name="FireParticles" type="CPUParticles2D" parent="BurningEffect"]
+position = Vector2(-3, 7)
+amount = 10
+lifetime = 0.8
+explosiveness = 0.1
+randomness = 0.1
+texture = ExtResource("5_e5dnx")
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+damping_min = 0.5
+damping_max = 0.5
+scale_amount_min = 0.01
+scale_amount_max = 0.05
+color_ramp = SubResource("Gradient_ygdkf")
+
+[node name="PointLight2D" type="PointLight2D" parent="BurningEffect"]
+color = Color(1, 1, 0, 1)
+blend_mode = 2
+texture = ExtResource("8_ito6i")
+texture_scale = 5.0
+
 [node name="HealthLabel" type="Label" parent="."]
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
