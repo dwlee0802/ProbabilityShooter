@@ -65,10 +65,13 @@ func add_critical_hit_count(amount: int) -> void:
 
 func add_bullets_fired_count(amount: int) -> void:
 	bullets_fired_count += amount
-	print("Add bullets fired count " + str(amount))
-	print("Result: " + str(bullets_fired_count))
+	#print("Add bullets fired count " + str(amount))
+	#print("Result: " + str(bullets_fired_count))
 	
 func add_bullets_hit_count(amount: int) -> void:
 	bullets_hit_count += amount
-	print("Add bullets hit count " + str(amount))
-	print("Result: " + str(bullets_hit_count))
+	#print("Add bullets hit count " + str(amount))
+	#print("Result: " + str(bullets_hit_count))
+
+func add_total_reload_count(amount: int) -> void:
+	total_reload_count += amount

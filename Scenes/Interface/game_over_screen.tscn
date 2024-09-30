@@ -70,6 +70,10 @@ text = "DMG:"
 layout_mode = 2
 text = "SHOTS:"
 
+[node name="Label6" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "RELOADS: "
+
 [node name="StatLabels" type="VBoxContainer" parent="Control/vBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -95,6 +99,11 @@ text = "000"
 horizontal_alignment = 2
 
 [node name="ShotsCount" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 2
+
+[node name="ReloadCount" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
 layout_mode = 2
 text = "000"
 horizontal_alignment = 2
