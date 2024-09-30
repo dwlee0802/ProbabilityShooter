@@ -36,5 +36,5 @@ func set_game_over_stats(stats_component: StatisticsComponent) -> void:
 	kill_count_label.text = str(int(stats_component.kill_count)) + " kills"
 	level_label.text = "Lv. " + str(stats_component.level_reached) + " (" + str(stats_component.total_exp_gained) + " EXP)"
 	damage_output.text = "Eff: " + str(stats_component.total_effective_damage_output) + " / Total: " + str(stats_component.total_damage_output)
-	shots_count_label.text = "Normal: " + str(stats_component.bullets_hit_count - stats_component.critical_hit_count) + " Critical: " + str(stats_component.critical_hit_count) + " / Total: " + str(stats_component.bullets_fired_count)
+	shots_count_label.text = "Normal: " + str(stats_component.bullets_hit_count - stats_component.critical_hit_count) + " Critical: " + str(stats_component.critical_hit_count) + " Total: " + str(stats_component.bullets_fired_count)
 	reload_count.text = "Total: " + str(stats_component.total_reload_count)
