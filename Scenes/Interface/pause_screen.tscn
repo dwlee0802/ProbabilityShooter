@@ -1,0 +1,129 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnrxipa3477gt"]
+
+[ext_resource type="Shader" path="res://blur_screen.gdshader" id="1_lew86"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_k3obu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11kvt"]
+shader = ExtResource("1_lew86")
+shader_parameter/lod = 2.0
+shader_parameter/mix_percentage = 0.3
+
+[node name="PauseScreen" type="CanvasLayer"]
+
+[node name="Control" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_11kvt")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_k3obu")
+
+[node name="vBoxContainer" type="VBoxContainer" parent="Control"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -20.0
+offset_right = 46.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Control/vBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "PAUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsContainer" type="HBoxContainer" parent="Control/vBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LabelLabels" type="VBoxContainer" parent="Control/vBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "SURVIVAL TIME:"
+
+[node name="Label3" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "KILLS:"
+
+[node name="Label2" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "LEVEL:"
+
+[node name="Label4" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "DMG:"
+
+[node name="Label5" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "SHOTS:"
+
+[node name="Label6" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "RELOADS: "
+
+[node name="StatLabels" type="VBoxContainer" parent="Control/vBoxContainer/StatsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SurvivalTime" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "00s"
+horizontal_alignment = 2
+
+[node name="KillCount" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "00"
+horizontal_alignment = 2
+
+[node name="Level" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 2
+
+[node name="DamageOutput" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 2
+
+[node name="ShotsCount" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "000"
+horizontal_alignment = 2
+
+[node name="ReloadCount" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "00"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/vBoxContainer"]
+layout_mode = 2
+
+[node name="RestartButton" type="Button" parent="Control/vBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "RESTART"
+
+[node name="MainMenuButton" type="Button" parent="Control/vBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MAIN MENU"
+
+[node name="QuitButton" type="Button" parent="Control/vBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "QUIT"
