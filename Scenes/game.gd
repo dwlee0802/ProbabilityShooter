@@ -139,6 +139,8 @@ func _ready():
 	player_unit.weapon_two.shot_bullet.connect(stats_component.add_bullets_fired_count)
 	player_unit.weapon_one.reload_started.connect(stats_component.add_total_reload_count.bind(1))
 	player_unit.weapon_two.reload_started.connect(stats_component.add_total_reload_count.bind(1))
+	player_unit.weapon_one.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
+	player_unit.weapon_two.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
 	
 	# randomly place dynamite on the map
 	for i in range(10):

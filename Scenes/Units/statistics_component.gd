@@ -75,3 +75,6 @@ func add_bullets_hit_count(amount: int) -> void:
 
 func add_total_reload_count(amount: int) -> void:
 	total_reload_count += amount
+
+func add_active_reload_success(amount: int) -> void:
+	active_reload_success_count += amount
