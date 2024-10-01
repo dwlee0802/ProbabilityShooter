@@ -112,6 +112,11 @@ var level_up_sound: AudioStreamPlayer = $LevelUpEffect/AudioStreamPlayer
 var push_back_area: Area2D = $LevelUpEffect/PushBackArea
 @export
 var push_back_strength: float = 1000
+
+@export
+var level_up_debug: bool = false
+@export
+var level_up_debug_amount: int = 300
 #endregion
 
 ##region Charge System
@@ -494,6 +499,8 @@ func is_level_up_ready() -> bool:
 
 ## amount needed to proceed to next level
 func required_exp_amount(level: int) -> int:
+	if level_up_debug:
+		return level_up_debug_amount
 	return 1000 + level * 250
 	
 #endregion

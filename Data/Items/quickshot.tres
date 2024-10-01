@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="GunItemData" load_steps=3 format=3 uid="uid://034giyd2oh7h"]
+[gd_resource type="Resource" script_class="GunItemData" load_steps=4 format=3 uid="uid://034giyd2oh7h"]
 
 [ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_nvl6l"]
 [ext_resource type="Texture2D" uid="uid://dv356tpkwwbxj" path="res://Art/Icons/Upgrades/quickshot_icon.png" id="1_p88b1"]
+[ext_resource type="Resource" uid="uid://bdocl0du2cdqr" path="res://Data/Items/piercing_rounds.tres" id="2_waqp4"]
 
 [resource]
 script = ExtResource("1_nvl6l")
@@ -24,4 +25,5 @@ item_name = "Quickshot"
 icon = ExtResource("1_p88b1")
 description = "Aim time reduced by half."
 color = Color(1, 0.825313, 0.573305, 1)
-disabled = true
+prereq = ExtResource("2_waqp4")
+disabled = false

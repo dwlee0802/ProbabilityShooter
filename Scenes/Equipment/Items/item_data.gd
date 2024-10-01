@@ -14,6 +14,9 @@ var description: String = "null"
 var color: Color = Color.WHITE
 
 @export
+## The item that must be present in order for this to come up in the random rolls
+var prereq: ItemData = null
+@export
 var disabled: bool = false
 
 
@@ -28,6 +31,6 @@ func active(_unit):
 	
 func on_attack(_unit):
 	return
-	
+
 func _to_string() -> String:
 	return item_name

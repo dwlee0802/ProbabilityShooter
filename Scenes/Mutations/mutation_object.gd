@@ -39,6 +39,8 @@ var shield_spawn_chance_bonus: float = 0
 var spawn_cooltime_multiplier: float = 0
 @export
 var wave_chance_bonus: float = 0
+@export
+var wave_count_bonus: int = 0
 
 
 func on_enter(spawner: EnemySpawnerComponent, level: int):
@@ -51,6 +53,7 @@ func on_enter(spawner: EnemySpawnerComponent, level: int):
 	spawner.shield_chance += shield_spawn_chance_bonus * level
 	
 	spawner.wave_chance += wave_chance_bonus
+	spawner.wave_count += wave_count_bonus
 	
 func on_exit(spawner: EnemySpawnerComponent, level: int):
 	spawner.health_range -= health_range_bonus * level
@@ -62,6 +65,7 @@ func on_exit(spawner: EnemySpawnerComponent, level: int):
 	spawner.shield_chance -= shield_spawn_chance_bonus * level
 	
 	spawner.wave_chance -= wave_chance_bonus
+	spawner.wave_count -= wave_count_bonus
 
 func _to_string() -> String:
 	return mutation_name

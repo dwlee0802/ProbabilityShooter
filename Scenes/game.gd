@@ -403,10 +403,21 @@ func on_level_up() -> void:
 		
 func get_upgrade_options(count: int = 4):
 	var output = []
+	var current
 	for i in range(count):
-		output.append(Game.upgrade_options.pick_random())
+		current = Game.upgrade_options.pick_random()
+		var limiter: int = 100
+		while !check_prereq(current) and limiter > 0:
+			current = Game.upgrade_options.pick_random()
+			limiter -= 1
+		if limiter <= 0:
+			push_error("Upgrade option prereq check timeout.")
+		output.append(current)
 	return output
 
+func check_prereq(item: ItemData) -> bool:
+	return item.prereq == null or item.prereq in player_unit.items.keys()
+	
 func on_upgrade_timeout():
 	user_interface.upgrade_option_selected(InputManager.selected_unit.upgrade_options.pick_random())
 	get_tree().paused = false
