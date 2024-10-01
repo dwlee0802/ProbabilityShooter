@@ -38,6 +38,14 @@ var autoheal_cooldown: float = 3
 @onready
 var autoheal_particles: CPUParticles2D = $AutohealParticles
 
+var burning: bool = false
+var burn_timer: Timer
+static var burn_damage_ratio: float = 0.05
+static var burn_damage_amount: float = 4.0
+static var burn_damage_cooldown: float = 0.5
+@onready
+var burn_effect: Node2D = $BurningEffect
+
 @export_category("Ranged Unit Stats")
 @export
 var projectile: PackedScene = null
@@ -140,6 +148,19 @@ func break_shield() -> void:
 	shield_sound.playing = true
 	shield_particles.emitting = true
 	
+func apply_burning() -> void:
+	if health_points <= 0:
+		return
+		
+	burning = true
+	burn_timer = Timer.new()
+	burn_timer.one_shot = false
+	burn_timer.autostart = true
+	add_child(burn_timer)
+	burn_timer.start(EnemyUnit.burn_damage_cooldown)
+	burn_effect.visible = true
+	burn_timer.timeout.connect(receive_hit.bind(max(int(max_health_points * EnemyUnit.burn_damage_ratio), 1)))
+	
 func _ready():
 	state_machine.init(self)
 	
@@ -149,6 +170,8 @@ func _ready():
 		make_blood_splatter_eff.bind(-linear_velocity.normalized(), 3))
 		
 	tweened_health_points = health_points
+	
+	burn_effect.visible = burning
 		
 func _process(_delta: float) -> void:
 	target_position = InputManager.selected_unit.global_position

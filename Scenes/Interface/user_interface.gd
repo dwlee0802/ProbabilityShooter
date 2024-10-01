@@ -226,6 +226,9 @@ func update_bullet_generation_info_menu(component = InputManager.selected_unit.b
 	if gun.quickshot_chance > 0:
 		labels_label.text += "Quickshot:\n"
 		values_label.text += str(int(gun.quickshot_chance * 100)) + "%\n"
+	if gun.fire_chance > 0:
+		labels_label.text += "Fire:\n"
+		values_label.text += str(int(gun.fire_chance * 100)) + "%\n"
 
 func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")
