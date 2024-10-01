@@ -24,14 +24,13 @@ func set_data(_data) -> void:
 	else:
 		$MarginContainer/VContainer/Icon.texture = _data.default_icon
 
-func _on_pressed():
-	$PressedShade.visible = true
-	if data != null:
-		print(data.item_name + " option pressed")
-	option_selected.emit(data)
-
 func _on_mouse_entered() -> void:
 	$HoverShade.visible = true
 
 func _on_mouse_exited() -> void:
 	$HoverShade.visible = false
+
+func _on_toggled(toggled_on: bool) -> void:
+	$PressedShade.visible = toggled_on
+	if data != null:
+		print(data.item_name + " option toggled " + str(toggled_on))

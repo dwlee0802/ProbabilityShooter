@@ -45,9 +45,14 @@ var upgrade_options = []
 @onready
 var level_up_menu: Control = $LevelUpMenu
 @onready
-var level_up_menu_container: Control = $LevelUpMenu/PanelContainer/VBoxContainer/HBoxContainer
+var level_up_menu_container: Control = $LevelUpMenu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer
+@onready
+var level_up_button_group: ButtonGroup = $LevelUpMenu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OptionOne.button_group
 @onready
 var level_up_time_limit: RadialProgress = $LevelUpMenu/SelectionTimeLimit
+@onready
+var upgrade_confirm_button: Button = $LevelUpMenu/PanelContainer/MarginContainer/VBoxContainer/ConfirmButton
+var selected_button: Button
 
 @onready
 var minimap: Minimap = $Minimap
@@ -81,9 +86,9 @@ func _ready():
 	item_info.visible = false
 	
 	upgrade_options = level_up_menu_container.get_children()
-	
-	for option in upgrade_options:
-		option.option_selected.connect(upgrade_option_selected)
+	for button in upgrade_options:
+		pass
+	upgrade_confirm_button.pressed.connect(upgrade_option_selected)
 	
 	level_up_menu.visible = false
 	
@@ -139,11 +144,14 @@ func show_mutation_info(item: Mutation):
 func show_upgrade_menu() -> void:
 	for i in range(upgrade_options.size()):
 		upgrade_options[i].set_data(InputManager.selected_unit.upgrade_options[i])
-		
+	
+	# press one button by default
+	upgrade_options[1].button_pressed = true
+	
 	level_up_menu.visible = true
 	$LevelUpMenu/AnimationPlayer.play("show_level_up_menu")
 
-func upgrade_option_selected(data: ItemData) -> void:
+func upgrade_option_selected(data: ItemData = level_up_button_group.get_pressed_button().data) -> void:
 	upgrade_timer.stop()
 	get_tree().paused = false
 	
