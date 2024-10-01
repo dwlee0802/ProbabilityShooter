@@ -23,5 +23,5 @@ aim_speed_modifier = 0.0
 item_name = "Explosive"
 icon = ExtResource("1_x7jjk")
 description = "Deals damage to units nearby."
-color = Color(0.85098, 0.733333, 0, 1)
-disabled = true
+color = Color(0.670588, 0, 0, 1)
+disabled = false

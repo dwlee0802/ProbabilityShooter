@@ -23,5 +23,5 @@ aim_speed_modifier = 0.0
 item_name = "Damage Up"
 icon = ExtResource("1_5gj18")
 description = "Higher max damage for bullets"
-color = Color(0.634244, 0.905678, 0.991321, 1)
-disabled = true
+color = Color(0.121569, 0.909804, 0.462745, 1)
+disabled = false

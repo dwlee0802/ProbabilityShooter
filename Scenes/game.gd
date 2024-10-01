@@ -407,7 +407,7 @@ func get_upgrade_options(count: int = 4):
 	for i in range(count):
 		current = Game.upgrade_options.pick_random()
 		var limiter: int = 100
-		while !check_prereq(current) and limiter > 0:
+		while !check_upgrade_prereq(current) and limiter > 0:
 			current = Game.upgrade_options.pick_random()
 			limiter -= 1
 		if limiter <= 0:
@@ -415,7 +415,7 @@ func get_upgrade_options(count: int = 4):
 		output.append(current)
 	return output
 
-func check_prereq(item: ItemData) -> bool:
+func check_upgrade_prereq(item: ItemData) -> bool:
 	return item.prereq == null or item.prereq in player_unit.items.keys()
 	
 func on_upgrade_timeout():
@@ -448,8 +448,16 @@ func reset_mutations() -> void:
 	
 func get_mutation_options(count: int = 4):
 	var output = []
+	var current
 	for i in range(count):
-		output.append(Game.mutation_data.pick_random())
+		current = Game.mutation_data.pick_random()
+		var limiter: int = 100
+		while !check_upgrade_prereq(current) and limiter > 0:
+			current = Game.mutation_data.pick_random()
+			limiter -= 1
+		if limiter <= 0:
+			push_error("Mutation option prereq check timeout.")
+		output.append(current)
 	return output
 
 # show mutation selection ui
@@ -463,6 +471,8 @@ func on_mutation_selected(option: Mutation):
 	add_mutation(option)
 	mutation_timer.start(mutation_cooldown)
 	
+func check_mutation_prereq(item: Mutation) -> bool:
+	return item.prereq == null or item.prereq in mutations.keys()
 #endregion
 
 func set_safezone_sprite(radius: float) -> void:
