@@ -147,6 +147,7 @@ func show_upgrade_menu() -> void:
 	
 	# press one button by default
 	upgrade_options[1].button_pressed = true
+	upgrade_options[1]._on_toggled(true)
 	
 	level_up_menu.visible = true
 	$LevelUpMenu/AnimationPlayer.play("show_level_up_menu")
