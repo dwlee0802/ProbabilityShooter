@@ -251,10 +251,12 @@ script = ExtResource("4_61t70")
 ready_state = NodePath("../Ready")
 
 [node name="AimCone" type="Polygon2D" parent="WeaponOne"]
+visible = false
 color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [node name="QueuedCones" type="Node2D" parent="WeaponOne"]
+visible = false
 
 [node name="AttackFullCone" type="Polygon2D" parent="WeaponOne"]
 visible = false
@@ -262,6 +264,7 @@ color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [node name="AttackCone" type="Polygon2D" parent="WeaponOne/AttackFullCone"]
+visible = false
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
@@ -313,10 +316,12 @@ script = ExtResource("4_61t70")
 ready_state = NodePath("../Ready")
 
 [node name="AimCone" type="Polygon2D" parent="WeaponTwo"]
+visible = false
 color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [node name="QueuedCones" type="Node2D" parent="WeaponTwo"]
+visible = false
 
 [node name="AttackFullCone" type="Polygon2D" parent="WeaponTwo"]
 visible = false
@@ -324,6 +329,7 @@ color = Color(1, 1, 1, 0.196078)
 polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
 
 [node name="AttackCone" type="Polygon2D" parent="WeaponTwo/AttackFullCone"]
+visible = false
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
