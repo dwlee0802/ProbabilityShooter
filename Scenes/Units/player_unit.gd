@@ -119,12 +119,11 @@ var level_up_debug: bool = false
 var level_up_debug_amount: int = 300
 #endregion
 
-##region Charge System
-#var charge: float = 0
-#var max_charge: float = 1000
-#@onready
+#region Charge System
+var charge: float = 0
+var max_charge: float = 20
 #var charge_particles: CPUParticles2D = $ChargeParticles
-##endregion
+#endregion
 
 ## WASD Movement Component Node
 @onready
@@ -505,6 +504,16 @@ func required_exp_amount(level: int) -> int:
 	
 #endregion
 
+func add_charge(amount: int) -> void:
+	charge += amount
+	if charge > max_charge:
+		charge = max_charge
+		
+func add_charge_on_hit(_total: int, amount: int) -> void:
+	charge += amount
+	if charge > max_charge:
+		charge = max_charge
+	
 func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/LeftEye.self_modulate = left
 	$UnitSprite/RightEye.self_modulate = right

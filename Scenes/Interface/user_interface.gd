@@ -69,12 +69,13 @@ var weapon_two_active_reload: Control = $ExperienceBar/WeaponTwoActiveReloadBar
 var enemy_spawn_info: Control = $EnemySpawnInfo
 
 @onready
-var charge_bar: ProgressBar = $ChargeProgressBar
+var charge_bar: DelayedProgressBar = $EnergyBar
 
 @onready
 var mutation_roulette: Roulette = $MutationRoulette
 
 var upgrade_timer: Timer
+
 
 func _ready():
 	game_over_ui.visible = false

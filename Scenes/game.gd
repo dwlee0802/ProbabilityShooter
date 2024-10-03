@@ -114,6 +114,8 @@ func _ready():
 	#user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
 	user_interface.restart_button.pressed.connect(start)
 	game_over_screen.restart_button.pressed.connect(start)
+
+	user_interface.charge_bar.set_max(player_unit.max_charge)
 	
 	player_unit.set_eye_colors(weapon_one_color, weapon_two_color)
 	player_unit.weapon_one.set_color(weapon_one_color)
@@ -228,6 +230,9 @@ func _process(_delta):
 	if InputManager.selected_unit.global_position.length() > safe_zone_radius:
 		InputManager.selected_unit.receive_hit(_delta * 10)
 	
+	## Player charge ui update
+	user_interface.charge_bar.change_value(player_unit.charge)
+	
 func enemy_killed()-> void:
 	stats_component.kill_count += 1
 	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
@@ -250,6 +255,9 @@ func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.critical_hit.connect(stats_component.add_critical_hit_count.bind(1))
 	newEnemy.received_hit.connect(stats_component.add_enemy_received_damage)
 	newEnemy.bullet_hit.connect(stats_component.add_bullets_hit_count.bind(1))
+	
+	# add charge
+	newEnemy.received_hit.connect(player_unit.add_charge_on_hit)
 	
 func game_over() -> void:
 	if no_game_over:

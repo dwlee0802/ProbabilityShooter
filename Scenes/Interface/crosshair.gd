@@ -124,7 +124,7 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 			active_reload_bar.self_modulate = weapon.weapon_color
 
 func update_active_reload_bar(bar: ProgressBar, weapon: WeaponComponent) -> void:
-	bar.value = int((weapon.reload_timer.wait_time - weapon.reload_timer.time_left) / (weapon.reload_timer.wait_time) * 100)
+	bar.value = int((weapon.reload_timer.max_time - weapon.reload_timer.time_left) / (weapon.reload_timer.max_time) * 100)
 	
 	# show indicator if inside success range
 	var highlight: ColorRect = bar.get_node("ColorRect")

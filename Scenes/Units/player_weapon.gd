@@ -12,7 +12,7 @@ var action_name: String
 var state_machine: StateMachine = $StateMachine
 
 var attack_direction_queue = []
-var reload_timer: Timer
+var reload_timer: ScalableTimer
 
 @export
 var active_reload_available: bool = true
@@ -82,8 +82,7 @@ func _ready() -> void:
 	state_machine.init(self)
 	weapon = Gun.new(weapon_data)
 	
-	reload_timer = Timer.new()
-	reload_timer.autostart = false
+	reload_timer = ScalableTimer.new()
 	reload_timer.one_shot = true
 	add_child(reload_timer)
 	
@@ -161,7 +160,7 @@ func reset() -> void:
 	
 # check active reload success
 func check_active_reload_success() -> bool:
-	var timer: Timer = reload_timer
+	var timer: ScalableTimer = reload_timer
 	if timer.is_stopped():
 		return false
 	
@@ -179,9 +178,7 @@ func check_active_reload_success() -> bool:
 			return true
 		ActiveReloadResult.GOOD:
 			print("active reload kinda success...")
-			var left_time: float = timer.time_left
-			timer.stop()
-			timer.start(left_time / 2.0)
+			timer.speed = 2
 			active_reload_sound_player.stream = active_reload_success_sound
 			active_reload_sound_player.play()
 			active_reload_available = false
@@ -200,7 +197,7 @@ func check_active_reload_success() -> bool:
 func inside_active_reload_range() -> int:
 	if reload_timer.is_stopped():
 		return false
-	var selected_point: float = (1 - reload_timer.time_left / reload_timer.wait_time) * 100
+	var selected_point: float = (1 - reload_timer.time_left / reload_timer.max_time) * 100
 	
 	#print("perfect range: " + str(active_reload_range))
 	#print("good range: " + str(active_reload_range + Vector2i(-active_reload_rim_length, active_reload_rim_length)))
