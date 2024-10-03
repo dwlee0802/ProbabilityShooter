@@ -179,7 +179,7 @@ func check_active_reload_success() -> bool:
 			return true
 		ActiveReloadResult.GOOD:
 			print("active reload kinda success...")
-			timer.speed = 2
+			timer.speed = 2.5
 			active_reload_sound_player.stream = active_reload_success_sound
 			active_reload_sound_player.play()
 			active_reload_available = false

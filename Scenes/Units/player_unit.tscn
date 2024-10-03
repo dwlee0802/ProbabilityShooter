@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=47 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://chnvgiewl5ywu" path="res://Sound/punch.mp3" id="23_mf8nc"]
 [ext_resource type="Shader" path="res://Scenes/Units/ripple_effect.gdshader" id="23_vuwxk"]
 [ext_resource type="AudioStream" uid="uid://btjekmjy6loyo" path="res://Sound/power-down-7103.mp3" id="24_xisgy"]
+[ext_resource type="AudioStream" uid="uid://bpx35j7exlob" path="res://Sound/exp_gained_ding.mp3" id="26_mol5q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
@@ -695,5 +696,10 @@ texture_scale = 20.0
 
 [node name="AbilityFinishedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_xisgy")
+
+[node name="ExpGainedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_mol5q")
+volume_db = -10.0
+max_polyphony = 5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

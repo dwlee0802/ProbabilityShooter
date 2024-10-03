@@ -111,6 +111,8 @@ var current_level: int = 1
 var upgrade_options = []
 
 @onready
+var exp_gained_sound: AudioStreamPlayer = $ExpGainedSound
+@onready
 var level_up_animation: AnimationPlayer = $LevelUpEffect/LevelUpAnimationPlayer
 @onready
 var level_up_sound: AudioStreamPlayer = $LevelUpEffect/AudioStreamPlayer
@@ -534,6 +536,7 @@ func add_experience(amount: int) -> void:
 	added_experience.emit(amount)
 	shade_animation.play("RESET")
 	shade_animation.play("exp_gained")
+	exp_gained_sound.play()
 
 func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)

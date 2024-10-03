@@ -24,9 +24,10 @@ texture = ExtResource("1_b8a12")
 script = ExtResource("2_unsbb")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(0, 1, 0.788235, 1)
+color = Color(0.72308, 1, 0.899581, 1)
+energy = 5.0
 texture = SubResource("GradientTexture2D_4e7yt")
-texture_scale = 15.0
+texture_scale = 30.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 amount = 20
