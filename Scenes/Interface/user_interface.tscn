@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=36 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
 [ext_resource type="PackedScene" uid="uid://ctny8tliuf3cp" path="res://Scenes/Interface/level_up_option.tscn" id="9_s4fln"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="10_acs6f"]
+[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="11_anutk"]
 
 [sub_resource type="Animation" id="Animation_a84oq"]
 length = 0.001
@@ -607,7 +608,7 @@ libraries = {
 "": SubResource("AnimationLibrary_j30i2")
 }
 
-[node name="CoreHealthBar" parent="." instance=ExtResource("3_038ea")]
+[node name="EnergyBar" parent="." instance=ExtResource("3_038ea")]
 custom_minimum_size = Vector2(10, 10)
 anchors_preset = -1
 anchor_top = 0.841
@@ -617,8 +618,9 @@ offset_top = -9.96802
 offset_right = 163.0
 offset_bottom = 0.0319824
 grow_vertical = 0
+bar_color = Color(1, 1, 0, 1)
 
-[node name="CoreHealthLabel" type="Label" parent="CoreHealthBar"]
+[node name="CoreHealthLabel" type="Label" parent="EnergyBar"]
 layout_mode = 0
 offset_right = 114.0
 offset_bottom = 23.0
@@ -1068,5 +1070,20 @@ libraries = {
 "": SubResource("AnimationLibrary_kcsno")
 }
 speed_scale = 2.0
+
+[node name="HealthHearts" parent="." instance=ExtResource("11_anutk")]
+custom_minimum_size = Vector2(0, 0)
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 344.0
+offset_bottom = 172.0
+grow_vertical = 1
+theme_override_constants/h_separation = 10
+alignment = 0
+reverse_fill = false
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

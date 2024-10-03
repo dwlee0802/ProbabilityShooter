@@ -91,10 +91,7 @@ func _ready():
 	
 	player_unit = $PlayerUnit
 	
-	user_interface.core_health_bar.set_max(player_unit.max_health_points)
-	user_interface.core_health_bar.change_value(player_unit.health_points, true)
-	user_interface.core_health_label.text = "HP: " + str(player_unit.health_points)
-	#InputManager._select_unit(units[0])
+	user_interface.player_health_hearts.set_hearts_count(int(player_unit.health_points), Vector2(32,32))
 	bind_selected_unit_signals()
 	
 	# set minimap parameters
@@ -348,8 +345,8 @@ func start() -> void:
 func on_core_hit() -> void:
 	user_interface.core_hit_effect.play("RESET")
 	user_interface.core_hit_effect.play("core_hit_animation")
-	user_interface.core_health_bar.change_value(InputManager.selected_unit.health_points)
-	user_interface.core_health_label.text = "HP: " + str(int(InputManager.selected_unit.health_points))
+	
+	user_interface.player_health_hearts.set_hearts_count(int(player_unit.health_points), Vector2(32,32))
 
 #func change_resource(amount: int) -> void:
 	#resource_stock += amount
@@ -376,7 +373,6 @@ func bind_selected_unit_signals() -> void:
 			
 		InputManager.selected_unit.knocked_out.connect(game_over)
 		InputManager.selected_unit.was_attacked.connect(on_core_hit)
-		user_interface.core_health_bar.set_max(InputManager.selected_unit.max_health_points)
 		unit.health_changed.connect(on_core_hit)
 			
 func on_experience_changed() -> void:

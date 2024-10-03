@@ -56,7 +56,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	spawn_cooldown -= delta * 0.001
-	print(spawn_cooldown)
 	
 func reset_stats() -> void:
 	spawn_cooldown = _base_spawn_cooldown

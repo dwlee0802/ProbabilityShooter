@@ -123,8 +123,6 @@ position = Vector2(718, 279)
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 collision_mask = 138
 movement_speed = 500.0
-health_points = 300.0
-max_health_points = 300
 starting_equipments = [ExtResource("10_gp80q")]
 level_up_debug_amount = 100
 

@@ -21,17 +21,10 @@ var kill_count_animation: AnimationPlayer = $GameState/KillsLabel/AnimationPlaye
 @onready
 var enemy_count_label: Label = $EnemyCountLabel
 @onready
-var resource_label: Label = $GameState/ResourceLabel
-@onready
-var core_health_bar: DelayedProgressBar = $CoreHealthBar
-@onready
-var core_health_label: Label = $CoreHealthBar/CoreHealthLabel
-@onready
-var core_progress_bar: DelayedProgressBar = $GameState/CoreActivationBar
-@onready
-var core_progress_label: Label = $GameState/CoreActivationBar/CoreProgressLabel
-@onready
 var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
+
+@onready
+var player_health_hearts: HealthHearts = $HealthHearts
 
 @onready
 var interaction_label: Label = $InteractionLabel
