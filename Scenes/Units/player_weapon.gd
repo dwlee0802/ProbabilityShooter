@@ -13,6 +13,7 @@ var state_machine: StateMachine = $StateMachine
 
 var attack_direction_queue = []
 var reload_timer: ScalableTimer
+var aim_timer: ScalableTimer
 
 @export
 var active_reload_available: bool = true

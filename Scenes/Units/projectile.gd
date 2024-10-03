@@ -18,18 +18,15 @@ var lifetime: float = 0
 # deletes self after this time
 var lifetime_limit: float = 10
 
-var on_hit_effect = preload("res://Scenes/projectile_hit_effect.tscn")
-
-var exit_effect = preload("res://Scenes/enemy_hit_effect.tscn")
-
-var smoke_effect = preload("res://Scenes/Effects/smoke_particle.tscn")
-
 var dynamite_scene = load("res://Scenes/Shootables/dynamite.tscn")
 
 var penetration_probability: float = 0
 
 var bullet_data: Bullet
 
+var smoke_effect: PackedScene = preload("res://Scenes/Effects/smoke_particle.tscn")
+var on_hit_effect: PackedScene = preload("res://Scenes/projectile_hit_effect.tscn")
+var exit_effect: PackedScene = preload("res://Scenes/enemy_hit_effect.tscn")
 @export
 var spawn_after: PackedScene
 

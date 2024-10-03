@@ -3,6 +3,8 @@ class_name Gun
 
 static var bullet_generator: BulletGenerator
 
+var projectile_scene: PackedScene = preload("res://Scenes/Units/projectile.tscn")
+
 var reload_speed_modifier: float = 0
 var aim_speed_modifier: float = 0
 
@@ -59,7 +61,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	
 	for i in range(current_bullet.projectile_count):
 		# make new projectile
-		var new_bullet: Projectile = data.projectile_scene.instantiate()
+		var new_bullet: Projectile = projectile_scene.instantiate()
 			
 		var random_spread_offset: float = randf_range(-get_spread()/2, get_spread()/2)
 		# set stats

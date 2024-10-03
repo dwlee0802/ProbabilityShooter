@@ -625,7 +625,7 @@ layout_mode = 0
 offset_right = 114.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 8
-text = " Core Health: 0"
+text = "ENERGY: "
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
 custom_minimum_size = Vector2(10, 10)

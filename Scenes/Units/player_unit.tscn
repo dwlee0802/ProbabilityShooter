@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=35 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -19,10 +19,14 @@
 [ext_resource type="Texture2D" uid="uid://c2ecsu8asley" path="res://Art/arrow.png" id="15_kw6ct"]
 [ext_resource type="PackedScene" uid="uid://b7damp7si178x" path="res://player_arm.tscn" id="16_lckao"]
 [ext_resource type="AudioStream" uid="uid://dmwgkp55r6ywh" path="res://Sound/level_up.mp3" id="16_x7mtf"]
+[ext_resource type="Shader" path="res://Scenes/Units/distortion.gdshader" id="19_sjlwd"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bm0v7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kb2y"]
+shader = ExtResource("19_sjlwd")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ki3g0"]
 polygon = PackedVector2Array(-34.1073, -131.274, -65.114, -51.0266, -64.2281, -30.9649, -52.7113, -13.5199, -38.5368, -2.18063, -62.4562, 99.0004, 64.2281, 98.1282, 39.4228, -2.18063, 54.4831, -13.5199, 65.114, -32.7094, 65.9999, -50.1544, 35.8791, -132.146, 20.8188, -95.5114, -0.442943, -98.1281, -19.0469, -95.5114)
@@ -170,7 +174,7 @@ fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.174312, 0.857798)
 
 [node name="PlayerUnit" type="RigidBody2D"]
-material = SubResource("CanvasItemMaterial_bm0v7")
+material = SubResource("ShaderMaterial_v6k2i")
 collision_layer = 2
 collision_mask = 8
 gravity_scale = 0.0
@@ -200,29 +204,33 @@ _base_damage_range = Vector2i(1, 2)
 [node name="UnitSprite" type="Sprite2D" parent="."]
 self_modulate = Color(4, 4, 4, 1)
 material = SubResource("ShaderMaterial_ablmn")
-use_parent_material = true
 position = Vector2(-1.50001, -0.5)
 scale = Vector2(1.12879, 1.14646)
 texture = ExtResource("14_wx8vp")
 
 [node name="LeftEye" type="Sprite2D" parent="UnitSprite"]
 self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_7kb2y")
+use_parent_material = true
 position = Vector2(-17, -50)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("13_n3hms")
 
 [node name="RightEye" type="Sprite2D" parent="UnitSprite"]
 self_modulate = Color(0, 0, 0, 1)
+use_parent_material = true
 position = Vector2(17, -50)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("13_n3hms")
 
 [node name="Sprite2D4" type="Sprite2D" parent="UnitSprite"]
+use_parent_material = true
 position = Vector2(34.5503, -97.5469)
 scale = Vector2(0.418148, 0.553575)
 texture = ExtResource("15_hpy8o")
 
 [node name="Sprite2D5" type="Sprite2D" parent="UnitSprite"]
+use_parent_material = true
 position = Vector2(-34.1074, -97.2555)
 scale = Vector2(0.418148, 0.553575)
 texture = ExtResource("15_hpy8o")
@@ -231,6 +239,7 @@ texture = ExtResource("15_hpy8o")
 occluder = SubResource("OccluderPolygon2D_ki3g0")
 
 [node name="WeaponOne" type="Node2D" parent="."]
+use_parent_material = true
 script = ExtResource("3_d8l28")
 weapon_data = ExtResource("4_s5eeb")
 action_name = "action_one"
@@ -291,8 +300,10 @@ volume_db = -7.0
 pitch_scale = 1.2
 
 [node name="Arm" parent="WeaponOne" instance=ExtResource("16_lckao")]
+use_parent_material = true
 
 [node name="WeaponTwo" type="Node2D" parent="."]
+use_parent_material = true
 script = ExtResource("3_d8l28")
 weapon_data = ExtResource("4_s5eeb")
 action_name = "action_two"
@@ -353,6 +364,7 @@ volume_db = -7.0
 pitch_scale = 1.2
 
 [node name="Arm" parent="WeaponTwo" instance=ExtResource("16_lckao")]
+use_parent_material = true
 
 [node name="LevelUpRippleEffect" type="Sprite2D" parent="."]
 process_mode = 3
@@ -423,6 +435,7 @@ offset_bottom = 72.0
 grow_vertical = 0
 
 [node name="StateLabel" type="Label" parent="."]
+visible = false
 offset_left = -61.0
 offset_top = -98.0
 offset_right = 58.0

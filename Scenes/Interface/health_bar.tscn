@@ -78,7 +78,6 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_joiiy")
 theme_override_styles/fill = SubResource("StyleBoxTexture_5wc8w")
-value = 70.0
 show_percentage = false
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -91,7 +90,6 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_4kht3")
 theme_override_styles/fill = SubResource("StyleBoxTexture_k7ftl")
-value = 60.0
 show_percentage = false
 
 [node name="ColorRect" type="ColorRect" parent="."]

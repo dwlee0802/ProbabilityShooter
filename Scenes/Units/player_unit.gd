@@ -121,7 +121,9 @@ var level_up_debug_amount: int = 300
 
 #region Charge System
 var charge: float = 0
-var max_charge: float = 20
+var max_charge: float = 25.0
+var charge_use_rate: float = 5.0
+var ability_on: bool = false
 #var charge_particles: CPUParticles2D = $ChargeParticles
 #endregion
 
@@ -223,8 +225,26 @@ func _physics_process(delta: float) -> void:
 		
 func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
+	
+	if Input.is_action_just_pressed("use_ability"):
+		ability_on = true
 		
 func _process(_delta: float) -> void:
+	if ability_on:
+		weapon_one.reload_timer.speed = 2
+		weapon_two.reload_timer.speed = 2
+		weapon_one.aim_timer.speed = 2
+		weapon_two.aim_timer.speed = 2
+		
+		charge -= charge_use_rate * _delta
+		if charge <= 0:
+			ability_on = false
+	else:
+		weapon_one.reload_timer.speed = 1
+		weapon_two.reload_timer.speed = 1
+		weapon_one.aim_timer.speed = 1
+		weapon_two.aim_timer.speed = 1
+		
 	return
 	## autofail active reload if past range
 	#if !equipments[0].ready and !action_one_reload_timer.is_stopped():
@@ -513,7 +533,7 @@ func add_charge_on_hit(_total: int, amount: int) -> void:
 	charge += amount
 	if charge > max_charge:
 		charge = max_charge
-	
+
 func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/LeftEye.self_modulate = left
 	$UnitSprite/RightEye.self_modulate = right

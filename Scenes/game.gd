@@ -74,6 +74,8 @@ var upgrade_select_time_limit: float = 15.0
 ## shootable objects
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
 
+var projectile_scene: PackedScene = preload("res://Scenes/Units/projectile.tscn")
+
 
 static func _static_init():
 	var is_diabled = func(data):
@@ -84,6 +86,8 @@ static func _static_init():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	projectile_scene.instantiate().queue_free()
+	
 	# delegate front end management to input manager
 	$InputManager.game = self
 	

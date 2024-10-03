@@ -7,19 +7,18 @@ var reload_state: State
 @export
 var action_name: String = ""
 
-var aim_timer: Timer
+var aim_timer: ScalableTimer
 
 
 func _ready() -> void:
-	aim_timer = Timer.new()
+	aim_timer = ScalableTimer.new()
 	aim_timer.one_shot = true
-	aim_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-	aim_timer.autostart = false
 	add_child(aim_timer)
 	aim_timer.timeout.connect(on_aim_finished)
 	
 func enter() -> void:
 	super()
+	parent.aim_timer = aim_timer
 
 func exit() -> void:
 	super()
@@ -37,7 +36,7 @@ func process_physics(_delta: float) -> State:
 
 func process_frame(_delta: float) -> State:
 	if !aim_timer.is_stopped():
-		parent.update_attack_cone((aim_timer.wait_time - aim_timer.time_left) / aim_timer.wait_time)
+		parent.update_attack_cone((aim_timer.max_time - aim_timer.time_left) / aim_timer.max_time)
 	else:
 		# make hands follow mouse
 		if !parent.recoil_animation.is_playing():
