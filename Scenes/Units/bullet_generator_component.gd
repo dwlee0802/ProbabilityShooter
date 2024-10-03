@@ -6,7 +6,7 @@ class_name BulletGenerator
 #region Random Bullets System
 ## probabilities of bullets spawning with types
 @export
-var _base_damage_range: Vector2i = Vector2i(25,125)
+var _base_damage_range: Vector2i = Vector2i(1,1)
 var damage_range: Vector2i = Vector2i(25,125)
 @export
 var _base_piercing_chance: float = 0

@@ -182,13 +182,13 @@ func _process(_delta: float) -> void:
 	
 	state_machine.process_frame(_delta)
 	
-	if autoheal_stopped_timer.is_stopped() and health_points + _delta * autoheal_speed < max_health_points:
-		health_points += autoheal_speed * _delta
-		tweened_health_points = health_points
-		autoheal_particles.emitting = true
-		update_health_label(int(health_points))
-	else:
-		autoheal_particles.emitting = false
+	#if autoheal_stopped_timer.is_stopped() and health_points + _delta * autoheal_speed < max_health_points:
+		#health_points += autoheal_speed * _delta
+		#tweened_health_points = health_points
+		#autoheal_particles.emitting = true
+		#update_health_label(int(health_points))
+	#else:
+		#autoheal_particles.emitting = false
 	
 	if health_tween != null and health_tween.is_valid():
 		update_health_label(int(tweened_health_points))
@@ -246,6 +246,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	else:
 		health_bar.change_value(int(health_points))
 		#update_health_label(int(health_points))
+		health_hearts.set_hearts_count(int(health_points))
 		
 		if health_points < max_health_points:
 			bleed_timer.start(2)

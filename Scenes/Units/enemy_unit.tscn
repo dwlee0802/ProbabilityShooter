@@ -362,7 +362,6 @@ scale_amount_max = 0.2
 color_ramp = SubResource("Gradient_rcr3r")
 
 [node name="HealthHearts" parent="." instance=ExtResource("13_q5bwl")]
-anchors_preset = 8
 offset_left = -83.0
 offset_top = -226.0
 offset_right = 82.0
