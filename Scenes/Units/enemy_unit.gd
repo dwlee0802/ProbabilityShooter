@@ -22,6 +22,8 @@ var bleed_timer: Timer = $BleedTimer
 var health_tween: Tween = null
 ## variable to hold health point amount used for tweening effect
 var tweened_health_points: float = 100
+@onready
+var health_hearts: HealthHearts = $HealthHearts
 
 var shield: bool = false
 @onready
@@ -113,6 +115,8 @@ func on_spawn(speed: float, health: int) -> void:
 	health_bar = $HealthBar
 	health_bar.set_max(health)
 	health_bar.change_value(health, true)
+	health_hearts = $HealthHearts
+	health_hearts.set_hearts_count(health)
 
 ## apply heavy trait
 func apply_heavy() -> void:
