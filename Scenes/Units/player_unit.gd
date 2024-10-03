@@ -132,9 +132,9 @@ var level_up_debug_amount: int = 300
 @export
 var charge: float = 0
 @export
-var max_charge: float = 30.0
+var max_charge: float = 50.0
 @export
-var charge_use_rate: float = 3.0
+var charge_use_rate: float = 5.0
 var ability_on: bool = false
 @onready
 var ability_particles: CPUParticles2D = $AbilityActiveParticles
@@ -265,11 +265,10 @@ func _process(_delta: float) -> void:
 		if charge <= 0:
 			ability_on = false
 			ability_finish_sound.play()
-	else:
-		weapon_one.reload_timer.speed = 1
-		weapon_two.reload_timer.speed = 1
-		weapon_one.aim_timer.speed = 1
-		weapon_two.aim_timer.speed = 1
+			weapon_one.reload_timer.speed = 1
+			weapon_two.reload_timer.speed = 1
+			weapon_one.aim_timer.speed = 1
+			weapon_two.aim_timer.speed = 1
 		
 	return
 	## autofail active reload if past range
