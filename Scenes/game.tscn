@@ -31,7 +31,7 @@ script = ExtResource("2_webe7")
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
 _base_spawn_cooldown = 1.5
-_base_wave_chance = 0.0
+_base_wave_chance = 0.05
 _base_health_range = Vector2i(1, 6)
 _base_move_speed_range = Vector2i(150, 300)
 _base_heavy_chance = 0.0
