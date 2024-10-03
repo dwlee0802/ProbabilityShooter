@@ -362,7 +362,7 @@ scale_amount_max = 0.2
 color_ramp = SubResource("Gradient_rcr3r")
 
 [node name="HealthHearts" parent="." instance=ExtResource("13_q5bwl")]
-offset_left = -83.0
-offset_top = -226.0
-offset_right = 82.0
-offset_bottom = -162.0
+offset_left = -173.0
+offset_top = -308.0
+offset_right = 177.0
+offset_bottom = -176.0

@@ -87,7 +87,7 @@ func scale_health_label(units):
 	for unit: EnemyUnit in units:
 		var label: Label = unit.health_label
 		label.scale = Vector2(1 / zoom.x, 1/zoom.y)
-		unit.health_hearts.scale = Vector2(1 / zoom.x, 1/zoom.y)
+		#unit.health_hearts.scale = Vector2(1 / zoom.x, 1/zoom.y)
 		
 func shake_screen(intensity, duration):
 	noise_i = 0

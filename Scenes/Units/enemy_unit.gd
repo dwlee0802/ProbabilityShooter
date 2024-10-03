@@ -22,8 +22,7 @@ var bleed_timer: Timer = $BleedTimer
 var health_tween: Tween = null
 ## variable to hold health point amount used for tweening effect
 var tweened_health_points: float = 100
-@onready
-var health_hearts: HealthHearts = $HealthHearts
+var health_hearts: HealthHearts
 
 var shield: bool = false
 @onready
@@ -128,6 +127,7 @@ func apply_heavy() -> void:
 	health_bar.change_value(health_points, true)
 	increase_size(2.5)
 	$Sprite2D.self_modulate = Color.OLIVE
+	health_hearts = $Interface/HealthHearts
 	color = Color.OLIVE
 
 func apply_quick() -> void:
@@ -234,9 +234,9 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	autoheal_stopped_timer.stop()
 	autoheal_stopped_timer.start(autoheal_cooldown)
 	
-	# reduce speed if below half health
-	if health_points < max_health_points / 2:
-		movement_speed = max_movement_speed * 0.75
+	## reduce speed if below half health
+	#if health_points < max_health_points / 2:
+		#movement_speed = max_movement_speed * 0.75
 		
 	if health_points <= 0:
 		health_tween.kill()

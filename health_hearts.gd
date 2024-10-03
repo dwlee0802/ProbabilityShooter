@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends Container
 class_name HealthHearts
 
 var heart_icon: PackedScene = preload("res://Scenes/Interface/health_icon.tscn")
@@ -11,4 +11,4 @@ func set_hearts_count(count: int) -> void:
 		add_child(new_icon)
 
 func _on_item_rect_changed() -> void:
-	pivot_offset = size / 2
+	pivot_offset = Vector2(size.x / 2, 0)

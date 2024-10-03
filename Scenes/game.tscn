@@ -29,7 +29,12 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
+_base_health_range = Vector2i(1, 10)
 _base_move_speed_range = Vector2i(150, 300)
+_base_heavy_chance = 0.0
+_base_fast_chance = 0.0
+_base_ranged_chance = 0.0
+_base_shield_chance = 0.0
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
