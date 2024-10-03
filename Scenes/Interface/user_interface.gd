@@ -73,6 +73,8 @@ var enemy_spawn_info: Control = $EnemySpawnInfo
 @onready
 var charge_bar: DelayedProgressBar = $EnergyBar
 @onready
+var charge_bar_label: Label = $EnergyBar/EnergyLabel
+@onready
 var charge_bar_shade: ColorRect = $EnergyBar/ColorRect2
 @onready
 var ability_screen_effect: Control = $SpeedEffect

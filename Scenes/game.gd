@@ -49,8 +49,8 @@ var blood_splatter: Node2D = $BloodSplatter
 ## resource system
 #@export
 #var resource_stock: int = 0
-#@onready
-#var resource_node: Node2D = $Resources
+@onready
+var resources: Node2D = $Resources
 
 @export
 var safe_zone_radius: float = 2000.0
@@ -73,8 +73,8 @@ var upgrade_select_time_limit: float = 15.0
 
 ## shootable objects
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
-
 var projectile_scene: PackedScene = preload("res://Scenes/Units/projectile.tscn")
+var exp_orb: PackedScene = preload("res://Scenes/exp_orb.tscn")
 
 
 static func _static_init():
@@ -87,6 +87,8 @@ static func _static_init():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	projectile_scene.instantiate().queue_free()
+	exp_orb.instantiate().queue_free()
+	dynamite_shootable.instantiate().queue_free()
 	
 	# delegate front end management to input manager
 	$InputManager.game = self
@@ -120,6 +122,7 @@ func _ready():
 	game_over_screen.restart_button.pressed.connect(start)
 
 	user_interface.charge_bar.set_max(player_unit.max_charge)
+	on_charge_changed()
 	
 	player_unit.set_eye_colors(weapon_one_color, weapon_two_color)
 	player_unit.weapon_one.set_color(weapon_one_color)
@@ -247,7 +250,7 @@ func _process(_delta):
 	
 	## Player charge ui update
 	if player_unit.ability_on:
-		user_interface.charge_bar.change_value(player_unit.charge)
+		on_charge_changed()
 	user_interface.charge_bar_shade.visible = player_unit.is_ability_ready()
 	user_interface.ability_screen_effect.visible = player_unit.ability_on
 		
@@ -320,6 +323,12 @@ func remove_objects() -> void:
 	
 	# remove all remaining projectiles
 	call_deferred("remove_child", casings)
+	casings.queue_free()
+	casings = Node2D.new()
+	add_child(casings)
+	
+	# remove all remaining projectiles
+	call_deferred("remove_child", resources)
 	casings.queue_free()
 	casings = Node2D.new()
 	add_child(casings)
@@ -418,6 +427,7 @@ func on_experience_changed() -> void:
 
 func on_charge_changed() -> void:
 	user_interface.charge_bar.change_value(player_unit.charge)
+	user_interface.charge_bar_label.text = "ENERGY: " + str(player_unit.charge) + " / " + str(player_unit.max_charge)
 	
 func on_level_up() -> void:
 	if player_unit != null:

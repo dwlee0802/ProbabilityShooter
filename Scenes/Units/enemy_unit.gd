@@ -268,7 +268,7 @@ func die():
 	var new_exp_orb: Node2D = exp_orb.instantiate()
 	new_exp_orb.global_position = global_position
 	new_exp_orb.player_unit = game_ref.player_unit
-	get_tree().root.add_child(new_exp_orb)
+	game_ref.resources.add_child(new_exp_orb)
 	
 	#if randf() < EnemyUnit.resource_drop_chance:
 		#var new_drop: ResourceDrop = resource_drop.instantiate()

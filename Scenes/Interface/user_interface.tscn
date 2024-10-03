@@ -110,21 +110,6 @@ _data = {
 "core_hit_animation": SubResource("Animation_vfg1j")
 }
 
-[sub_resource type="Animation" id="Animation_y300w"]
-resource_name = "danger_zone"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.584314, 0, 0, 0), Color(0.584314, 0, 0, 0.0588235)]
-}
-
 [sub_resource type="Animation" id="Animation_07f1l"]
 length = 0.001
 tracks/0/type = "value"
@@ -138,6 +123,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0.584314, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_y300w"]
+resource_name = "danger_zone"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.584314, 0, 0, 0), Color(0.584314, 0, 0, 0.0588235)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k820w"]
@@ -213,6 +213,21 @@ _data = {
 "item_info_fadeout_animation": SubResource("Animation_308bu")
 }
 
+[sub_resource type="Animation" id="Animation_7rjfh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_8c0qp"]
 resource_name = "full_blink"
 loop_mode = 1
@@ -227,21 +242,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_7rjfh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5l3br"]
@@ -727,7 +727,7 @@ grow_vertical = 0
 bar_color = Color(0.92549, 0.498039, 0, 1)
 increase_blink = true
 
-[node name="CoreHealthLabel" type="Label" parent="EnergyBar"]
+[node name="EnergyLabel" type="Label" parent="EnergyBar"]
 layout_mode = 0
 offset_right = 114.0
 offset_bottom = 23.0

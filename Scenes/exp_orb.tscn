@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdx5asdsu0pmg"]
+[gd_scene load_steps=6 format=3 uid="uid://bdx5asdsu0pmg"]
 
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_b8a12"]
 [ext_resource type="Script" path="res://Scenes/exp_orb.gd" id="2_unsbb"]
@@ -14,6 +14,9 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.174312, 0.857798)
 
+[sub_resource type="Gradient" id="Gradient_i2d0j"]
+colors = PackedColorArray(0, 0.843137, 1, 0.333333, 1, 1, 1, 0)
+
 [node name="ExpOrb" type="Sprite2D"]
 self_modulate = Color(0, 0.654902, 1, 1)
 scale = Vector2(0.1, 0.1)
@@ -24,3 +27,13 @@ script = ExtResource("2_unsbb")
 color = Color(0, 1, 0.788235, 1)
 texture = SubResource("GradientTexture2D_4e7yt")
 texture_scale = 15.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 20
+texture = ExtResource("1_b8a12")
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, -100)
+scale_amount_min = 0.05
+scale_amount_max = 0.05
+color_ramp = SubResource("Gradient_i2d0j")
