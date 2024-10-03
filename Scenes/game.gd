@@ -127,6 +127,7 @@ func _ready():
 	
 	#unit.picked_up_item.connect(user_interface.show_item_info)
 	player_unit.experience_changed.connect(on_experience_changed)
+	player_unit.charge_changed.connect(on_charge_changed)
 	player_unit.added_experience.connect(user_interface.make_exp_popup)
 	player_unit.was_selected.connect(bind_selected_unit_signals)
 	player_unit.level_increased.connect(on_level_up)
@@ -150,11 +151,13 @@ func _ready():
 	player_unit.weapon_one.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
 	player_unit.weapon_two.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
 	
+	player_unit.used_ability.connect(pause_time.bind(0.1))
+	
 	# randomly place dynamite on the map
-	for i in range(10):
-		var new_shootable: Shootable = dynamite_shootable.instantiate()
-		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
-		shootables.add_child(new_shootable)
+	#for i in range(10):
+		#var new_shootable: Shootable = dynamite_shootable.instantiate()
+		#new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
+		#shootables.add_child(new_shootable)
 		
 	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
 	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
@@ -234,14 +237,20 @@ func _process(_delta):
 	if player_unit.global_position.length() > safe_zone_radius:
 		if player_unit.safe_zone_timer.is_stopped():
 			player_unit.safe_zone_timer.start(1)
+		if !user_interface.danger_zone_effect.is_playing():
+			user_interface.danger_zone_effect.play("danger_zone")
 	else:
 		if !player_unit.safe_zone_timer.is_stopped():
 			player_unit.safe_zone_timer.stop()
+		if user_interface.danger_zone_effect.is_playing():
+			user_interface.danger_zone_effect.stop(false)
 	
 	## Player charge ui update
-	user_interface.charge_bar.change_value(player_unit.charge)
+	if player_unit.ability_on:
+		user_interface.charge_bar.change_value(player_unit.charge)
 	user_interface.charge_bar_shade.visible = player_unit.is_ability_ready()
-	
+	user_interface.ability_screen_effect.visible = player_unit.ability_on
+		
 func enemy_killed()-> void:
 	stats_component.kill_count += 1
 	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
@@ -407,6 +416,9 @@ func on_experience_changed() -> void:
 			upgrade_timer.start(15)
 			get_tree().paused = true
 
+func on_charge_changed() -> void:
+	user_interface.charge_bar.change_value(player_unit.charge)
+	
 func on_level_up() -> void:
 	if player_unit != null:
 		user_interface.experience_bar.set_max(player_unit.required_exp_amount(player_unit.current_level))

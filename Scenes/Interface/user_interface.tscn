@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=46 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ctny8tliuf3cp" path="res://Scenes/Interface/level_up_option.tscn" id="9_s4fln"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="10_acs6f"]
 [ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="11_anutk"]
+[ext_resource type="Shader" path="res://Scenes/Interface/speed_lines.gdshader" id="12_pt44d"]
 
 [sub_resource type="Animation" id="Animation_a84oq"]
 length = 0.001
@@ -107,6 +108,42 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_dcoc7"),
 "core_hit_animation": SubResource("Animation_vfg1j")
+}
+
+[sub_resource type="Animation" id="Animation_y300w"]
+resource_name = "danger_zone"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.584314, 0, 0, 0), Color(0.584314, 0, 0, 0.0588235)]
+}
+
+[sub_resource type="Animation" id="Animation_07f1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.584314, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k820w"]
+_data = {
+"RESET": SubResource("Animation_07f1l"),
+"danger_zone": SubResource("Animation_y300w")
 }
 
 [sub_resource type="InputEventKey" id="InputEventKey_olwgs"]
@@ -386,6 +423,24 @@ _data = {
 "show_level_up_menu": SubResource("Animation_a4qmx")
 }
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_osj6n"]
+noise_type = 3
+frequency = 0.2414
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ltwjo"]
+noise = SubResource("FastNoiseLite_osj6n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j6bmr"]
+shader = ExtResource("12_pt44d")
+shader_parameter/line_color = Color(1, 1, 1, 0.0313726)
+shader_parameter/line_count = 1.35
+shader_parameter/line_density = 0.14
+shader_parameter/line_faloff = 0.16
+shader_parameter/mask_size = 0.381
+shader_parameter/mask_edge = 0.5
+shader_parameter/animation_speed = 13.0
+shader_parameter/noise = SubResource("NoiseTexture2D_ltwjo")
+
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
 
@@ -491,13 +546,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.584314, 0, 0, 0.0980392)
+color = Color(0.584314, 0, 0, 0.196078)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CoreHitEffect"]
 libraries = {
 "": SubResource("AnimationLibrary_upd2j")
 }
 speed_scale = 3.0
+
+[node name="SafeZoneEffect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.584314, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SafeZoneEffect"]
+libraries = {
+"": SubResource("AnimationLibrary_k820w")
+}
 
 [node name="TemporaryTutorial" type="Control" parent="."]
 visible = false
@@ -1129,5 +1198,15 @@ grow_vertical = 1
 theme_override_constants/h_separation = 10
 alignment = 0
 reverse_fill = false
+
+[node name="SpeedEffect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_j6bmr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

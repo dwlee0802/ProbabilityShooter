@@ -22,6 +22,8 @@ var kill_count_animation: AnimationPlayer = $GameState/KillsLabel/AnimationPlaye
 var enemy_count_label: Label = $EnemyCountLabel
 @onready
 var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
+@onready
+var danger_zone_effect: AnimationPlayer = $SafeZoneEffect/AnimationPlayer
 
 @onready
 var player_health_hearts: HealthHearts = $HealthHearts
@@ -72,6 +74,8 @@ var enemy_spawn_info: Control = $EnemySpawnInfo
 var charge_bar: DelayedProgressBar = $EnergyBar
 @onready
 var charge_bar_shade: ColorRect = $EnergyBar/ColorRect2
+@onready
+var ability_screen_effect: Control = $SpeedEffect
 
 @onready
 var mutation_roulette: Roulette = $MutationRoulette

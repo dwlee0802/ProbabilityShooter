@@ -118,6 +118,8 @@ var level_up_sound: AudioStreamPlayer = $LevelUpEffect/AudioStreamPlayer
 var push_back_area: Area2D = $LevelUpEffect/PushBackArea
 @export
 var push_back_strength: float = 1000
+@onready
+var push_back_sound: AudioStreamPlayer = $LevelUpEffect/PushBackSound
 
 @export
 var level_up_debug: bool = false
@@ -126,11 +128,20 @@ var level_up_debug_amount: int = 300
 #endregion
 
 #region Charge System
+@export_category("Charge System")
+@export
 var charge: float = 0
+@export
 var max_charge: float = 30.0
-var charge_use_rate: float = 5.0
+@export
+var charge_use_rate: float = 3.0
 var ability_on: bool = false
-#var charge_particles: CPUParticles2D = $ChargeParticles
+@onready
+var ability_particles: CPUParticles2D = $AbilityActiveParticles
+@onready
+var ability_use_sound: AudioStreamPlayer = $AbilityActiveSound
+@onready
+var ability_finish_sound: AudioStreamPlayer = $AbilityFinishedSound
 #endregion
 
 ## WASD Movement Component Node
@@ -159,6 +170,8 @@ signal bullets_changed
 signal reload_started
 signal reload_complete
 signal active_reload_success
+signal charge_changed(amount)
+signal used_ability
 #endregion
 
 
@@ -235,8 +248,13 @@ func _input(_event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("use_ability") and is_ability_ready() and !ability_on:
 		ability_on = true
+		used_ability.emit()
+		ability_use_sound.play()
+		reload_action()
+		push_back()
 		
 func _process(_delta: float) -> void:
+	ability_particles.emitting = ability_on
 	if ability_on:
 		weapon_one.reload_timer.speed = 2
 		weapon_two.reload_timer.speed = 2
@@ -246,6 +264,7 @@ func _process(_delta: float) -> void:
 		charge -= charge_use_rate * _delta
 		if charge <= 0:
 			ability_on = false
+			ability_finish_sound.play()
 	else:
 		weapon_one.reload_timer.speed = 1
 		weapon_two.reload_timer.speed = 1
@@ -516,13 +535,16 @@ func level_up() -> void:
 	current_level += 1
 	print("level up to " + str(current_level))
 	level_increased.emit()
-	
+	push_back()
+	return
+
+func push_back() -> void:
 	for body in push_back_area.get_overlapping_bodies():
 		if body is EnemyUnit:
 			var strength: float = push_back_strength * body.global_position.distance_to(global_position) / 1500.0
 			body.apply_central_impulse(strength * global_position.direction_to(body.global_position))
-	return
-
+	push_back_sound.play()
+	
 func is_level_up_ready() -> bool:
 	return experience_gained >= required_exp_amount(current_level)
 
@@ -538,11 +560,13 @@ func add_charge(amount: int) -> void:
 	charge += amount
 	if charge > max_charge:
 		charge = max_charge
+	charge_changed.emit()
 		
 func add_charge_on_hit(_total: int, amount: int) -> void:
 	charge += amount
 	if charge > max_charge:
 		charge = max_charge
+	charge_changed.emit()
 
 func is_ability_ready() -> bool:
 	return charge == max_charge

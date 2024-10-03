@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=44 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -20,6 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://b7damp7si178x" path="res://player_arm.tscn" id="16_lckao"]
 [ext_resource type="AudioStream" uid="uid://dmwgkp55r6ywh" path="res://Sound/level_up.mp3" id="16_x7mtf"]
 [ext_resource type="Shader" path="res://Scenes/Units/distortion.gdshader" id="19_sjlwd"]
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="21_y6ius"]
+[ext_resource type="AudioStream" uid="uid://cwnsc30l6kn26" path="res://Sound/ability_sound.mp3" id="22_qdirl"]
+[ext_resource type="AudioStream" uid="uid://chnvgiewl5ywu" path="res://Sound/punch.mp3" id="23_mf8nc"]
+[ext_resource type="AudioStream" uid="uid://btjekmjy6loyo" path="res://Sound/power-down-7103.mp3" id="24_xisgy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
@@ -257,6 +261,14 @@ use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.174312, 0.857798)
+
+[sub_resource type="Curve" id="Curve_rbup8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_36lfg"]
+offsets = PackedFloat32Array(0, 0.133333, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_v6k2i")
@@ -497,6 +509,10 @@ libraries = {
 }
 speed_scale = 1.5
 
+[node name="PushBackSound" type="AudioStreamPlayer" parent="LevelUpEffect"]
+stream = ExtResource("23_mf8nc")
+pitch_scale = 0.9
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_ewh10")
@@ -593,5 +609,34 @@ texture_scale = 10.0
 [node name="SafeZoneTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 2.0
+
+[node name="AbilityActiveParticles" type="CPUParticles2D" parent="."]
+position = Vector2(2, 217)
+amount = 20
+lifetime = 0.8
+speed_scale = 1.5
+explosiveness = 0.1
+randomness = 0.1
+texture = ExtResource("21_y6ius")
+emission_shape = 3
+emission_rect_extents = Vector2(200, 1)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+split_scale = true
+scale_curve_x = SubResource("Curve_rbup8")
+scale_curve_y = null
+color = Color(1, 0.321569, 0, 1)
+color_ramp = SubResource("Gradient_36lfg")
+
+[node name="AbilityActiveSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_qdirl")
+volume_db = 5.0
+pitch_scale = 1.2
+
+[node name="AbilityFinishedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("24_xisgy")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
