@@ -688,8 +688,8 @@ grow_vertical = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="RippleEffect"]
 position = Vector2(500, 500)
-color = Color(1, 0.521569, 0, 1)
-energy = 2.0
+color = Color(1, 0.345098, 0, 1)
+energy = 1.5
 texture = SubResource("GradientTexture2D_rvijk")
 texture_scale = 20.0
 
