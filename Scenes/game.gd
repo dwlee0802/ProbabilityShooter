@@ -117,8 +117,6 @@ func _ready():
 	spawner_component.on_spawn_timer_timeout()
 	#spawn_wave()
 	
-	#user_interface.update_unit_shortcut_labels(InputManager.camera.get_screen_center_position(), units)
-	user_interface.restart_button.pressed.connect(start)
 	game_over_screen.restart_button.pressed.connect(start)
 
 	user_interface.charge_bar.set_max(player_unit.max_charge)
@@ -154,7 +152,7 @@ func _ready():
 	player_unit.weapon_one.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
 	player_unit.weapon_two.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
 	
-	player_unit.used_ability.connect(pause_time.bind(0.1))
+	player_unit.used_ability.connect(pause_time.bind(0.15))
 	
 	# randomly place dynamite on the map
 	#for i in range(10):
@@ -355,8 +353,6 @@ func start() -> void:
 	mutation_timer.start(mutation_cooldown)
 	user_interface.mutation_roulette.mutation_time_label.visible = true
 
-	# reset game stats
-	user_interface.game_over_ui.visible = false
 	# reset unit stats
 	player_unit.reset_health()
 	player_unit.reset_items()
@@ -415,6 +411,7 @@ func on_experience_changed() -> void:
 		var unit: PlayerUnit = player_unit
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
+		user_interface.show_vignette_effect(0.5, Color.ROYAL_BLUE)
 		
 		if !user_interface.level_up_menu.visible and unit.is_level_up_ready():
 			unit.upgrade_options = get_upgrade_options()
@@ -427,7 +424,7 @@ func on_experience_changed() -> void:
 
 func on_charge_changed() -> void:
 	user_interface.charge_bar.change_value(player_unit.charge)
-	user_interface.charge_bar_label.text = "ENERGY: " + str(player_unit.charge) + " / " + str(player_unit.max_charge)
+	user_interface.charge_bar_label.text = "ENERGY: " + str(int(player_unit.charge)) + " / " + str(player_unit.max_charge)
 	
 func on_level_up() -> void:
 	if player_unit != null:

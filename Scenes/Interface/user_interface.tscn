@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=48 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -441,6 +441,16 @@ shader_parameter/mask_edge = 0.5
 shader_parameter/animation_speed = 13.0
 shader_parameter/noise = SubResource("NoiseTexture2D_ltwjo")
 
+[sub_resource type="Gradient" id="Gradient_mrnm1"]
+offsets = PackedFloat32Array(0.363636, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 0.0392157)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cvhx2"]
+gradient = SubResource("Gradient_mrnm1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.963303, 0.963303)
+
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
 
@@ -450,60 +460,13 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("5_fir5d")
 
-[node name="GameOver" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.733333)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -46.0
-offset_top = -29.0
-offset_right = 46.0
-offset_bottom = 29.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Fail" type="Label" parent="GameOver/VBoxContainer"]
-self_modulate = Color(1, 0, 0, 1)
-layout_mode = 2
-text = "GAME OVER"
-horizontal_alignment = 1
-
-[node name="Victory" type="Label" parent="GameOver/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "VICTORY"
-horizontal_alignment = 1
-
-[node name="RestartButton" type="Button" parent="GameOver/VBoxContainer"]
-layout_mode = 2
-text = "RESTART"
-
 [node name="GameState" type="VBoxContainer" parent="."]
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 20.0
 offset_bottom = 75.0
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="CoreActivationBar" parent="GameState" instance=ExtResource("3_038ea")]
 visible = false
@@ -663,9 +626,9 @@ vertical_alignment = 1
 [node name="NewItemInfo" type="PanelContainer" parent="."]
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.75
+anchor_top = 0.72
 anchor_right = 0.5
-anchor_bottom = 0.75
+anchor_bottom = 0.72
 offset_left = -114.5
 offset_top = -40.0
 offset_right = 114.5
@@ -741,6 +704,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.305882)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="EnergyBar/ColorRect2"]
@@ -1208,5 +1172,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="VignetteOverlay" type="TextureRect" parent="SpeedEffect"]
+self_modulate = Color(0.785109, 0.404129, 7.70092e-07, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_cvhx2")
+
+[node name="VignetteOverlay" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_cvhx2")
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

@@ -139,9 +139,13 @@ var ability_on: bool = false
 @onready
 var ability_particles: CPUParticles2D = $AbilityActiveParticles
 @onready
+var ability_start_particles: CPUParticles2D = $AbilityStartParticles
+@onready
 var ability_use_sound: AudioStreamPlayer = $AbilityActiveSound
 @onready
 var ability_finish_sound: AudioStreamPlayer = $AbilityFinishedSound
+@onready
+var ripple_effect: ColorRect = $RippleEffect
 #endregion
 
 ## WASD Movement Component Node
@@ -249,12 +253,14 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("use_ability") and is_ability_ready() and !ability_on:
 		ability_on = true
 		used_ability.emit()
+		ability_start_particles.emitting = true
 		ability_use_sound.play()
 		reload_action()
 		push_back()
 		
 func _process(_delta: float) -> void:
 	ability_particles.emitting = ability_on
+	ripple_effect.visible = ability_on
 	if ability_on:
 		weapon_one.reload_timer.speed = 2
 		weapon_two.reload_timer.speed = 2
@@ -542,7 +548,11 @@ func push_back() -> void:
 		if body is EnemyUnit:
 			var strength: float = push_back_strength * body.global_position.distance_to(global_position) / 1500.0
 			body.apply_central_impulse(strength * global_position.direction_to(body.global_position))
+	for body in push_back_area.get_overlapping_areas():
+		if body is Projectile and !body.is_player:
+			body.queue_free()
 	push_back_sound.play()
+	CameraControl.camera.shake_screen(40,200)
 	
 func is_level_up_ready() -> bool:
 	return experience_gained >= required_exp_amount(current_level)

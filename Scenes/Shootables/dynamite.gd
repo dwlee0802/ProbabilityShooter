@@ -7,7 +7,7 @@ var shooter
 var area: Area2D = $Area2D
 
 @export
-var damage_amount: int = 100
+var damage_amount: int = 1
 
 @onready
 var explosion_animation: AnimationPlayer = $ExplosionEffect/AnimationPlayer

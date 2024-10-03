@@ -2,10 +2,6 @@ extends CanvasLayer
 class_name UserInterface
 
 @onready
-var restart_button: Button = $GameOver/VBoxContainer/RestartButton
-@onready
-var game_over_ui = $GameOver
-@onready
 var experience_bar: DelayedProgressBar = $ExperienceBar
 var exp_popup = preload("res://Scenes/Effects/exp_popup.tscn")
 @onready
@@ -82,11 +78,13 @@ var ability_screen_effect: Control = $SpeedEffect
 @onready
 var mutation_roulette: Roulette = $MutationRoulette
 
+@onready
+var vignette_overlay: TextureRect = $VignetteOverlay
+
 var upgrade_timer: Timer
 
 
 func _ready():
-	game_over_ui.visible = false
 	item_info.visible = false
 	
 	upgrade_options = level_up_menu_container.get_children()
@@ -103,9 +101,6 @@ func _process(_delta: float) -> void:
 	if !upgrade_timer.is_stopped():
 		level_up_time_limit.progress = (1 - (upgrade_timer.time_left / upgrade_timer.wait_time)) * 100
 		
-func show_game_over_screen(_victory: bool = false):
-	$GameOver.visible = true
-
 func show_item_info(item: ItemData):
 	#item_info.visible = true
 	item_info.get_node("AnimationPlayer").play("RESET")
@@ -289,3 +284,7 @@ func update_reload_marker(node, weapon):
 	
 	#print("mid point: " + str(mid_point))
 	
+func show_vignette_effect(duration: float, color: Color) -> void:
+	var tween: Tween = get_tree().create_tween()
+	vignette_overlay.self_modulate = color
+	tween.tween_property(vignette_overlay, "self_modulate", Color(color, 0), duration)

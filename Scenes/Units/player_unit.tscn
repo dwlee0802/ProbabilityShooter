@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=46 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="21_y6ius"]
 [ext_resource type="AudioStream" uid="uid://cwnsc30l6kn26" path="res://Sound/ability_sound.mp3" id="22_qdirl"]
 [ext_resource type="AudioStream" uid="uid://chnvgiewl5ywu" path="res://Sound/punch.mp3" id="23_mf8nc"]
+[ext_resource type="Shader" path="res://Scenes/Units/ripple_effect.gdshader" id="23_vuwxk"]
 [ext_resource type="AudioStream" uid="uid://btjekmjy6loyo" path="res://Sound/power-down-7103.mp3" id="24_xisgy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
@@ -270,6 +271,12 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.133333, 1)
 colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fg6js"]
+shader = ExtResource("23_vuwxk")
+shader_parameter/wave_count = 10.0
+shader_parameter/speed = 5.0
+shader_parameter/height = 0.001
+
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_v6k2i")
 collision_layer = 2
@@ -490,7 +497,7 @@ pitch_scale = 0.9
 [node name="PushBackArea" type="Area2D" parent="LevelUpEffect"]
 visible = false
 collision_layer = 0
-collision_mask = 8
+collision_mask = 264
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelUpEffect/PushBackArea"]
 shape = SubResource("CircleShape2D_q3g6r")
@@ -632,10 +639,59 @@ scale_curve_y = null
 color = Color(1, 0.321569, 0, 1)
 color_ramp = SubResource("Gradient_36lfg")
 
+[node name="AbilityStartParticles" type="CPUParticles2D" parent="."]
+position = Vector2(3, 328)
+emitting = false
+amount = 20
+lifetime = 0.8
+one_shot = true
+speed_scale = 1.5
+explosiveness = 0.9
+randomness = 0.1
+texture = ExtResource("21_y6ius")
+emission_shape = 3
+emission_rect_extents = Vector2(400, 1)
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, -1000)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+scale_amount_max = 2.0
+split_scale = true
+scale_curve_x = SubResource("Curve_rbup8")
+scale_curve_y = null
+color = Color(1, 0.321569, 0, 1)
+color_ramp = SubResource("Gradient_36lfg")
+
 [node name="AbilityActiveSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_qdirl")
 volume_db = 5.0
 pitch_scale = 1.2
+
+[node name="RippleEffect" type="ColorRect" parent="."]
+visible = false
+light_mask = 0
+material = SubResource("ShaderMaterial_fg6js")
+custom_minimum_size = Vector2(1000, 1000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -500.0
+offset_right = 500.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PointLight2D" type="PointLight2D" parent="RippleEffect"]
+position = Vector2(500, 500)
+color = Color(1, 0.521569, 0, 1)
+energy = 2.0
+texture = SubResource("GradientTexture2D_rvijk")
+texture_scale = 20.0
 
 [node name="AbilityFinishedSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("24_xisgy")
