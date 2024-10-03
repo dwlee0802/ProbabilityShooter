@@ -282,9 +282,12 @@ func die():
 		new_drop.global_position = global_position
 		game_ref.shootables.call_deferred("add_child", new_drop)
 	
-	get_parent().remove_child(self)
 	on_death.emit()
-	queue_free()
+	
+	$Sprite2D/AnimationPlayer.play("death")
+	
+	#get_parent().remove_child(self)
+	#queue_free()
 	
 func _physics_process(delta) -> void:
 	state_machine.process_physics(delta)
