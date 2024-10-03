@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1ijv8y3qg1sq"]
+[gd_scene load_steps=5 format=3 uid="uid://d1ijv8y3qg1sq"]
 
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_i7ii5"]
+[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="2_vc775"]
 [ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://active_reload_bar_texture.tres" id="3_khbge"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hww4v"]
@@ -81,6 +82,11 @@ layout_mode = 2
 texture = ExtResource("2_i7ii5")
 expand_mode = 1
 
+[node name="HealthHearts" parent="VBoxContainer" instance=ExtResource("2_vc775")]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+alignment = 2
+
 [node name="MagazineLabel" type="Label" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -88,14 +94,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 3
 text = "0 / 0"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="DamageLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-text = "000"
 horizontal_alignment = 2
 vertical_alignment = 1
 

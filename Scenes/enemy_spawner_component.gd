@@ -54,6 +54,10 @@ func _ready() -> void:
 	spawn_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	spawn_timer.timeout.connect(on_spawn_timer_timeout)
 
+func _process(delta: float) -> void:
+	spawn_cooldown -= delta * 0.001
+	print(spawn_cooldown)
+	
 func reset_stats() -> void:
 	spawn_cooldown = _base_spawn_cooldown
 	wave_chance = _base_wave_chance

@@ -80,13 +80,12 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 	
 	var mag_label: Label = weapon_ui.get_node("VBoxContainer/MagazineLabel")
 	var mag_container: HBoxContainer = weapon_ui.get_node("VBoxContainer/MagazineContainer")
-	var dmg_label: Label = weapon_ui.get_node("VBoxContainer/DamageLabel")
+	var health_hearts: HealthHearts = weapon_ui.get_node("VBoxContainer/HealthHearts")
 	var traits_label: Label = weapon_ui.get_node("VBoxContainer/TraitsLabel")
 	
 	var active_reload_bar: Control = weapon_ui.get_node("ActiveReloadBar")
 	
 	mag_label.add_theme_color_override("font_outline_color", weapon.weapon_color)
-	dmg_label.add_theme_color_override("font_outline_color", weapon.weapon_color)
 	
 	if current_eq.have_bullets():
 		mag_container.visible = true
@@ -103,17 +102,17 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 				
 		if unused_bullet_count > 0:
 			# dmg label
-			dmg_label.text = current_eq.bullets[queued_count].to_string_crosshair(true)
+			health_hearts.set_hearts_count(current_eq.bullets[queued_count].damage_amount, Vector2(16,16))
 				
 			# traits label
 			traits_label.text = current_eq.bullets[queued_count].print_traits()
 		else:
-			dmg_label.text = ""
+			health_hearts.set_hearts_count(0, Vector2(16,16))
 			traits_label.text = ""
 	else:
 		#var timer: Timer = weapon.reload_timer
 		#mag_label.text = str(DW_ToolBox.TrimDecimalPoints(timer.time_left, 2))
-		dmg_label.text = ""
+		health_hearts.set_hearts_count(0, Vector2(16,16))
 		traits_label.text = ""
 		active_reload_bar.visible = true
 		

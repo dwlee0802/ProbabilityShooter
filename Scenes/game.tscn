@@ -19,7 +19,8 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
 spawn_radius = 5000
-safe_zone_radius = 2500.0
+mutation_disabled = true
+safe_zone_radius = 1500.0
 weapon_one_color = Color(0, 0.556863, 0.8, 1)
 weapon_two_color = Color(1, 0.6, 0.0980392, 1)
 upgrade_select_time_limit = 30.0
@@ -29,7 +30,8 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("2_quhko")
-_base_health_range = Vector2i(1, 10)
+_base_wave_chance = 0.0
+_base_health_range = Vector2i(1, 6)
 _base_move_speed_range = Vector2i(150, 300)
 _base_heavy_chance = 0.0
 _base_fast_chance = 0.0

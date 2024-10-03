@@ -127,7 +127,6 @@ func apply_heavy() -> void:
 	health_bar.change_value(health_points, true)
 	increase_size(2.5)
 	$Sprite2D.self_modulate = Color.OLIVE
-	health_hearts = $Interface/HealthHearts
 	color = Color.OLIVE
 
 func apply_quick() -> void:

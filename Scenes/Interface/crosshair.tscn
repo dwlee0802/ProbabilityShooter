@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=17 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_48mbm"]
 [ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://active_reload_fill_texture.tres" id="6_dknah"]
 [ext_resource type="PackedScene" uid="uid://d1ijv8y3qg1sq" path="res://weapon_one_crosshair_ui.tscn" id="6_jhrcy"]
+[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="8_q62xh"]
 
 [sub_resource type="Animation" id="Animation_6l0yw"]
 length = 0.001
@@ -269,12 +270,10 @@ theme_override_constants/outline_size = 3
 text = "0 / 0"
 vertical_alignment = 1
 
-[node name="DamageLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
+[node name="HealthHearts" parent="WeaponTwo/VBoxContainer" instance=ExtResource("8_q62xh")]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 5
-text = "000"
-vertical_alignment = 1
+theme_override_constants/h_separation = 5
+alignment = 0
 
 [node name="TraitsLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
 layout_mode = 2

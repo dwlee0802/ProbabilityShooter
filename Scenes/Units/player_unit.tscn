@@ -193,6 +193,7 @@ acceleration = 12000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_sf8iw")
+_base_damage_range = Vector2i(1, 2)
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
 self_modulate = Color(4, 4, 4, 1)

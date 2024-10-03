@@ -58,6 +58,8 @@ var selected_button: Button
 var minimap: Minimap = $Minimap
 
 @onready
+var health_icon: PackedScene = preload("res://Scenes/Interface/health_icon.tscn")
+@onready
 var left_bullet_info_menu_container: Container = $ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer
 @onready
 var right_bullet_info_menu_container: Container = $ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer
@@ -184,6 +186,8 @@ func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weap
 	var bullets = weapon_one.weapon.bullets
 		
 	for i in range(bullets.size()):
+		var new_icon: TextureRect = health_icon.instantiate()
+		new_icon.custom_minimum_size = Vector2(16,16)
 		var new_label: RichTextLabel = RichTextLabel.new()
 		new_label.fit_content = true
 		new_label.scroll_active = false
@@ -201,6 +205,8 @@ func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weap
 	bullets = weapon_two.weapon.bullets
 		
 	for i in range(bullets.size()):
+		var new_icon: TextureRect = health_icon.instantiate()
+		new_icon.custom_minimum_size = Vector2(16,16)
 		var new_label: RichTextLabel = RichTextLabel.new()
 		new_label.fit_content = true
 		new_label.scroll_active = false

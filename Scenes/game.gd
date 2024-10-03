@@ -36,6 +36,8 @@ var mutation_timer: Timer = $MutationTimer
 ## Time between mutation roulette runs
 @export
 var mutation_cooldown: float = 30
+@export
+var mutation_disabled: bool  = false
 ##endregion
 
 ## node to hold enemy units
@@ -100,8 +102,9 @@ func _ready():
 	
 	# connect mutation timer
 	mutation_timer.timeout.connect(on_mutation_timer_timeout)
-	mutation_timer.start(mutation_cooldown)
 	user_interface.mutation_roulette.option_selected.connect(on_mutation_selected)
+	if !mutation_disabled:
+		mutation_timer.start(mutation_cooldown)
 	
 	spawner_component.stats_changed.connect(user_interface.update_enemy_spawn_info.bind(spawner_component))
 	user_interface.update_enemy_spawn_info(spawner_component)
@@ -233,6 +236,7 @@ func enemy_killed()-> void:
 	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
 	user_interface.kill_count_animation.play("killcount_up")
 	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
+	player_unit.add_experience(100)
 	
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
