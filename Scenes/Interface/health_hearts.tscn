@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://doej7gtbi2v0d"]
+
+[ext_resource type="Script" path="res://health_hearts.gd" id="1_xmj37"]
+[ext_resource type="PackedScene" uid="uid://nsr4624xbsm6" path="res://Scenes/Interface/health_icon.tscn" id="2_28ig4"]
+
+[node name="HealthHearts" type="HBoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("1_xmj37")
+
+[node name="TextureRect" parent="." instance=ExtResource("2_28ig4")]
+layout_mode = 2

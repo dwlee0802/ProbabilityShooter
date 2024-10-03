@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=26 format=3 uid="uid://bml325a55htb3"]
 
 [ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_gjxg1"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_a2d0g"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
 [ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://glow_sprite.tres" id="8_ito6i"]
 [ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="13_h80fs"]
+[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="13_q5bwl"]
 
 [sub_resource type="Animation" id="Animation_eonp3"]
 length = 0.001
@@ -209,7 +210,7 @@ grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 20
-text = "1"
+text = "1234w"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -301,6 +302,7 @@ pitch_scale = 0.5
 max_distance = 10000.0
 
 [node name="HealthBar" parent="." instance=ExtResource("4_s1jtq")]
+visible = false
 anchors_preset = 7
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -357,3 +359,9 @@ initial_velocity_max = 300.0
 scale_amount_min = 0.1
 scale_amount_max = 0.2
 color_ramp = SubResource("Gradient_rcr3r")
+
+[node name="HealthHearts" parent="." instance=ExtResource("13_q5bwl")]
+offset_left = -83.0
+offset_top = -226.0
+offset_right = 82.0
+offset_bottom = -162.0
