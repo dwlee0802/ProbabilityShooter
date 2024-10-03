@@ -501,4 +501,8 @@ energy = 0.8
 texture = SubResource("GradientTexture2D_rvijk")
 texture_scale = 10.0
 
+[node name="SafeZoneTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

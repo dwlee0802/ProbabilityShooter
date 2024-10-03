@@ -231,8 +231,12 @@ func _process(_delta):
 	CameraControl.camera.position *= min(local_mouse_pos.length()/7, 300)
 	
 	## Player outside safe zone
-	if InputManager.selected_unit.global_position.length() > safe_zone_radius:
-		InputManager.selected_unit.receive_hit(_delta * 10)
+	if player_unit.global_position.length() > safe_zone_radius:
+		if player_unit.safe_zone_timer.is_stopped():
+			player_unit.safe_zone_timer.start(1)
+	else:
+		if !player_unit.safe_zone_timer.is_stopped():
+			player_unit.safe_zone_timer.stop()
 	
 	## Player charge ui update
 	user_interface.charge_bar.change_value(player_unit.charge)

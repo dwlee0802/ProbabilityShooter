@@ -27,6 +27,9 @@ var revive_time: float = 5.0
 var aim_speed_modifier: float = 0
 var reload_speed_modifier: float = 0
 
+@onready
+var safe_zone_timer: Timer = $SafeZoneTimer
+
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
 @export
@@ -190,6 +193,7 @@ func _ready() -> void:
 	if get_current_equipment() is Gun:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
 	
+	safe_zone_timer.timeout.connect(receive_hit.bind(1))
 	# make starting item
 	
 	stats_changed.emit()
