@@ -92,6 +92,7 @@ var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
 static var resource_drop_chance: float = 0
 var resource_drop = preload("res://Scenes/resource.tscn")
+var exp_orb: PackedScene = preload("res://Scenes/exp_orb.tscn")
 
 ## shootables
 static var dynamite_drop_chance: float = 0.1
@@ -264,12 +265,17 @@ func die():
 	new_effect.global_position = global_position
 	get_tree().root.add_child(new_effect)
 	
-	if randf() < EnemyUnit.resource_drop_chance:
-		var new_drop: ResourceDrop = resource_drop.instantiate()
-		new_drop.amount = randi_range(1, 5)
-		new_drop.global_position = global_position
-		new_drop.picked_up.connect(game_ref.change_resource)
-		game_ref.resource_node.call_deferred("add_child", new_drop)
+	var new_exp_orb: Node2D = exp_orb.instantiate()
+	new_exp_orb.global_position = global_position
+	new_exp_orb.player_unit = game_ref.player_unit
+	get_tree().root.add_child(new_exp_orb)
+	
+	#if randf() < EnemyUnit.resource_drop_chance:
+		#var new_drop: ResourceDrop = resource_drop.instantiate()
+		#new_drop.amount = randi_range(1, 5)
+		#new_drop.global_position = global_position
+		#new_drop.picked_up.connect(game_ref.change_resource)
+		#game_ref.resource_node.call_deferred("add_child", new_drop)
 		
 	if randf() < EnemyUnit.dynamite_drop_chance:
 		var new_drop: Shootable = dynamite_shootable.instantiate()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=38 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -30,6 +30,91 @@ shader = ExtResource("19_sjlwd")
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ki3g0"]
 polygon = PackedVector2Array(-34.1073, -131.274, -65.114, -51.0266, -64.2281, -30.9649, -52.7113, -13.5199, -38.5368, -2.18063, -62.4562, 99.0004, 64.2281, 98.1282, 39.4228, -2.18063, 54.4831, -13.5199, 65.114, -32.7094, 65.9999, -50.1544, 35.8791, -132.146, 20.8188, -95.5114, -0.442943, -98.1281, -19.0469, -95.5114)
+
+[sub_resource type="Animation" id="Animation_kuf2v"]
+resource_name = "exp_gained"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D4:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D5:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xayku"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D4:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D5:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_um4br"]
+_data = {
+"RESET": SubResource("Animation_xayku"),
+"exp_gained": SubResource("Animation_kuf2v")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3g6r"]
 resource_local_to_scene = true
@@ -202,10 +287,8 @@ script = ExtResource("3_sf8iw")
 _base_damage_range = Vector2i(1, 2)
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
-self_modulate = Color(4, 4, 4, 1)
 material = SubResource("ShaderMaterial_ablmn")
 position = Vector2(-1.50001, -0.5)
-scale = Vector2(1.12879, 1.14646)
 texture = ExtResource("14_wx8vp")
 
 [node name="LeftEye" type="Sprite2D" parent="UnitSprite"]
@@ -236,7 +319,13 @@ scale = Vector2(0.418148, 0.553575)
 texture = ExtResource("15_hpy8o")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="UnitSprite"]
+visible = false
 occluder = SubResource("OccluderPolygon2D_ki3g0")
+
+[node name="ShadeAnimationPlayer" type="AnimationPlayer" parent="UnitSprite"]
+libraries = {
+"": SubResource("AnimationLibrary_um4br")
+}
 
 [node name="WeaponOne" type="Node2D" parent="."]
 use_parent_material = true

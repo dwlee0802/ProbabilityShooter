@@ -6,19 +6,18 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_e5j5t"]
 radius = 20.0
 
-[sub_resource type="Gradient" id="Gradient_utrxb"]
+[sub_resource type="Gradient" id="Gradient_7dt0m"]
 offsets = PackedFloat32Array(0.318182, 0.766234, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_br25l"]
-gradient = SubResource("Gradient_utrxb")
+gradient = SubResource("Gradient_7dt0m")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.174312, 0.857798)
 
 [node name="Bullet" type="Area2D"]
-position = Vector2(267, 145)
 collision_layer = 256
 collision_mask = 74
 script = ExtResource("1_g0oia")

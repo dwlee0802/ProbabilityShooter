@@ -240,13 +240,14 @@ func _process(_delta):
 	
 	## Player charge ui update
 	user_interface.charge_bar.change_value(player_unit.charge)
+	user_interface.charge_bar_shade.visible = player_unit.is_ability_ready()
 	
 func enemy_killed()-> void:
 	stats_component.kill_count += 1
 	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
 	user_interface.kill_count_animation.play("killcount_up")
 	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
-	player_unit.add_experience(100)
+	#player_unit.add_experience(100)
 	
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self

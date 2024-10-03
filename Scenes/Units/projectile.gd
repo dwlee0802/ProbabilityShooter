@@ -64,7 +64,7 @@ func _on_body_entered(body) -> void:
 			queue_free()
 		else:
 			# apply damage
-			var eff_dmg: int = body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
+			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
 			
 			# apply burn
 			if bullet_data.fire:
@@ -72,9 +72,9 @@ func _on_body_entered(body) -> void:
 				
 			# apply knock-back
 			body.apply_central_impulse(dir.normalized() * knock_back_amount)
-			# give exp to shooter
-			if origin_unit is PlayerUnit:
-				origin_unit.add_experience(eff_dmg)
+			## give exp to shooter
+			#if origin_unit is PlayerUnit:
+				#origin_unit.add_experience(eff_dmg)
 		
 			var new_eff: Node2D = on_hit_effect.instantiate()
 			new_eff.global_position = global_position

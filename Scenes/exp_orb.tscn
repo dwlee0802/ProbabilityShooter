@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdx5asdsu0pmg"]
+
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_b8a12"]
+[ext_resource type="Script" path="res://Scenes/exp_orb.gd" id="2_unsbb"]
+
+[sub_resource type="Gradient" id="Gradient_utrxb"]
+offsets = PackedFloat32Array(0.318182, 0.766234, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4e7yt"]
+gradient = SubResource("Gradient_utrxb")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.174312, 0.857798)
+
+[node name="ExpOrb" type="Sprite2D"]
+self_modulate = Color(0, 0.654902, 1, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_b8a12")
+script = ExtResource("2_unsbb")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0, 1, 0.788235, 1)
+texture = SubResource("GradientTexture2D_4e7yt")
+texture_scale = 15.0

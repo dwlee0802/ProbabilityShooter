@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
+[ext_resource type="PackedScene" uid="uid://bdx5asdsu0pmg" path="res://Scenes/exp_orb.tscn" id="16_xadcj"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
 [node name="Game" type="Node2D"]
@@ -154,6 +155,10 @@ volume_db = -5.0
 [node name="StatisticsComponent" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("15_ophms")
+
+[node name="ExpOrb" parent="." node_paths=PackedStringArray("player_unit") instance=ExtResource("16_xadcj")]
+position = Vector2(-1061, 747)
+player_unit = NodePath("../PlayerUnit")
 
 [editable path="PauseScreen/Crosshair"]
 [editable path="GameOverScreen/Crosshair"]

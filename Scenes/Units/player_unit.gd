@@ -100,6 +100,9 @@ var interaction_area: Area2D = $InteractionArea
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 @onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 
+@onready
+var shade_animation: AnimationPlayer = $UnitSprite/ShadeAnimationPlayer
+
 #region Experience System
 @export_category("Experience System")
 @export
@@ -124,7 +127,7 @@ var level_up_debug_amount: int = 300
 
 #region Charge System
 var charge: float = 0
-var max_charge: float = 25.0
+var max_charge: float = 30.0
 var charge_use_rate: float = 5.0
 var ability_on: bool = false
 #var charge_particles: CPUParticles2D = $ChargeParticles
@@ -230,7 +233,7 @@ func _physics_process(delta: float) -> void:
 func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 	
-	if Input.is_action_just_pressed("use_ability"):
+	if Input.is_action_just_pressed("use_ability") and is_ability_ready() and !ability_on:
 		ability_on = true
 		
 func _process(_delta: float) -> void:
@@ -305,6 +308,7 @@ func reset_health() -> void:
 	weapon_one.reset()
 	weapon_two.reset()
 	aim_cone.visible = false
+	global_position = Vector2.ZERO
 
 func reset_exp() -> void:
 	experience_gained = 0
@@ -504,6 +508,8 @@ func add_experience(amount: int) -> void:
 	experience_gained += amount
 	experience_changed.emit()
 	added_experience.emit(amount)
+	shade_animation.play("RESET")
+	shade_animation.play("exp_gained")
 
 func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)
@@ -537,6 +543,9 @@ func add_charge_on_hit(_total: int, amount: int) -> void:
 	charge += amount
 	if charge > max_charge:
 		charge = max_charge
+
+func is_ability_ready() -> bool:
+	return charge == max_charge
 
 func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/LeftEye.self_modulate = left

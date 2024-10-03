@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=39 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -174,6 +174,43 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_rgipl"),
 "item_info_fadeout_animation": SubResource("Animation_308bu")
+}
+
+[sub_resource type="Animation" id="Animation_8c0qp"]
+resource_name = "full_blink"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7rjfh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5l3br"]
+_data = {
+"RESET": SubResource("Animation_7rjfh"),
+"full_blink": SubResource("Animation_8c0qp")
 }
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7dcnx"]
@@ -609,7 +646,7 @@ libraries = {
 }
 
 [node name="EnergyBar" parent="." instance=ExtResource("3_038ea")]
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(10, 20)
 anchors_preset = -1
 anchor_top = 0.841
 anchor_bottom = 0.841
@@ -618,7 +655,8 @@ offset_top = -9.96802
 offset_right = 163.0
 offset_bottom = 0.0319824
 grow_vertical = 0
-bar_color = Color(1, 0.611765, 0, 1)
+bar_color = Color(0.92549, 0.498039, 0, 1)
+increase_blink = true
 
 [node name="CoreHealthLabel" type="Label" parent="EnergyBar"]
 layout_mode = 0
@@ -627,8 +665,23 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 8
 text = "ENERGY: "
 
+[node name="ColorRect2" type="ColorRect" parent="EnergyBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnergyBar/ColorRect2"]
+libraries = {
+"": SubResource("AnimationLibrary_5l3br")
+}
+autoplay = "full_blink"
+
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
-custom_minimum_size = Vector2(10, 10)
+custom_minimum_size = Vector2(10, 20)
 anchors_preset = -1
 anchor_top = 0.87
 anchor_bottom = 0.87
