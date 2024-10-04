@@ -5,6 +5,9 @@ class_name WeaponComponent
 var weapon_data: GunData = null
 var weapon: Gun
 
+@onready
+var muzzle_point: Marker2D = $Arm/Node2D/Hand/MuzzlePoint
+
 @export
 var action_name: String
 

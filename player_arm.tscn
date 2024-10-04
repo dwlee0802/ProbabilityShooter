@@ -166,6 +166,10 @@ position = Vector2(148, 16)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_xt3s2")
 
+[node name="MuzzlePoint" type="Marker2D" parent="Node2D/Hand"]
+position = Vector2(260, -64)
+scale = Vector2(4, 4)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_77bmn")

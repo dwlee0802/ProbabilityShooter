@@ -1147,6 +1147,14 @@ libraries = {
 }
 speed_scale = 2.0
 
+[node name="ComboLabel" type="Label" parent="."]
+anchors_preset = -1
+offset_left = 40.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 23.0
+text = "COMBO 0"
+
 [node name="HealthHearts" parent="." instance=ExtResource("11_anutk")]
 custom_minimum_size = Vector2(0, 0)
 anchors_preset = 0
