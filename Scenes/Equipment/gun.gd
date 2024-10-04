@@ -3,6 +3,8 @@ class_name Gun
 
 static var bullet_generator: BulletGenerator
 
+var bullet_spawn_position: Marker2D
+
 var projectile_scene: PackedScene = preload("res://Scenes/Units/projectile.tscn")
 
 var reload_speed_modifier: float = 0
@@ -72,7 +74,7 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 			get_projectile_speed(), 
 			int(current_bullet.damage_amount / float(current_bullet.projectile_count)), 
 			data.knock_back_force)
-		new_bullet.global_position = unit.global_position
+		new_bullet.global_position = bullet_spawn_position.global_position
 		
 		new_bullet.bullet_data = current_bullet
 			
@@ -84,8 +86,6 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 	CameraControl.camera.shake_screen(20,200)
 	
 	super.on_activation(unit, mouse_position)
-	
-	return current_bullet.damage_amount
 
 func reset_stats() -> void:
 	damage_range = Vector2i(25,125)

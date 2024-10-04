@@ -85,6 +85,7 @@ signal shot_bullet(count)
 func _ready() -> void:
 	state_machine.init(self)
 	weapon = Gun.new(weapon_data)
+	weapon.bullet_spawn_position = muzzle_point
 	
 	reload_timer = ScalableTimer.new()
 	reload_timer.one_shot = true
@@ -122,7 +123,7 @@ func update_attack_cone(progress: float) -> void:
 func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	# calculate three points of triangle
 	var cone = []
-	cone.append(Vector2.ZERO)
+	cone.append(Vector2(100,0))
 	cone.append(Vector2.from_angle(angle/2) * radius)
 	cone.append(Vector2.from_angle(-angle/2) * radius)
 	return cone
