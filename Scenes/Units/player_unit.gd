@@ -148,6 +148,8 @@ var ability_use_sound: AudioStreamPlayer = $AbilityActiveSound
 var ability_finish_sound: AudioStreamPlayer = $AbilityFinishedSound
 @onready
 var ripple_effect: ColorRect = $RippleEffect
+@onready
+var ability_start_line_particles: CPUParticles2D = $AbilityLineParticels
 #endregion
 
 ## WASD Movement Component Node
@@ -256,6 +258,7 @@ func _input(_event: InputEvent) -> void:
 		ability_on = true
 		used_ability.emit()
 		ability_start_particles.emitting = true
+		ability_start_line_particles.emitting = true
 		ability_use_sound.play()
 		reload_action()
 		push_back()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=51 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -28,6 +28,15 @@
 [ext_resource type="AudioStream" uid="uid://bpx35j7exlob" path="res://Sound/exp_gained_ding.mp3" id="26_mol5q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
+
+[sub_resource type="Gradient" id="Gradient_o6e84"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y2nov"]
+gradient = SubResource("Gradient_o6e84")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.793578, 0.165138)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
 
@@ -278,6 +287,15 @@ shader_parameter/wave_count = 10.0
 shader_parameter/speed = 5.0
 shader_parameter/height = 0.001
 
+[sub_resource type="Curve" id="Curve_o2kwe"]
+_data = [Vector2(0, 0.21978), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_ndng4"]
+max_value = 2.0
+_data = [Vector2(0.662921, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_v6k2i")
 collision_layer = 2
@@ -305,6 +323,11 @@ acceleration = 12000.0
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_sf8iw")
 _base_damage_range = Vector2i(1, 2)
+
+[node name="DropShadow" type="Sprite2D" parent="."]
+position = Vector2(1.90735e-06, 99)
+scale = Vector2(4.09375, 1)
+texture = SubResource("GradientTexture2D_y2nov")
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ablmn")
@@ -701,5 +724,30 @@ stream = ExtResource("24_xisgy")
 stream = ExtResource("26_mol5q")
 volume_db = -10.0
 max_polyphony = 5
+
+[node name="AbilityLineParticels" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 3.0
+one_shot = true
+speed_scale = 4.0
+explosiveness = 1.0
+lifetime_randomness = 0.1
+local_coords = true
+texture = ExtResource("21_y6ius")
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+linear_accel_min = 1.0
+linear_accel_max = 1.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+split_scale = true
+scale_curve_x = SubResource("Curve_o2kwe")
+scale_curve_y = SubResource("Curve_ndng4")
+color = Color(1, 0.341176, 0, 0.588235)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -152,7 +152,7 @@ func _ready():
 	player_unit.weapon_one.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
 	player_unit.weapon_two.active_reload_success.connect(stats_component.add_active_reload_success.bind(1))
 	
-	player_unit.used_ability.connect(pause_time.bind(0.15))
+	player_unit.used_ability.connect(slow_time.bind(0.2, 0.1))
 	
 	# randomly place dynamite on the map
 	#for i in range(10):
@@ -462,6 +462,11 @@ func pause_time(duration: float) -> void:
 	get_tree().paused = true
 	await get_tree().create_timer(duration).timeout
 	get_tree().paused = false
+	
+func slow_time(ratio: float, duration: float) -> void:
+	Engine.time_scale = ratio
+	await get_tree().create_timer(duration).timeout
+	Engine.time_scale = 1
 
 #region Mutation System
 func add_mutation(item: Mutation) -> void:
