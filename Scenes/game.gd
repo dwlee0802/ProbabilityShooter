@@ -327,9 +327,9 @@ func remove_objects() -> void:
 	
 	# remove all remaining projectiles
 	call_deferred("remove_child", resources)
-	casings.queue_free()
-	casings = Node2D.new()
-	add_child(casings)
+	resources.queue_free()
+	resources = Node2D.new()
+	add_child(resources)
 	
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	

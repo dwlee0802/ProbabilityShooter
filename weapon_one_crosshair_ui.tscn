@@ -83,6 +83,7 @@ texture = ExtResource("2_i7ii5")
 expand_mode = 1
 
 [node name="HealthHearts" parent="VBoxContainer" instance=ExtResource("2_vc775")]
+visible = false
 layout_mode = 2
 theme_override_constants/h_separation = 5
 alignment = 2
