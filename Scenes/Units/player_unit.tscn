@@ -327,7 +327,7 @@ _base_damage_range = Vector2i(1, 2)
 
 [node name="DropShadow" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 99)
-scale = Vector2(4.09375, 1)
+scale = Vector2(5, 1.222)
 texture = SubResource("GradientTexture2D_y2nov")
 
 [node name="UnitSprite" type="Sprite2D" parent="."]

@@ -238,16 +238,14 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	#if health_points < max_health_points / 2:
 		#movement_speed = max_movement_speed * 0.75
 		
+	health_bar.change_value(int(health_points))
+	health_hearts.set_hearts_count(int(health_points))
 	if health_points <= 0:
 		health_tween.kill()
 		die()
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 50)
 	else:
-		health_bar.change_value(int(health_points))
-		#update_health_label(int(health_points))
-		health_hearts.set_hearts_count(int(health_points))
-		
 		if health_points < max_health_points:
 			bleed_timer.start(2)
 		

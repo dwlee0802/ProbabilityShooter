@@ -310,6 +310,10 @@ func make_unconscious() -> void:
 	if invinsible:
 		return
 		
+	ability_on = false
+	charge = 0
+	charge_changed.emit()
+	
 	knocked_out.emit()
 	#disable_enemy_collision()
 	weapon_one.reset()

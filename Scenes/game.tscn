@@ -54,6 +54,16 @@ self_modulate = Color(0.201527, 0.201527, 0.201527, 1)
 scale = Vector2(10, 10)
 texture = ExtResource("8_tcb7a")
 
+[node name="BloodSplatter" type="Node2D" parent="."]
+
+[node name="Casings" type="Node2D" parent="."]
+
+[node name="Resources" type="Node2D" parent="."]
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="Shootables" type="Node2D" parent="."]
+
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 collision_mask = 138
 movement_speed = 500.0
@@ -72,6 +82,8 @@ visible = false
 self_modulate = Color(1, 1, 1, 0.309804)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_tcb7a")
+
+[node name="Enemies" type="Node2D" parent="."]
 
 [node name="WaveTimer" type="Timer" parent="."]
 process_callback = 0
@@ -135,18 +147,6 @@ process_mode = 3
 
 [node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
 position = Vector2(718, 279)
-
-[node name="BloodSplatter" type="Node2D" parent="."]
-
-[node name="Casings" type="Node2D" parent="."]
-
-[node name="Enemies" type="Node2D" parent="."]
-
-[node name="Resources" type="Node2D" parent="."]
-
-[node name="Projectiles" type="Node2D" parent="."]
-
-[node name="Shootables" type="Node2D" parent="."]
 
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3

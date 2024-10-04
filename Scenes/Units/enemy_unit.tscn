@@ -226,7 +226,7 @@ color = Color(1, 1, 1, 0.396078)
 
 [node name="DropShadow" type="Sprite2D" parent="."]
 position = Vector2(-1, 126)
-scale = Vector2(4.79687, 1)
+scale = Vector2(6, 1.251)
 texture = SubResource("GradientTexture2D_icdny")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

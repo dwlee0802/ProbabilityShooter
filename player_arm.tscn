@@ -109,6 +109,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MuzzleFlashSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_8a01f"]
 resource_name = "muzzle_flash"
@@ -124,6 +136,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 0, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MuzzleFlashSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(1, 1, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pjojk"]
@@ -160,3 +184,7 @@ libraries = {
 "": SubResource("AnimationLibrary_pjojk")
 }
 speed_scale = 0.85
+
+[node name="MuzzleFlashSprite" type="Polygon2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(213, 1, 221, -15, 229, -121, 236, -14, 236, -72, 242, -15, 252, -35, 249, -22, 373, -21, 261, -14, 448, -10, 275, 0, 390, 5, 263, 12, 349, 19, 255, 22, 257, 35, 245, 20, 243, 72, 237, 20, 234, 104, 224, 19, 213, 10)
