@@ -40,7 +40,7 @@ func generate_bullets(count: int):
 		new_bullet.quickshot = randf() < quickshot_chance
 		new_bullet.fire = randf() < fire_chance
 		
-		new_bullet.aim_time = 1
+		new_bullet.aim_time = 1.0
 		if new_bullet.quickshot:
 			new_bullet.aim_time = 0.5
 		

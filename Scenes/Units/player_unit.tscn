@@ -363,7 +363,6 @@ scale = Vector2(0.418148, 0.553575)
 texture = ExtResource("15_hpy8o")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="UnitSprite"]
-visible = false
 occluder = SubResource("OccluderPolygon2D_ki3g0")
 
 [node name="ShadeAnimationPlayer" type="AnimationPlayer" parent="UnitSprite"]
@@ -475,7 +474,6 @@ polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
 stream = ExtResource("13_5mmpc")
-pitch_scale = 0.8
 max_distance = 20000.0
 max_polyphony = 10
 
@@ -486,7 +484,6 @@ max_polyphony = 10
 
 [node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
 stream = ExtResource("11_7sg32")
-pitch_scale = 0.8
 max_distance = 10000.0
 max_polyphony = 10
 

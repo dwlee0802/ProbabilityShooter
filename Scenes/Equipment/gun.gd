@@ -18,7 +18,7 @@ var current_magazine_count: int = 6
 ## array that holds the randomly generated Bullet objects
 var bullets = []
 ## Max number of bullets gun can have
-var max_bullet_count: int = 6
+var max_bullet_count: int = 5
 
 ## probabilities of bullets spawning with types
 var damage_range: Vector2i = Vector2i(25,125)

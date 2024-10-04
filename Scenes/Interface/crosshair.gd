@@ -1,5 +1,7 @@
 extends Node2D
 
+var mag_bullet_icon: PackedScene = preload("res://Scenes/Interface/mag_bullet_icon.tscn")
+
 @onready
 var weapon_one_ui: Control = $WeaponOne
 @onready
@@ -29,6 +31,8 @@ func _ready() -> void:
 	if player_unit != null:
 		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
 		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
+		set_magazine_max_count(weapon_one_ui, player_unit.weapon_one.weapon.max_bullet_count)
+		set_magazine_max_count(weapon_two_ui, player_unit.weapon_two.weapon.max_bullet_count)
 	
 	_input(null)
 
@@ -52,6 +56,8 @@ func _process(_delta):
 	if first_frame:
 		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
 		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
+		set_magazine_max_count(weapon_one_ui, player_unit.weapon_one.weapon.max_bullet_count)
+		set_magazine_max_count(weapon_two_ui, player_unit.weapon_two.weapon.max_bullet_count)
 		first_frame = false
 		
 	if player_unit.weapon_one != null:
@@ -134,3 +140,10 @@ func update_active_reload_bar(bar: ProgressBar, weapon: WeaponComponent) -> void
 	else:
 		if !weapon.inside_active_reload_range():
 			highlight.visible = false
+			
+func set_magazine_max_count(weapon_ui, count: int) -> void:
+	var mag_container: HBoxContainer = weapon_ui.get_node("VBoxContainer/MagazineContainer")
+	DW_ToolBox.RemoveAllChildren(mag_container)
+	for i in range(count):
+		mag_container.add_child(mag_bullet_icon.instantiate())
+	print("set mag count")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=18 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
@@ -9,6 +9,7 @@
 [ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://active_reload_fill_texture.tres" id="6_dknah"]
 [ext_resource type="PackedScene" uid="uid://d1ijv8y3qg1sq" path="res://weapon_one_crosshair_ui.tscn" id="6_jhrcy"]
 [ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="8_q62xh"]
+[ext_resource type="PackedScene" uid="uid://dycsomj5nnq3e" path="res://Scenes/Interface/mag_bullet_icon.tscn" id="8_s7svq"]
 
 [sub_resource type="Animation" id="Animation_6l0yw"]
 length = 0.001
@@ -254,12 +255,8 @@ layout_mode = 2
 texture = ExtResource("5_18m8i")
 expand_mode = 1
 
-[node name="TextureRect6" type="TextureRect" parent="WeaponTwo/VBoxContainer/MagazineContainer"]
-use_parent_material = true
-custom_minimum_size = Vector2(9, 16)
+[node name="TextureRect6" parent="WeaponTwo/VBoxContainer/MagazineContainer" instance=ExtResource("8_s7svq")]
 layout_mode = 2
-texture = ExtResource("5_18m8i")
-expand_mode = 1
 
 [node name="MagazineLabel" type="Label" parent="WeaponTwo/VBoxContainer"]
 visible = false

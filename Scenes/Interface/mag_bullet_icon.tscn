@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dycsomj5nnq3e"]
+
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_7q7pl"]
+
+[node name="TextureRect6" type="TextureRect"]
+use_parent_material = true
+custom_minimum_size = Vector2(9, 16)
+texture = ExtResource("1_7q7pl")
+expand_mode = 1

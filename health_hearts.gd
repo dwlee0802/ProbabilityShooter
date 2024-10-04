@@ -3,7 +3,6 @@ class_name HealthHearts
 
 var heart_icon: PackedScene = preload("res://Scenes/Interface/health_icon.tscn")
 
-
 func set_hearts_count(count: int, heart_size: Vector2 = Vector2(64,64)) -> void:
 	DW_ToolBox.RemoveAllChildren(self)
 	for i in range(count):
