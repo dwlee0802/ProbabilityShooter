@@ -32,20 +32,28 @@ func _ready() -> void:
 ## Generates and returns count number of bullets
 func generate_bullets(count: int):
 	var output = []
+	var sample: Bullet = Bullet.new()
+	sample.damage_amount = randi_range(damage_range.x, damage_range.y)
+	sample.piercing = randf() < piercing_chance
+	sample.explosive = randf() < explosive_chance
+	sample.quickshot = randf() < quickshot_chance
+	sample.fire = randf() < fire_chance
+	sample.aim_time = 1.0
+	if sample.quickshot:
+		sample.aim_time = 0.5
+	if randf() < buckshot_chance:
+		sample.projectile_count = 4
+
 	for i in range(count):
 		var new_bullet: Bullet = Bullet.new()
-		new_bullet.damage_amount = randi_range(damage_range.x, damage_range.y)
-		new_bullet.piercing = randf() < piercing_chance
-		new_bullet.explosive = randf() < explosive_chance
-		new_bullet.quickshot = randf() < quickshot_chance
-		new_bullet.fire = randf() < fire_chance
+		new_bullet.damage_amount = sample.damage_amount
+		new_bullet.piercing = sample.piercing
+		new_bullet.explosive = sample.explosive
+		new_bullet.quickshot = sample.quickshot
+		new_bullet.fire = sample.fire
 		
-		new_bullet.aim_time = 1.0
-		if new_bullet.quickshot:
-			new_bullet.aim_time = 0.5
-		
-		if randf() < buckshot_chance:
-			new_bullet.projectile_count = 4
+		new_bullet.aim_time = sample.aim_time
+		new_bullet.projectile_count = sample.projectile_count
 			
 		output.append(new_bullet)
 		

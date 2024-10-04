@@ -323,7 +323,11 @@ acceleration = 12000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_sf8iw")
-_base_damage_range = Vector2i(1, 2)
+_base_piercing_chance = 0.1
+_base_explosive_chance = 0.1
+_base_buckshot_chance = 0.1
+_base_quickshot_chance = 0.1
+_base_fire_chance = 0.1
 
 [node name="DropShadow" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 99)
