@@ -275,6 +275,8 @@ func _process(_delta: float) -> void:
 		charge -= charge_use_rate * _delta
 		if charge <= 0:
 			ability_on = false
+			charge = 0
+			
 			ability_finish_sound.play()
 			weapon_one.reload_timer.speed = 1
 			weapon_two.reload_timer.speed = 1
@@ -572,12 +574,18 @@ func required_exp_amount(level: int) -> int:
 #endregion
 
 func add_charge(amount: int) -> void:
+	if amount <= 0:
+		return
+		
 	charge += amount
 	if charge > max_charge:
 		charge = max_charge
 	charge_changed.emit()
 		
 func add_charge_on_hit(_total: int, amount: int) -> void:
+	if amount <= 0:
+		return
+		
 	charge += amount
 	if charge > max_charge:
 		charge = max_charge

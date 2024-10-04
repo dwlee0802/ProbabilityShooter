@@ -283,6 +283,7 @@ func die():
 		game_ref.shootables.call_deferred("add_child", new_drop)
 	
 	on_death.emit()
+	call_deferred("disable_collision")
 	
 	$Sprite2D/AnimationPlayer.play("death")
 	
@@ -349,3 +350,6 @@ func player_inside_range() -> bool:
 		return false
 		
 	return global_position.distance_to(InputManager.selected_unit.global_position) < attack_range
+
+func disable_collision() -> void:
+	$CollisionShape2D.disabled = true

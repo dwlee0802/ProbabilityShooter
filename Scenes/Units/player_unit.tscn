@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=52 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
+[ext_resource type="AudioStream" uid="uid://cex2uchs338xi" path="res://Sound/pistol-168180.mp3" id="13_5mmpc"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
@@ -410,8 +411,7 @@ color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponOne"]
-stream = ExtResource("10_2kui5")
-pitch_scale = 0.8
+stream = ExtResource("13_5mmpc")
 max_distance = 20000.0
 max_polyphony = 10
 
@@ -474,7 +474,7 @@ color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
-stream = ExtResource("10_2kui5")
+stream = ExtResource("13_5mmpc")
 pitch_scale = 0.8
 max_distance = 20000.0
 max_polyphony = 10
