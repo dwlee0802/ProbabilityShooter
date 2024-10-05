@@ -556,7 +556,7 @@ func print_weapon_stats() -> String:
 
 #region Experience system
 func add_experience(amount: int) -> void:
-	print("add " + str(amount) + " experience")
+	#print("add " + str(amount) + " experience")
 	experience_gained += amount
 	experience_changed.emit()
 	added_experience.emit(amount)

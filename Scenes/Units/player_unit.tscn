@@ -263,19 +263,19 @@ size = Vector2(157, 231)
 resource_local_to_scene = true
 radius = 128.0
 
-[sub_resource type="Gradient" id="Gradient_4qwj3"]
+[sub_resource type="Gradient" id="Gradient_v5yjg"]
 offsets = PackedFloat32Array(0.318182, 0.766234, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rvijk"]
-gradient = SubResource("Gradient_4qwj3")
+gradient = SubResource("Gradient_v5yjg")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.174312, 0.857798)
 
 [sub_resource type="Curve" id="Curve_rbup8"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.494505), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_36lfg"]
@@ -677,7 +677,8 @@ spread = 90.0
 gravity = Vector2(0, -1000)
 initial_velocity_min = 1000.0
 initial_velocity_max = 1000.0
-scale_amount_max = 2.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
 split_scale = true
 scale_curve_x = SubResource("Curve_rbup8")
 scale_curve_y = null
