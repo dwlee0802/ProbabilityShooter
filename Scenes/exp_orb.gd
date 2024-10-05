@@ -18,4 +18,5 @@ func _process(delta: float) -> void:
 		queue_free()
 
 func on_arrived_at_player() -> void:
+	player_unit.exp_orb_effect()
 	player_unit.add_experience(exp_amount)

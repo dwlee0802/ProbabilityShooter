@@ -14,6 +14,7 @@ var explosion_animation: AnimationPlayer = $ExplosionEffect/AnimationPlayer
 @onready
 var explosion_sound: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
+@export
 var radius: float = 1500
 
 func _ready() -> void:

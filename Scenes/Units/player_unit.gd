@@ -561,9 +561,6 @@ func add_experience(amount: int) -> void:
 	experience_gained += amount
 	experience_changed.emit()
 	added_experience.emit(amount)
-	shade_animation.play("RESET")
-	shade_animation.play("exp_gained")
-	exp_gained_sound.play()
 	
 	if is_level_up_ready():
 		level_up()
@@ -571,6 +568,11 @@ func add_experience(amount: int) -> void:
 			upgrades_ready_count += 1
 			upgrade_ready.emit()
 
+func exp_orb_effect() -> void:
+	shade_animation.play("RESET")
+	shade_animation.play("exp_gained")
+	exp_gained_sound.play()
+	
 func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)
 	current_level += 1
@@ -605,7 +607,7 @@ func is_upgrade_ready() -> bool:
 func required_exp_amount(level: int) -> int:
 	if level_up_debug:
 		return level_up_debug_amount
-	return 1000 + level * 250
+	return 500 + level * 250
 	
 #endregion
 
