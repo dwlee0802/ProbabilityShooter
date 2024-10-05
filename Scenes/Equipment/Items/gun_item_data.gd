@@ -30,6 +30,8 @@ var quickshot_chance: float = 0
 var fire_chance: float = 0
 @export
 var double_damage: bool = false
+@export
+var vampire: bool = false
 
 
 func on_enter(unit: PlayerUnit, level: int):

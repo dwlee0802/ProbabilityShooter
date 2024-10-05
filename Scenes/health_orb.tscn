@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq1o81qcmv7bo"]
+
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_npkvf"]
+[ext_resource type="Script" path="res://Scenes/health_orb.gd" id="2_ngu2t"]
+
+[sub_resource type="Gradient" id="Gradient_utrxb"]
+offsets = PackedFloat32Array(0.318182, 0.766234, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4e7yt"]
+gradient = SubResource("Gradient_utrxb")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.174312, 0.857798)
+
+[sub_resource type="Gradient" id="Gradient_i2d0j"]
+colors = PackedColorArray(0.478431, 1, 0.717647, 0.333333, 1, 1, 1, 0)
+
+[node name="HealthOrb" type="Sprite2D"]
+self_modulate = Color(1, 0.567671, 0.550485, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_npkvf")
+script = ExtResource("2_ngu2t")
+speed = 2000.0
+exp_amount = 0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0, 0, 1)
+energy = 5.0
+texture = SubResource("GradientTexture2D_4e7yt")
+texture_scale = 30.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 20
+texture = ExtResource("1_npkvf")
+direction = Vector2(0, 0)
+spread = 0.0
+gravity = Vector2(0, -100)
+scale_amount_min = 0.05
+scale_amount_max = 0.05
+color_ramp = SubResource("Gradient_i2d0j")

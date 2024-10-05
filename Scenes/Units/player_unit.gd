@@ -172,6 +172,7 @@ var invinsible: bool = false
 signal was_selected
 signal deselected
 signal health_changed
+signal healed
 signal was_attacked
 signal knocked_out
 signal revived
@@ -340,7 +341,7 @@ func add_health(amount: float) -> void:
 	health_points += amount
 	health_points = min(max_health_points, health_points)
 	health_bar.change_value(health_points)
-	health_changed.emit()
+	healed.emit()
 
 func reset_health() -> void:
 	weapon_one.process_mode = Node.PROCESS_MODE_INHERIT

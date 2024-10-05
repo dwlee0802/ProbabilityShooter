@@ -20,6 +20,8 @@ var lifetime_limit: float = 10
 
 var dynamite_scene = load("res://Scenes/Shootables/dynamite.tscn")
 
+var heal_orb_scene: PackedScene = preload("res://Scenes/health_orb.tscn")
+
 var penetration_probability: float = 0
 
 var bullet_data: Bullet
@@ -64,8 +66,8 @@ func _on_body_entered(body) -> void:
 			queue_free()
 		else:
 			# apply damage
-			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
-			
+			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir, bullet_data)
+				
 			# apply burn
 			if bullet_data.fire:
 				body.apply_burning()

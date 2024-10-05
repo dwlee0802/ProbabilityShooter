@@ -278,6 +278,8 @@ func add_enemy(newEnemy: EnemyUnit) -> void:
 	
 	# add charge
 	newEnemy.received_hit.connect(player_unit.add_charge_on_hit)
+	newEnemy.critical_hit.connect(player_unit.add_experience.bind(25))
+	newEnemy.bullet_hit.connect(player_unit.add_experience.bind(10))
 	
 func game_over() -> void:
 	if no_game_over:
@@ -386,6 +388,10 @@ func on_core_hit() -> void:
 	#print("changed resource by " + str(amount))
 	#user_interface.resource_label.text = "Resource: " + str(resource_stock)
 
+func on_player_heal() -> void:
+	user_interface.show_vignette_effect(1.0, Color.LIME_GREEN)
+	user_interface.player_health_hearts.set_hearts_count(int(player_unit.health_points), Vector2(32,32))
+	
 ## called when selected unit is changed
 ## bind ui element update to selected unit signals
 func bind_selected_unit_signals() -> void:
@@ -406,6 +412,7 @@ func bind_selected_unit_signals() -> void:
 		InputManager.selected_unit.knocked_out.connect(game_over)
 		InputManager.selected_unit.was_attacked.connect(on_core_hit)
 		unit.health_changed.connect(on_core_hit)
+		unit.healed.connect(on_player_heal)
 			
 func on_experience_changed() -> void:
 	if player_unit != null:

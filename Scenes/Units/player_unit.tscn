@@ -39,99 +39,6 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.793578, 0.165138)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kb2y"]
-shader = ExtResource("19_sjlwd")
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ki3g0"]
-polygon = PackedVector2Array(-34.1073, -131.274, -65.114, -51.0266, -64.2281, -30.9649, -52.7113, -13.5199, -38.5368, -2.18063, -62.4562, 99.0004, 64.2281, 98.1282, 39.4228, -2.18063, 54.4831, -13.5199, 65.114, -32.7094, 65.9999, -50.1544, 35.8791, -132.146, 20.8188, -95.5114, -0.442943, -98.1281, -19.0469, -95.5114)
-
-[sub_resource type="Animation" id="Animation_xayku"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D4:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D5:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_kuf2v"]
-resource_name = "exp_gained"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D4:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D5:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_um4br"]
-_data = {
-"RESET": SubResource("Animation_xayku"),
-"exp_gained": SubResource("Animation_kuf2v")
-}
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3g6r"]
 resource_local_to_scene = true
 radius = 1500.0
@@ -256,6 +163,99 @@ _data = {
 "level_up": SubResource("Animation_5anas")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ablmn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kb2y"]
+shader = ExtResource("19_sjlwd")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ki3g0"]
+polygon = PackedVector2Array(-34.1073, -131.274, -65.114, -51.0266, -64.2281, -30.9649, -52.7113, -13.5199, -38.5368, -2.18063, -62.4562, 99.0004, 64.2281, 98.1282, 39.4228, -2.18063, 54.4831, -13.5199, 65.114, -32.7094, 65.9999, -50.1544, 35.8791, -132.146, 20.8188, -95.5114, -0.442943, -98.1281, -19.0469, -95.5114)
+
+[sub_resource type="Animation" id="Animation_xayku"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D4:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D5:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_kuf2v"]
+resource_name = "exp_gained"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D4:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D5:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.458824, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_um4br"]
+_data = {
+"RESET": SubResource("Animation_xayku"),
+"exp_gained": SubResource("Animation_kuf2v")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewh10"]
 size = Vector2(157, 231)
 
@@ -328,6 +328,53 @@ script = ExtResource("3_sf8iw")
 position = Vector2(1.90735e-06, 99)
 scale = Vector2(5, 1.222)
 texture = SubResource("GradientTexture2D_y2nov")
+
+[node name="LevelUpRippleEffect" type="Sprite2D" parent="."]
+process_mode = 3
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-1, 75)
+scale = Vector2(0.63786, 0.15)
+texture = ExtResource("13_n3hms")
+
+[node name="LevelUpEffect" type="Node2D" parent="."]
+process_mode = 3
+
+[node name="Arrow" type="Sprite2D" parent="LevelUpEffect"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-1.50001, -78)
+scale = Vector2(2.488, 2)
+texture = ExtResource("15_kw6ct")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LevelUpEffect"]
+stream = ExtResource("16_x7mtf")
+pitch_scale = 0.9
+
+[node name="PushBackArea" type="Area2D" parent="LevelUpEffect"]
+visible = false
+collision_layer = 0
+collision_mask = 264
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelUpEffect/PushBackArea"]
+shape = SubResource("CircleShape2D_q3g6r")
+debug_color = Color(0.832682, 0.390898, 0, 0.42)
+
+[node name="PointLight2D" type="PointLight2D" parent="LevelUpEffect"]
+color = Color(1, 1, 1, 0)
+energy = 10.0
+texture = SubResource("GradientTexture2D_5vrd8")
+
+[node name="LevelUpAnimationPlayer" type="AnimationPlayer" parent="LevelUpEffect"]
+process_mode = 3
+root_node = NodePath("../Arrow")
+libraries = {
+"": SubResource("AnimationLibrary_w5xl4")
+}
+speed_scale = 1.5
+
+[node name="PushBackSound" type="AudioStreamPlayer" parent="LevelUpEffect"]
+stream = ExtResource("23_mf8nc")
+volume_db = -5.0
+pitch_scale = 0.6
 
 [node name="UnitSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ablmn")
@@ -493,53 +540,6 @@ pitch_scale = 1.2
 
 [node name="Arm" parent="WeaponTwo" instance=ExtResource("16_lckao")]
 use_parent_material = true
-
-[node name="LevelUpRippleEffect" type="Sprite2D" parent="."]
-process_mode = 3
-self_modulate = Color(1, 1, 1, 0)
-position = Vector2(-1, 75)
-scale = Vector2(0.63786, 0.15)
-texture = ExtResource("13_n3hms")
-
-[node name="LevelUpEffect" type="Node2D" parent="."]
-process_mode = 3
-
-[node name="Arrow" type="Sprite2D" parent="LevelUpEffect"]
-self_modulate = Color(1, 1, 1, 0)
-position = Vector2(-1.50001, -78)
-scale = Vector2(2.488, 2)
-texture = ExtResource("15_kw6ct")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LevelUpEffect"]
-stream = ExtResource("16_x7mtf")
-pitch_scale = 0.9
-
-[node name="PushBackArea" type="Area2D" parent="LevelUpEffect"]
-visible = false
-collision_layer = 0
-collision_mask = 264
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelUpEffect/PushBackArea"]
-shape = SubResource("CircleShape2D_q3g6r")
-debug_color = Color(0.832682, 0.390898, 0, 0.42)
-
-[node name="PointLight2D" type="PointLight2D" parent="LevelUpEffect"]
-color = Color(1, 1, 1, 0)
-energy = 10.0
-texture = SubResource("GradientTexture2D_5vrd8")
-
-[node name="LevelUpAnimationPlayer" type="AnimationPlayer" parent="LevelUpEffect"]
-process_mode = 3
-root_node = NodePath("../Arrow")
-libraries = {
-"": SubResource("AnimationLibrary_w5xl4")
-}
-speed_scale = 1.5
-
-[node name="PushBackSound" type="AudioStreamPlayer" parent="LevelUpEffect"]
-stream = ExtResource("23_mf8nc")
-volume_db = -5.0
-pitch_scale = 0.6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -1.5)

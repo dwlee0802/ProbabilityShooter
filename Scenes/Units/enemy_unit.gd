@@ -93,6 +93,7 @@ var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 static var resource_drop_chance: float = 0
 var resource_drop = preload("res://Scenes/resource.tscn")
 var exp_orb: PackedScene = preload("res://Scenes/exp_orb.tscn")
+var health_orb: PackedScene = preload("res://Scenes/health_orb.tscn")
 
 ## shootables
 static var dynamite_drop_chance: float = 0.1
@@ -194,7 +195,7 @@ func _process(_delta: float) -> void:
 		update_health_label(int(tweened_health_points))
 		
 # returns actual amount of HP decreased of self
-func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO) -> int:
+func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO, bullet_data: Bullet = null) -> int:
 	var new_popup = damage_popup.instantiate()
 
 	if shield:
@@ -231,8 +232,8 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	new_tween.tween_property(self, "tweened_health_points", health_points, 0.25)
 	
 	# renew autoheal timer
-	autoheal_stopped_timer.stop()
-	autoheal_stopped_timer.start(autoheal_cooldown)
+	#autoheal_stopped_timer.stop()
+	#autoheal_stopped_timer.start(autoheal_cooldown)
 	
 	## reduce speed if below half health
 	#if health_points < max_health_points / 2:
@@ -241,6 +242,9 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	health_bar.change_value(int(health_points))
 	health_hearts.set_hearts_count(int(health_points))
 	if health_points <= 0:
+		if bullet_data and bullet_data.vampire:
+			game_ref.player_unit.add_health(1)
+			
 		health_tween.kill()
 		die()
 		if projectile_dir:
@@ -287,6 +291,9 @@ func die():
 	
 	#get_parent().remove_child(self)
 	#queue_free()
+
+func is_dead() -> bool:
+	return health_points <= 0
 	
 func _physics_process(delta) -> void:
 	state_machine.process_physics(delta)

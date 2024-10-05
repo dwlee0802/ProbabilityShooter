@@ -231,16 +231,21 @@ func update_bullet_generation_info_menu(component = InputManager.selected_unit.b
 	
 	labels_label.text += "Active Enchants:\n"
 	
-	if gun.piercing_chance > 0:
-		labels_label.text += "Piercing\n"
-	if gun.explosive_chance > 0:
-		labels_label.text += "Explosive\n"
-	if gun.buckshot_chance > 0:
-		labels_label.text += "Buckshot\n"
-	if gun.quickshot_chance > 0:
-		labels_label.text += "Quickshot\n"
-	if gun.fire_chance > 0:
-		labels_label.text += "Fire\n"
+	labels_label.text += gun.print_traits()
+	return
+	
+	#if gun.piercing_chance > 0:
+		#labels_label.text += "Piercing\n"
+	#if gun.explosive_chance > 0:
+		#labels_label.text += "Explosive\n"
+	#if gun.buckshot_chance > 0:
+		#labels_label.text += "Buckshot\n"
+	#if gun.quickshot_chance > 0:
+		#labels_label.text += "Quickshot\n"
+	#if gun.fire_chance > 0:
+		#labels_label.text += "Fire\n"
+	#if gun.vampire > 0:
+		#labels_label.text += "Vampire\n"
 
 func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
 	var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")

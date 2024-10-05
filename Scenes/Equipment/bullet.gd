@@ -7,7 +7,9 @@ var piercing: bool = false
 var explosive: bool = false
 var anti_armor: bool = false
 var quickshot: bool = false
+var vampire: bool = false
 var fire: bool = false
+var double_damage: bool = false
 var projectile_count: int = 1
 
 var color: Color
@@ -20,6 +22,8 @@ func _to_string() -> String:
 	else:
 		output += "" + str(damage_amount)
 	output += "  [color=aqua]"
+	if double_damage:
+		output += " x2"
 	if anti_armor:
 		output += " AA"
 	if piercing:
@@ -30,6 +34,8 @@ func _to_string() -> String:
 		output += " QCK"
 	if fire:
 		output += " FIRE"
+	if vampire:
+		output += " VAMP"
 	output += "[/color]\n"
 	
 	return output
@@ -44,6 +50,8 @@ func to_string_crosshair(only_damage: bool = false) -> String:
 		return output
 		
 	output += "\n[color=aqua]"
+	if double_damage:
+		output += "x2\n"
 	if anti_armor:
 		output += "AA\n"
 	if piercing:
@@ -54,12 +62,16 @@ func to_string_crosshair(only_damage: bool = false) -> String:
 		output += "QCK\n"
 	if fire:
 		output += "FIRE\n"
+	if vampire:
+		output += "VAMP\n"
 	output += "[/color]"
 	
 	return output
 
 func print_traits() -> String:
 	var output: String = ""
+	if double_damage:
+		output += "x2\n"
 	if anti_armor:
 		output += "AA\n"
 	if piercing:
@@ -69,7 +81,9 @@ func print_traits() -> String:
 	if quickshot:
 		output += "QCK\n"
 	if fire:
-		output += " FIRE"
+		output += "FIRE\n"
+	if vampire:
+		output += "VAMP\n"
 	
 	return output
 	

@@ -47,6 +47,8 @@ func generate_bullets(count: int):
 		new_bullet.explosive = sample.explosive
 		new_bullet.quickshot = sample.quickshot
 		new_bullet.fire = sample.fire
+		new_bullet.vampire = sample.vampire
+		new_bullet.double_damage = sample.double_damage
 		
 		new_bullet.aim_time = sample.aim_time
 		new_bullet.projectile_count = sample.projectile_count
@@ -73,6 +75,9 @@ func get_bullet() -> Bullet:
 			sample.explosive = true
 		if random_trait.double_damage:
 			sample.damage_amount *= 2
+		if random_trait.vampire:
+			sample.vampire = true
+		sample.double_damage = random_trait.double_damage
 	
 	print("Get bullet result: " + str(sample))
 	return sample
@@ -135,3 +140,9 @@ func add_fire_chance_bonus(amount: float) -> void:
 	if amount != 0:
 		print("Changed fire chance by " + str(amount))
 	
+func print_traits() -> String:
+	var output = ""
+	for key: ItemData in items.keys():
+		output += key.item_name + "\n"
+		
+	return output

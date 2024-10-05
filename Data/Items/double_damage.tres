@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="GunItemData" load_steps=3 format=3 uid="uid://mwquy8ype576"]
 
-[ext_resource type="Texture2D" uid="uid://4085uhqlx6l" path="res://Art/Icons/Upgrades/damage_up_icon.png" id="1_5gj18"]
-[ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="1_nntqa"]
+[ext_resource type="Texture2D" uid="uid://4085uhqlx6l" path="res://Art/Icons/Upgrades/damage_up_icon.png" id="1_cfyn3"]
+[ext_resource type="Script" path="res://Scenes/Equipment/Items/gun_item_data.gd" id="2_8qiwg"]
 
 [resource]
-script = ExtResource("1_nntqa")
+script = ExtResource("2_8qiwg")
 projectile_speed = 0.0
 spread = 0.0
 projectile_count = 0
@@ -16,13 +16,14 @@ explosive_chance = 0.0
 buckshot_chance = 0.0
 quickshot_chance = 0.0
 fire_chance = 0.0
-double_damage = false
+double_damage = true
+vampire = false
 damage_range = Vector2i(0, 0)
 damage_modifier = 0.0
 reload_speed_modifier = 0.0
 aim_speed_modifier = 0.0
 item_name = "Double Damage"
-icon = ExtResource("1_5gj18")
+icon = ExtResource("1_cfyn3")
 description = "Damage output is doubled"
 color = Color(0.121569, 0.909804, 0.462745, 1)
 disabled = false
