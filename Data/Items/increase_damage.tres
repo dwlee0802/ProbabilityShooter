@@ -24,4 +24,4 @@ item_name = "Damage Up"
 icon = ExtResource("1_5gj18")
 description = "Higher max damage for bullets"
 color = Color(0.121569, 0.909804, 0.462745, 1)
-disabled = false
+disabled = true

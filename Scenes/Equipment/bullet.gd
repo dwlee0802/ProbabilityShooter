@@ -2,7 +2,7 @@ extends RefCounted
 class_name Bullet
 
 var aim_time: float = 1
-var damage_amount: int = 0
+var damage_amount: int = 1
 var piercing: bool = false
 var explosive: bool = false
 var anti_armor: bool = false
@@ -30,7 +30,7 @@ func _to_string() -> String:
 		output += " QCK"
 	if fire:
 		output += " FIRE"
-	output += "[/color]"
+	output += "[/color]\n"
 	
 	return output
 
@@ -53,7 +53,7 @@ func to_string_crosshair(only_damage: bool = false) -> String:
 	if quickshot:
 		output += "QCK\n"
 	if fire:
-		output += " FIRE"
+		output += "FIRE\n"
 	output += "[/color]"
 	
 	return output

@@ -473,6 +473,14 @@ func add_item(item: ItemData) -> void:
 	else:
 		items[item] = 1
 		item.on_enter(self, items[item])
+		
+	if bullet_generator_component.items.find_key(item):
+		item.on_exit(self, bullet_generator_component.items[item])
+		bullet_generator_component.items[item] += 1
+		item.on_enter(self, bullet_generator_component.items[item])
+	else:
+		bullet_generator_component.items[item] = 1
+		item.on_enter(self, bullet_generator_component.items[item])
 	
 	picked_up_item.emit(item)
 	stats_changed.emit()

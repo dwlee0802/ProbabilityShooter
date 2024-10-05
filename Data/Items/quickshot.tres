@@ -24,4 +24,4 @@ item_name = "Quickshot"
 icon = ExtResource("1_p88b1")
 description = "Aim time reduced by half."
 color = Color(1, 0.825313, 0.573305, 1)
-disabled = false
+disabled = true

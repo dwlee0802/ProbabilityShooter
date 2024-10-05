@@ -3,6 +3,12 @@ class_name BulletGenerator
 
 ## Holds stats related to bullet generation
 
+## dictionary<ItemData data, int level> to store items this unit got
+var items = {}
+@export
+var _base_trait_chance: float = 0.1
+var trait_chance: float = 0.1
+
 #region Random Bullets System
 ## probabilities of bullets spawning with types
 @export
@@ -32,17 +38,7 @@ func _ready() -> void:
 ## Generates and returns count number of bullets
 func generate_bullets(count: int):
 	var output = []
-	var sample: Bullet = Bullet.new()
-	sample.damage_amount = randi_range(damage_range.x, damage_range.y)
-	sample.piercing = randf() < piercing_chance
-	sample.explosive = randf() < explosive_chance
-	sample.quickshot = randf() < quickshot_chance
-	sample.fire = randf() < fire_chance
-	sample.aim_time = 1.0
-	if sample.quickshot:
-		sample.aim_time = 0.5
-	if randf() < buckshot_chance:
-		sample.projectile_count = 4
+	var sample: Bullet = get_bullet()
 
 	for i in range(count):
 		var new_bullet: Bullet = Bullet.new()
@@ -58,14 +54,38 @@ func generate_bullets(count: int):
 		output.append(new_bullet)
 		
 	return output
+
+func get_bullet() -> Bullet:
+	var sample: Bullet = Bullet.new()
+	var traits = items.keys().duplicate()
+	
+	while trait_chance > randf() and traits.size() > 0:
+		# add random trait
+		if items.keys().is_empty():
+			break
+		traits.shuffle()
+		var random_trait = traits.pop_front()
+		if random_trait.piercing_chance > 0:
+			sample.piercing = true
+		if random_trait.fire_chance > 0:
+			sample.fire = true
+		if random_trait.explosive_chance > 0:
+			sample.explosive = true
+	
+	print("Get bullet result: " + str(sample))
+	return sample
 	
 func reset_stats() -> void:
+	trait_chance = _base_trait_chance
+	
 	damage_range = _base_damage_range
 	piercing_chance = _base_piercing_chance
 	explosive_chance = _base_explosive_chance
 	buckshot_chance = _base_buckshot_chance
 	quickshot_chance = _base_quickshot_chance
 	fire_chance = _base_fire_chance
+	
+	items.clear()
 
 ## Bullet Generation chance modifiers
 func add_bonus_damage(bonus: Vector2i) -> void:
@@ -76,6 +96,12 @@ func add_bonus_damage(bonus: Vector2i) -> void:
 		damage_range.y = 0
 	if bonus != Vector2i.ZERO:
 		print("Increased damage range by " + str(bonus))
+		
+func add_trait_chance_bonus(amount: float) -> void:
+	trait_chance += amount
+	trait_chance = max(trait_chance, 0)
+	if amount != 0:
+		print("Changed trait chance by " + str(amount))
 		
 func add_piercing_chance_bonus(amount: float) -> void:
 	piercing_chance += amount

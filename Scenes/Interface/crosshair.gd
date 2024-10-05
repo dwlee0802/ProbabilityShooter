@@ -146,4 +146,3 @@ func set_magazine_max_count(weapon_ui, count: int) -> void:
 	DW_ToolBox.RemoveAllChildren(mag_container)
 	for i in range(count):
 		mag_container.add_child(mag_bullet_icon.instantiate())
-	print("set mag count")
