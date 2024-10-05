@@ -678,6 +678,7 @@ libraries = {
 }
 
 [node name="EnergyBar" parent="." instance=ExtResource("3_038ea")]
+modulate = Color(1, 1, 1, 0.588235)
 custom_minimum_size = Vector2(10, 20)
 anchors_preset = -1
 anchor_top = 0.841
@@ -714,6 +715,7 @@ libraries = {
 autoplay = "full_blink"
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
+modulate = Color(1, 1, 1, 0.588235)
 custom_minimum_size = Vector2(10, 20)
 anchors_preset = -1
 anchor_top = 0.87
