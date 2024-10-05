@@ -141,6 +141,8 @@ func show_mutation_info(item: Mutation):
 
 ## show upgrade menu and populate it with upgrade options
 func show_upgrade_menu() -> void:
+	get_tree().paused = true
+	
 	for i in range(upgrade_options.size()):
 		upgrade_options[i].set_data(InputManager.selected_unit.upgrade_options[i])
 	
@@ -161,16 +163,17 @@ func upgrade_option_selected(data: ItemData = level_up_button_group.get_pressed_
 		return
 		
 	# add item to selected unit
-	if !InputManager.selected_unit.is_level_up_ready():
-		push_error("upgrade option selected but level up not ready.")
+	if !InputManager.selected_unit.is_upgrade_ready():
+		push_error("upgrade option selected but upgrade not ready.")
 	else:
 		InputManager.selected_unit.add_item(data)
-		InputManager.selected_unit.level_up()
 		show_item_info(data)
+	
+	InputManager.selected_unit.upgrades_ready_count -= 1
 	
 	# if level up is still ready after leveling up, show new options
 	# otherwise, hide menu
-	if !InputManager.selected_unit.is_level_up_ready():
+	if !InputManager.selected_unit.is_upgrade_ready():
 		level_up_menu.visible = false
 	else:
 		show_upgrade_menu()

@@ -113,6 +113,11 @@ var upgrade_options = []
 @export
 var trait_chance_increase_per_level: float = 0.01
 
+@export
+var level_per_upgrade: int = 5
+@export
+var upgrades_ready_count: int = 0
+
 @onready
 var exp_gained_sound: AudioStreamPlayer = $ExpGainedSound
 @onready
@@ -183,6 +188,7 @@ signal reload_complete
 signal active_reload_success
 signal charge_changed(amount)
 signal used_ability
+signal upgrade_ready
 #endregion
 
 
@@ -557,6 +563,12 @@ func add_experience(amount: int) -> void:
 	shade_animation.play("RESET")
 	shade_animation.play("exp_gained")
 	exp_gained_sound.play()
+	
+	if is_level_up_ready():
+		level_up()
+		if current_level % level_per_upgrade == 0:
+			upgrades_ready_count += 1
+			upgrade_ready.emit()
 
 func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)
@@ -566,8 +578,9 @@ func level_up() -> void:
 	
 	bullet_generator_component.add_trait_chance_bonus(trait_chance_increase_per_level)
 	stats_changed.emit()
-	
+	level_up_sound.play()
 	push_back()
+	
 	return
 
 func push_back() -> void:
@@ -584,6 +597,9 @@ func push_back() -> void:
 func is_level_up_ready() -> bool:
 	return experience_gained >= required_exp_amount(current_level)
 
+func is_upgrade_ready() -> bool:
+	return upgrades_ready_count > 0
+	
 ## amount needed to proceed to next level
 func required_exp_amount(level: int) -> int:
 	if level_up_debug:

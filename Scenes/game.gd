@@ -130,6 +130,7 @@ func _ready():
 	player_unit.experience_changed.connect(on_experience_changed)
 	player_unit.charge_changed.connect(on_charge_changed)
 	player_unit.added_experience.connect(user_interface.make_exp_popup)
+	player_unit.upgrade_ready.connect(on_upgrade)
 	player_unit.was_selected.connect(bind_selected_unit_signals)
 	player_unit.level_increased.connect(on_level_up)
 	player_unit.stats_changed.connect(user_interface.update_bullet_menu)
@@ -412,16 +413,14 @@ func on_experience_changed() -> void:
 		user_interface.experience_bar.change_value(unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(unit.current_level) + "  " + str(unit.experience_gained) + "/" + str(unit.required_exp_amount(unit.current_level))
 		user_interface.show_vignette_effect(0.5, Color.ROYAL_BLUE)
-		
-		if !user_interface.level_up_menu.visible and unit.is_level_up_ready():
-			unit.upgrade_options = get_upgrade_options()
-			user_interface.show_upgrade_menu()
-			unit.level_up_sound.playing = true
-			#await unit.level_up_animation.animation_finished
-			# start upgrade option selection timer
-			upgrade_timer.start(15)
-			get_tree().paused = true
 
+func on_upgrade() -> void:
+	if !user_interface.level_up_menu.visible:
+		player_unit.upgrade_options = get_upgrade_options()
+		user_interface.show_upgrade_menu()
+		upgrade_timer.start(15)
+		get_tree().paused = true
+	
 func on_charge_changed() -> void:
 	user_interface.charge_bar.change_value(player_unit.charge)
 	user_interface.charge_bar_label.text = "ENERGY: " + str(int(player_unit.charge)) + " / " + str(player_unit.max_charge)
