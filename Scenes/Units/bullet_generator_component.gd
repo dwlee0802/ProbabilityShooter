@@ -71,6 +71,8 @@ func get_bullet() -> Bullet:
 			sample.fire = true
 		if random_trait.explosive_chance > 0:
 			sample.explosive = true
+		if random_trait.double_damage:
+			sample.damage_amount *= 2
 	
 	print("Get bullet result: " + str(sample))
 	return sample

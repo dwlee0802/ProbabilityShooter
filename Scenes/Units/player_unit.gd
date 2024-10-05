@@ -110,6 +110,9 @@ var experience_gained: int = 0
 var current_level: int = 1
 var upgrade_options = []
 
+@export
+var trait_chance_increase_per_level: float = 0.01
+
 @onready
 var exp_gained_sound: AudioStreamPlayer = $ExpGainedSound
 @onready
@@ -560,6 +563,10 @@ func level_up() -> void:
 	current_level += 1
 	print("level up to " + str(current_level))
 	level_increased.emit()
+	
+	bullet_generator_component.add_trait_chance_bonus(trait_chance_increase_per_level)
+	stats_changed.emit()
+	
 	push_back()
 	return
 

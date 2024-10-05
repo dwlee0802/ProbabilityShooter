@@ -28,6 +28,8 @@ var buckshot_chance: float = 0
 var quickshot_chance: float = 0
 @export
 var fire_chance: float = 0
+@export
+var double_damage: bool = false
 
 
 func on_enter(unit: PlayerUnit, level: int):
