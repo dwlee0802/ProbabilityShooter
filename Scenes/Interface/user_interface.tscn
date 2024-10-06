@@ -738,7 +738,8 @@ libraries = {
 }
 
 [node name="EnergyBar" parent="." instance=ExtResource("3_038ea")]
-custom_minimum_size = Vector2(10, 24)
+visible = false
+custom_minimum_size = Vector2(10, 10)
 anchors_preset = -1
 anchor_top = 0.87
 anchor_bottom = 0.87
@@ -774,12 +775,12 @@ libraries = {
 autoplay = "full_blink"
 
 [node name="ExperienceBar" parent="." instance=ExtResource("3_038ea")]
-custom_minimum_size = Vector2(10, 24)
+visible = false
+custom_minimum_size = Vector2(10, 10)
 anchors_preset = -1
-anchor_top = 0.92
-anchor_bottom = 0.92
+anchor_top = 0.9
+anchor_bottom = 0.9
 offset_left = -162.0
-offset_top = -10.0
 offset_right = 163.0
 grow_vertical = 0
 bar_color = Color(0.294339, 0.495578, 1, 1)
@@ -1207,13 +1208,6 @@ libraries = {
 }
 speed_scale = 2.0
 
-[node name="ComboLabel" type="Label" parent="."]
-offset_left = 40.0
-offset_top = 100.0
-offset_right = 100.0
-offset_bottom = 23.0
-text = "COMBO 0"
-
 [node name="HealthHearts" parent="." instance=ExtResource("11_anutk")]
 custom_minimum_size = Vector2(0, 0)
 anchors_preset = 0
@@ -1252,6 +1246,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_cvhx2")
 
 [node name="VignetteOverlay" type="TextureRect" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
@@ -1260,5 +1255,259 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("GradientTexture2D_cvhx2")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.7
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -46.0
+offset_right = 180.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="InventorySlots" type="HBoxContainer" parent="HUD/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ItemSlot" type="TextureRect" parent="HUD/VBoxContainer/InventorySlots"]
+self_modulate = Color(0, 0, 0, 0.372549)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("5_fir5d")
+
+[node name="ItemSlot2" type="TextureRect" parent="HUD/VBoxContainer/InventorySlots"]
+self_modulate = Color(0, 0, 0, 0.372549)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("5_fir5d")
+
+[node name="ItemSlot3" type="TextureRect" parent="HUD/VBoxContainer/InventorySlots"]
+self_modulate = Color(0, 0, 0, 0.372549)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("5_fir5d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnergyBar" parent="HUD/VBoxContainer/VBoxContainer" instance=ExtResource("3_038ea")]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+bar_color = Color(0.92549, 0.498039, 0, 1)
+increase_blink = true
+
+[node name="EnergyLabel" type="Label" parent="HUD/VBoxContainer/VBoxContainer/EnergyBar"]
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8
+text = "ENERGY: "
+
+[node name="ColorRect2" type="ColorRect" parent="HUD/VBoxContainer/VBoxContainer/EnergyBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.305882)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/VBoxContainer/VBoxContainer/EnergyBar/ColorRect2"]
+libraries = {
+"": SubResource("AnimationLibrary_5l3br")
+}
+autoplay = "full_blink"
+
+[node name="ExperienceBar" parent="HUD/VBoxContainer/VBoxContainer" instance=ExtResource("3_038ea")]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+bar_color = Color(0.294339, 0.495578, 1, 1)
+increase_blink = true
+
+[node name="ExperienceBarLabel" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar"]
+layout_mode = 0
+offset_right = 114.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8
+text = "Progress: 0"
+
+[node name="WeaponOneActiveReloadBar" type="ProgressBar" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -163.0
+offset_right = -10.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/background = ExtResource("5_omcna")
+theme_override_styles/fill = SubResource("StyleBoxTexture_7dcnx")
+value = 50.0
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/WeaponOneActiveReloadBar"]
+self_modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_top = 50.0
+offset_right = 10.0
+offset_bottom = 60.0
+texture = ExtResource("5_fir5d")
+expand_mode = 1
+
+[node name="WeaponTwoActiveReloadBar" type="ProgressBar" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar"]
+visible = false
+self_modulate = Color(1, 0.8, 0.776471, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -163.0
+offset_right = 20.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/background = ExtResource("5_omcna")
+theme_override_styles/fill = ExtResource("6_auke1")
+fill_mode = 3
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/WeaponTwoActiveReloadBar"]
+self_modulate = Color(1, 1, 1, 0.392157)
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+texture = ExtResource("5_fir5d")
+expand_mode = 1
+
+[node name="LeftBulletInfoMenu" type="PanelContainer" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.378462
+anchor_top = 1.024
+anchor_right = -0.378462
+anchor_bottom = 1.024
+offset_left = -200.0
+offset_top = -175.0
+offset_right = 103.0
+grow_vertical = 0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="VBoxContainer" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Label" type="RichTextLabel" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "Bullet info 1"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label3" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label4" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label5" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label6" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/LeftBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="RightBulletInfoMenu" type="PanelContainer" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar"]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -256.0
+offset_right = 209.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="VBoxContainer" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Label" type="RichTextLabel" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+mouse_filter = 2
+text = "Bullet info 1"
+
+[node name="Label2" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label3" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label4" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label5" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
+
+[node name="Label6" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Bullet info 1"
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

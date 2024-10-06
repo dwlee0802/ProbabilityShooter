@@ -2,10 +2,18 @@ extends CanvasLayer
 class_name UserInterface
 
 @onready
-var experience_bar: DelayedProgressBar = $ExperienceBar
+var experience_bar: DelayedProgressBar = $HUD/VBoxContainer/VBoxContainer/ExperienceBar
 var exp_popup = preload("res://Scenes/Effects/exp_popup.tscn")
 @onready
-var experience_label: Label = $ExperienceBar/ExperienceBarLabel
+var experience_label: Label = $HUD/VBoxContainer/VBoxContainer/ExperienceBar/ExperienceBarLabel
+@onready
+var charge_bar: DelayedProgressBar = $HUD/VBoxContainer/VBoxContainer/EnergyBar
+@onready
+var charge_bar_label: Label = $HUD/VBoxContainer/VBoxContainer/EnergyBar/EnergyLabel
+@onready
+var charge_bar_shade: ColorRect = $HUD/VBoxContainer/VBoxContainer/EnergyBar/ColorRect2
+@onready
+var ability_screen_effect: Control = $SpeedEffect
 
 ## game state
 @onready
@@ -70,15 +78,6 @@ var weapon_two_active_reload: Control = $ExperienceBar/WeaponTwoActiveReloadBar
 var enemy_spawn_info: Control = $EnemySpawnInfo
 
 @onready
-var charge_bar: DelayedProgressBar = $EnergyBar
-@onready
-var charge_bar_label: Label = $EnergyBar/EnergyLabel
-@onready
-var charge_bar_shade: ColorRect = $EnergyBar/ColorRect2
-@onready
-var ability_screen_effect: Control = $SpeedEffect
-
-@onready
 var mutation_roulette: Roulette = $MutationRoulette
 
 @onready
@@ -98,6 +97,8 @@ func _ready():
 	level_up_menu.visible = false
 	
 	mutation_roulette.option_selected.connect(show_mutation_info)
+	
+	vignette_overlay.visible = true
 
 func _process(_delta: float) -> void:
 	## player level up selection time limit
