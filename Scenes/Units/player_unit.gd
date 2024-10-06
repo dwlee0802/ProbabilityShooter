@@ -198,15 +198,15 @@ signal upgrade_ready
 
 func _ready() -> void:
 	# instantiate gun objects
-	for eq: EquipmentData in starting_equipments:
-		if eq is RayGunData:
-			equipments.append(RayGun.new(eq))
-		elif eq is GrenadeData:
-			equipments.append(Grenade.new(eq))
-		elif eq is EffectorData:
-			equipments.append(Effector.new(eq))
-		else:
-			equipments.append(Gun.new(eq))
+	#for eq: EquipmentData in starting_equipments:
+		#if eq is RayGunData:
+			#equipments.append(RayGun.new(eq))
+		#elif eq is GrenadeData:
+			#equipments.append(Grenade.new(eq))
+		#elif eq is EffectorData:
+			#equipments.append(Effector.new(eq))
+		#else:
+			#equipments.append(Gun.new(eq))
 			
 	Gun.bullet_generator = bullet_generator_component
 	weapon_one.weapon.reload()
@@ -278,6 +278,7 @@ func _input(_event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("interact") and interaction_target != null:
 		print("interact with " + interaction_target.name)
+		interaction_target.use(self)
 		
 func _process(_delta: float) -> void:
 	ability_particles.emitting = ability_on
@@ -508,10 +509,34 @@ func reset_items() -> void:
 	stats_changed.emit()
 	bullet_generator_component.reset_stats()
 	
-func add_inventory(item: ItemData) -> void:
-	inventory.append(item)
-	print("Added " + str(item) + " to inventory.")
-	
+func add_to_inventory(item: ItemData) -> void:
+	if item:
+		inventory.append(item)
+		print("Added " + str(item) + " to inventory.")
+	else:
+		push_warning("Add null item to inventory.")
+
+func _on_interaction_area_changed(_area) -> void:
+	find_closest_interactable()
+
+func find_closest_interactable():
+	var targets = interaction_area.get_overlapping_areas()
+	if targets.size() > 0:
+		var closest = targets[0]
+		var dist: float = global_position.distance_to(closest.global_position)
+		for item in targets:
+			if item is DroppedItem:
+				item.set_highlight(false)
+			if global_position.distance_to(item.global_position) < dist:
+				closest = item
+		interaction_target = closest
+		DroppedItem.selected_item = interaction_target
+		
+		#print("New interaction target: " + interaction_target.name)
+	else:
+		interaction_target = null
+		DroppedItem.selected_item = interaction_target
+		
 #endregion
 
 #region Effect System
@@ -622,6 +647,7 @@ func required_exp_amount(level: int) -> int:
 	
 #endregion
 
+#region Charge System
 func add_charge(amount: int) -> void:
 	if amount <= 0:
 		return
@@ -642,27 +668,8 @@ func add_charge_on_hit(_total: int, amount: int) -> void:
 
 func is_ability_ready() -> bool:
 	return charge == max_charge
+#endregion
 
 func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/LeftEye.self_modulate = left
 	$UnitSprite/RightEye.self_modulate = right
-
-func _on_interaction_area_changed(area) -> void:
-	find_closest_interactable()
-
-func find_closest_interactable():
-	var targets = interaction_area.get_overlapping_areas()
-	if targets.size() > 0:
-		var closest = targets[0]
-		var dist: float = global_position.distance_to(closest.global_position)
-		for item in targets:
-			if item is DroppedItem:
-				item.set_highlight(false)
-			if global_position.distance_to(item.global_position) < dist:
-				closest = item
-		interaction_target = closest
-		DroppedItem.selected_item = interaction_target
-	else:
-		interaction_target = null
-		DroppedItem.selected_item = interaction_target
-		

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c0v3yagt1kbub"]
+[gd_scene load_steps=11 format=3 uid="uid://c0v3yagt1kbub"]
 
 [ext_resource type="Script" path="res://Scenes/Units/dropped_item.gd" id="1_663k4"]
+[ext_resource type="Resource" uid="uid://bci5m4v53twe7" path="res://Data/Items/incendiary.tres" id="2_ca3tm"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_yplv5"]
 
 [sub_resource type="Gradient" id="Gradient_o6e84"]
@@ -12,6 +13,97 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.793578, 0.165138)
 
+[sub_resource type="Animation" id="Animation_186l7"]
+resource_name = "item_bob"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -30)]
+}
+
+[sub_resource type="Animation" id="Animation_l6287"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tvsl5"]
+resource_name = "consume"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -100)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6nuyw"]
+_data = {
+"RESET": SubResource("Animation_l6287"),
+"consume": SubResource("Animation_tvsl5"),
+"item_bob": SubResource("Animation_186l7")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_24w84"]
 radius = 135.0
 
@@ -19,22 +111,31 @@ radius = 135.0
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_663k4")
+item_data = ExtResource("2_ca3tm")
 
 [node name="DropShadow" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 99)
 scale = Vector2(5, 1.222)
 texture = SubResource("GradientTexture2D_aqtlk")
 
-[node name="Highlight" type="Sprite2D" parent="."]
+[node name="Icon" type="Node2D" parent="."]
+
+[node name="Highlight" type="Sprite2D" parent="Icon"]
 position = Vector2(0, -50)
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("2_yplv5")
 
-[node name="ItemSprite" type="Sprite2D" parent="."]
+[node name="ItemSprite" type="Sprite2D" parent="Icon"]
 self_modulate = Color(1, 0, 1, 1)
 position = Vector2(0, -50)
 scale = Vector2(0.4518, 0.45)
 texture = ExtResource("2_yplv5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Icon"]
+libraries = {
+"": SubResource("AnimationLibrary_6nuyw")
+}
+autoplay = "item_bob"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -50)

@@ -90,8 +90,8 @@ var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
 var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
-static var resource_drop_chance: float = 0
-var resource_drop = preload("res://Scenes/resource.tscn")
+static var resource_drop_chance: float = 0.5
+var dropped_item: PackedScene = preload("res://Scenes/Units/dropped_item.tscn")
 var exp_orb: PackedScene = preload("res://Scenes/exp_orb.tscn")
 var health_orb: PackedScene = preload("res://Scenes/health_orb.tscn")
 
@@ -279,10 +279,15 @@ func die():
 		#new_drop.picked_up.connect(game_ref.change_resource)
 		#game_ref.resource_node.call_deferred("add_child", new_drop)
 		
-	if randf() < EnemyUnit.dynamite_drop_chance:
-		var new_drop: Shootable = dynamite_shootable.instantiate()
+	#if randf() < EnemyUnit.dynamite_drop_chance:
+		#var new_drop: Shootable = dynamite_shootable.instantiate()
+		#new_drop.global_position = global_position
+		#game_ref.shootables.call_deferred("add_child", new_drop)
+		
+	if randf() < EnemyUnit.resource_drop_chance:
+		var new_drop: Interactable = dropped_item.instantiate()
 		new_drop.global_position = global_position
-		game_ref.shootables.call_deferred("add_child", new_drop)
+		game_ref.resources.call_deferred("add_child", new_drop)
 	
 	on_death.emit()
 	call_deferred("disable_collision")
