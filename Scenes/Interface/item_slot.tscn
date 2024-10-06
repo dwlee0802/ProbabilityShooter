@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://c165q4palne8m"]
+
+[ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_k0c2m"]
+[ext_resource type="ButtonGroup" uid="uid://cqvl378ic0f0o" path="res://inventory_slot_button_group.tres" id="2_oxr73"]
+
+[node name="ItemSlot" type="TextureRect"]
+self_modulate = Color(0, 0, 0, 0.372549)
+custom_minimum_size = Vector2(48, 48)
+texture = ExtResource("1_k0c2m")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="ShortcutLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1"
+
+[node name="Highlight" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.0392157)
+
+[node name="TextureButton" type="TextureButton" parent="."]
+self_modulate = Color(1, 1, 1, 0.117647)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true
+button_group = ExtResource("2_oxr73")
+texture_pressed = ExtResource("1_k0c2m")
+stretch_mode = 0

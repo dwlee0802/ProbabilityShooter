@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://nwfcrmh0itsu" path="res://Art/Icons/Upgrades/piercing_icon.png" id="1_if8ko"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_aiu45")
 projectile_speed = 0.0
 spread = 0.0
@@ -16,6 +17,8 @@ explosive_chance = 0.0
 buckshot_chance = 0.0
 quickshot_chance = 0.0
 fire_chance = 0.0
+double_damage = false
+vampire = false
 damage_range = Vector2i(0, 0)
 damage_modifier = 0.0
 reload_speed_modifier = 0.0

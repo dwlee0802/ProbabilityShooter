@@ -50,11 +50,14 @@ func process_input(_event: InputEvent) -> State:
 		
 	## action queue input
 	if _event.is_action_pressed(parent.action_name):
+		if Input.is_action_pressed("use_item"):
+			return null
+			
 		if parent.weapon.ready:
 			if parent.attack_direction_queue.size() < parent.weapon.current_magazine_count:
 				save_mouse_position()
 				parent.bullets_changed.emit()
-					
+	
 	return null
 
 # save local mouse position vector to attack dir queue

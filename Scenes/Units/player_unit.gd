@@ -94,9 +94,11 @@ var queued_cones: Node2D = $QueuedCones
 
 #region Items System
 var inventory = []
+var inventory_max_count: int = 4
 @onready
 var interaction_area: Area2D = $InteractionArea
 var interaction_target: Interactable = null
+var enchant_mode: bool = false
 #endregion
 
 ## sound
@@ -181,6 +183,7 @@ signal knocked_out
 signal revived
 signal equipment_changed
 signal picked_up_item(item)
+signal inventory_changed
 signal experience_changed
 signal added_experience(amount)
 signal level_increased
@@ -241,9 +244,6 @@ func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	
 func _unhandled_input(_event: InputEvent) -> void:
-	if !InputManager.IsSelected(self):
-		return
-		
 	if is_unconscious():
 		return
 
@@ -263,6 +263,32 @@ func _physics_process(delta: float) -> void:
 			unit_sprite.skew *= 2
 	else:
 		unit_sprite.skew = 0
+	
+	if Input.is_action_just_pressed("action_one") and Input.is_physical_key_pressed(KEY_1):
+		print("use item one on left")
+		use_item(0, weapon_one)
+	if Input.is_action_just_pressed("action_one") and Input.is_physical_key_pressed(KEY_2):
+		print("use item two on left")
+		use_item(1, weapon_one)
+	if Input.is_action_just_pressed("action_one") and Input.is_physical_key_pressed(KEY_3):
+		print("use item three on left")
+		use_item(2, weapon_one)
+	if Input.is_action_just_pressed("action_one") and Input.is_physical_key_pressed(KEY_4):
+		print("use item four on left")
+		use_item(3, weapon_one)
+		
+	if Input.is_action_just_pressed("action_two") and Input.is_physical_key_pressed(KEY_1):
+		print("use item one on right")
+		use_item(0, weapon_two)
+	if Input.is_action_just_pressed("action_two") and Input.is_physical_key_pressed(KEY_2):
+		print("use item two on right")
+		use_item(1, weapon_two)
+	if Input.is_action_just_pressed("action_two") and Input.is_physical_key_pressed(KEY_3):
+		print("use item three on right")
+		use_item(2, weapon_two)
+	if Input.is_action_just_pressed("action_two") and Input.is_physical_key_pressed(KEY_4):
+		print("use item four on right")
+		use_item(3, weapon_two)
 		
 func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
@@ -511,11 +537,28 @@ func reset_items() -> void:
 	
 func add_to_inventory(item: ItemData) -> void:
 	if item:
-		inventory.append(item)
-		print("Added " + str(item) + " to inventory.")
+		if inventory.size() < inventory_max_count:
+			inventory.append(item)
+			print("Added " + str(item) + " to inventory.")
+			inventory_changed.emit()
+		else:
+			print("Inventory full")
 	else:
 		push_warning("Add null item to inventory.")
 
+func use_item(item_index, target) -> void:
+	if item_index < inventory.size():
+		print("use " + str(inventory[item_index]) + " on " + str(target))
+		inventory.remove_at(item_index)
+		inventory_changed.emit()
+	
+func remove_from_inventory(item: ItemData) -> void:
+	var index: int = inventory.find(item)
+	if index < 0:
+		push_warning("Trying to remove item that is not in inventory.")
+	else:
+		inventory.remove_at(index)
+		
 func _on_interaction_area_changed(_area) -> void:
 	find_closest_interactable()
 

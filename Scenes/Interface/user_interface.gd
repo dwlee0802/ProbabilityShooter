@@ -15,6 +15,10 @@ var charge_bar_shade: ColorRect = $HUD/VBoxContainer/VBoxContainer/EnergyBar/Col
 @onready
 var ability_screen_effect: Control = $SpeedEffect
 
+@onready
+var inventory_slots: Control = $HUD/VBoxContainer/InventorySlots
+var item_slot: PackedScene = preload("res://Scenes/Interface/item_slot.tscn")
+
 ## game state
 @onready
 var game_time_label: Label = $GameState/GameTimeLabel
@@ -99,6 +103,9 @@ func _ready():
 	mutation_roulette.option_selected.connect(show_mutation_info)
 	
 	vignette_overlay.visible = true
+	
+	for i in inventory_slots.get_child_count():
+		inventory_slots.get_child(i).get_node("ShortcutLabel").text = str(i + 1)
 
 func _process(_delta: float) -> void:
 	## player level up selection time limit
@@ -297,3 +304,26 @@ func show_vignette_effect(duration: float, color: Color) -> void:
 	var tween: Tween = get_tree().create_tween()
 	vignette_overlay.self_modulate = color
 	tween.tween_property(vignette_overlay, "self_modulate", Color(color, 0), duration)
+
+func update_inventory_slots(inventory) -> void:
+	for i: int in range(inventory.size()):
+		var new_slot: Control
+		if i < inventory_slots.get_child_count():
+			new_slot = inventory_slots.get_child(i)
+		else:
+			new_slot = item_slot.instantiate()
+			inventory_slots.add_child(new_slot)
+			
+		new_slot.get_node("ShortcutLabel").text = str(i + 1)
+		new_slot.get_node("ItemIcon").texture = inventory[i].icon
+	
+	for i: int in range(inventory_slots.get_child_count()):
+		if i >= inventory.size():
+			if i > 4:
+				inventory_slots.get_child(i).visible = false
+			else:
+				inventory_slots.get_child(i).get_node("ItemIcon").texture = null
+
+func select_inventory_slot(index: int) -> void:
+	if index < inventory_slots.get_child_count():
+		inventory_slots.get_child(index).get_node("TextureButton").button_pressed = true

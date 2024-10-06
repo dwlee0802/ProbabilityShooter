@@ -126,7 +126,8 @@ func _ready():
 	player_unit.weapon_one.set_color(weapon_one_color)
 	player_unit.weapon_two.set_color(weapon_two_color)
 	
-	#unit.picked_up_item.connect(user_interface.show_item_info)
+	player_unit.inventory_changed.connect(user_interface.update_inventory_slots.bind(player_unit.inventory))
+	
 	player_unit.experience_changed.connect(on_experience_changed)
 	player_unit.charge_changed.connect(on_charge_changed)
 	player_unit.added_experience.connect(user_interface.make_exp_popup)
