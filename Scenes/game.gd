@@ -144,6 +144,9 @@ func _ready():
 	player_unit.weapon_two.reload_started.connect(
 		user_interface.update_reload_marker.bind(user_interface.weapon_two_active_reload, player_unit.weapon_two))
 	
+	player_unit.weapon_one.activated.connect(user_interface.screen_blink.play.bind("screen_blink"))
+	player_unit.weapon_two.activated.connect(user_interface.screen_blink.play.bind("screen_blink"))
+	
 	# connect player unit with stats component
 	player_unit.added_experience.connect(stats_component.add_exp_gained)
 	player_unit.weapon_one.shot_bullet.connect(stats_component.add_bullets_fired_count)

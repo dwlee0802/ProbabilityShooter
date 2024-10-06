@@ -95,7 +95,7 @@ one_shot = true
 [node name="GameDurationTimer" type="Timer" parent="."]
 
 [node name="PauseScreen" parent="." instance=ExtResource("5_m4kpe")]
-process_mode = 2
+process_mode = 3
 visible = false
 script = ExtResource("6_ljvbn")
 

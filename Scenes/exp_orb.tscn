@@ -25,7 +25,7 @@ script = ExtResource("2_unsbb")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.72308, 1, 0.899581, 1)
-energy = 5.0
+energy = 3.0
 texture = SubResource("GradientTexture2D_4e7yt")
 texture_scale = 30.0
 

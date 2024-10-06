@@ -32,6 +32,9 @@ var item_info: Control = $NewItemInfo
 static var item_info_show_time: float = 3
 
 @onready
+var screen_blink: AnimationPlayer = $ShootingScreenBlink/AnimationPlayer
+
+@onready
 var upgrade_options = []
 @onready
 var level_up_menu: Control = $LevelUpMenu

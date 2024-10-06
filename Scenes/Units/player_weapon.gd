@@ -80,6 +80,7 @@ signal reload_started
 signal reload_complete
 signal active_reload_success(num)
 signal shot_bullet(count)
+signal activated
 
 
 func _ready() -> void:
