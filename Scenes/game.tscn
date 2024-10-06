@@ -18,9 +18,9 @@
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
-spawn_radius = 5000
+spawn_radius = 3200
 mutation_disabled = true
-safe_zone_radius = 1500.0
+safe_zone_radius = 3000.0
 weapon_one_color = Color(0, 0.556863, 0.8, 1)
 weapon_two_color = Color(1, 0.6, 0.0980392, 1)
 upgrade_select_time_limit = 30.0

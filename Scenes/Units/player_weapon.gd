@@ -7,7 +7,8 @@ var weapon: Gun
 
 @onready
 var muzzle_point: Marker2D = $Arm/Node2D/Hand/MuzzlePoint
-
+@onready
+var muzzle_smoke: CPUParticles2D = $Arm/Node2D/Hand/MuzzlePoint/CPUParticles2D
 @export
 var action_name: String
 

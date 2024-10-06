@@ -105,6 +105,7 @@ func on_aim_finished() -> void:
 		parent.weapon.on_activation(InputManager.selected_unit, target)
 		InputManager.selected_unit.actioned.emit()
 		parent.muzzle_flash.play("muzzle_flash")
+		parent.muzzle_smoke.emitting = true
 		
 		# left side
 		if parent.arm.get_node("Node2D/Hand").flip_v == true:
