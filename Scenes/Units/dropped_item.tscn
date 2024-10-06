@@ -1,37 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0v3yagt1kbub"]
+[gd_scene load_steps=6 format=3 uid="uid://c0v3yagt1kbub"]
 
 [ext_resource type="Script" path="res://Scenes/Units/dropped_item.gd" id="1_663k4"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_yplv5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hs7w6"]
-radius = 50.0
+[sub_resource type="Gradient" id="Gradient_o6e84"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
 
-[node name="DroppedItem" type="Node2D"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aqtlk"]
+gradient = SubResource("Gradient_o6e84")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.793578, 0.165138)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_24w84"]
+radius = 135.0
+
+[node name="DroppedItem" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_663k4")
 
-[node name="TextureButton" type="TextureButton" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -50.0
-offset_right = 50.0
-offset_bottom = 50.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
-button_mask = 2
-texture_normal = ExtResource("2_yplv5")
-ignore_texture_size = true
-stretch_mode = 0
+[node name="DropShadow" type="Sprite2D" parent="."]
+position = Vector2(1.90735e-06, 99)
+scale = Vector2(5, 1.222)
+texture = SubResource("GradientTexture2D_aqtlk")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 0
+[node name="Highlight" type="Sprite2D" parent="."]
+position = Vector2(0, -50)
+scale = Vector2(0.55, 0.55)
+texture = ExtResource("2_yplv5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_hs7w6")
+[node name="ItemSprite" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0, 1, 1)
+position = Vector2(0, -50)
+scale = Vector2(0.4518, 0.45)
+texture = ExtResource("2_yplv5")
 
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -50)
+shape = SubResource("CircleShape2D_24w84")
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

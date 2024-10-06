@@ -92,9 +92,12 @@ var aim_cone: Polygon2D = $AimCone
 var queued_cones: Node2D = $QueuedCones
 #endregion
 
-## interaction
+#region Items System
+var inventory = []
 @onready
 var interaction_area: Area2D = $InteractionArea
+var interaction_target: Interactable = null
+#endregion
 
 ## sound
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
@@ -272,6 +275,9 @@ func _input(_event: InputEvent) -> void:
 		ability_use_sound.play()
 		reload_action()
 		push_back()
+	
+	if Input.is_action_just_pressed("interact") and interaction_target != null:
+		print("interact with " + interaction_target.name)
 		
 func _process(_delta: float) -> void:
 	ability_particles.emitting = ability_on
@@ -501,6 +507,11 @@ func reset_items() -> void:
 	items.clear()
 	stats_changed.emit()
 	bullet_generator_component.reset_stats()
+	
+func add_inventory(item: ItemData) -> void:
+	inventory.append(item)
+	print("Added " + str(item) + " to inventory.")
+	
 #endregion
 
 #region Effect System
@@ -635,3 +646,23 @@ func is_ability_ready() -> bool:
 func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/LeftEye.self_modulate = left
 	$UnitSprite/RightEye.self_modulate = right
+
+func _on_interaction_area_changed(area) -> void:
+	find_closest_interactable()
+
+func find_closest_interactable():
+	var targets = interaction_area.get_overlapping_areas()
+	if targets.size() > 0:
+		var closest = targets[0]
+		var dist: float = global_position.distance_to(closest.global_position)
+		for item in targets:
+			if item is DroppedItem:
+				item.set_highlight(false)
+			if global_position.distance_to(item.global_position) < dist:
+				closest = item
+		interaction_target = closest
+		DroppedItem.selected_item = interaction_target
+	else:
+		interaction_target = null
+		DroppedItem.selected_item = interaction_target
+		

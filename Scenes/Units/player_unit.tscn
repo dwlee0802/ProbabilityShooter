@@ -30,11 +30,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
-[sub_resource type="Gradient" id="Gradient_o6e84"]
+[sub_resource type="Gradient" id="Gradient_pinb0"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y2nov"]
-gradient = SubResource("Gradient_o6e84")
+gradient = SubResource("Gradient_pinb0")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.793578, 0.165138)
@@ -578,7 +578,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InteractionArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 4
 collision_mask = 4
 
@@ -748,3 +747,5 @@ scale_curve_y = SubResource("Curve_ndng4")
 color = Color(1, 0.341176, 0, 0.588235)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_changed"]
+[connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_changed"]

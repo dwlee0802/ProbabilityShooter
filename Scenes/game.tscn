@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
+[ext_resource type="PackedScene" uid="uid://c0v3yagt1kbub" path="res://Scenes/Units/dropped_item.tscn" id="16_sufa6"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
 [node name="Game" type="Node2D"]
@@ -155,6 +156,18 @@ volume_db = -5.0
 [node name="StatisticsComponent" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("15_ophms")
+
+[node name="DroppedItem" parent="." instance=ExtResource("16_sufa6")]
+position = Vector2(-775, -197)
+
+[node name="DroppedItem2" parent="." instance=ExtResource("16_sufa6")]
+position = Vector2(-380, -501)
+
+[node name="DroppedItem3" parent="." instance=ExtResource("16_sufa6")]
+position = Vector2(-788, -602)
+
+[node name="DroppedItem4" parent="." instance=ExtResource("16_sufa6")]
+position = Vector2(-1167, -348)
 
 [editable path="PauseScreen/Crosshair"]
 [editable path="GameOverScreen/Crosshair"]
