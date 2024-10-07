@@ -366,6 +366,7 @@ func start() -> void:
 	player_unit.reset_exp()
 	player_unit.reload_action()
 	player_unit.global_position = Vector2.ZERO
+	player_unit.clear_inventory()
 	
 	# reset enemy stats 
 	spawner_component.reset_stats()

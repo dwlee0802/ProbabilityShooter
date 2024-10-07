@@ -563,7 +563,11 @@ func remove_from_inventory(item: ItemData) -> void:
 		push_warning("Trying to remove item that is not in inventory.")
 	else:
 		inventory.remove_at(index)
-		
+
+func clear_inventory() -> void:
+	inventory.clear()
+	inventory_changed.emit()
+	
 func _on_interaction_area_changed(_area) -> void:
 	find_closest_interactable()
 
