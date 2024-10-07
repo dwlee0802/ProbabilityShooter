@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
-[ext_resource type="PackedScene" uid="uid://c0v3yagt1kbub" path="res://Scenes/Units/dropped_item.tscn" id="16_sufa6"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
 [node name="Game" type="Node2D"]
@@ -59,18 +58,6 @@ texture = ExtResource("8_tcb7a")
 [node name="Casings" type="Node2D" parent="."]
 
 [node name="Resources" type="Node2D" parent="."]
-
-[node name="DroppedItem" parent="Resources" instance=ExtResource("16_sufa6")]
-position = Vector2(-775, -197)
-
-[node name="DroppedItem2" parent="Resources" instance=ExtResource("16_sufa6")]
-position = Vector2(-1027, -465)
-
-[node name="DroppedItem3" parent="Resources" instance=ExtResource("16_sufa6")]
-position = Vector2(-568, -575)
-
-[node name="DroppedItem4" parent="Resources" instance=ExtResource("16_sufa6")]
-position = Vector2(-1321, -150)
 
 [node name="Projectiles" type="Node2D" parent="."]
 
