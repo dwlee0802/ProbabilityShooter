@@ -283,10 +283,12 @@ func die():
 		#var new_drop: Shootable = dynamite_shootable.instantiate()
 		#new_drop.global_position = global_position
 		#game_ref.shootables.call_deferred("add_child", new_drop)
-		
+	
+	# spawn random item
 	if randf() < EnemyUnit.resource_drop_chance:
-		var new_drop: Interactable = dropped_item.instantiate()
+		var new_drop: DroppedItem = dropped_item.instantiate()
 		new_drop.global_position = global_position
+		new_drop.set_data(Game.upgrade_options.pick_random())
 		game_ref.resources.call_deferred("add_child", new_drop)
 	
 	on_death.emit()

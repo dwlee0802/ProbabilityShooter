@@ -28,11 +28,11 @@ func _physics_process(_delta: float) -> void:
 func set_data(data: ItemData) -> void:
 	item_data = data
 	if data.icon == null:
-		item_sprite.texture = data.default_icon
-		item_sprite.self_modulate = data.color
+		$Icon/ItemSprite.texture = data.default_icon
+		$Icon/ItemSprite.self_modulate = data.color
 	else:
-		item_sprite.texture = data.icon
-		item_sprite.self_modulate = Color.WHITE
+		$Icon/ItemSprite.texture = data.icon
+		$Icon/ItemSprite.self_modulate = Color.WHITE
 
 # one time interaction
 func use(user) -> void:
