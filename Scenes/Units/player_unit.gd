@@ -549,6 +549,8 @@ func add_to_inventory(item: ItemData) -> void:
 func use_item(item_index, target) -> void:
 	if item_index < inventory.size():
 		print("use " + str(inventory[item_index]) + " on " + str(target))
+		if target.weapon is Gun:
+			target.weapon.apply_item_to_bullets(inventory[item_index])
 		inventory.remove_at(item_index)
 		inventory_changed.emit()
 	

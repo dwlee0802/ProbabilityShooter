@@ -102,7 +102,25 @@ func reload() -> void:
 	current_magazine_count = get_magazine_size()
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
 	bullets = Gun.bullet_generator.generate_bullets(get_magazine_size())
-	
+
+func apply_item_to_bullets(item: ItemData):
+	if item == null:
+		push_warning("Missing itemdata in apply item.")
+		return null
+		
+	for bullet: Bullet in bullets:
+		if item.piercing_chance > 0:
+			bullet.piercing = true
+		if item.fire_chance > 0:
+			bullet.fire = true
+		if item.explosive_chance > 0:
+			bullet.explosive = true
+		if item.double_damage:
+			bullet.damage_amount *= 2
+		if item.vampire:
+			bullet.vampire = true
+		bullet.double_damage = item.double_damage
+		
 func clear_bullets() -> void:
 	print("removed " + str(current_magazine_count) + " bullets")
 	current_magazine_count = 0

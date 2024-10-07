@@ -57,6 +57,27 @@ func generate_bullets(count: int):
 		
 	return output
 
+func generate_bullets_from_sample(sample_bullet: Bullet, count: int):
+	var output = []
+	var sample: Bullet = sample_bullet
+
+	for i in range(count):
+		var new_bullet: Bullet = Bullet.new()
+		new_bullet.damage_amount = sample.damage_amount
+		new_bullet.piercing = sample.piercing
+		new_bullet.explosive = sample.explosive
+		new_bullet.quickshot = sample.quickshot
+		new_bullet.fire = sample.fire
+		new_bullet.vampire = sample.vampire
+		new_bullet.double_damage = sample.double_damage
+		
+		new_bullet.aim_time = sample.aim_time
+		new_bullet.projectile_count = sample.projectile_count
+			
+		output.append(new_bullet)
+		
+	return output
+	
 func get_bullet() -> Bullet:
 	var sample: Bullet = Bullet.new()
 	var traits = items.keys().duplicate()
@@ -81,6 +102,29 @@ func get_bullet() -> Bullet:
 	
 	print("Get bullet result: " + str(sample))
 	return sample
+
+## Returns a Bullet with the input item applied
+func apply_item(bullet: Bullet, item: ItemData):
+	if bullet == null or item == null:
+		push_warning("Missing bullet or itemdata in apply item.")
+		return null
+		
+	var sample: Bullet = bullet
+	var random_trait: ItemData = item
+	
+	if random_trait.piercing_chance > 0:
+		sample.piercing = true
+	if random_trait.fire_chance > 0:
+		sample.fire = true
+	if random_trait.explosive_chance > 0:
+		sample.explosive = true
+	if random_trait.double_damage:
+		sample.damage_amount *= 2
+	if random_trait.vampire:
+		sample.vampire = true
+	sample.double_damage = random_trait.double_damage
+	
+	return bullet
 	
 func reset_stats() -> void:
 	trait_chance = _base_trait_chance
