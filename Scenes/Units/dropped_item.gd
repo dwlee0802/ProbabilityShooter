@@ -36,9 +36,9 @@ func set_data(data: ItemData) -> void:
 
 # one time interaction
 func use(user) -> void:
-	user.add_to_inventory(item_data)
-	$CollisionShape2D.disabled = true
-	$Icon/AnimationPlayer.play("consume")
+	if user.add_to_inventory(item_data):
+		$CollisionShape2D.disabled = true
+		$Icon/AnimationPlayer.play("consume")
 	
 func active(_delta: float, _user) -> bool:
 	return false

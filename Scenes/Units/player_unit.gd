@@ -535,16 +535,19 @@ func reset_items() -> void:
 	stats_changed.emit()
 	bullet_generator_component.reset_stats()
 	
-func add_to_inventory(item: ItemData) -> void:
+func add_to_inventory(item: ItemData) -> bool:
 	if item:
 		if inventory.size() < inventory_max_count:
 			inventory.append(item)
 			print("Added " + str(item) + " to inventory.")
 			inventory_changed.emit()
+			return true
 		else:
 			print("Inventory full")
 	else:
 		push_warning("Add null item to inventory.")
+	
+	return false
 
 func use_item(item_index, target) -> void:
 	if item_index < inventory.size():
