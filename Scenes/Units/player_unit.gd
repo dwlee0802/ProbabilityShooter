@@ -215,6 +215,9 @@ func _ready() -> void:
 	weapon_one.weapon.reload()
 	weapon_two.weapon.reload()
 	
+	weapon_one.activated.connect(knock_back.bind(weapon_one.muzzle_point))
+	weapon_two.activated.connect(knock_back.bind(weapon_two.muzzle_point))
+	
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
 	print("equipped " + weapon_one.weapon_data.equipment_name)
@@ -725,3 +728,6 @@ func is_ability_ready() -> bool:
 func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/LeftEye.self_modulate = left
 	$UnitSprite/RightEye.self_modulate = right
+
+func knock_back(node: Node2D) -> void:
+	apply_central_impulse(-global_position.direction_to(node.global_position) * 1000)
