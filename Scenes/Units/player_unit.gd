@@ -695,7 +695,7 @@ func is_upgrade_ready() -> bool:
 func required_exp_amount(level: int) -> int:
 	if level_up_debug:
 		return level_up_debug_amount
-	return 500 + level * 250
+	return 500 + level * 200
 	
 #endregion
 

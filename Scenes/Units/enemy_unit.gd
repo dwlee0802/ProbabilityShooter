@@ -90,7 +90,7 @@ var death_effect = preload("res://Scenes/Units/death_effect.tscn")
 var damage_popup = preload("res://Scenes/damage_popup.tscn")
 var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
-static var resource_drop_chance: float = 0.5
+static var resource_drop_chance: float = 0.05
 var dropped_item: PackedScene = preload("res://Scenes/Units/dropped_item.tscn")
 var exp_orb: PackedScene = preload("res://Scenes/exp_orb.tscn")
 var health_orb: PackedScene = preload("res://Scenes/health_orb.tscn")
@@ -103,6 +103,10 @@ signal on_death
 signal bullet_hit
 signal received_hit(total, effective)
 signal critical_hit
+
+## upgrade signals
+signal on_death_upgrade(self_ref)
+signal on_hit_upgrade(self_ref)
 
 
 func on_spawn(speed: float, health: int) -> void:
@@ -221,6 +225,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	var effective_damage: int = min(damage_amount, health_points)
 	received_hit.emit(damage_amount, effective_damage)
 	bullet_hit.emit()
+	on_hit_upgrade.emit(self)
 	health_points -= damage_amount
 	
 	if health_tween:
@@ -292,6 +297,7 @@ func die():
 		game_ref.resources.call_deferred("add_child", new_drop)
 	
 	on_death.emit()
+	on_death_upgrade.emit(self)
 	call_deferred("disable_collision")
 	
 	$Sprite2D/AnimationPlayer.play("death")
