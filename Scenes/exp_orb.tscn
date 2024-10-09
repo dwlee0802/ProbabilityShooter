@@ -3,12 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_b8a12"]
 [ext_resource type="Script" path="res://Scenes/exp_orb.gd" id="2_unsbb"]
 
-[sub_resource type="Gradient" id="Gradient_utrxb"]
+[sub_resource type="Gradient" id="Gradient_rd10p"]
 offsets = PackedFloat32Array(0.318182, 0.766234, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4e7yt"]
-gradient = SubResource("Gradient_utrxb")
+gradient = SubResource("Gradient_rd10p")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)

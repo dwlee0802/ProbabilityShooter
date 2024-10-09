@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://gnn5bxwldlw0"]
+
+[ext_resource type="Script" path="res://Scenes/teleporter.gd" id="1_6jgx0"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_e70i0"]
+
+[node name="Teleporter" type="Node2D"]
+script = ExtResource("1_6jgx0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.691357, 0.691357, 0.691357, 1)
+scale = Vector2(1, 0.2)
+texture = ExtResource("1_e70i0")
+
+[node name="CrystalCount" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -150.0
+offset_top = -156.0
+offset_right = -150.0
+offset_bottom = -156.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CrystalCount"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CrystalCount/HBoxContainer"]
+self_modulate = Color(0.356863, 0.807843, 0, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("1_e70i0")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CrystalCount/HBoxContainer"]
+self_modulate = Color(0.356863, 0.807843, 0, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("1_e70i0")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="CrystalCount/HBoxContainer"]
+self_modulate = Color(0.356863, 0.807843, 0, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("1_e70i0")
+expand_mode = 1

@@ -55,6 +55,16 @@ var resources: Node2D = $Resources
 @export
 var safe_zone_radius: float = 2000.0
 
+#region Teleporter
+## Teleporter system
+var crystal_scene: PackedScene = preload("res://Scenes/crystal.tscn")
+@export_category("Teleporter Settings")
+@export
+var crystal_count: int = 3
+@export
+var teleporter_wait_time: float = 90.0
+#endregion
+
 @export_category("Weapon Colors")
 @export_color_no_alpha
 var weapon_one_color: Color = Color.DARK_ORANGE
