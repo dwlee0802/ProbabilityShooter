@@ -639,6 +639,7 @@ wait_time = 2.0
 
 [node name="AbilityActiveParticles" type="CPUParticles2D" parent="."]
 position = Vector2(2, 217)
+emitting = false
 amount = 20
 lifetime = 0.8
 speed_scale = 1.5

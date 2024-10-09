@@ -297,6 +297,7 @@ func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 	
 	if Input.is_action_just_pressed("use_ability") and is_ability_ready() and !ability_on:
+		print("meow")
 		ability_on = true
 		used_ability.emit()
 		ability_start_particles.emitting = true
@@ -730,4 +731,4 @@ func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/RightEye.self_modulate = right
 
 func knock_back(node: Node2D) -> void:
-	apply_central_impulse(-global_position.direction_to(node.global_position) * 1000)
+	apply_central_impulse(-global_position.direction_to(node.global_position) * 500)

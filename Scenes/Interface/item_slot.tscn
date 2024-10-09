@@ -6,6 +6,7 @@
 [node name="ItemSlot" type="TextureRect"]
 self_modulate = Color(0, 0, 0, 0.372549)
 custom_minimum_size = Vector2(48, 48)
+mouse_filter = 2
 texture = ExtResource("1_k0c2m")
 
 [node name="ItemIcon" type="TextureRect" parent="."]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 expand_mode = 1
 
 [node name="ShortcutLabel" type="Label" parent="."]
@@ -34,6 +36,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(1, 1, 1, 0.0392157)
 
 [node name="TextureButton" type="TextureButton" parent="."]
@@ -44,6 +47,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+disabled = true
 toggle_mode = true
 button_group = ExtResource("2_oxr73")
 texture_pressed = ExtResource("1_k0c2m")
