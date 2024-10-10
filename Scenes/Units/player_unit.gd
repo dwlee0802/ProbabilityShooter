@@ -422,6 +422,8 @@ func make_unconscious() -> void:
 	weapon_two.process_mode = Node.PROCESS_MODE_DISABLED
 	aim_cone.visible = false
 	
+	teleport_timer.stop()
+	
 func add_health(amount: float) -> void:
 	if health_points <= 0 and amount > 0:
 		revived.emit()
@@ -449,6 +451,11 @@ func reset_exp() -> void:
 	experience_gained = 0
 	current_level = 1
 	experience_changed.emit()
+
+func reset_crystals() -> void:
+	current_crystal_count = 0
+	update_crystal_icon_count()
+	teleport_timer.stop()
 	
 func is_unconscious() -> bool:
 	return health_points <= 0 and !invinsible

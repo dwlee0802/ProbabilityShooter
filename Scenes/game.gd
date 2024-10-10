@@ -399,6 +399,7 @@ func start() -> void:
 		shootables.add_child(new_shootable)
 	
 	place_crystals()
+	set_safezone_active_status(false)
 	
 	user_interface.kill_count_label.text = "Kills: " + str(stats_component.kill_count)
 	
