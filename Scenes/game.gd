@@ -178,6 +178,7 @@ func _ready():
 		#shootables.add_child(new_shootable)
 		
 	place_crystals()
+	set_safezone_active_status(true)
 		
 	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
 	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
@@ -562,9 +563,10 @@ func set_safezone_sprite(radius: float = safe_zone_radius) -> void:
 
 func set_safezone_active_status(activate: bool) -> void:
 	safe_zone_sprite.visible = activate
-	set_safezone_sprite()
-	
+	safe_zone_sprite.scale = Vector2.ZERO
 	if activate:
-		pass
+		var tween: Tween = get_tree().create_tween()
+		var final_rad: float = safe_zone_radius * 2 / 486.0
+		tween.tween_property(safe_zone_sprite, "scale", Vector2(final_rad, final_rad), 2)
 	else:
 		pass

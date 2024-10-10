@@ -27,6 +27,7 @@ offset_right = 16.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_d7yig")
 expand_mode = 1
 
