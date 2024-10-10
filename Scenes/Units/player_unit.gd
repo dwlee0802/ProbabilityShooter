@@ -170,6 +170,10 @@ var ability_start_line_particles: CPUParticles2D = $AbilityLineParticels
 var teleporter_wait_time: float = 90.0
 var current_crystal_count: int = 0
 var crystals_needed: int = 3
+@onready
+var teleporter_info: Control = $TeleportationInfo
+@export
+var crystal_color: Color = Color.AQUAMARINE
 #endregion
 
 ## WASD Movement Component Node
@@ -242,6 +246,8 @@ func _ready() -> void:
 	
 	if get_current_equipment() is Gun:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
+	
+	update_crystal_icon_count()
 	
 	safe_zone_timer.timeout.connect(receive_hit.bind(1))
 	# make starting item
@@ -736,6 +742,12 @@ func is_ability_ready() -> bool:
 #region Teleporter System
 func pick_up_crystal() -> void:
 	current_crystal_count += 1
+	update_crystal_icon_count()
+
+func update_crystal_icon_count() -> void:
+	var container: HBoxContainer = teleporter_info.get_node("HBoxContainer")
+	for i in range(container.get_child_count()):
+		container.get_child(i).visible = i < current_crystal_count
 	
 #endregion
 

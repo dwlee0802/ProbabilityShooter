@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=53 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -27,6 +27,7 @@
 [ext_resource type="Shader" path="res://Scenes/Units/ripple_effect.gdshader" id="23_vuwxk"]
 [ext_resource type="AudioStream" uid="uid://btjekmjy6loyo" path="res://Sound/power-down-7103.mp3" id="24_xisgy"]
 [ext_resource type="AudioStream" uid="uid://bpx35j7exlob" path="res://Sound/exp_gained_ding.mp3" id="26_mol5q"]
+[ext_resource type="PackedScene" uid="uid://vot0pio4jgj" path="res://Scenes/Interface/crystal_icon.tscn" id="28_e45av"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
@@ -263,12 +264,12 @@ size = Vector2(157, 231)
 resource_local_to_scene = true
 radius = 128.0
 
-[sub_resource type="Gradient" id="Gradient_v5yjg"]
+[sub_resource type="Gradient" id="Gradient_sn5hj"]
 offsets = PackedFloat32Array(0.318182, 0.766234, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rvijk"]
-gradient = SubResource("Gradient_v5yjg")
+gradient = SubResource("Gradient_sn5hj")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -721,6 +722,39 @@ stream = ExtResource("24_xisgy")
 stream = ExtResource("26_mol5q")
 volume_db = -10.0
 max_polyphony = 5
+
+[node name="TeleportationInfo" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -200.0
+offset_bottom = -200.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TeleportationInfo"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -32.0
+offset_right = 52.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TextureRect" parent="TeleportationInfo/HBoxContainer" instance=ExtResource("28_e45av")]
+visible = false
+layout_mode = 2
+
+[node name="TextureRect2" parent="TeleportationInfo/HBoxContainer" instance=ExtResource("28_e45av")]
+visible = false
+layout_mode = 2
+
+[node name="TextureRect3" parent="TeleportationInfo/HBoxContainer" instance=ExtResource("28_e45av")]
+visible = false
+layout_mode = 2
 
 [node name="AbilityLineParticels" type="CPUParticles2D" parent="."]
 emitting = false

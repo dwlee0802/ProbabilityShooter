@@ -1,6 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbpl7nyq7bgqo"]
+[gd_scene load_steps=13 format=3 uid="uid://bbpl7nyq7bgqo"]
 
 [ext_resource type="Script" path="res://Scenes/crystal.gd" id="1_f7rbp"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_dhxhd"]
+[ext_resource type="Gradient" uid="uid://3aj3emqol1ln" path="res://fade_out_gradiant.tres" id="3_f7sf2"]
 
 [sub_resource type="Gradient" id="Gradient_o6e84"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -36,6 +38,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ConsumedParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_tvsl5"]
@@ -77,6 +91,18 @@ tracks/2/keys = {
 "args": [],
 "method": &"queue_free"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ConsumedParticles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_186l7"]
@@ -135,6 +161,7 @@ libraries = {
 autoplay = "item_bob"
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -144,7 +171,44 @@ shape = SubResource("CircleShape2D_wk027")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 color = Color(0.72308, 1, 0.899581, 1)
 energy = 3.0
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_d4lp5")
 texture_scale = 10.0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 20
+explosiveness = 0.1
+randomness = 0.1
+texture = ExtResource("2_dhxhd")
+emission_shape = 1
+emission_sphere_radius = 54.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, -300)
+scale_amount_min = 0.05
+scale_amount_max = 0.05
+color = Color(0, 0.12549, 0.831373, 0.517647)
+color_ramp = ExtResource("3_f7sf2")
+
+[node name="ConsumedParticles" type="CPUParticles2D" parent="."]
+visible = false
+emitting = false
+amount = 40
+lifetime = 3.0
+one_shot = true
+explosiveness = 0.1
+randomness = 0.1
+texture = ExtResource("2_dhxhd")
+emission_shape = 1
+emission_sphere_radius = 54.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, -300)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+scale_amount_min = 0.05
+scale_amount_max = 0.05
+color = Color(0, 0.12549, 0.831373, 0.517647)
+color_ramp = ExtResource("3_f7sf2")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

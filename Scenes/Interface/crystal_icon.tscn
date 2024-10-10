@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://vot0pio4jgj"]
+
+[ext_resource type="Texture2D" uid="uid://dpbd7pl833y6j" path="res://Art/Icons/crystal_icon.png" id="1_d7yig"]
+
+[sub_resource type="Gradient" id="Gradient_v5yjg"]
+offsets = PackedFloat32Array(0.318182, 0.766234, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2sj5q"]
+gradient = SubResource("Gradient_v5yjg")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.174312, 0.857798)
+
+[node name="TextureRect" type="TextureRect"]
+self_modulate = Color(0, 0.792157, 0.741176, 1)
+custom_minimum_size = Vector2(32, 64)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_d7yig")
+expand_mode = 1
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(16, 32)
+energy = 0.8
+texture = SubResource("GradientTexture2D_2sj5q")
+texture_scale = 3.0
