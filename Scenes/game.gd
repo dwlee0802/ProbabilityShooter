@@ -54,6 +54,10 @@ var resources: Node2D = $Resources
 
 @export
 var safe_zone_radius: float = 2000.0
+@export
+var safe_zone_active: bool = false
+@onready
+var safe_zone_sprite: Sprite2D = $Safezone
 
 #region Teleporter System
 ## Teleporter system
@@ -250,15 +254,22 @@ func _process(_delta):
 	CameraControl.camera.position *= min(local_mouse_pos.length()/7, 300)
 	
 	## Player outside safe zone
-	if player_unit.global_position.length() > safe_zone_radius:
-		if player_unit.safe_zone_timer.is_stopped():
-			player_unit.safe_zone_timer.start(1)
-		if !user_interface.danger_zone_effect.is_playing():
-			user_interface.danger_zone_effect.play("danger_zone")
+	if safe_zone_active:
+		if player_unit.global_position.length() > safe_zone_radius:
+			if player_unit.safe_zone_timer.is_stopped():
+				player_unit.safe_zone_timer.start(1)
+			if !user_interface.danger_zone_effect.is_playing():
+				user_interface.danger_zone_effect.play("danger_zone")
+		else:
+			if !player_unit.safe_zone_timer.is_stopped():
+				player_unit.safe_zone_timer.stop()
+			if user_interface.danger_zone_effect.is_playing():
+				user_interface.danger_zone_effect.stop(false)
+				user_interface.danger_zone_effect.play("RESET")
 	else:
 		if !player_unit.safe_zone_timer.is_stopped():
 			player_unit.safe_zone_timer.stop()
-		if user_interface.danger_zone_effect.is_playing():
+			user_interface.danger_zone_effect.play("RESET")
 			user_interface.danger_zone_effect.stop(false)
 	
 	## Player charge ui update
@@ -545,6 +556,15 @@ func check_mutation_prereq(item: Mutation) -> bool:
 	return item.prereq == null or item.prereq in mutations.keys()
 #endregion
 
-func set_safezone_sprite(radius: float) -> void:
+func set_safezone_sprite(radius: float = safe_zone_radius) -> void:
 	var sprite: Sprite2D = $Safezone
 	sprite.scale = Vector2(radius * 2 / 486.0, radius * 2 / 486.0)
+
+func set_safezone_active_status(activate: bool) -> void:
+	safe_zone_sprite.visible = activate
+	set_safezone_sprite()
+	
+	if activate:
+		pass
+	else:
+		pass
