@@ -140,6 +140,11 @@ func _ready():
 	
 	player_unit.inventory_changed.connect(user_interface.update_inventory_slots.bind(player_unit.inventory))
 	
+	# teleporting related signals
+	player_unit.teleport_started.connect(set_safezone_active_status.bind(true))
+	player_unit.teleport_finished.connect(on_teleport_finished)
+	player_unit.teleport_finished.connect(set_safezone_active_status.bind(false))
+	
 	player_unit.experience_changed.connect(on_experience_changed)
 	player_unit.charge_changed.connect(on_charge_changed)
 	player_unit.added_experience.connect(user_interface.make_exp_popup)
@@ -178,7 +183,6 @@ func _ready():
 		#shootables.add_child(new_shootable)
 		
 	place_crystals()
-	set_safezone_active_status(true)
 		
 	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
 	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
@@ -254,22 +258,17 @@ func _process(_delta):
 	# limit the amount of camera position offset from cursor
 	CameraControl.camera.position *= min(local_mouse_pos.length()/7, 300)
 	
-	## Player outside safe zone
-	if safe_zone_active:
-		if player_unit.global_position.length() > safe_zone_radius:
-			if player_unit.safe_zone_timer.is_stopped():
-				player_unit.safe_zone_timer.start(1)
+	## Player outside safe zone front-end effects
+	if player_unit.safe_zone_active:
+		if !player_unit.is_inside_safe_zone():
 			if !user_interface.danger_zone_effect.is_playing():
 				user_interface.danger_zone_effect.play("danger_zone")
 		else:
-			if !player_unit.safe_zone_timer.is_stopped():
-				player_unit.safe_zone_timer.stop()
 			if user_interface.danger_zone_effect.is_playing():
 				user_interface.danger_zone_effect.stop(false)
 				user_interface.danger_zone_effect.play("RESET")
 	else:
-		if !player_unit.safe_zone_timer.is_stopped():
-			player_unit.safe_zone_timer.stop()
+		if user_interface.danger_zone_effect.is_playing():
 			user_interface.danger_zone_effect.play("RESET")
 			user_interface.danger_zone_effect.stop(false)
 	
@@ -557,6 +556,7 @@ func check_mutation_prereq(item: Mutation) -> bool:
 	return item.prereq == null or item.prereq in mutations.keys()
 #endregion
 
+#region Teleport System
 func set_safezone_sprite(radius: float = safe_zone_radius) -> void:
 	var sprite: Sprite2D = $Safezone
 	sprite.scale = Vector2(radius * 2 / 486.0, radius * 2 / 486.0)
@@ -570,3 +570,8 @@ func set_safezone_active_status(activate: bool) -> void:
 		tween.tween_property(safe_zone_sprite, "scale", Vector2(final_rad, final_rad), 2)
 	else:
 		pass
+
+func on_teleport_finished():
+	print("Load next map!")
+	
+#endregion

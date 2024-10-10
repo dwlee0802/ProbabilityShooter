@@ -136,10 +136,6 @@ var push_back_strength: float = 1000
 @onready
 var push_back_sound: AudioStreamPlayer = $LevelUpEffect/PushBackSound
 
-@export
-var level_up_debug: bool = false
-@export
-var level_up_debug_amount: int = 300
 #endregion
 
 #region Charge System
@@ -166,14 +162,23 @@ var ability_start_line_particles: CPUParticles2D = $AbilityLineParticels
 #endregion
 
 #region Teleportation System
+## Timer that represents the time needed to charge the teleporter
+var teleport_timer: Timer
 @export
-var teleporter_wait_time: float = 90.0
+var teleporter_charge_time: float = 90.0
 var current_crystal_count: int = 0
 var crystals_needed: int = 3
 @onready
 var teleporter_info: Control = $TeleportationInfo
 @export
 var crystal_color: Color = Color.AQUAMARINE
+
+## safe zone system
+var safe_zone_center: Vector2 = Vector2.ZERO
+var safe_zone_active: bool = false
+var safe_zone_radius: float = 3000.0
+var safe_zone_damage: int = 1
+var safe_zone_time_limit: float = 1
 #endregion
 
 ## WASD Movement Component Node
@@ -183,6 +188,14 @@ var movement_component: WASDMovementComponent = $MovementComponent
 @export_category("Debugging")
 @export
 var invinsible: bool = false
+@export
+var level_up_debug: bool = false
+@export
+var level_up_debug_amount: int = 300
+@export
+var crystal_debug: bool = false
+@export
+var debug_crystal_amount: int = 0
 
 #region Signals
 signal was_selected
@@ -207,6 +220,8 @@ signal active_reload_success
 signal charge_changed(amount)
 signal used_ability
 signal upgrade_ready
+signal teleport_started
+signal teleport_finished
 #endregion
 
 
@@ -247,9 +262,16 @@ func _ready() -> void:
 	if get_current_equipment() is Gun:
 		get_current_equipment().spread_changed.connect(update_aim_cone)
 	
+	if crystal_debug:
+		for i in range(debug_crystal_amount):
+			pick_up_crystal()
 	update_crystal_icon_count()
 	
-	safe_zone_timer.timeout.connect(receive_hit.bind(1))
+	teleport_timer = Timer.new()
+	teleport_timer.autostart = false
+	teleport_timer.one_shot = true
+	
+	safe_zone_timer.timeout.connect(receive_hit.bind(safe_zone_damage))
 	# make starting item
 	
 	stats_changed.emit()
@@ -305,7 +327,19 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("action_two") and Input.is_physical_key_pressed(KEY_4):
 		print("use item four on right")
 		use_item(3, weapon_two)
-		
+	
+	# check outside or inside safe zone
+	if safe_zone_active:
+		if !is_inside_safe_zone():
+			if safe_zone_timer.is_stopped():
+				safe_zone_timer.start(safe_zone_time_limit)
+		else:
+			if !safe_zone_timer.is_stopped():
+				safe_zone_timer.stop()
+	else:
+		if !safe_zone_timer.is_stopped():
+			safe_zone_timer.stop()
+			
 func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 	
@@ -322,6 +356,10 @@ func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") and interaction_target != null:
 		print("interact with " + interaction_target.name)
 		interaction_target.use(self)
+	
+	if Input.is_action_just_pressed("use_teleport"):
+		if can_use_teleport():
+			start_teleport_charging()
 		
 func _process(_delta: float) -> void:
 	ability_particles.emitting = ability_on
@@ -748,6 +786,22 @@ func update_crystal_icon_count() -> void:
 	var container: HBoxContainer = teleporter_info.get_node("HBoxContainer")
 	for i in range(container.get_child_count()):
 		container.get_child(i).visible = i < current_crystal_count
+
+func can_use_teleport() -> bool:
+	return current_crystal_count >= crystals_needed
+
+func start_teleport_charging() -> void:
+	teleport_timer.start(teleporter_charge_time)
+	teleport_started.emit()
+	safe_zone_active = true
+	safe_zone_center = position
+
+func teleporter_charge_finished() -> void:
+	teleport_finished.emit()
+	safe_zone_active = false
+	
+func is_inside_safe_zone() -> bool:
+	return position.distance_to(safe_zone_center) <= safe_zone_radius
 	
 #endregion
 
