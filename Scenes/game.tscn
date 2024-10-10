@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=16 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -14,8 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
-[ext_resource type="PackedScene" uid="uid://bbpl7nyq7bgqo" path="res://Scenes/crystal.tscn" id="16_nff80"]
-[ext_resource type="PackedScene" uid="uid://gnn5bxwldlw0" path="res://Scenes/teleporter.tscn" id="17_kwj1a"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 
 [node name="Game" type="Node2D"]
@@ -64,8 +62,6 @@ texture = ExtResource("8_tcb7a")
 [node name="Projectiles" type="Node2D" parent="."]
 
 [node name="Shootables" type="Node2D" parent="."]
-
-[node name="Teleporter" parent="." instance=ExtResource("17_kwj1a")]
 
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 collision_mask = 138
@@ -159,9 +155,6 @@ volume_db = -5.0
 [node name="StatisticsComponent" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("15_ophms")
-
-[node name="Crystal" parent="." instance=ExtResource("16_nff80")]
-position = Vector2(-1160, -279)
 
 [editable path="PauseScreen/Crosshair"]
 [editable path="GameOverScreen/Crosshair"]

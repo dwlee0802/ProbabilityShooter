@@ -55,14 +55,12 @@ var resources: Node2D = $Resources
 @export
 var safe_zone_radius: float = 2000.0
 
-#region Teleporter
+#region Teleporter System
 ## Teleporter system
 var crystal_scene: PackedScene = preload("res://Scenes/crystal.tscn")
 @export_category("Teleporter Settings")
 @export
 var crystal_count: int = 3
-@export
-var teleporter_wait_time: float = 90.0
 #endregion
 
 @export_category("Weapon Colors")
@@ -174,6 +172,8 @@ func _ready():
 		#var new_shootable: Shootable = dynamite_shootable.instantiate()
 		#new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		#shootables.add_child(new_shootable)
+		
+	place_crystals()
 		
 	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
 	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
@@ -387,10 +387,18 @@ func start() -> void:
 		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		shootables.add_child(new_shootable)
 	
+	place_crystals()
+	
 	user_interface.kill_count_label.text = "Kills: " + str(stats_component.kill_count)
 	
 	user_interface.update_bullet_menu()
 
+func place_crystals() -> void:
+	for i in range(crystal_count):
+		var new_crystal: Crystal = crystal_scene.instantiate()
+		new_crystal.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
+		resources.add_child(new_crystal)
+		
 func on_core_hit() -> void:
 	user_interface.core_hit_effect.play("RESET")
 	user_interface.core_hit_effect.play("core_hit_animation")

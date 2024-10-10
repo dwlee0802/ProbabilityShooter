@@ -165,6 +165,13 @@ var ripple_effect: ColorRect = $RippleEffect
 var ability_start_line_particles: CPUParticles2D = $AbilityLineParticels
 #endregion
 
+#region Teleportation System
+@export
+var teleporter_wait_time: float = 90.0
+var current_crystal_count: int = 0
+var crystals_needed: int = 3
+#endregion
+
 ## WASD Movement Component Node
 @onready
 var movement_component: WASDMovementComponent = $MovementComponent
@@ -724,6 +731,12 @@ func add_charge_on_hit(_total: int, amount: int) -> void:
 
 func is_ability_ready() -> bool:
 	return charge == max_charge
+#endregion
+
+#region Teleporter System
+func pick_up_crystal() -> void:
+	current_crystal_count += 1
+	
 #endregion
 
 func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
