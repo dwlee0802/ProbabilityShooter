@@ -162,6 +162,7 @@ var ability_start_line_particles: CPUParticles2D = $AbilityLineParticels
 #endregion
 
 #region Teleportation System
+@export_category("Teleport System")
 ## Timer that represents the time needed to charge the teleporter
 var teleport_timer: Timer
 @export
@@ -176,6 +177,7 @@ var crystal_color: Color = Color.AQUAMARINE
 ## safe zone system
 var safe_zone_center: Vector2 = Vector2.ZERO
 var safe_zone_active: bool = false
+@export
 var safe_zone_radius: float = 3000.0
 var safe_zone_damage: int = 1
 var safe_zone_time_limit: float = 1
