@@ -27,9 +27,6 @@ var revive_time: float = 5.0
 var aim_speed_modifier: float = 0
 var reload_speed_modifier: float = 0
 
-@onready
-var safe_zone_timer: Timer = $SafeZoneTimer
-
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
 @export
@@ -175,6 +172,8 @@ var teleporter_info: Control = $TeleportationInfo
 var crystal_color: Color = Color.AQUAMARINE
 
 ## safe zone system
+@onready
+var safe_zone_timer: Timer = $SafeZoneTimer
 var safe_zone_center: Vector2 = Vector2.ZERO
 var safe_zone_active: bool = false
 @export
@@ -272,6 +271,8 @@ func _ready() -> void:
 	teleport_timer = Timer.new()
 	teleport_timer.autostart = false
 	teleport_timer.one_shot = true
+	teleport_timer.timeout.connect(teleporter_charge_finished)
+	add_child(teleport_timer)
 	
 	safe_zone_timer.timeout.connect(receive_hit.bind(safe_zone_damage))
 	# make starting item
@@ -803,14 +804,15 @@ func start_teleport_charging() -> void:
 	teleport_timer.start(teleporter_charge_time)
 	teleport_started.emit()
 	safe_zone_active = true
-	safe_zone_center = position
+	safe_zone_center = global_position
 
 func teleporter_charge_finished() -> void:
 	teleport_finished.emit()
 	safe_zone_active = false
+	print("teleport finished")
 	
 func is_inside_safe_zone() -> bool:
-	return position.distance_to(safe_zone_center) <= safe_zone_radius
+	return global_position.distance_to(safe_zone_center) <= safe_zone_radius
 	
 #endregion
 

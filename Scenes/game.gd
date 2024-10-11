@@ -388,6 +388,7 @@ func start() -> void:
 	player_unit.reload_action()
 	player_unit.global_position = Vector2.ZERO
 	player_unit.clear_inventory()
+	player_unit.reset_crystals()
 	
 	# reset enemy stats 
 	spawner_component.reset_stats()
@@ -569,10 +570,12 @@ func set_safezone_active_status(activate: bool) -> void:
 		var tween: Tween = get_tree().create_tween()
 		var final_rad: float = safe_zone_radius * 2 / 486.0
 		tween.tween_property(safe_zone_sprite, "scale", Vector2(final_rad, final_rad), 2)
+		safe_zone_sprite.global_position = player_unit.global_position
 	else:
 		pass
 
 func on_teleport_finished():
+	set_safezone_active_status(false)
 	print("Load next map!")
 	
 #endregion
