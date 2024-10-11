@@ -383,7 +383,10 @@ func _process(_delta: float) -> void:
 			weapon_two.reload_timer.speed = 1
 			weapon_one.aim_timer.speed = 1
 			weapon_two.aim_timer.speed = 1
-		
+	
+	if !teleport_timer.is_stopped():
+		var teleport_label: Label = teleporter_info.get_node("TeleportLabel")
+		teleport_label.text = str(int(teleporter_charge_time) - int(teleport_timer.time_left)) + " / " + str(int(teleporter_charge_time))
 	return
 	## autofail active reload if past range
 	#if !equipments[0].ready and !action_one_reload_timer.is_stopped():
@@ -794,8 +797,13 @@ func pick_up_crystal() -> void:
 
 func update_crystal_icon_count() -> void:
 	var container: HBoxContainer = teleporter_info.get_node("HBoxContainer")
+	var label: Label = teleporter_info.get_node("TeleportLabel")
 	for i in range(container.get_child_count()):
 		container.get_child(i).visible = i < current_crystal_count
+	if current_crystal_count >= crystals_needed:
+		label.text = "Press T to start Teleportation"
+	else:
+		label.text = ""
 
 func can_use_teleport() -> bool:
 	return current_crystal_count >= crystals_needed
@@ -805,6 +813,9 @@ func start_teleport_charging() -> void:
 	teleport_started.emit()
 	safe_zone_active = true
 	safe_zone_center = global_position
+	
+	var label: Label = teleporter_info.get_node("TeleportLabel")
+	label.text = ""
 
 func teleporter_charge_finished() -> void:
 	teleport_finished.emit()
