@@ -4,7 +4,7 @@ class_name Upgrade
 @export
 var condition_event_code: Event.EventCode
 @export
-var effect: Resource = null
+var effect: Effect = null
 
 @export_category("Base Info")
 @export

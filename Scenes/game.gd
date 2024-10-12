@@ -187,6 +187,8 @@ func _ready():
 	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
 	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
 	
+	UpgradesManager.game_ref = self
+	
 	# auto select upgrade option if timeout
 	upgrade_timer.timeout.connect(on_upgrade_timeout)
 	user_interface.upgrade_timer = upgrade_timer
@@ -287,6 +289,7 @@ func enemy_killed()-> void:
 	
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
+	
 	enemies.add_child(newEnemy)
 	#if InputManager.selected_unit != null:
 		#newEnemy.position = InputManager.selected_unit.global_position + Vector2.RIGHT.rotated(randf_range(0, TAU)) * spawn_radius

@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name EnemyUnit
 
 var game_ref
+var upgrade_manager: UpgradesManager
 
 @onready
 var state_machine: StateMachine = $StateMachine
@@ -228,13 +229,15 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	on_hit_upgrade.emit(self)
 	health_points -= damage_amount
 	
-	if health_tween:
-		health_tween.kill()
-		health_tween = null
-	var new_tween: Tween = create_tween()
-	health_tween = new_tween
+	UpgradesManager.process_event(Event.new(self, global_position, null, Event.EventCode.ENEMY_DAMAGED))
 	
-	new_tween.tween_property(self, "tweened_health_points", health_points, 0.25)
+	#if health_tween:
+		#health_tween.kill()
+		#health_tween = null
+	#var new_tween: Tween = create_tween()
+	#health_tween = new_tween
+	#
+	#new_tween.tween_property(self, "tweened_health_points", health_points, 0.25)
 	
 	# renew autoheal timer
 	#autoheal_stopped_timer.stop()
@@ -250,7 +253,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 		if bullet_data and bullet_data.vampire:
 			game_ref.player_unit.add_health(1)
 			
-		health_tween.kill()
+		#health_tween.kill()
 		die()
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 50)

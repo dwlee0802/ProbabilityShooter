@@ -1,6 +1,8 @@
 extends Unit
 class_name PlayerUnit
 
+var upgrade_manager: UpgradesManager
+
 @onready
 var state_label: Label = $StateLabel
 

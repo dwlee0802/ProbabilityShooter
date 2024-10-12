@@ -1,23 +1,26 @@
 extends Node
 class_name UpgradesManager
 
-var player_unit: PlayerUnit
-
 ## Dictionary to hold active upgrades <event code, upgrade>
-var upgrades = {}
+static var upgrades = {}
 
-func on_event(event: Event):
+static var game_ref
+
+static func _static_init() -> void:
+	add_upgrade(load("res://Data/Upgrade/explosive_rounds.tres"))
+	
+static func process_event(event: Event):
 	if !upgrades.has(event.code):
 		return
 		
-	for upg:Upgrade in upgrades[event.code]:
-		upg.effect.activate(event)
+	for upg: Upgrade in upgrades[event.code]:
+		upg.effect.activate(game_ref, event)
 
-func add_upgrade(upgrade: Upgrade):
+static func add_upgrade(upgrade: Upgrade):
 	var code = upgrade.condition_event_code
 	if !upgrades.has(code):
-		upgrades[upgrade.code] = []
-	upgrades[upgrade.code].append(upgrade)
+		upgrades[code] = []
+	upgrades[code].append(upgrade)
 
-func reset_upgrades():
+static func reset_upgrades():
 	upgrades.clear()
