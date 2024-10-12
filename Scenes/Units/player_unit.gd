@@ -756,6 +756,7 @@ func push_back() -> void:
 		if body is Projectile and !body.is_player:
 			body.queue_free()
 	push_back_sound.play()
+	push_back_area.get_node("Sprite2D/AnimationPlayer").play("push_back")
 	CameraControl.camera.shake_screen(40,200)
 	
 func is_level_up_ready() -> bool:

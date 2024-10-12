@@ -140,8 +140,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72c86"]
 size = Vector2(197, 287)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wv3ub"]
-radius = 30.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_jfxjo"]
+radius = 31.0
 
 [sub_resource type="Gradient" id="Gradient_ygy2d"]
 colors = PackedColorArray(0, 0, 0, 0.8, 0, 0, 0, 0)
@@ -265,7 +265,6 @@ libraries = {
 speed_scale = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(-0.5, -9.5)
 shape = SubResource("RectangleShape2D_72c86")
 
@@ -328,8 +327,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_e5dnx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CritArea"]
-visible = false
-shape = SubResource("CircleShape2D_wv3ub")
+shape = SubResource("CircleShape2D_jfxjo")
 
 [node name="BurningEffect" type="Node2D" parent="."]
 visible = false
@@ -376,7 +374,6 @@ texture = ExtResource("8_ito6i")
 texture_scale = 10.0
 
 [node name="HitLine" type="Line2D" parent="."]
-visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HitLine"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=56 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -43,6 +43,66 @@ fill_to = Vector2(0.793578, 0.165138)
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3g6r"]
 resource_local_to_scene = true
 radius = 1500.0
+
+[sub_resource type="Animation" id="Animation_leq45"]
+resource_name = "push_back"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(6.19753, 6.15638)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.0392157), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_foq83"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqpsj"]
+_data = {
+"RESET": SubResource("Animation_foq83"),
+"push_back": SubResource("Animation_leq45")
+}
 
 [sub_resource type="Gradient" id="Gradient_vnrnt"]
 interpolation_mode = 2
@@ -351,13 +411,24 @@ stream = ExtResource("16_x7mtf")
 pitch_scale = 0.9
 
 [node name="PushBackArea" type="Area2D" parent="LevelUpEffect"]
-visible = false
 collision_layer = 0
 collision_mask = 264
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelUpEffect/PushBackArea"]
 shape = SubResource("CircleShape2D_q3g6r")
 debug_color = Color(0.832682, 0.390898, 0, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelUpEffect/PushBackArea"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(-2.00006, -2.99994)
+scale = Vector2(1e-05, 1e-05)
+texture = ExtResource("13_n3hms")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelUpEffect/PushBackArea/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_iqpsj")
+}
+speed_scale = 5.0
 
 [node name="PointLight2D" type="PointLight2D" parent="LevelUpEffect"]
 color = Color(1, 1, 1, 0)
