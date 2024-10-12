@@ -283,6 +283,9 @@ func _ready() -> void:
 	
 	InputManager.camera = $Camera2D
 	
+	weapon_one.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
+	weapon_two.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
+	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	

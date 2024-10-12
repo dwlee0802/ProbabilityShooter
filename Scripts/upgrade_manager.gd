@@ -7,7 +7,7 @@ static var upgrades = {}
 static var game_ref
 
 static func _static_init() -> void:
-	add_upgrade(load("res://Data/Upgrade/pierce_on_kill.tres"))
+	add_upgrade(load("res://Data/Upgrade/push_back_on_reload.tres"))
 	
 static func process_event(event: Event):
 	if !upgrades.has(event.code):
