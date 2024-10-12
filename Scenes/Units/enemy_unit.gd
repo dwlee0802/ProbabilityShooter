@@ -311,6 +311,9 @@ func die():
 
 func is_dead() -> bool:
 	return health_points <= 0
+
+func is_full_health() -> bool:
+	return health_points >= max_health_points
 	
 func _physics_process(delta) -> void:
 	state_machine.process_physics(delta)

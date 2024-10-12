@@ -66,6 +66,9 @@ func _on_body_entered(body) -> void:
 	if body is EnemyUnit and is_player:
 		UpgradesManager.process_event(Event.new(self, global_position, body, Event.EventCode.PROJECTILE_HIT))
 		
+		if body.is_full_health():
+			UpgradesManager.process_event(Event.new(self, global_position, body, Event.EventCode.PROJECTILE_HIT_FULL_HP))
+		
 		if body.shield and !bullet_data.piercing:
 			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
 			queue_free()
