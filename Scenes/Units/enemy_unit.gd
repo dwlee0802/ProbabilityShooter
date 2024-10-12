@@ -302,6 +302,7 @@ func die():
 	on_death.emit()
 	on_death_upgrade.emit(self)
 	call_deferred("disable_collision")
+	set_deferred("freeze", true)
 	
 	$Sprite2D/AnimationPlayer.play("death")
 	

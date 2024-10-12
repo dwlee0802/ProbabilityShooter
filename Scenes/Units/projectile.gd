@@ -32,6 +32,9 @@ var exit_effect: PackedScene = preload("res://Scenes/enemy_hit_effect.tscn")
 @export
 var spawn_after: PackedScene
 
+var pierce_count: int = 0
+
+
 func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float = 0) -> void:
 	knock_back_amount = _knock_back
 	velocity = direction.normalized() * _speed
@@ -92,6 +95,9 @@ func _on_body_entered(body) -> void:
 			new_exit_eff.get_node("CPUParticles2D").emitting = true
 			get_tree().root.add_child(new_exit_eff)
 		
+		if body.is_dead():
+			UpgradesManager.process_event(Event.new(self, global_position, body, Event.EventCode.PROJECTILE_KILL))
+			
 	if body is PlayerUnit and !is_player:
 		body.receive_hit(damage_amount)
 		queue_free()
@@ -110,7 +116,8 @@ func _on_body_entered(body) -> void:
 		#new_dynamite.call_deferred("activate")
 		#new_dynamite.shooter = origin_unit
 	
-	if bullet_data.piercing:
+	if pierce_count > 0:
+		pierce_count -= 1
 		return
 	else:
 		queue_free()
