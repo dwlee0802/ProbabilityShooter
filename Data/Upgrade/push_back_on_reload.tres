@@ -5,6 +5,7 @@
 
 [sub_resource type="Resource" id="Resource_hwtl0"]
 script = ExtResource("1_1h3x2")
+strength = 0.0
 
 [resource]
 script = ExtResource("1_4qih3")
