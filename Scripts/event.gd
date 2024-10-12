@@ -6,7 +6,7 @@ var location
 var object
 var code
 
-enum {
+enum EventCode {
 	ENEMY_DAMAGED, ENEMY_DIED,
 	PROJECTILE_HIT, PROJECTILE_CRIT, PROJECTILE_KILL,
 	PLAYER_RELOAD, PLAYER_RELOAD_SUCCESS

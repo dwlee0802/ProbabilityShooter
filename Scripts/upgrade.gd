@@ -1,18 +1,15 @@
-extends RefCounted
+extends Resource
 class_name Upgrade
 
-func on_enemy_killed(player: PlayerUnit, enemy: EnemyUnit) -> void:
-	# do stuff on enemy killed
-	return
-	
-func on_enemy_hit(player: PlayerUnit, enemy: EnemyUnit) -> void:
-	# do stuff on enemy hit
-	return
+@export
+var condition_event_code: Event.EventCode
+@export
+var effect: Resource = null
 
-func on_player_shoot(player_unit: PlayerUnit) -> void:
-	# do stuff when player shoots
-	return
-
-func on_player_reloaded(player_unit: PlayerUnit):
-	# do stuff when player reloads
-	return
+@export_category("Base Info")
+@export
+var upgrade_name: String = ""
+@export
+var icon: Texture
+@export_multiline
+var description: String = ""
