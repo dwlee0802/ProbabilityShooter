@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=4 format=3 uid="uid://dw0jl7ly5dd60"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://dw0jl7ly5dd60"]
 
 [ext_resource type="Script" path="res://Scripts/Effects/explode_effect.gd" id="1_qs8p4"]
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="2_f0oma"]
+[ext_resource type="Texture2D" uid="uid://dv2b2ejpp4h1b" path="res://Art/Icons/Upgrades/explosive_icon.png" id="2_viqhs"]
 
 [sub_resource type="Resource" id="Resource_5oobg"]
 script = ExtResource("1_qs8p4")
@@ -11,7 +12,8 @@ explosion_range = 300.0
 
 [resource]
 script = ExtResource("2_f0oma")
-condition_event_code = 2
+condition_event_code = 5
 effect = SubResource("Resource_5oobg")
 upgrade_name = "Explosive Rounds"
-description = "Explode when enemy is hit, dealing damage around it."
+icon = ExtResource("2_viqhs")
+description = "(10% + 1% * LV) Chance on Reload to have Explosive bullets."

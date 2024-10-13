@@ -271,6 +271,8 @@ func update_health_label(value: int) -> void:
 	health_label.text = str(value)
 	
 func die():
+	UpgradesManager.process_event(Event.new(self, global_position, null, Event.EventCode.ENEMY_DIED))
+	
 	var new_effect: CPUParticles2D = death_effect.instantiate()
 	new_effect.global_position = global_position
 	get_tree().root.add_child(new_effect)

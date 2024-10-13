@@ -77,7 +77,9 @@ func on_activation(unit: Unit, mouse_position: Vector2):
 		new_bullet.global_position = bullet_spawn_position.global_position
 		
 		new_bullet.bullet_data = current_bullet
-			
+		if current_bullet.piercing:
+			new_bullet.pierce_count += 1
+		
 		# add to scene
 		unit.get_tree().root.get_node("Game").projectiles.add_child(new_bullet)
 	

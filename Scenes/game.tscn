@@ -70,6 +70,7 @@ texture = ExtResource("8_tcb7a")
 collision_mask = 138
 movement_speed = 500.0
 starting_equipments = [ExtResource("10_gp80q")]
+level_up_debug = true
 level_up_debug_amount = 100
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]

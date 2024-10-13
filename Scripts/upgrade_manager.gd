@@ -7,7 +7,7 @@ static var upgrades = {}
 static var game_ref
 
 static func _static_init() -> void:
-	add_upgrade(load("res://Data/Upgrade/double_damage_to_full_health.tres"))
+	add_upgrade(load("res://Data/Upgrade/explosive_corpse.tres"))
 	
 static func process_event(event: Event):
 	if !upgrades.has(event.code):
@@ -17,6 +17,8 @@ static func process_event(event: Event):
 		upg.effect.activate(game_ref, event)
 
 static func add_upgrade(upgrade: Upgrade):
+	process_event(Event.new(upgrade, null, null, Event.EventCode.UPGRADE_TAKEN))
+	
 	var code = upgrade.condition_event_code
 	if !upgrades.has(code):
 		upgrades[code] = []
