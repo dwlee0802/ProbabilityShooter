@@ -111,6 +111,7 @@ var shade_animation: AnimationPlayer = $UnitSprite/ShadeAnimationPlayer
 @export_category("Experience System")
 @export
 var experience_gained: int = 0
+@export
 var current_level: int = 1
 var upgrade_options = []
 

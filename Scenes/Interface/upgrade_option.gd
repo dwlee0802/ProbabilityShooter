@@ -1,7 +1,7 @@
 extends TextureButton
 class_name UpgradeOption
 
-var data: ItemData
+var data: Upgrade
 
 @onready
 var name_label: Label = $MarginContainer/VContainer/NameLabel
@@ -17,7 +17,7 @@ func set_data(_data) -> void:
 		
 	$PressedShade.visible = false
 	data = _data
-	name_label.text = data.item_name
+	name_label.text = data.upgrade_name
 	info_label.text = data.description
 	if data.icon != null:
 		$MarginContainer/VContainer/Icon.texture = _data.icon
@@ -32,5 +32,3 @@ func _on_mouse_exited() -> void:
 
 func _on_toggled(toggled_on: bool) -> void:
 	$PressedShade.visible = toggled_on
-	if data != null:
-		print(data.item_name + " option toggled " + str(toggled_on))

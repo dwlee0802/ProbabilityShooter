@@ -295,11 +295,11 @@ func die():
 		#game_ref.shootables.call_deferred("add_child", new_drop)
 	
 	# spawn random item
-	if randf() < EnemyUnit.resource_drop_chance:
-		var new_drop: DroppedItem = dropped_item.instantiate()
-		new_drop.global_position = global_position
-		new_drop.set_data(Game.upgrade_options.pick_random())
-		game_ref.resources.call_deferred("add_child", new_drop)
+	#if randf() < EnemyUnit.resource_drop_chance:
+		#var new_drop: DroppedItem = dropped_item.instantiate()
+		#new_drop.global_position = global_position
+		#new_drop.set_data(Game.upgrade_options.pick_random())
+		#game_ref.resources.call_deferred("add_child", new_drop)
 	
 	on_death.emit()
 	on_death_upgrade.emit(self)

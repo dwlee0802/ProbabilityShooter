@@ -93,7 +93,7 @@ static func _static_init():
 	var is_diabled = func(data):
 		return !data.disabled
 		
-	upgrade_options = DW_ToolBox.ImportResources("res://Data/Items/", is_diabled, true)
+	upgrade_options = DW_ToolBox.ImportResources("res://Data/Upgrade/", is_diabled, true)
 	mutation_data = DW_ToolBox.ImportResources("res://Data/Mutations/", is_diabled, true) 
 
 # Called when the node enters the scene tree for the first time.
@@ -188,6 +188,7 @@ func _ready():
 	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
 	
 	UpgradesManager.game_ref = self
+	user_interface.upgrade_confirm_button.pressed.connect(on_upgrade_selected)
 	
 	# auto select upgrade option if timeout
 	upgrade_timer.timeout.connect(on_upgrade_timeout)
@@ -481,18 +482,18 @@ func on_level_up() -> void:
 		player_unit.level_up_animation.play("level_up")
 		
 		stats_component.level_reached += 1
-		
+	
 func get_upgrade_options(count: int = 4):
 	var output = []
 	var current
 	for i in range(count):
 		current = Game.upgrade_options.pick_random()
-		var limiter: int = 100
-		while !check_upgrade_prereq(current) and limiter > 0:
-			current = Game.upgrade_options.pick_random()
-			limiter -= 1
-		if limiter <= 0:
-			push_error("Upgrade option prereq check timeout.")
+		#var limiter: int = 100
+		#while limiter > 0:
+			#current = Game.upgrade_options.pick_random()
+			#limiter -= 1
+		#if limiter <= 0:
+			#push_error("Upgrade option prereq check timeout.")
 		output.append(current)
 	return output
 
@@ -500,8 +501,30 @@ func check_upgrade_prereq(item: ItemData) -> bool:
 	return item.prereq == null or item.prereq in player_unit.items.keys()
 	
 func on_upgrade_timeout():
-	user_interface.upgrade_option_selected(InputManager.selected_unit.upgrade_options.pick_random())
+	print("upgrade timer timeout. pick random option")
+	user_interface.upgrade_option_selected()
+	var random_option: Upgrade = Game.upgrade_options.pick_random()
+	UpgradesManager.add_upgrade(random_option)
+	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, random_option, Event.EventCode.UPGRADE_TAKEN))
+	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, random_option, Event.EventCode.UPGRADE_SELF_TAKEN))
 	get_tree().paused = false
+
+func on_upgrade_selected():
+	get_tree().paused = false
+	upgrade_timer.stop()
+	var new_upgrade: Upgrade = user_interface.upgrade_button_group.get_pressed_button().data
+	print("upgrade selected: " + new_upgrade.upgrade_name)
+	
+	UpgradesManager.add_upgrade(new_upgrade)
+	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, new_upgrade, Event.EventCode.UPGRADE_TAKEN))
+	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, new_upgrade, Event.EventCode.UPGRADE_SELF_TAKEN))
+	player_unit.upgrades_ready_count -= 1
+	
+	# if level up is still ready after leveling up, show new options
+	# otherwise, hide menu
+	if player_unit.is_upgrade_ready():
+		on_upgrade()
+		get_tree().paused = true
 	
 func pause_time(duration: float) -> void:
 	get_tree().paused = true

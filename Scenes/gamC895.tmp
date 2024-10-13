@@ -69,27 +69,9 @@ texture = ExtResource("8_tcb7a")
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 collision_mask = 138
 movement_speed = 500.0
-temp_color = Color(1, 1, 1, 1)
-active_reload_available = true
-current_equipped_index = 0
-equipments = []
 starting_equipments = [ExtResource("10_gp80q")]
-experience_gained = 0
-current_level = 4
-trait_chance_increase_per_level = 0.01
-level_per_upgrade = 5
-upgrades_ready_count = 0
-charge = 0.0
-max_charge = 50.0
-charge_use_rate = 5.0
-teleporter_charge_time = 90.0
-crystal_color = Color(0.498039, 1, 0.831373, 1)
-safe_zone_radius = 3000.0
-invinsible = false
 level_up_debug = true
 level_up_debug_amount = 100
-crystal_debug = false
-debug_crystal_amount = 0
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
 zoom = Vector2(0.1, 0.1)

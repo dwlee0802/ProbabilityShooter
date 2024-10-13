@@ -1,5 +1,7 @@
-extends BulletGenerator
-class_name TraitBulletGenerator
+extends Node
+class_name BulletGenerator
+
+var items = {}
 
 @export
 var _base_trait_chance: float = 0.1
@@ -27,27 +29,12 @@ func _ready() -> void:
 	
 ## Generates and returns count number of bullets
 func generate_bullets(count: int):
-	var output = []
 	var sample: Bullet = get_bullet()
+	
+	return copy_bullet(sample, count)
 
-	for i in range(count):
-		var new_bullet: Bullet = Bullet.new()
-		new_bullet.damage_amount = sample.damage_amount
-		new_bullet.piercing = sample.piercing
-		new_bullet.explosive = sample.explosive
-		new_bullet.quickshot = sample.quickshot
-		new_bullet.fire = sample.fire
-		new_bullet.vampire = sample.vampire
-		new_bullet.double_damage = sample.double_damage
-		
-		new_bullet.aim_time = sample.aim_time
-		new_bullet.projectile_count = sample.projectile_count
-			
-		output.append(new_bullet)
-		
-	return output
-
-func generate_bullets_from_sample(sample_bullet: Bullet, count: int):
+## Generates and returns copies of input bullet
+func copy_bullet(sample_bullet: Bullet, count: int):
 	var output = []
 	var sample: Bullet = sample_bullet
 
@@ -128,55 +115,34 @@ func reset_stats() -> void:
 	
 	items.clear()
 
-## Bullet Generation chance modifiers
-func add_bonus_damage(bonus: Vector2i) -> void:
-	damage_range += bonus
-	if damage_range.x < 0:
-		damage_range.x = 0
-	if damage_range.y < 0:
-		damage_range.y = 0
-	if bonus != Vector2i.ZERO:
-		print("Increased damage range by " + str(bonus))
-		
+func apply_upgrade(effect: AddTraitEffect):
+	piercing_enabled = effect.piercing or piercing_enabled
+	explosive_enabled = effect.explosive or explosive_enabled
+	buckshot_enabled = effect.buckshot or buckshot_enabled
+	quickshot_enabled = effect.quickshot or quickshot_enabled
+	fire_enabled = effect.fire or fire_enabled
+	vampire_enabled = effect.vampire or vampire_enabled
+	
 func add_trait_chance_bonus(amount: float) -> void:
 	trait_chance += amount
 	trait_chance = max(trait_chance, 0)
 	if amount != 0:
 		print("Changed trait chance by " + str(amount))
 		
-func add_piercing_chance_bonus(amount: float) -> void:
-	piercing_chance += amount
-	piercing_chance = max(piercing_chance, 0)
-	if amount != 0:
-		print("Changed piercing chance by " + str(amount))
-		
-func add_explosive_chance_bonus(amount: float) -> void:
-	explosive_chance += amount
-	explosive_chance = max(explosive_chance, 0)
-	if amount != 0:
-		print("Changed explosive chance by " + str(amount))
-		
-func add_buckshot_chance_bonus(amount: float) -> void:
-	buckshot_chance += amount
-	buckshot_chance = max(buckshot_chance, 0)
-	if amount != 0:
-		print("Changed buckshot chance by " + str(amount))
-		
-func add_quickshot_chance_bonus(amount: float) -> void:
-	quickshot_chance += amount
-	quickshot_chance = max(quickshot_chance, 0)
-	if amount != 0:
-		print("Changed quickshot chance by " + str(amount))
-		
-func add_fire_chance_bonus(amount: float) -> void:
-	fire_chance += amount
-	fire_chance = max(fire_chance, 0)
-	if amount != 0:
-		print("Changed fire chance by " + str(amount))
-	
 func print_traits() -> String:
 	var output = ""
-	for key: ItemData in items.keys():
-		output += key.item_name + "\n"
+	
+	if piercing_enabled:
+		output += "Piercing\n"
+	if explosive_enabled:
+		output += "Explosive\n"
+	if buckshot_enabled:
+		output += "Buckshot\n"
+	if quickshot_enabled:
+		output += "Quickshot\n"
+	if fire_enabled:
+		output += "Fire\n"
+	if vampire_enabled:
+		output += "Vampire\n"
 		
 	return output

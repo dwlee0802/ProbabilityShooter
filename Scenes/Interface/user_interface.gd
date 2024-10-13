@@ -53,7 +53,7 @@ var level_up_menu: Control = $LevelUpMenu
 @onready
 var level_up_menu_container: Control = $LevelUpMenu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer
 @onready
-var level_up_button_group: ButtonGroup = $LevelUpMenu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OptionOne.button_group
+var upgrade_button_group: ButtonGroup = $LevelUpMenu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/OptionOne.button_group
 @onready
 var level_up_time_limit: RadialProgress = $LevelUpMenu/SelectionTimeLimit
 @onready
@@ -164,31 +164,10 @@ func show_upgrade_menu() -> void:
 	level_up_menu.visible = true
 	$LevelUpMenu/AnimationPlayer.play("show_level_up_menu")
 
-func upgrade_option_selected(data: ItemData = level_up_button_group.get_pressed_button().data) -> void:
+func upgrade_option_selected() -> void:
 	upgrade_timer.stop()
 	get_tree().paused = false
-	
-	if InputManager.selected_unit == null:
-		push_error("upgrade option selected but no unit selected.")
-		level_up_menu.visible = false
-		return
-		
-	# add item to selected unit
-	if !InputManager.selected_unit.is_upgrade_ready():
-		push_error("upgrade option selected but upgrade not ready.")
-	else:
-		InputManager.selected_unit.add_item(data)
-		show_item_info(data)
-	
-	InputManager.selected_unit.upgrades_ready_count -= 1
-	
-	# if level up is still ready after leveling up, show new options
-	# otherwise, hide menu
-	if !InputManager.selected_unit.is_upgrade_ready():
-		level_up_menu.visible = false
-	else:
-		show_upgrade_menu()
-		get_tree().paused = true
+	level_up_menu.visible = false
 
 func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weapon_two = InputManager.selected_unit.weapon_two) -> void:
 	DW_ToolBox.RemoveAllChildren(left_bullet_info_menu_container)
@@ -243,6 +222,7 @@ func update_bullet_generation_info_menu(component = InputManager.selected_unit.b
 	labels_label.text += "Active Enchants:\n"
 	
 	labels_label.text += gun.print_traits()
+	
 	return
 	
 	#if gun.piercing_chance > 0:

@@ -12,4 +12,6 @@ script = ExtResource("1_4qih3")
 condition_event_code = 5
 effect = SubResource("Resource_hwtl0")
 upgrade_name = "Push back reload"
+color = Color(1, 1, 1, 1)
 description = "Push back enemies on reloading."
+disabled = true

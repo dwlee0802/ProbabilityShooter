@@ -17,4 +17,6 @@ condition_event_code = 1
 effect = SubResource("Resource_5oobg")
 upgrade_name = "Explosive Corpse"
 icon = ExtResource("2_meedm")
+color = Color(1, 1, 1, 1)
 description = "50% Chance for enemies to explode on death."
+disabled = true

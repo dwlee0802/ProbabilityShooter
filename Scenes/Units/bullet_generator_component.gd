@@ -1,5 +1,5 @@
 extends Node
-class_name BulletGenerator
+class_name _BulletGenerator
 
 ## Holds stats related to bullet generation
 
