@@ -32,6 +32,11 @@ var exit_effect: PackedScene = preload("res://Scenes/enemy_hit_effect.tscn")
 @export
 var spawn_after: PackedScene
 
+@onready
+var line_effect: Line2D = $Line2D
+@onready
+var start_location: Vector2 = Vector2.ZERO
+
 var pierce_count: int = 0
 
 
@@ -48,12 +53,17 @@ func _ready():
 	new_smoke_eff.global_position = global_position
 	new_smoke_eff.emitting = true
 	get_tree().root.add_child(new_smoke_eff)
+	start_location = global_position
 	
 func _physics_process(delta):
 	position += velocity * delta
 	lifetime += delta
+	
+	# line effect
+	line_effect.set_point_position(1, start_location - global_position)
+	
 	if lifetime_limit < lifetime:
-		queue_free()
+		queue_free_self()
 
 # hit something
 func _on_body_entered(body) -> void:
@@ -71,7 +81,7 @@ func _on_body_entered(body) -> void:
 		
 		if body.shield and !bullet_data.piercing:
 			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir)
-			queue_free()
+			queue_free_self()
 		else:
 			# apply damage
 			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir, bullet_data)
@@ -103,7 +113,7 @@ func _on_body_entered(body) -> void:
 			
 	if body is PlayerUnit and !is_player:
 		body.receive_hit(damage_amount)
-		queue_free()
+		queue_free_self()
 		
 	if body is Shootable:
 		body.shooter = origin_unit
@@ -123,4 +133,9 @@ func _on_body_entered(body) -> void:
 		pierce_count -= 1
 		return
 	else:
-		queue_free()
+		queue_free_self()
+		
+func queue_free_self() -> void:
+	line_effect.reparent(get_tree().root)
+	line_effect.get_node("AnimationPlayer").play("fade_out")
+	queue_free()
