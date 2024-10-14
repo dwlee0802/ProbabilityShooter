@@ -16,7 +16,7 @@ var knock_back_amount: float = 800
 
 var lifetime: float = 0
 # deletes self after this time
-var lifetime_limit: float = 10
+var lifetime_limit: float = 4
 
 var dynamite_scene = load("res://Scenes/Shootables/dynamite.tscn")
 
