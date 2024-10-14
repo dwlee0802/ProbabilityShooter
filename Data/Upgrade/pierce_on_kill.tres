@@ -10,9 +10,9 @@ piercing_change = 1
 
 [resource]
 script = ExtResource("1_g5ehd")
-condition_event_code = 4
+condition_event_code = 5
 effect = SubResource("Resource_auxpt")
 upgrade_name = "Pierce on Kill"
 color = Color(1, 1, 1, 1)
 description = "Bullet pierces enemy if it kills it."
-disabled = true
+disabled = false

@@ -15,4 +15,4 @@ effect = SubResource("Resource_vbaxp")
 upgrade_name = "x2 Full HP"
 color = Color(1, 1, 1, 1)
 description = "Damage +1 if target is full health."
-disabled = true
+disabled = false

@@ -18,7 +18,7 @@ var color: Color = Color.WHITE
 @export_multiline
 var description: String = ""
 @export
-var disabled: bool = true
+var disabled: bool = false
 
 static func _static_init() -> void:
 	default_icon = load("res://Art/32x32_white_square.png")
