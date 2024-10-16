@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5cmo6kvwell6"]
+[gd_scene load_steps=7 format=3 uid="uid://c5cmo6kvwell6"]
 
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_n21pn"]
 
 [sub_resource type="Curve" id="Curve_n1ouy"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.662921, 0.384615), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_mkfev"]
+colors = PackedColorArray(0.277528, 0.277528, 0.277528, 1, 1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_tqbkv"]
 length = 0.001
@@ -61,7 +64,7 @@ _data = {
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 amount = 15
-lifetime = 0.5
+lifetime = 0.7
 explosiveness = 1.0
 texture = ExtResource("1_n21pn")
 emission_shape = 1
@@ -75,7 +78,8 @@ damping_max = 1000.0
 scale_amount_min = 0.1
 scale_amount_max = 0.12
 scale_amount_curve = SubResource("Curve_n1ouy")
-color = Color(1, 0, 0, 0.756863)
+color = Color(0.886275, 0, 0, 0.756863)
+color_initial_ramp = SubResource("Gradient_mkfev")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
