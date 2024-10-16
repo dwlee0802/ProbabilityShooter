@@ -466,6 +466,9 @@ func on_upgrade() -> void:
 		player_unit.upgrade_options = get_upgrade_options()
 		user_interface.show_upgrade_menu()
 		upgrade_timer.start(15)
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(Engine, "time_scale", 0, 0.1)
 		get_tree().paused = true
 	
 func on_charge_changed() -> void:
@@ -507,10 +510,16 @@ func on_upgrade_timeout():
 	UpgradesManager.add_upgrade(random_option)
 	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, random_option, Event.EventCode.UPGRADE_TAKEN))
 	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, random_option, Event.EventCode.UPGRADE_SELF_TAKEN))
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(Engine, "time_scale", 1, 0.1)
 	get_tree().paused = false
 
 func on_upgrade_selected():
+	var tween = get_tree().create_tween()
+	tween.tween_property(Engine, "time_scale", 1, 0.1)
 	get_tree().paused = false
+	
 	upgrade_timer.stop()
 	var new_upgrade: Upgrade = user_interface.upgrade_button_group.get_pressed_button().data
 	print("upgrade selected: " + new_upgrade.upgrade_name)

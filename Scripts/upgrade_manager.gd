@@ -7,7 +7,7 @@ static var upgrades = {}
 static var game_ref
 
 static func _static_init() -> void:
-	add_upgrade(load("res://Data/Upgrade/pierce_on_kill.tres"))
+	#add_upgrade(load("res://Data/Upgrade/pierce_on_kill.tres"))
 	return
 	
 static func process_event(event: Event):
@@ -19,7 +19,6 @@ static func process_event(event: Event):
 			# if event code is upgrade self taken, only use effect if subject is same as upgrade
 			if upg == event.object:
 				upg.effect.activate(game_ref, event)
-				print("meow????")
 		else:
 			upg.effect.activate(game_ref, event)
 
