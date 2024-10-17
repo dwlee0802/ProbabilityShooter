@@ -394,6 +394,8 @@ func start() -> void:
 	player_unit.clear_inventory()
 	player_unit.reset_crystals()
 	
+	UpgradesManager.reset_upgrades()
+	
 	# reset enemy stats 
 	spawner_component.reset_stats()
 

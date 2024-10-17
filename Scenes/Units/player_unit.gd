@@ -461,6 +461,7 @@ func reset_exp() -> void:
 	experience_gained = 0
 	current_level = 1
 	experience_changed.emit()
+	bullet_generator_component.reset_stats()
 
 func reset_crystals() -> void:
 	current_crystal_count = 0
