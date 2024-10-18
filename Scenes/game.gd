@@ -318,7 +318,7 @@ func game_over() -> void:
 	#spawner_component.spawn_timer.stop()
 	mutation_timer.stop()
 	user_interface.mutation_roulette.stop_roulette()
-	
+	set_safezone_active_status(false)
 	#remove_objects()
 	user_interface.visible = false
 	game_over_screen.set_game_over_stats(stats_component)
@@ -407,6 +407,7 @@ func start() -> void:
 	
 	place_crystals()
 	set_safezone_active_status(false)
+	player_unit.safe_zone_active = false
 	
 	user_interface.kill_count_label.text = "Kills: " + str(stats_component.kill_count)
 	

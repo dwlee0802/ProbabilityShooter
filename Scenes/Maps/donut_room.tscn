@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8n27xgy1nggv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yfai3"]
+friction = 0.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cngwb"]
+friction = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_2ryfg"]
+vertices = PackedVector2Array(2878.3, 2874.94, -2792.25, 2841.44, -2457.7, 2752.36, 2082.47, -43.3672, 2071.31, -43.6563, 2074.68, -54.9297, -2462.78, 2733.06, -2865, 2838.05, -2867.99, -2822.05, -2124.22, -5.0625, 2087.39, -31.2266, 2896.52, -2852.94, 2967.76, -18.8516, -18.0625, -2070.95, -11.2813, 2100.87, 7.22656, 2095.96)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 11, 12, 0), PackedInt32Array(11, 10, 3), PackedInt32Array(11, 3, 5), PackedInt32Array(11, 5, 13), PackedInt32Array(8, 11, 13), PackedInt32Array(8, 13, 9), PackedInt32Array(6, 9, 14, 2), PackedInt32Array(15, 10, 0), PackedInt32Array(15, 0, 2, 14)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-18, -2057, -2110, -5, 2, 2100, -2875, 2851, -2878, -2832, 2906, -2863, 2082, -34), PackedVector2Array(2888, 2885, -2867, 2851, 2, 2087, 2081, -39, 2978, -26), PackedVector2Array(2906, -2874, 2978, -10, 2058, -34)])
+
+[node name="DonutRoom" type="Polygon2D"]
+color = Color(0.244776, 0.244776, 0.244776, 1)
+invert_enabled = true
+invert_border = 1000.0
+polygon = PackedVector2Array(0, -2000, -2000, 0, 0, 2000, 2000, 0)
+
+[node name="Pit" type="StaticBody2D" parent="."]
+collision_layer = 1024
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_yfai3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pit"]
+polygon = PackedVector2Array(2000, 0, 0, -2000, -2000, 0, 0, 2000)
+
+[node name="OuterWalls" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_cngwb")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="OuterWalls"]
+polygon = PackedVector2Array(-3012, -3006, -3012, 3001, 2982, 3001, 2994, -2980, 3597, -2981, 3555, 3034, 3526, 3562, -3601, 3491, -3572, -3537, 3597, -3565, 3612, -3038, 2992, -2981)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_2ryfg")

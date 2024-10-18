@@ -361,7 +361,7 @@ point_count = 2
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_v6k2i")
 collision_layer = 2
-collision_mask = 8
+collision_mask = 1160
 gravity_scale = 0.0
 lock_rotation = true
 contact_monitor = true

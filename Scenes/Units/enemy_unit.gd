@@ -9,6 +9,9 @@ var state_machine: StateMachine = $StateMachine
 @onready
 var state_label: Label = $StateLabel
 
+@onready
+var nav: NavigationAgent2D = $NavigationAgent2D
+
 var color: Color = Color.DARK_RED
 
 var target_position: Vector2
@@ -185,6 +188,7 @@ func _ready():
 		
 func _process(_delta: float) -> void:
 	target_position = InputManager.selected_unit.global_position
+	nav.target_position = target_position
 	
 	state_machine.process_frame(_delta)
 	

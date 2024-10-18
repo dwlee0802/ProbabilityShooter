@@ -153,6 +153,7 @@ use_teleport={
 2d_physics/layer_8="Wall"
 2d_physics/layer_9="Projectile"
 2d_physics/layer_10="Casings"
+2d_physics/layer_11="Pit"
 
 [physics]
 

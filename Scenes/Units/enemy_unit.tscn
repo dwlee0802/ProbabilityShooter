@@ -202,6 +202,9 @@ attack_range = 0.0
 projectile_damage = 1
 attack_cooldown = 3.0
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+simplify_path = true
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_e0gvr")
 starting_state = NodePath("Move")

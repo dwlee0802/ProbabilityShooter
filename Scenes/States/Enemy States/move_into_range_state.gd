@@ -13,7 +13,7 @@ func process_physics(delta: float) -> State:
 	if parent.player_inside_range():
 		return attack_state
 		
-	var target_direction: Vector2 = parent.global_position.direction_to(parent.target_position)
+	var target_direction: Vector2 = parent.global_position.direction_to(parent.nav.get_next_path_position())
 	
 	parent.movement_speed_multiplier += delta * parent.acceleration
 	

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/enemy_spawner_component.gd" id="2_quhko"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
+[ext_resource type="PackedScene" uid="uid://c8n27xgy1nggv" path="res://Scenes/Maps/donut_room.tscn" id="5_bfjsl"]
 [ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
 [ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
@@ -17,8 +18,6 @@
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_2ryfg"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -52,28 +51,13 @@ self_modulate = Color(0.154876, 0.154876, 0.154876, 1)
 scale = Vector2(100, 100)
 texture = ExtResource("8_tcb7a")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(0.244776, 0.244776, 0.244776, 1)
-invert_enabled = true
-invert_border = 596.5
-polygon = PackedVector2Array(0, -2000, -2000, 0, 0, 2000, 2000, 0)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D"]
-collision_layer = 128
-collision_mask = 0
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon2D/StaticBody2D"]
-visible = false
-polygon = PackedVector2Array(2000, 0, 0, -2000, -2000, 0, 0, 2000)
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Polygon2D"]
-navigation_polygon = SubResource("NavigationPolygon_2ryfg")
-
 [node name="Safezone" type="Sprite2D" parent="."]
 visible = false
 self_modulate = Color(0.201527, 0.201527, 0.201527, 1)
 scale = Vector2(10, 10)
 texture = ExtResource("8_tcb7a")
+
+[node name="DonutRoom" parent="." instance=ExtResource("5_bfjsl")]
 
 [node name="BloodSplatter" type="Node2D" parent="."]
 
@@ -87,7 +71,7 @@ texture = ExtResource("8_tcb7a")
 
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 position = Vector2(-1812, 1790)
-collision_mask = 138
+collision_mask = 1162
 movement_speed = 500.0
 starting_equipments = [ExtResource("10_gp80q")]
 crystal_color = Color(0.498039, 1, 0.831373, 1)
