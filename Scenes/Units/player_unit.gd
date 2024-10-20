@@ -337,6 +337,9 @@ func _physics_process(delta: float) -> void:
 		print("use item four on right")
 		use_item(3, weapon_two)
 	
+	if Input.is_action_just_pressed("dash"):
+		movement_component.input_update(self)
+		
 	# check outside or inside safe zone
 	if safe_zone_active:
 		if !is_inside_safe_zone():
@@ -353,7 +356,6 @@ func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 	
 	if Input.is_action_just_pressed("use_ability") and is_ability_ready() and !ability_on:
-		print("meow")
 		ability_on = true
 		used_ability.emit()
 		ability_start_particles.emitting = true
@@ -361,7 +363,7 @@ func _input(_event: InputEvent) -> void:
 		ability_use_sound.play()
 		reload_action()
 		push_back()
-	
+		
 	if Input.is_action_just_pressed("interact") and interaction_target != null:
 		print("interact with " + interaction_target.name)
 		interaction_target.use(self)

@@ -10,7 +10,9 @@ var deceleration: float = 10
 
 var dash_timer: Timer = Timer.new()
 var dash_modifier: float = 1
+@export
 var dash_strength: float = 10
+@export
 var dash_cooldown: float = 0.5
 
 var run_modifier: float = 1
@@ -21,6 +23,7 @@ func _ready() -> void:
 	add_child(dash_timer)
 	dash_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	dash_timer.one_shot = true
+	dash_timer.autostart = false
 	
 ## called every frame in physics process
 ## implements top down WASD movement
@@ -48,10 +51,6 @@ func physics_update(unit: RigidBody2D, delta: float) -> bool:
 		if current_vel.x < max_speed:
 			input_dir += Vector2.RIGHT
 	input_dir = input_dir.normalized()
-	
-	#if Input.is_action_just_pressed("dash"):
-		#if dash_timer.is_stopped():
-			#dash_modifier = dash_strength
 		
 	if Input.is_action_pressed("run"):
 		run_modifier = run_strength
@@ -61,3 +60,12 @@ func physics_update(unit: RigidBody2D, delta: float) -> bool:
 	return input_dir != Vector2.ZERO
 	
 	#print(unit.linear_velocity)
+
+func input_update(unit: RigidBody2D) -> void:
+	if Input.is_action_just_pressed("dash"):
+		if dash_timer.is_stopped():
+			# apply dash
+			unit.apply_central_impulse(unit.linear_velocity.normalized() * dash_strength)
+			dash_timer.start(dash_cooldown)
+		else:
+			print("Dash on cooldown")

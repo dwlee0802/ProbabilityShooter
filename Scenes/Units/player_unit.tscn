@@ -381,6 +381,7 @@ push_back_strength = 1500.0
 script = ExtResource("9_0efpd")
 max_speed = 12000.0
 acceleration = 12000.0
+dash_strength = 5000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_nippd")
