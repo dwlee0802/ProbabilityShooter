@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=18 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/enemy_spawner_component.gd" id="2_quhko"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
-[ext_resource type="PackedScene" uid="uid://c8n27xgy1nggv" path="res://Scenes/Maps/donut_room.tscn" id="5_bfjsl"]
 [ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
 [ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
@@ -57,8 +56,6 @@ self_modulate = Color(0.201527, 0.201527, 0.201527, 1)
 scale = Vector2(10, 10)
 texture = ExtResource("8_tcb7a")
 
-[node name="DonutRoom" parent="." instance=ExtResource("5_bfjsl")]
-
 [node name="BloodSplatter" type="Node2D" parent="."]
 
 [node name="Casings" type="Node2D" parent="."]
@@ -70,7 +67,6 @@ texture = ExtResource("8_tcb7a")
 [node name="Shootables" type="Node2D" parent="."]
 
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
-position = Vector2(-1812, 1790)
 collision_mask = 1162
 movement_speed = 500.0
 starting_equipments = [ExtResource("10_gp80q")]
