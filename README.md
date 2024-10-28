@@ -11,8 +11,9 @@ Tactically choose how to use the two weapons in each hand. Will you shoot both w
 | Input | Action |
 |-----:|-----------|
 | WASD | Movement |
-| Left Click | Use Left Gun |
-| Right Click | Use Right Gun |
+| Left Click | Use Left Gun / Active Reload |
+| Right Click | Use Right Gun / Active Reload |
+| R | Manual Reload Both Guns |
 | Shift | Run |
 | Space | Dash |
 | Q | Activate Ability |
