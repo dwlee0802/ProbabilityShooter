@@ -1,5 +1,5 @@
 # ProbabilityShooter
-Top-down 2D roguelite action game about tactical shooting with dual wield guns
+Top-down 2D roguelite action game about tactical shooting with dual wield guns made in Godot Engine 4
 
 ## Features
 ### Tactical Target Selection
