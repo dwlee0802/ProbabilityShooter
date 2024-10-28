@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_i7ii5"]
 [ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="2_vc775"]
-[ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://active_reload_bar_texture.tres" id="3_khbge"]
+[ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://Misc/active_reload_bar_texture.tres" id="3_khbge"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hww4v"]
 texture = ExtResource("2_i7ii5")

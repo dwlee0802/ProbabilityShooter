@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://0mudg2kauef5"
-path="res://.godot/imported/Caramel-Regular.woff-c393eee9064d6820674cabab02f2cae5.fontdata"
+path="res://.godot/imported/Caramel-Regular.woff-75dc42393ae54001a5c737adbcf03e94.fontdata"
 
 [deps]
 
-source_file="res://Fonts/Caramel-Regular.woff"
-dest_files=["res://.godot/imported/Caramel-Regular.woff-c393eee9064d6820674cabab02f2cae5.fontdata"]
+source_file="res://Misc/Fonts/Caramel-Regular.woff"
+dest_files=["res://.godot/imported/Caramel-Regular.woff-75dc42393ae54001a5c737adbcf03e94.fontdata"]
 
 [params]
 

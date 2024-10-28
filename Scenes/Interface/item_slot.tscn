@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c165q4palne8m"]
 
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="1_k0c2m"]
-[ext_resource type="ButtonGroup" uid="uid://cqvl378ic0f0o" path="res://inventory_slot_button_group.tres" id="2_oxr73"]
+[ext_resource type="ButtonGroup" uid="uid://cqvl378ic0f0o" path="res://Misc/inventory_slot_button_group.tres" id="2_oxr73"]
 
 [node name="ItemSlot" type="TextureRect"]
 self_modulate = Color(0, 0, 0, 0.372549)

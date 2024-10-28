@@ -14,6 +14,10 @@ config/name="ProbabilityShooter"
 run/main_scene="res://Scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 
+[audio]
+
+buses/default_bus_layout="res://Misc/default_bus_layout.tres"
+
 [debug]
 
 gdscript/warnings/unused_signal=0
@@ -28,7 +32,7 @@ enabled=PackedStringArray()
 
 [gui]
 
-theme/custom_font="res://Fonts/SUSE-Regular.otf"
+theme/custom_font="res://Misc/Fonts/SUSE-Regular.otf"
 
 [input]
 

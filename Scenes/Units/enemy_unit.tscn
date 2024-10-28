@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="6_lfusx"]
 [ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
 [ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
-[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://glow_sprite.tres" id="8_ito6i"]
+[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://Misc/glow_sprite.tres" id="8_ito6i"]
 [ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="13_h80fs"]
 [ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="13_q5bwl"]
 

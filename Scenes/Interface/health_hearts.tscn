@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://doej7gtbi2v0d"]
 
-[ext_resource type="Script" path="res://health_hearts.gd" id="1_xmj37"]
+[ext_resource type="Script" path="res://Scenes/health_hearts.gd" id="1_xmj37"]
 [ext_resource type="PackedScene" uid="uid://nsr4624xbsm6" path="res://Scenes/Interface/health_icon.tscn" id="2_28ig4"]
 
 [node name="HealthHearts" type="HFlowContainer"]

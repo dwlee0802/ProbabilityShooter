@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnrxipa3477gt"]
 
-[ext_resource type="Shader" path="res://blur_screen.gdshader" id="1_lew86"]
+[ext_resource type="Shader" path="res://Misc/blur_screen.gdshader" id="1_lew86"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_k3obu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_11kvt"]

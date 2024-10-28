@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dp7ln0yr2mlma"
-path="res://.godot/imported/Fortzilla-Regular.ttf-d36b0ae489c6e6960f944cccbf0bdd61.fontdata"
+path="res://.godot/imported/Fortzilla-Regular.ttf-f5a745a817eb2d3d62424e932647e7b9.fontdata"
 
 [deps]
 
-source_file="res://Fonts/Fortzilla-Regular.ttf"
-dest_files=["res://.godot/imported/Fortzilla-Regular.ttf-d36b0ae489c6e6960f944cccbf0bdd61.fontdata"]
+source_file="res://Misc/Fonts/Fortzilla-Regular.ttf"
+dest_files=["res://.godot/imported/Fortzilla-Regular.ttf-f5a745a817eb2d3d62424e932647e7b9.fontdata"]
 
 [params]
 

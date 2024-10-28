@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dakhnq1my15ye"
-path="res://.godot/imported/SUSE-Regular.otf-bd9fdb26023ac118ad393d4c1636f475.fontdata"
+path="res://.godot/imported/SUSE-Regular.otf-1a1c2b585542502029f0af891f79448c.fontdata"
 
 [deps]
 
-source_file="res://Fonts/SUSE-Regular.otf"
-dest_files=["res://.godot/imported/SUSE-Regular.otf-bd9fdb26023ac118ad393d4c1636f475.fontdata"]
+source_file="res://Misc/Fonts/SUSE-Regular.otf"
+dest_files=["res://.godot/imported/SUSE-Regular.otf-1a1c2b585542502029f0af891f79448c.fontdata"]
 
 [params]
 

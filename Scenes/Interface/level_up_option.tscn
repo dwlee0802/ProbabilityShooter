@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" path="res://Scenes/Units/shine.gdshader" id="1_00x1t"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="2_5m1vu"]
-[ext_resource type="ButtonGroup" uid="uid://d0pc1soh58lbl" path="res://level_up_option_group.tres" id="2_eqwlo"]
+[ext_resource type="ButtonGroup" uid="uid://d0pc1soh58lbl" path="res://Misc/level_up_option_group.tres" id="2_eqwlo"]
 [ext_resource type="Script" path="res://Scenes/Interface/upgrade_option.gd" id="3_eyp06"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dbfn8"]
