@@ -1,6 +1,8 @@
 # ProbabilityShooter
 Top-down 2D roguelite action game about tactical shooting with dual wield guns made in Godot Engine 4
 
+![Alt text](Preview.gif?raw=true "Preview GIF")
+
 ## Features
 ### Tactical Target Selection
 Use your bullets to their max efficiency by carefully choose your target. Consider aspects such as target HP, bullet DMG, target location, special bullet effects, and more to maximize your combat efficiency.  
