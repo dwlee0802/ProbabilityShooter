@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dug2x3gsvoq70"]
+[gd_scene load_steps=11 format=3 uid="uid://dug2x3gsvoq70"]
 
 [ext_resource type="AudioStream" uid="uid://cfudo147ovl3r" path="res://Sound/086230_headshotwav-40654.mp3" id="1_vc63b"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_gkkfj"]
 
 [sub_resource type="Gradient" id="Gradient_hpko3"]
-colors = PackedColorArray(0.854902, 0, 0, 1, 1, 1, 0, 0)
+colors = PackedColorArray(0.854902, 0, 0, 1, 1, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_lpay3"]
 gradient = SubResource("Gradient_hpko3")
@@ -13,6 +14,7 @@ fill_to = Vector2(0.0776699, 0.898058)
 
 [sub_resource type="Animation" id="Animation_1l130"]
 resource_name = "death_particle_animation"
+length = 8.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -44,20 +46,60 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(8),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"queue_free"
 }]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2alj5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kqp7c"]
 _data = {
+"RESET": SubResource("Animation_2alj5"),
 "death_particle_animation": SubResource("Animation_1l130")
 }
 
+[sub_resource type="Curve" id="Curve_s065t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.550562, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_i3fc0"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.266667)
+
+[sub_resource type="Gradient" id="Gradient_btg06"]
+offsets = PackedFloat32Array(0, 0.693333)
+colors = PackedColorArray(0.187176, 0.187176, 0.187176, 1, 1, 1, 1, 1)
+
 [node name="Node2D" type="CPUParticles2D"]
+self_modulate = Color(1, 1, 1, 0)
 emitting = false
 one_shot = true
 speed_scale = 4.0
@@ -83,3 +125,32 @@ volume_db = 10.0
 autoplay = true
 max_distance = 10000.0
 max_polyphony = 5
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -50)
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+speed_scale = 1.25
+explosiveness = 0.9
+randomness = 0.1
+lifetime_randomness = 0.1
+texture = ExtResource("2_gkkfj")
+direction = Vector2(0, -1)
+spread = 5.0
+gravity = Vector2(0, 4000)
+initial_velocity_min = 1800.0
+initial_velocity_max = 3000.0
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+tangential_accel_min = -500.0
+tangential_accel_max = 500.0
+damping_min = 1.0
+damping_max = 1.0
+scale_amount_min = 0.08
+scale_amount_max = 0.12
+scale_amount_curve = SubResource("Curve_s065t")
+color = Color(0.926299, 2.5028e-06, 1.54018e-06, 1)
+color_ramp = SubResource("Gradient_i3fc0")
+color_initial_ramp = SubResource("Gradient_btg06")

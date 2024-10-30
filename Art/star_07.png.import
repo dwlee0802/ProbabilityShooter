@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg8gpc4wxh1ns"
-path="res://.godot/imported/snuffles.png-3eeed0bea094b63cbdbfab10357f8885.ctex"
+uid="uid://by3lub4jnmgh0"
+path="res://.godot/imported/star_07.png-3238f3f01836d67567924abb645ad5cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/snuffles.png"
-dest_files=["res://.godot/imported/snuffles.png-3eeed0bea094b63cbdbfab10357f8885.ctex"]
+source_file="res://Art/star_07.png"
+dest_files=["res://.godot/imported/star_07.png-3238f3f01836d67567924abb645ad5cc.ctex"]
 
 [params]
 

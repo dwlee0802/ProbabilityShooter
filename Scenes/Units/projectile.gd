@@ -100,6 +100,9 @@ func _on_body_entered(body) -> void:
 			new_eff.global_position = global_position
 			new_eff.rotation = dir.angle()
 			new_eff.get_node("CPUParticles2D").emitting = true
+			if body.determine_critical_hit(dir, global_position):
+				new_eff.critical()
+				
 			get_tree().root.add_child(new_eff)
 			
 			var new_exit_eff: Node2D = exit_effect.instantiate()
