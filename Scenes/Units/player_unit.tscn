@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=59 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -356,8 +356,15 @@ point_count = 1
 
 [sub_resource type="Curve" id="Curve_ndng4"]
 max_value = 2.0
-_data = [Vector2(0.662921, 2), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.662921, 2), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_p5sa2"]
+offsets = PackedFloat32Array(0, 0.533333, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_8r4ee"]
+colors = PackedColorArray(0.674815, 0.674815, 0.674814, 1, 0.442911, 0.442911, 0.442911, 1)
 
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_v6k2i")
@@ -901,6 +908,32 @@ split_scale = true
 scale_curve_x = SubResource("Curve_o2kwe")
 scale_curve_y = SubResource("Curve_ndng4")
 color = Color(1, 0.341176, 0, 0.588235)
+
+[node name="DashParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.6
+randomness = 0.1
+lifetime_randomness = 0.1
+texture = ExtResource("21_y6ius")
+emission_shape = 1
+emission_sphere_radius = 100.0
+particle_flag_align_y = true
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2000.0
+initial_velocity_max = 2000.0
+linear_accel_min = 1.0
+linear_accel_max = 1.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+split_scale = true
+scale_curve_x = SubResource("Curve_o2kwe")
+scale_curve_y = SubResource("Curve_ndng4")
+color = Color(1, 1, 1, 0.568627)
+color_ramp = SubResource("Gradient_p5sa2")
+color_initial_ramp = SubResource("Gradient_8r4ee")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_changed"]

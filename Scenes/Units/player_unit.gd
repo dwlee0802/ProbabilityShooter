@@ -190,6 +190,8 @@ var safe_zone_time_limit: float = 1
 var movement_component: WASDMovementComponent = $MovementComponent
 @onready
 var dash_progress_bar: RadialProgress = $DashCooldown/RadialProgress
+@onready
+var dash_effect: CPUParticles2D = $DashParticles
 
 @export_category("Debugging")
 @export
@@ -344,6 +346,8 @@ func _physics_process(delta: float) -> void:
 	if !movement_component.dash_timer.is_stopped():
 		if !dash_progress_bar.visible:
 			dash_progress_bar.visible = true
+			dash_effect.emitting = true
+			dash_effect.direction = -linear_velocity.normalized()
 		dash_progress_bar.progress = (1 - movement_component.dash_timer.time_left / movement_component.dash_cooldown) * 100
 	else:
 		if dash_progress_bar.visible:
