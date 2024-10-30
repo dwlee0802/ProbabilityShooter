@@ -347,7 +347,7 @@ func _physics_process(delta: float) -> void:
 		dash_progress_bar.progress = (1 - movement_component.dash_timer.time_left / movement_component.dash_cooldown) * 100
 	else:
 		if dash_progress_bar.visible:
-			dash_progress_bar.visible = true
+			dash_progress_bar.visible = false
 		
 	# check outside or inside safe zone
 	if safe_zone_active:
