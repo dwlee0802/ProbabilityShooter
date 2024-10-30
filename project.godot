@@ -28,7 +28,7 @@ mouse_cursor/custom_image="res://Art/empty_circle.png"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/radial_progress/plugin.cfg")
 
 [gui]
 

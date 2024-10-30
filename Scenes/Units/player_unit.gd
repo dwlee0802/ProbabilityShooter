@@ -188,6 +188,8 @@ var safe_zone_time_limit: float = 1
 ## WASD Movement Component Node
 @onready
 var movement_component: WASDMovementComponent = $MovementComponent
+@onready
+var dash_progress_bar: RadialProgress = $DashCooldown/RadialProgress
 
 @export_category("Debugging")
 @export
@@ -339,6 +341,13 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("dash"):
 		movement_component.input_update(self)
+	if !movement_component.dash_timer.is_stopped():
+		if !dash_progress_bar.visible:
+			dash_progress_bar.visible = true
+		dash_progress_bar.progress = (1 - movement_component.dash_timer.time_left / movement_component.dash_cooldown) * 100
+	else:
+		if dash_progress_bar.visible:
+			dash_progress_bar.visible = true
 		
 	# check outside or inside safe zone
 	if safe_zone_active:

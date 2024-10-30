@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=57 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/Units/player_weapon.gd" id="3_d8l28"]
 [ext_resource type="Script" path="res://Scenes/Units/trait_bullet_generator_component.gd" id="3_nippd"]
 [ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="4_61t70"]
+[ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="4_asvwh"]
 [ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="4_s5eeb"]
 [ext_resource type="Script" path="res://Scripts/wasd_movement_component.gd" id="9_0efpd"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
@@ -385,6 +386,38 @@ dash_strength = 5000.0
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_nippd")
+
+[node name="DashCooldown" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 121.0
+offset_top = -138.0
+offset_right = 161.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RadialProgress" type="Control" parent="DashCooldown"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -20.0
+offset_right = 4.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_asvwh")
+radius = 32.0
+bg_color = Color(0.303233, 0.303233, 0.303233, 1)
+bar_color = Color(1, 1, 1, 1)
 
 [node name="DropShadow" type="Sprite2D" parent="."]
 position = Vector2(1.90735e-06, 99)
