@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgfso00awxt3v"]
+[gd_scene load_steps=14 format=3 uid="uid://bgfso00awxt3v"]
 
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_6c752"]
 [ext_resource type="Script" path="res://Scenes/projectile_hit_effect.gd" id="1_x8k3j"]
@@ -14,9 +14,6 @@ point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_xwwhj"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="Gradient" id="Gradient_gjac6"]
-colors = PackedColorArray(1, 0, 0, 1, 1, 1, 1, 1)
 
 [sub_resource type="Gradient" id="Gradient_7gt3g"]
 offsets = PackedFloat32Array(0.175325, 0.441558, 0.603896)
@@ -287,6 +284,7 @@ emitting = false
 amount = 5
 lifetime = 0.5
 one_shot = true
+speed_scale = 1.5
 explosiveness = 1.0
 randomness = 0.2
 texture = ExtResource("1_6c752")
@@ -301,9 +299,7 @@ scale_amount_max = 0.1
 split_scale = true
 scale_curve_x = SubResource("Curve_sxct0")
 scale_curve_y = null
-color = Color(1, 0.733333, 0, 0.521569)
 color_ramp = SubResource("Gradient_xwwhj")
-color_initial_ramp = SubResource("Gradient_gjac6")
 
 [node name="Ring" type="Sprite2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.12549)

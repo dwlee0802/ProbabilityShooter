@@ -28,6 +28,8 @@ var health_tween: Tween = null
 var tweened_health_points: float = 100
 var health_hearts: HealthHearts
 
+var last_hit_is_crit: bool = false
+
 var shield: bool = false
 @onready
 var shield_sound: AudioStreamPlayer = $ShieldHitSound
@@ -206,7 +208,8 @@ func _process(_delta: float) -> void:
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO, bullet_data: Bullet = null) -> int:
 	var new_popup = damage_popup.instantiate()
-
+	last_hit_is_crit = critical
+	
 	if shield:
 		break_shield()
 		return 0
@@ -279,6 +282,10 @@ func die():
 	
 	var new_effect: CPUParticles2D = death_effect.instantiate()
 	new_effect.global_position = global_position
+	if !last_hit_is_crit:
+		new_effect.get_node("CPUParticles2D").amount = 5
+		new_effect.get_node("CPUParticles2D").initial_velocity_max -= 1000
+		
 	get_tree().root.add_child(new_effect)
 	
 	var new_exp_orb: Node2D = exp_orb.instantiate()
