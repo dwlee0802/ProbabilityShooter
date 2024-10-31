@@ -29,7 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://btjekmjy6loyo" path="res://Sound/power-down-7103.mp3" id="24_xisgy"]
 [ext_resource type="AudioStream" uid="uid://bpx35j7exlob" path="res://Sound/exp_gained_ding.mp3" id="26_mol5q"]
 [ext_resource type="PackedScene" uid="uid://vot0pio4jgj" path="res://Scenes/Interface/crystal_icon.tscn" id="28_e45av"]
-[ext_resource type="AudioStream" uid="uid://c26i1vomvlsk6" path="res://Sound/fast-whoosh-118248.mp3" id="30_ddhi0"]
+[ext_resource type="AudioStream" uid="uid://c26i1vomvlsk6" path="res://Sound/dash.mp3" id="30_ddhi0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 

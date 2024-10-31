@@ -217,6 +217,7 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 	if critical:
 		damage_amount *= 2
 		new_popup.modulate = Color.YELLOW
+		new_popup.critical()
 		crit_sound_player.play()
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 15, 2)

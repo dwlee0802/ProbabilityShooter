@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://crdsefxoqnf0w"]
+
+[node name="DamagePopup" type="Node2D"]
