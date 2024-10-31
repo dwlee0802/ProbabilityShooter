@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=56 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -497,6 +497,12 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.963303, 0.963303)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hw11b"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yighv"]
+bg_color = Color(1, 1, 1, 1)
+
 [node name="UserInterface" type="CanvasLayer"]
 script = ExtResource("1_vjhkg")
 
@@ -956,6 +962,7 @@ layout_mode = 2
 text = "Bullet info 1"
 
 [node name="EnemyCountLabel" type="Label" parent="."]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -972,8 +979,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
+visible = false
 
 [node name="BulletGenerationInfoMenu" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -1006,13 +1015,14 @@ text = "?????"
 horizontal_alignment = 2
 
 [node name="EnemySpawnInfo" type="PanelContainer" parent="."]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -188.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = 67.0
+offset_left = -169.0
+offset_top = 374.0
+offset_right = -1.0
+offset_bottom = 421.0
 grow_horizontal = 0
 size_flags_vertical = 8
 mouse_filter = 2
@@ -1056,6 +1066,7 @@ script = ExtResource("8_ghxnf")
 option_wait_time = 1.0
 
 [node name="MutationTimeLabel" type="Label" parent="MutationRoulette"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1292,6 +1303,7 @@ text = "CLICK TO SELECT WEAPON TO ENCHANT"
 horizontal_alignment = 1
 
 [node name="InventorySlots" type="HBoxContainer" parent="HUD/VBoxContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 12
@@ -1299,19 +1311,15 @@ alignment = 1
 
 [node name="ItemSlot" parent="HUD/VBoxContainer/InventorySlots" instance=ExtResource("13_a1l6i")]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="ItemSlot2" parent="HUD/VBoxContainer/InventorySlots" instance=ExtResource("13_a1l6i")]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="ItemSlot3" parent="HUD/VBoxContainer/InventorySlots" instance=ExtResource("13_a1l6i")]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="ItemSlot4" parent="HUD/VBoxContainer/InventorySlots" instance=ExtResource("13_a1l6i")]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/VBoxContainer"]
 layout_mode = 2
@@ -1518,5 +1526,52 @@ text = "Bullet info 1"
 [node name="Label6" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
+
+[node name="ScoreInfo" type="Control" parent="."]
+custom_minimum_size = Vector2(240, 65)
+layout_mode = 3
+anchor_left = 1.0
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.1
+offset_bottom = 65.0
+grow_horizontal = 0
+
+[node name="ScoreLabel" type="Label" parent="ScoreInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 39.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 25
+text = "SCORE: 0"
+vertical_alignment = 1
+
+[node name="MultiplierLabel" type="Label" parent="ScoreInfo"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "BONUS 0%"
+vertical_alignment = 1
+
+[node name="MultiplierDecay" type="ProgressBar" parent="ScoreInfo/MultiplierLabel"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_right = 200.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_hw11b")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yighv")
+value = 67.0
+show_percentage = false
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

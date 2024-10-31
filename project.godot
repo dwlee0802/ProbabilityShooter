@@ -11,8 +11,10 @@ config_version=5
 [application]
 
 config/name="ProbabilityShooter"
+config/version="0.1"
 run/main_scene="res://Scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
+config/icon="res://ProbabilityShooterIcon.png"
 
 [audio]
 
