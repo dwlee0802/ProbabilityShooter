@@ -192,6 +192,8 @@ var movement_component: WASDMovementComponent = $MovementComponent
 var dash_progress_bar: RadialProgress = $DashCooldown/RadialProgress
 @onready
 var dash_effect: CPUParticles2D = $DashParticles
+@onready
+var dash_sound: AudioStreamPlayer = $SoundEffects/DashSound
 
 @export_category("Debugging")
 @export
@@ -290,6 +292,8 @@ func _ready() -> void:
 	
 	weapon_one.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
 	weapon_two.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
+	
+	movement_component.dashed.connect(dash_sound.play)
 	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)

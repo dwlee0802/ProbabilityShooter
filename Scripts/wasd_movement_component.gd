@@ -18,6 +18,8 @@ var dash_cooldown: float = 0.5
 var run_modifier: float = 1
 var run_strength: float = 2
 
+signal dashed
+
 
 func _ready() -> void:
 	add_child(dash_timer)
@@ -67,5 +69,6 @@ func input_update(unit: RigidBody2D) -> void:
 			# apply dash
 			unit.apply_central_impulse(unit.linear_velocity.normalized() * dash_strength)
 			dash_timer.start(dash_cooldown)
+			dashed.emit()
 		else:
 			print("Dash on cooldown")
