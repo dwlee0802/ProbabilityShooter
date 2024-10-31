@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjl0at5jqf1so"]
+[gd_scene load_steps=4 format=3 uid="uid://cjl0at5jqf1so"]
 
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="1_jhens"]
+
+[sub_resource type="Curve" id="Curve_tp8jc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.466292, 1), 0.0, 0.0, 0, 0, Vector2(0.91573, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Gradient" id="Gradient_66nej"]
 offsets = PackedFloat32Array(0, 0.553333)
@@ -8,16 +12,19 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="SmokeParticle" type="CPUParticles2D"]
 emitting = false
+amount = 16
 one_shot = true
 explosiveness = 0.9
+lifetime_randomness = 0.1
 texture = ExtResource("1_jhens")
-spread = 60.0
-gravity = Vector2(0, -900)
+spread = 40.0
+gravity = Vector2(0, -1200)
 initial_velocity_min = 800.0
 initial_velocity_max = 1200.0
 damping_min = 1000.0
 damping_max = 1000.0
 scale_amount_min = 0.1
 scale_amount_max = 0.4
+scale_amount_curve = SubResource("Curve_tp8jc")
 color = Color(0.385493, 0.385492, 0.385492, 0.411765)
 color_ramp = SubResource("Gradient_66nej")
