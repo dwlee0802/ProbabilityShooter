@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=19 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
+[ext_resource type="Script" path="res://Scenes/score_component.gd" id="18_ro7nv"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -188,3 +189,7 @@ volume_db = -5.0
 [node name="StatisticsComponent" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("15_ophms")
+
+[node name="ScoreComponent" type="Node" parent="."]
+script = ExtResource("18_ro7nv")
+multiplier_decay_time = 4.0

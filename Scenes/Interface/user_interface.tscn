@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=57 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="11_anutk"]
 [ext_resource type="Shader" path="res://Scenes/Interface/speed_lines.gdshader" id="12_pt44d"]
 [ext_resource type="PackedScene" uid="uid://c165q4palne8m" path="res://Scenes/Interface/item_slot.tscn" id="13_a1l6i"]
+[ext_resource type="Script" path="res://Scenes/Interface/score_info.gd" id="14_04ef1"]
 
 [sub_resource type="Animation" id="Animation_a84oq"]
 length = 0.001
@@ -1528,14 +1529,15 @@ layout_mode = 2
 text = "Bullet info 1"
 
 [node name="ScoreInfo" type="Control" parent="."]
-custom_minimum_size = Vector2(240, 65)
+custom_minimum_size = Vector2(200, 65)
 layout_mode = 3
-anchor_left = 1.0
+anchor_left = 0.9
 anchor_top = 0.1
-anchor_right = 1.0
+anchor_right = 0.95
 anchor_bottom = 0.1
 offset_bottom = 65.0
 grow_horizontal = 0
+script = ExtResource("14_04ef1")
 
 [node name="ScoreLabel" type="Label" parent="ScoreInfo"]
 layout_mode = 1

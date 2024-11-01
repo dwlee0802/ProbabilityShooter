@@ -83,6 +83,9 @@ var upgrade_timer: Timer = $UpgradeTimer
 @export
 var upgrade_select_time_limit: float = 15.0
 
+@onready
+var score_component: ScoreComponent = $ScoreComponent
+
 ## shootable objects
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
 var projectile_scene: PackedScene = preload("res://Scenes/Units/projectile.tscn")
@@ -108,6 +111,8 @@ func _ready():
 	set_safezone_sprite(safe_zone_radius)
 	
 	player_unit = $PlayerUnit
+	
+	user_interface.score_info_ui.set_score_component($ScoreComponent)
 	
 	user_interface.player_health_hearts.set_hearts_count(int(player_unit.health_points), Vector2(32,32))
 	bind_selected_unit_signals()
@@ -281,15 +286,16 @@ func _process(_delta):
 	user_interface.charge_bar_shade.visible = player_unit.is_ability_ready()
 	user_interface.ability_screen_effect.visible = player_unit.ability_on
 		
-func enemy_killed()-> void:
+func enemy_killed() -> void:
 	stats_component.kill_count += 1
 	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
 	user_interface.kill_count_animation.play("killcount_up")
 	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
 	#player_unit.add_experience(100)
-	
+
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
+	newEnemy.score_component = score_component
 	
 	enemies.add_child(newEnemy)
 	#if InputManager.selected_unit != null:
@@ -372,6 +378,8 @@ func start() -> void:
 	
 	user_interface.visible = true
 	game_over_screen.visible = false
+	
+	score_component.reset()
 	
 	# remove leftover resources
 	remove_objects()
