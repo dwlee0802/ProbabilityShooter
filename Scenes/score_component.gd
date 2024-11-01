@@ -8,24 +8,29 @@ var kill_score_amount: int = 100
 
 @export_category("Multiplier")
 @export
-var multiplier_level: int = 0
+var multiplier_bonus: float = 0
 @export
-var multiplier_per_level: float = 0.25
+var bonus_per_kill: float = 20
 @export
 var multiplier_decay_time: float = 1
 var decay_timer: Timer
 
 signal score_changed
-signal multiplier_changed
 
 
 func _ready() -> void:
 	decay_timer = Timer.new()
 	add_child(decay_timer)
-	decay_timer.autostart = false
+	decay_timer.autostart = true
 	decay_timer.one_shot = false
 	decay_timer.timeout.connect(on_decay_timeout)
-	
+
+func _process(delta: float) -> void:
+	if multiplier_bonus > 0:
+		multiplier_bonus -= delta
+	else:
+		multiplier_bonus = 0
+		
 # add score and return added amount
 func on_kill() -> int:
 	# add score
@@ -34,8 +39,7 @@ func on_kill() -> int:
 	score_changed.emit()
 	
 	# increase multiplier
-	multiplier_level += 1
-	multiplier_changed.emit()
+	multiplier_bonus += bonus_per_kill
 	
 	# reset multiplier decay timer
 	reset_decay()
@@ -43,20 +47,13 @@ func on_kill() -> int:
 	return amount
 
 func get_multiplier_bonus() -> float:
-	return multiplier_level * multiplier_per_level
-
-func on_decay_timeout() -> void:
-	multiplier_level = 0
-	multiplier_changed.emit()
-	if multiplier_level == 0:
-		decay_timer.stop()
+	return int(multiplier_bonus) * 0.01
 
 func reset_decay() -> void:
 	decay_timer.stop()
 	decay_timer.start(multiplier_decay_time)
 	
 func reset() -> void:
-	multiplier_level = 0
-	multiplier_changed.emit()
+	multiplier_bonus = 0
 	total_score = 0
 	score_changed.emit()

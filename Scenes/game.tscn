@@ -191,4 +191,8 @@ script = ExtResource("15_ophms")
 
 [node name="ScoreComponent" type="Node" parent="."]
 script = ExtResource("18_ro7nv")
+total_score = null
+kill_score_amount = null
+multiplier_bonus = null
+bonus_per_kill = null
 multiplier_decay_time = 5.0
