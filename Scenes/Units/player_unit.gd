@@ -178,7 +178,7 @@ var crystal_color: Color = Color.AQUAMARINE
 @onready
 var safe_zone_timer: Timer = $SafeZoneTimer
 var safe_zone_center: Vector2 = Vector2.ZERO
-var safe_zone_active: bool = false
+var safe_zone_active: bool = true
 @export
 var safe_zone_radius: float = 3000.0
 var safe_zone_damage: int = 1

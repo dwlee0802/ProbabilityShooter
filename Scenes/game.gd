@@ -187,7 +187,8 @@ func _ready():
 		#new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		#shootables.add_child(new_shootable)
 		
-	place_crystals()
+	#place_crystals()
+	set_safezone_active_status(true)
 		
 	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
 	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
@@ -413,7 +414,7 @@ func start() -> void:
 		#new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
 		#shootables.add_child(new_shootable)
 	
-	place_crystals()
+	#place_crystals()
 	set_safezone_active_status(true)
 	player_unit.safe_zone_active = true
 	
