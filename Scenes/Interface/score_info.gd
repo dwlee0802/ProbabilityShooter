@@ -4,6 +4,9 @@ var _score_component: ScoreComponent
 
 @onready
 var score_label: Label = $ScoreLabel
+var displayed_score: float = 0
+var displayed_score_increase: float = 500
+
 @onready
 var multiplier_label: Label = $MultiplierLabel
 @onready
@@ -25,3 +28,11 @@ func _process(_delta: float) -> void:
 		multiplier_decay_bar.value = (_score_component.decay_timer.time_left / _score_component.decay_timer.wait_time) * 100.0
 	else:
 		multiplier_decay_bar.value = 0
+	
+	if _score_component.total_score > displayed_score:
+		displayed_score += displayed_score_increase * _delta
+	else:
+		displayed_score = _score_component.total_score
+		
+	score_label.text = "SCORE: " + str(int(displayed_score))
+	
