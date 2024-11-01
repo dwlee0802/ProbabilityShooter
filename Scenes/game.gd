@@ -390,8 +390,8 @@ func start() -> void:
 	spawner_component.on_spawn_timer_timeout()
 	
 	# start mutation
-	mutation_timer.start(mutation_cooldown)
-	user_interface.mutation_roulette.mutation_time_label.visible = true
+	#mutation_timer.start(mutation_cooldown)
+	#user_interface.mutation_roulette.mutation_time_label.visible = true
 
 	# reset unit stats
 	player_unit.reset_health()
@@ -408,10 +408,10 @@ func start() -> void:
 	spawner_component.reset_stats()
 
 	# randomly place dynamite on the map
-	for i in range(5):
-		var new_shootable: Shootable = dynamite_shootable.instantiate()
-		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
-		shootables.add_child(new_shootable)
+	#for i in range(5):
+		#var new_shootable: Shootable = dynamite_shootable.instantiate()
+		#new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
+		#shootables.add_child(new_shootable)
 	
 	place_crystals()
 	set_safezone_active_status(false)

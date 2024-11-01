@@ -1537,6 +1537,7 @@ anchor_right = 0.95
 anchor_bottom = 0.1
 offset_bottom = 65.0
 grow_horizontal = 0
+mouse_filter = 2
 script = ExtResource("14_04ef1")
 
 [node name="ScoreLabel" type="Label" parent="ScoreInfo"]
