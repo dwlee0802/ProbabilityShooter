@@ -38,8 +38,7 @@ func on_kill() -> int:
 	multiplier_changed.emit()
 	
 	# reset multiplier decay timer
-	decay_timer.stop()
-	decay_timer.start(multiplier_decay_time)
+	reset_decay()
 	
 	return amount
 
@@ -47,11 +46,15 @@ func get_multiplier_bonus() -> float:
 	return multiplier_level * multiplier_per_level
 
 func on_decay_timeout() -> void:
-	multiplier_level -= 1
+	multiplier_level = 0
 	multiplier_changed.emit()
 	if multiplier_level == 0:
 		decay_timer.stop()
-		
+
+func reset_decay() -> void:
+	decay_timer.stop()
+	decay_timer.start(multiplier_decay_time)
+	
 func reset() -> void:
 	multiplier_level = 0
 	multiplier_changed.emit()

@@ -52,7 +52,6 @@ scale = Vector2(100, 100)
 texture = ExtResource("8_tcb7a")
 
 [node name="Safezone" type="Sprite2D" parent="."]
-visible = false
 self_modulate = Color(0.201527, 0.201527, 0.201527, 1)
 scale = Vector2(10, 10)
 texture = ExtResource("8_tcb7a")
@@ -192,4 +191,4 @@ script = ExtResource("15_ophms")
 
 [node name="ScoreComponent" type="Node" parent="."]
 script = ExtResource("18_ro7nv")
-multiplier_decay_time = 4.0
+multiplier_decay_time = 5.0
