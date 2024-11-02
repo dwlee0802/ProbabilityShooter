@@ -71,4 +71,5 @@ func input_update(unit: RigidBody2D) -> void:
 			dash_timer.start(dash_cooldown)
 			dashed.emit()
 		else:
-			print("Dash on cooldown")
+			pass
+			#print("Dash on cooldown")

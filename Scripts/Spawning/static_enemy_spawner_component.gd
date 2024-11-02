@@ -25,8 +25,8 @@ var next_mutation: Mutation = null
 
 @export_category("Enemy Stats")
 @export
-var _base_health_range: Vector2i = Vector2i(1, 2)
-var health_range: Vector2i
+var _base_avg_health: int = 1
+var avg_health: int
 @export
 var _base_move_speed_range: Vector2i = Vector2i(200, 400)
 var move_speed_range: Vector2i
@@ -65,7 +65,7 @@ func reset_stats() -> void:
 	melee_spawn_count = _base_melee_spawn_count
 	ranged_spawn_count = _base_ranged_spawn_count
 	
-	health_range = _base_health_range
+	avg_health = _base_avg_health
 	move_speed_range = _base_move_speed_range
 	
 	heavy_chance = _base_heavy_chance
@@ -93,14 +93,14 @@ func on_wave_timer_timeout() -> void:
 func apply_mutation(mutation: Mutation) -> void:
 	if mutation == null:
 		return
-	print("Applied Mutation: " + str(mutation))
+	mutation.apply(self)
 	
 func spawn_enemy_unit() -> EnemyUnit:
 	var unit: EnemyUnit = enemy_unit_scene.instantiate()
 	# change stats
 	unit.on_spawn(
 		randi_range(move_speed_range.x, move_speed_range.y),
-		randi_range(health_range.x, health_range.y)
+		max(1, int(randfn(avg_health, 1.4)))
 	)
 	
 	if randf() < heavy_chance:

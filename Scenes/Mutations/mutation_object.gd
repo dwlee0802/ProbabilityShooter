@@ -20,7 +20,7 @@ var disabled: bool = false
 
 @export_category("Stat Changes")
 @export
-var health_range_bonus: Vector2i = Vector2i.ZERO
+var health_avg_bonus: int = 0
 
 @export_category("Trait Probability Changes")
 @export
@@ -36,6 +36,10 @@ var shield_spawn_chance_bonus: float = 0
 @export
 var wave_count_bonus: int = 0
 
+
+func apply(spawner: EnemySpawnerComponent):
+	spawner.avg_health += health_avg_bonus
+	print("Applied Mutation: " + _to_string())
 
 func _to_string() -> String:
 	return mutation_name
