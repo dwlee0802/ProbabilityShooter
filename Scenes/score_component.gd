@@ -50,5 +50,7 @@ func reset_decay() -> void:
 	
 func reset() -> void:
 	multiplier_bonus = 0
+	score_tween.kill()
+	score_tween = null
 	total_score = 0
-	score_changed.emit()
+	score_changed.emit(true)

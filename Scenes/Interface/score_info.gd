@@ -18,7 +18,11 @@ func set_score_component(component: ScoreComponent):
 	_score_component = component
 	_score_component.score_changed.connect(on_score_changed)
 	
-func on_score_changed():
+func on_score_changed(immediate: bool = false):
+	if immediate:
+		score_label.text = "SCORE: " + str(_score_component.total_score)
+		return
+		
 	if score_tween:
 		score_tween.kill()
 		score_tween = null
@@ -37,6 +41,10 @@ func _process(_delta: float) -> void:
 	if tw != null and tw.is_valid():
 		multiplier_label.text = "BONUS: " + str(int(_score_component.get_multiplier_bonus() * 100)) + "%"
 		multiplier_decay_bar.value = (_score_component.multiplier_decay_time - tw.get_total_elapsed_time())/_score_component.multiplier_decay_time * 100
+	else:
+		multiplier_label.text = "BONUS: 0%"
+		multiplier_decay_bar.value = 0
 		
 	if score_tween != null and score_tween.is_valid():
 		score_label.text = "SCORE: " + str(int(displayed_score))
+		
