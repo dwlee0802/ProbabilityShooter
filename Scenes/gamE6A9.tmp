@@ -191,3 +191,4 @@ script = ExtResource("15_ophms")
 
 [node name="ScoreComponent" type="Node" parent="."]
 script = ExtResource("18_ro7nv")
+multiplier_decay_time = 5.0

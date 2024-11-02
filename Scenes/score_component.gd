@@ -10,26 +10,16 @@ var kill_score_amount: int = 100
 @export
 var multiplier_bonus: float = 0
 @export
-var bonus_per_kill: float = 20
+var bonus_per_kill: float = 50
 @export
-var multiplier_decay_time: float = 1
-var decay_timer: Timer
+var multiplier_decay_time: float = 10
+var score_tween: Tween = null
 
 signal score_changed
 
 
 func _ready() -> void:
-	decay_timer = Timer.new()
-	add_child(decay_timer)
-	decay_timer.autostart = true
-	decay_timer.one_shot = false
-	decay_timer.timeout.connect(on_decay_timeout)
-
-func _process(delta: float) -> void:
-	if multiplier_bonus > 0:
-		multiplier_bonus -= delta
-	else:
-		multiplier_bonus = 0
+	pass
 		
 # add score and return added amount
 func on_kill() -> int:
@@ -50,8 +40,13 @@ func get_multiplier_bonus() -> float:
 	return int(multiplier_bonus) * 0.01
 
 func reset_decay() -> void:
-	decay_timer.stop()
-	decay_timer.start(multiplier_decay_time)
+	if score_tween:
+		score_tween.kill()
+		score_tween = null
+	var new_tween: Tween = create_tween()
+	score_tween = new_tween
+	
+	score_tween.tween_property(self, "multiplier_bonus", 0, multiplier_decay_time)
 	
 func reset() -> void:
 	multiplier_bonus = 0
