@@ -7,7 +7,7 @@ var game_ref: Game
 var enemy_unit_scene: PackedScene = preload("res://Scenes/Units/enemy_unit.tscn")
 var wave_timer: Timer
 @export
-var wave_cooldown: float = 30
+var wave_cooldown: float = 20
 
 @export_category("Wave Stats")
 var wave_count: int = 0
