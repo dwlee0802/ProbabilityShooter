@@ -256,8 +256,8 @@ func _ready() -> void:
 	
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
-	print("equipped " + weapon_one.weapon_data.equipment_name)
-	print("equipped " + weapon_two.weapon_data.equipment_name)
+	#print("equipped " + weapon_one.weapon_data.equipment_name)
+	#print("equipped " + weapon_two.weapon_data.equipment_name)
 	
 	# cone colors
 	aim_cone.color = aim_color

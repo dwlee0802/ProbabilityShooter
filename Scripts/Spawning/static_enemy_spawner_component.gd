@@ -12,12 +12,16 @@ var wave_cooldown: float = 30
 @export_category("Wave Stats")
 var wave_count: int = 0
 @export
-var _base_wave_spawn_count: int = 5
-var wave_spawn_count: int = 5
+var _base_melee_spawn_count: int = 5
+var melee_spawn_count: int = 5
+@export
+var _base_ranged_spawn_count: int = 0
+var ranged_spawn_count: int = 0
 
 @export_category("Mutation Setting")
 @export
 var waves_per_mutation: int = 3
+var next_mutation: Mutation = null
 
 @export_category("Enemy Stats")
 @export
@@ -57,7 +61,9 @@ func _ready() -> void:
 	
 func reset_stats() -> void:
 	wave_count = 0
-	wave_spawn_count = _base_wave_spawn_count
+	
+	melee_spawn_count = _base_melee_spawn_count
+	ranged_spawn_count = _base_ranged_spawn_count
 	
 	health_range = _base_health_range
 	move_speed_range = _base_move_speed_range
@@ -70,14 +76,25 @@ func reset_stats() -> void:
 	stats_changed.emit()
 	
 func on_wave_timer_timeout() -> void:
-	for i in range(wave_spawn_count):
+	for i in range(melee_spawn_count):
 		spawn_enemy_unit()
 	if wave_timer.is_stopped():
 		wave_timer.start(wave_cooldown)
 	wave_count += 1
 	wave_started.emit()
 	print("Spawning wave #" + str(wave_count))
-		
+	
+	if wave_count % waves_per_mutation == 0:
+		# apply mutation
+		apply_mutation(next_mutation)
+		next_mutation = Game.mutation_data.pick_random()
+		print("Next Mutation is: " + str(next_mutation))
+
+func apply_mutation(mutation: Mutation) -> void:
+	if mutation == null:
+		return
+	print("Applied Mutation: " + str(mutation))
+	
 func spawn_enemy_unit() -> EnemyUnit:
 	var unit: EnemyUnit = enemy_unit_scene.instantiate()
 	# change stats

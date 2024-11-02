@@ -5,15 +5,12 @@
 [resource]
 script = ExtResource("1_jr8rl")
 mutation_name = "Higher HP"
-description = "Increase Enemy HP Max Range by 50"
+description = "Increase possible enemy HP by one"
 color = Color(0.999995, 0.50437, 0.48929, 1)
-disabled = true
-health_range_bonus = Vector2i(0, 75)
-speed_range_bonus = Vector2i(0, 0)
+disabled = false
+health_range_bonus = Vector2i(0, 1)
 heavy_spawn_chance_bonus = 0.0
 fast_spawn_chance_bonus = 0.0
 ranged_spawn_chance_bonus = 0.0
 shield_spawn_chance_bonus = 0.0
-spawn_cooltime_multiplier = 0.0
-wave_chance_bonus = 0.0
 wave_count_bonus = 0

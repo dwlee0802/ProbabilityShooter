@@ -64,7 +64,7 @@ func process_input(_event: InputEvent) -> State:
 func save_mouse_position() -> void:
 	parent.attack_direction_queue.push_back(parent.get_local_mouse_position())
 	make_queued_attack_cone(parent.attack_direction_queue.back())
-	print("Attack queued. Current queue count: " + str(parent.attack_direction_queue.size()))
+	#print("Attack queued. Current queue count: " + str(parent.attack_direction_queue.size()))
 	
 func make_queued_attack_cone(dir: Vector2) -> void:
 	var new_attack_cone: Polygon2D = Polygon2D.new()
@@ -78,7 +78,7 @@ func start_attack_process() -> void:
 	if parent.attack_direction_queue.is_empty():
 		return
 	
-	print("start attack process")	
+	#print("start attack process")	
 	
 	# back end
 	aim_timer.stop()
@@ -98,7 +98,7 @@ func on_aim_finished() -> void:
 		var target: Vector2 = parent.attack_direction_queue.pop_front()
 		parent.gunshot_sfx.stream = parent.weapon.data.equipment_use_sound
 		parent.gunshot_sfx.play()
-		print("Attack finished. Current queue count: " + str(parent.attack_direction_queue.size()))
+		#print("Attack finished. Current queue count: " + str(parent.attack_direction_queue.size()))
 		if parent.queued_attack_cones.size() > 0:
 			parent.queued_attack_cones.pop_front().queue_free()
 		parent.attack_full_cone.visible = false
