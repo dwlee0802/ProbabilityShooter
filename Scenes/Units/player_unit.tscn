@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=61 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -366,6 +366,9 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Gradient" id="Gradient_8r4ee"]
 colors = PackedColorArray(0.674815, 0.674815, 0.674814, 1, 0.442911, 0.442911, 0.442911, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8e4cp"]
+radius = 500.0
 
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_v6k2i")
@@ -943,6 +946,14 @@ stream = ExtResource("30_ddhi0")
 volume_db = 3.0
 pitch_scale = 2.0
 
+[node name="PickupArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("CircleShape2D_8e4cp")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_changed"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_changed"]
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
