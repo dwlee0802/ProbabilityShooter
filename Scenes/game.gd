@@ -127,11 +127,11 @@ func _ready():
 		mutation_timer.start(mutation_cooldown)
 	
 	spawner_component.stats_changed.connect(user_interface.update_enemy_spawn_info.bind(spawner_component))
-	user_interface.update_enemy_spawn_info(spawner_component)
+	#user_interface.update_enemy_spawn_info(spawner_component)
 	
 	# spawn first wave
 	spawner_component = $EnemySpawnerComponent
-	spawner_component.on_spawn_timer_timeout()
+	spawner_component.on_wave_timer_timeout()
 	#spawn_wave()
 	
 	game_over_screen.restart_button.pressed.connect(start)

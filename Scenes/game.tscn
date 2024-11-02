@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
-[ext_resource type="Script" path="res://Scenes/enemy_spawner_component.gd" id="2_quhko"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
+[ext_resource type="Script" path="res://Scripts/Spawning/static_enemy_spawner_component.gd" id="3_2unjj"]
 [ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
 [ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
@@ -32,14 +32,8 @@ upgrade_select_time_limit = 30.0
 script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
-script = ExtResource("2_quhko")
-_base_wave_chance = 0.05
-_base_health_range = Vector2i(1, 6)
-_base_move_speed_range = Vector2i(200, 500)
-_base_heavy_chance = 0.0
-_base_fast_chance = 0.0
-_base_ranged_chance = 0.0
-_base_shield_chance = 0.0
+script = ExtResource("3_2unjj")
+wave_cooldown = 20.0
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true

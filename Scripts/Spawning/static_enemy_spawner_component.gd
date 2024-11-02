@@ -1,65 +1,63 @@
 extends Node
+class_name EnemySpawnerComponent
 
 ## Component to take care of spawning enemies
 
 var game_ref: Game
 var enemy_unit_scene: PackedScene = preload("res://Scenes/Units/enemy_unit.tscn")
-var spawn_timer: Timer
+var wave_timer: Timer
+@export
+var wave_cooldown: float = 30
 
 @export_category("Wave Stats")
+var wave_count: int = 0
 @export
-var _base_spawn_cooldown: float = 2.0
-var spawn_cooldown: float = 2.0
+var _base_wave_spawn_count: int = 5
+var wave_spawn_count: int = 5
+
+@export_category("Mutation Setting")
 @export
-var _base_wave_count: int = 3
-var wave_count: int = 3
-@export
-var _base_wave_chance: float = 0.1
-var wave_chance: float = 0.1
+var waves_per_mutation: int = 3
 
 @export_category("Enemy Stats")
 @export
-var _base_health_range: Vector2i = Vector2i(1, 4)
+var _base_health_range: Vector2i = Vector2i(1, 2)
 var health_range: Vector2i
 @export
-var _base_move_speed_range: Vector2i = Vector2i(300, 500)
+var _base_move_speed_range: Vector2i = Vector2i(200, 400)
 var move_speed_range: Vector2i
 
 @export_category("Trait Chances")
 @export
-var _base_heavy_chance: float = 0.01
+var _base_heavy_chance: float = 0
 var heavy_chance: float
 @export
-var _base_fast_chance: float = 0.01
+var _base_fast_chance: float = 0
 var fast_chance: float
 @export
-var _base_ranged_chance: float = 0.01
+var _base_ranged_chance: float = 0
 var ranged_chance: float
 @export
-var _base_shield_chance: float = 0.01
+var _base_shield_chance: float = 0
 var shield_chance: float
 
 signal stats_changed
-
+signal wave_started
 
 func _ready() -> void:
 	reset_stats()
 	game_ref = get_parent()
 	
-	spawn_timer = Timer.new()
-	add_child(spawn_timer)
-	spawn_timer.autostart = false
-	spawn_timer.one_shot = true
-	spawn_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-	spawn_timer.timeout.connect(on_spawn_timer_timeout)
-
-func _process(delta: float) -> void:
-	spawn_cooldown -= delta * 0.001
+	wave_timer = Timer.new()
+	add_child(wave_timer)
+	wave_timer.autostart = false
+	wave_timer.one_shot = false
+	wave_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	wave_timer.timeout.connect(on_wave_timer_timeout)
 	
 func reset_stats() -> void:
-	spawn_cooldown = _base_spawn_cooldown
-	wave_chance = _base_wave_chance
-	wave_count = _base_wave_count
+	wave_count = 0
+	wave_spawn_count = _base_wave_spawn_count
 	
 	health_range = _base_health_range
 	move_speed_range = _base_move_speed_range
@@ -71,6 +69,15 @@ func reset_stats() -> void:
 	
 	stats_changed.emit()
 	
+func on_wave_timer_timeout() -> void:
+	for i in range(wave_spawn_count):
+		spawn_enemy_unit()
+	if wave_timer.is_stopped():
+		wave_timer.start(wave_cooldown)
+	wave_count += 1
+	wave_started.emit()
+	print("Spawning wave #" + str(wave_count))
+		
 func spawn_enemy_unit() -> EnemyUnit:
 	var unit: EnemyUnit = enemy_unit_scene.instantiate()
 	# change stats
@@ -91,12 +98,3 @@ func spawn_enemy_unit() -> EnemyUnit:
 	game_ref.add_enemy(unit)
 	
 	return unit
-
-func on_spawn_timer_timeout() -> void:
-	if randf() < wave_chance:
-		for i in range(wave_count):
-			spawn_enemy_unit()
-	else:
-		spawn_enemy_unit()
-		
-	spawn_timer.start(spawn_cooldown)
