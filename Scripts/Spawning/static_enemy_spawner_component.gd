@@ -12,11 +12,13 @@ var wave_cooldown: float = 20
 @export_category("Wave Stats")
 var wave_count: int = 0
 @export
-var _base_melee_spawn_count: int = 5
-var melee_spawn_count: int = 5
+var max_waves: int = 20
 @export
-var _base_ranged_spawn_count: int = 0
-var ranged_spawn_count: int = 0
+var _base_melee_spawn_count: float = 5
+var melee_spawn_average: float = 5
+@export
+var _base_ranged_spawn_count: float = 0
+var ranged_spawn_average: float = 0
 
 @export_category("Mutation Setting")
 @export
@@ -25,8 +27,8 @@ var next_mutation: Mutation = null
 
 @export_category("Enemy Stats")
 @export
-var _base_avg_health: int = 1
-var avg_health: int
+var _base_avg_health: float = 1
+var avg_health: float
 @export
 var _base_move_speed_range: Vector2i = Vector2i(200, 400)
 var move_speed_range: Vector2i
@@ -47,6 +49,7 @@ var shield_chance: float
 
 signal stats_changed
 signal wave_started
+signal max_wave_reached
 
 func _ready() -> void:
 	reset_stats()
@@ -62,8 +65,8 @@ func _ready() -> void:
 func reset_stats() -> void:
 	wave_count = 0
 	
-	melee_spawn_count = _base_melee_spawn_count
-	ranged_spawn_count = _base_ranged_spawn_count
+	melee_spawn_average = _base_melee_spawn_count
+	ranged_spawn_average = _base_ranged_spawn_count
 	
 	avg_health = _base_avg_health
 	move_speed_range = _base_move_speed_range
@@ -76,19 +79,38 @@ func reset_stats() -> void:
 	stats_changed.emit()
 	
 func on_wave_timer_timeout() -> void:
-	for i in range(melee_spawn_count):
-		spawn_enemy_unit()
+	if wave_count < max_waves:
+		wave_count += 1
+		wave_started.emit()
+		print("Spawning wave #" + str(wave_count))
+	else:
+		print("Max Wave Reached!")
+		wave_timer.stop()
+		max_wave_reached.emit()
+		return
+		
 	if wave_timer.is_stopped():
 		wave_timer.start(wave_cooldown)
-	wave_count += 1
-	wave_started.emit()
-	print("Spawning wave #" + str(wave_count))
+	
+	var melee = []
+	var ranged = []
+	
+	for i in range(int(randfn(melee_spawn_average, 1.2))):
+		melee.append(spawn_enemy_unit())
+	for i in range(int(randfn(ranged_spawn_average, 1.2))):
+		ranged.append(spawn_enemy_unit())
+		ranged.back().apply_ranged()
+	
+	print("melee: " + str(melee))
+	print("ranged: " + str(ranged))
 	
 	if wave_count % waves_per_mutation == 0:
 		# apply mutation
 		apply_mutation(next_mutation)
 		next_mutation = Game.mutation_data.pick_random()
 		print("Next Mutation is: " + str(next_mutation))
+		
+	print("********\n")
 
 func apply_mutation(mutation: Mutation) -> void:
 	if mutation == null:
@@ -115,3 +137,6 @@ func spawn_enemy_unit() -> EnemyUnit:
 	game_ref.add_enemy(unit)
 	
 	return unit
+
+func is_max_waves_reached() -> bool:
+	return max_waves <= wave_count

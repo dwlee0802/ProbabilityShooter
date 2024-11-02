@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource("1_jr8rl")
 mutation_name = "Higher HP"
-description = "Increase possible enemy HP by one"
+description = "Increase average enemy HP by 0.5"
 color = Color(0.999995, 0.50437, 0.48929, 1)
 disabled = false
-health_range_bonus = Vector2i(0, 1)
+health_avg_bonus = 0.5
 heavy_spawn_chance_bonus = 0.0
 fast_spawn_chance_bonus = 0.0
 ranged_spawn_chance_bonus = 0.0

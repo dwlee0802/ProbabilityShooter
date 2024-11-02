@@ -202,6 +202,10 @@ func _process(_delta):
 	
 	user_interface.game_time_label.text = str(DW_ToolBox.TrimDecimalPoints(stats_component.survival_time, 0)) + " s"
 	
+	# check victory
+	if spawner_component.is_max_waves_reached() and is_all_enemies_killed():
+		victory()
+		
 	# update minimap
 	if InputManager.selected_unit:
 		var points: PackedVector2Array = PackedVector2Array()
@@ -297,6 +301,9 @@ func enemy_killed() -> void:
 	user_interface.enemy_count_label.text = "Enemy Count: " + str(enemies.get_child_count())
 	#player_unit.add_experience(100)
 
+func is_all_enemies_killed() -> bool:
+	return enemies.get_child_count() == 0
+	
 func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.game_ref = self
 	newEnemy.score_component = score_component
@@ -340,7 +347,9 @@ func victory() -> void:
 		
 	print("***VICTORY***")
 	
-	user_interface.show_game_over_screen(true)
+	user_interface.visible = false
+	game_over_screen.set_game_over_stats(stats_component)
+	game_over_screen.visible = true
 	
 func remove_objects() -> void:
 	# remove all remaining enemy units

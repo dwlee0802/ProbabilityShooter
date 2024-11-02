@@ -401,3 +401,10 @@ func player_inside_range() -> bool:
 
 func disable_collision() -> void:
 	$CollisionShape2D.disabled = true
+
+func _to_string() -> String:
+	var output: String = ""
+	output = str(int(health_points)) + "/" + str(max_health_points)
+	if attack_range > 0:
+		output += "R"
+	return output

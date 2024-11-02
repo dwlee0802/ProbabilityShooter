@@ -1,16 +1,17 @@
 [gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://b2p00lbnt465x"]
 
-[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_0db3c"]
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_8hevi"]
 
 [resource]
-script = ExtResource("1_0db3c")
-mutation_name = "Bigger Waves"
-description = "Increase the number of enemies spawned per wave by four"
+script = ExtResource("1_8hevi")
+mutation_name = "More Melee"
+description = "Increase the average number of melee enemies spawned by two"
 color = Color(0.0509804, 0.52549, 0.658824, 1)
 disabled = false
-health_range_bonus = Vector2i(0, 0)
+health_avg_bonus = 0.0
 heavy_spawn_chance_bonus = 0.0
 fast_spawn_chance_bonus = 0.0
 ranged_spawn_chance_bonus = 0.0
 shield_spawn_chance_bonus = 0.0
-wave_count_bonus = 4
+melee_avg_bonus = 3.0
+ranged_avg_bonus = 0.0
