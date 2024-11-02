@@ -43,6 +43,8 @@ func shoot_projectile() -> void:
 		
 		new_bullet.apply_scale(Vector2(2,2))
 		new_bullet.get_node("Sprite2D").self_modulate = Color.RED
+		new_bullet.get_node("Line2D").visible = false
+		new_bullet.lifetime_limit = 10
 		
 		# set stats
 		# save origin unit to call back for experience gain

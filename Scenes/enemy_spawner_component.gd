@@ -23,7 +23,7 @@ var wave_chance: float = 0.1
 var _base_health_range: Vector2i = Vector2i(1, 4)
 var health_range: Vector2i
 @export
-var _base_move_speed_range: Vector2i = Vector2i(100, 200)
+var _base_move_speed_range: Vector2i = Vector2i(300, 500)
 var move_speed_range: Vector2i
 
 @export_category("Trait Chances")

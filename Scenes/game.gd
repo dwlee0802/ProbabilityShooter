@@ -182,10 +182,7 @@ func _ready():
 	player_unit.used_ability.connect(slow_time.bind(0.2, 0.1))
 	
 	# randomly place dynamite on the map
-	#for i in range(10):
-		#var new_shootable: Shootable = dynamite_shootable.instantiate()
-		#new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
-		#shootables.add_child(new_shootable)
+	place_shootables()
 		
 	#place_crystals()
 	set_safezone_active_status(true)
@@ -286,7 +283,13 @@ func _process(_delta):
 		on_charge_changed()
 	user_interface.charge_bar_shade.visible = player_unit.is_ability_ready()
 	user_interface.ability_screen_effect.visible = player_unit.ability_on
-		
+
+func place_shootables() -> void:
+	for i in range(10):
+		var new_shootable: Shootable = dynamite_shootable.instantiate()
+		new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
+		shootables.add_child(new_shootable)
+	
 func enemy_killed() -> void:
 	stats_component.kill_count += 1
 	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
