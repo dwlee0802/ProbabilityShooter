@@ -16,6 +16,11 @@ var charge_bar_shade: ColorRect = $HUD/VBoxContainer/VBoxContainer/EnergyBar/Col
 var ability_screen_effect: Control = $SpeedEffect
 
 @onready
+var wave_label: Label = $GameState/WaveLabel
+@onready
+var wave_time_label: Label = $GameState/NextWaveTimeLabel
+
+@onready
 var inventory_slots: Control = $HUD/VBoxContainer/InventorySlots
 var item_slot: PackedScene = preload("res://Scenes/Interface/item_slot.tscn")
 
