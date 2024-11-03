@@ -9,6 +9,8 @@ var experience_label: Label = $HUD/VBoxContainer/VBoxContainer/ExperienceBar/Exp
 @onready
 var charge_bar: DelayedProgressBar = $HUD/VBoxContainer/VBoxContainer/EnergyBar
 @onready
+var ability_full_label: Label = $HUD/VBoxContainer/AbilityFullLabel
+@onready
 var charge_bar_label: Label = $HUD/VBoxContainer/VBoxContainer/EnergyBar/EnergyLabel
 @onready
 var charge_bar_shade: ColorRect = $HUD/VBoxContainer/VBoxContainer/EnergyBar/ColorRect2

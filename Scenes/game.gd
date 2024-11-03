@@ -131,6 +131,7 @@ func _ready():
 	
 	# spawn first wave
 	spawner_component = $EnemySpawnerComponent
+	spawner_component.wave_started.connect(on_wave_start)
 	spawner_component.on_wave_timer_timeout()
 	#spawn_wave()
 	
@@ -201,11 +202,13 @@ func _process(_delta):
 	InputManager.camera.scale_health_label(enemies.get_children())
 	
 	user_interface.game_time_label.text = str(DW_ToolBox.TrimDecimalPoints(stats_component.survival_time, 0)) + " s"
+	user_interface.wave_time_label.text = "NEXT WAVE IN: " + str(int(spawner_component.wave_timer.time_left)) + "s"
 	
 	# check victory
 	if spawner_component.is_max_waves_reached() and is_all_enemies_killed():
 		victory()
-		
+	
+	
 	# update minimap
 	if InputManager.selected_unit:
 		var points: PackedVector2Array = PackedVector2Array()
@@ -285,7 +288,9 @@ func _process(_delta):
 	## Player charge ui update
 	if player_unit.ability_on:
 		on_charge_changed()
+		user_interface.ability_full_label.visible = false
 	user_interface.charge_bar_shade.visible = player_unit.is_ability_ready()
+	user_interface.ability_full_label.visible = player_unit.is_ability_ready()
 	user_interface.ability_screen_effect.visible = player_unit.ability_on
 
 func place_shootables() -> void:
@@ -638,3 +643,7 @@ func on_teleport_finished():
 	print("Load next map!")
 	
 #endregion
+
+func on_wave_start():
+	user_interface.wave_label.text = "WAVE " + str(spawner_component.wave_count) + "/" + str(spawner_component.max_waves)
+	
