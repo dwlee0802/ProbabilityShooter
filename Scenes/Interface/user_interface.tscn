@@ -514,12 +514,19 @@ offset_bottom = 40.0
 texture = ExtResource("5_fir5d")
 
 [node name="GameState" type="VBoxContainer" parent="."]
-anchors_preset = 10
+anchors_preset = -1
+anchor_top = 0.03
 anchor_right = 1.0
-offset_top = 20.0
+anchor_bottom = 0.1
 offset_bottom = 75.0
 grow_horizontal = 2
 mouse_filter = 2
+
+[node name="WaveLabel" type="Label" parent="GameState"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "WAVE 1/30"
+horizontal_alignment = 1
 
 [node name="CoreActivationBar" parent="GameState" instance=ExtResource("3_038ea")]
 visible = false
@@ -535,12 +542,21 @@ theme_override_font_sizes/font_size = 8
 text = "Progress: 0"
 
 [node name="GameTimeLabel" type="Label" parent="GameState"]
+visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "00:00"
+horizontal_alignment = 1
+
+[node name="NextWaveTimeLabel" type="Label" parent="GameState"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "NEXT WAVE IN: 0"
 horizontal_alignment = 1
 
 [node name="KillsLabel" type="Label" parent="GameState"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "0 Kills"
 horizontal_alignment = 1
 
@@ -548,11 +564,6 @@ horizontal_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_a6087")
 }
-
-[node name="ResourceLabel" type="Label" parent="GameState"]
-visible = false
-layout_mode = 2
-text = "Resource: 0"
 
 [node name="CoreHitEffect" type="ColorRect" parent="."]
 visible = false
@@ -1221,22 +1232,6 @@ libraries = {
 }
 speed_scale = 2.0
 
-[node name="HealthHearts" parent="." instance=ExtResource("11_anutk")]
-custom_minimum_size = Vector2(0, 0)
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 40.0
-offset_top = 40.0
-offset_right = 344.0
-offset_bottom = 172.0
-grow_vertical = 1
-theme_override_constants/h_separation = 10
-alignment = 0
-reverse_fill = false
-
 [node name="SpeedEffect" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_j6bmr")
@@ -1528,19 +1523,30 @@ text = "Bullet info 1"
 layout_mode = 2
 text = "Bullet info 1"
 
-[node name="ScoreInfo" type="Control" parent="."]
-custom_minimum_size = Vector2(200, 65)
-layout_mode = 3
-anchor_left = 0.9
-anchor_top = 0.1
-anchor_right = 0.95
+[node name="HealthScoreContainer" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.04
+anchor_right = 0.05
 anchor_bottom = 0.1
-offset_bottom = 65.0
-grow_horizontal = 0
+offset_right = 268.0
+offset_bottom = 473.0
+theme_override_constants/separation = 5
+
+[node name="HealthHearts" parent="HealthScoreContainer" instance=ExtResource("11_anutk")]
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 10
+alignment = 0
+reverse_fill = false
+
+[node name="ScoreInfo" type="Control" parent="HealthScoreContainer"]
+custom_minimum_size = Vector2(200, 65)
+layout_mode = 2
 mouse_filter = 2
 script = ExtResource("14_04ef1")
 
-[node name="ScoreLabel" type="Label" parent="ScoreInfo"]
+[node name="ScoreLabel" type="Label" parent="HealthScoreContainer/ScoreInfo"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -1550,7 +1556,7 @@ theme_override_font_sizes/font_size = 25
 text = "SCORE: 0"
 vertical_alignment = 1
 
-[node name="MultiplierLabel" type="Label" parent="ScoreInfo"]
+[node name="MultiplierLabel" type="Label" parent="HealthScoreContainer/ScoreInfo"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -1563,7 +1569,7 @@ theme_override_font_sizes/font_size = 18
 text = "BONUS 0%"
 vertical_alignment = 1
 
-[node name="MultiplierDecay" type="ProgressBar" parent="ScoreInfo/MultiplierLabel"]
+[node name="MultiplierDecay" type="ProgressBar" parent="HealthScoreContainer/ScoreInfo/MultiplierLabel"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 2

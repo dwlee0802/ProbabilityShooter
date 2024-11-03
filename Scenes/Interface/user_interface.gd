@@ -34,7 +34,7 @@ var core_hit_effect: AnimationPlayer = $CoreHitEffect/AnimationPlayer
 var danger_zone_effect: AnimationPlayer = $SafeZoneEffect/AnimationPlayer
 
 @onready
-var player_health_hearts: HealthHearts = $HealthHearts
+var player_health_hearts: HealthHearts = $HealthScoreContainer/HealthHearts
 
 @onready
 var interaction_label: Label = $InteractionLabel
@@ -79,7 +79,7 @@ var weapon_one_active_reload: Control = $ExperienceBar/WeaponOneActiveReloadBar
 var weapon_two_active_reload: Control = $ExperienceBar/WeaponTwoActiveReloadBar
 
 @onready
-var score_info_ui: Control = $ScoreInfo
+var score_info_ui: Control = $HealthScoreContainer/ScoreInfo
 
 @onready
 var enemy_spawn_info: Control = $EnemySpawnInfo
