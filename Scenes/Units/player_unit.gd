@@ -850,7 +850,6 @@ func start_teleport_charging() -> void:
 
 func teleporter_charge_finished() -> void:
 	teleport_finished.emit()
-	safe_zone_active = false
 	print("teleport finished")
 	
 func is_inside_safe_zone() -> bool:

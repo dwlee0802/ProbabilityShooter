@@ -111,6 +111,7 @@ func _ready():
 	set_safezone_sprite(safe_zone_radius)
 	
 	player_unit = $PlayerUnit
+	player_unit.safe_zone_radius = safe_zone_radius
 	
 	user_interface.score_info_ui.set_score_component($ScoreComponent)
 	
