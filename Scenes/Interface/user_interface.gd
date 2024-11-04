@@ -249,6 +249,9 @@ func update_bullet_generation_info_menu(component = InputManager.selected_unit.b
 		#labels_label.text += "Vampire\n"
 
 func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
+	# disabled for now
+	return
+	
 	var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")
 	var values_label: Label = enemy_spawn_info.get_node("MarginContainer/Values")
 	

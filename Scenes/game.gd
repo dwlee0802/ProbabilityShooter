@@ -340,7 +340,10 @@ func game_finished(victory: bool) -> void:
 		
 	if no_game_over:
 		return
-		
+	
+	if !spawner_component.wave_timer.is_stopped():
+		spawner_component.wave_timer.stop()
+	
 	user_interface.visible = false
 	stats_component.score = score_component.total_score
 	end_screen.set_game_over_stats(stats_component)
@@ -401,7 +404,9 @@ func start() -> void:
 	spawner_component.reset_stats()
 	
 	# spawn first wave
-	spawner_component.on_spawn_timer_timeout()
+	# reset enemy stats 
+	spawner_component.reset_stats()
+	spawner_component.on_wave_timer_timeout()
 	
 	# start mutation
 	#mutation_timer.start(mutation_cooldown)
@@ -418,22 +423,11 @@ func start() -> void:
 	
 	UpgradesManager.reset_upgrades()
 	
-	# reset enemy stats 
-	spawner_component.reset_stats()
-
-	# randomly place dynamite on the map
-	#for i in range(5):
-		#var new_shootable: Shootable = dynamite_shootable.instantiate()
-		#new_shootable.global_position = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randi_range(2000, spawn_radius)
-		#shootables.add_child(new_shootable)
+	place_shootables()
 	
-	#place_crystals()
 	set_safezone_active_status(true)
 	player_unit.safe_zone_active = true
-	
-	user_interface.kill_count_label.text = "Kills: " + str(stats_component.kill_count)
-	
-	user_interface.update_bullet_menu()
+	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
 
 func place_crystals() -> void:
 	for i in range(crystal_count):
