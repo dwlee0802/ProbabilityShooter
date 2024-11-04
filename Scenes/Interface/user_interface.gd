@@ -20,7 +20,7 @@ var ability_screen_effect: Control = $SpeedEffect
 @onready
 var wave_label: Label = $GameState/WaveLabel
 @onready
-var wave_time_label: Label = $GameState/NextWaveTimeLabel
+var wave_time_label: Label = $GameState/NextWaveTimeLabel/NextWaveTimeLabel
 
 @onready
 var inventory_slots: Control = $HUD/VBoxContainer/InventorySlots
@@ -30,9 +30,9 @@ var item_slot: PackedScene = preload("res://Scenes/Interface/item_slot.tscn")
 @onready
 var game_time_label: Label = $GameState/GameTimeLabel
 @onready
-var kill_count_label: Label = $GameState/KillsLabel
+var kill_count_label: Label = $GameState/KillsLabel/KillsLabel
 @onready
-var kill_count_animation: AnimationPlayer = $GameState/KillsLabel/AnimationPlayer
+var kill_count_animation: AnimationPlayer = $GameState/KillsLabel/KillsLabel/AnimationPlayer
 @onready
 var enemy_count_label: Label = $EnemyCountLabel
 @onready

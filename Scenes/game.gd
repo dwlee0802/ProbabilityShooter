@@ -202,8 +202,10 @@ func _process(_delta):
 	InputManager.camera.scale_health_label(enemies.get_children())
 	
 	user_interface.game_time_label.text = str(DW_ToolBox.TrimDecimalPoints(stats_component.survival_time, 0)) + " s"
-	user_interface.wave_time_label.text = "NEXT WAVE IN: " + str(int(spawner_component.wave_timer.time_left)) + "s"
-	
+	user_interface.wave_time_label.text = "NEXT WAVE IN: " + str(int(spawner_component.wave_timer.time_left) + 1) + "s"
+	if int(spawner_component.wave_timer.time_left) + 1 < 7 and (spawner_component.wave_timer.time_left - int(spawner_component.wave_timer.time_left)) > 0.95:
+		user_interface.wave_time_label.get_node("AnimationPlayer").play("wave_impending")
+		
 	# check victory
 	if spawner_component.is_max_waves_reached() and is_all_enemies_killed():
 		victory()
