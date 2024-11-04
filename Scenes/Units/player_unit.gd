@@ -15,6 +15,8 @@ var unit_sprite: Sprite2D = $UnitSprite
 var movement_speed: float = 100
 var movement_speed_bonus: float = 0
 var movement_speed_multiplier: float = 1.0
+@onready
+var movement_particle: CPUParticles2D = $MovementParticles
 @export
 var temp_color: Color = Color.WHITE
 var damage_bonus: Vector2i = Vector2i(0, 0)
@@ -307,7 +309,9 @@ func _physics_process(delta: float) -> void:
 		return
 		
 	movement_component.physics_update(self, delta)
-		
+	
+	movement_particle.emitting = linear_velocity.length() > 1
+	
 	if linear_velocity.x > 100:
 		unit_sprite.skew = 0.10
 		if Input.is_action_pressed("run"):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=63 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -41,6 +41,14 @@ gradient = SubResource("Gradient_pinb0")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.793578, 0.165138)
+
+[sub_resource type="Curve" id="Curve_23imo"]
+_data = [Vector2(0, 0.307692), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_57vu0"]
+offsets = PackedFloat32Array(0, 0.553333)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3g6r"]
 resource_local_to_scene = true
@@ -434,6 +442,22 @@ bar_color = Color(1, 1, 1, 1)
 position = Vector2(1.90735e-06, 99)
 scale = Vector2(5, 1.222)
 texture = SubResource("GradientTexture2D_y2nov")
+
+[node name="MovementParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-1, 77)
+amount = 4
+texture = ExtResource("13_n3hms")
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, -100)
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+scale_amount_min = 0.18
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_23imo")
+color = Color(1, 1, 1, 0.4)
+color_ramp = SubResource("Gradient_57vu0")
 
 [node name="LevelUpRippleEffect" type="Sprite2D" parent="."]
 process_mode = 3

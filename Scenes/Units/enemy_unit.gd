@@ -74,6 +74,8 @@ var max_movement_speed: float = 0
 var movement_speed_modifier: float = 0
 var movement_speed_multiplier: float = 1.0
 var acceleration: float = 0
+@onready
+var movement_particle: CPUParticles2D = $MovementTrailEffect
 
 var adjust_modifier: float = 8
 var speed_adjust_modifier: float = 4
@@ -188,6 +190,8 @@ func _ready():
 	tweened_health_points = health_points
 	
 	burn_effect.visible = burning
+	
+	movement_particle.preprocess = randf_range(0, 1)
 		
 func _process(_delta: float) -> void:
 	target_position = InputManager.selected_unit.global_position
@@ -351,7 +355,9 @@ func _physics_process(delta) -> void:
 		unit_sprite.skew = -0.20
 	else:
 		unit_sprite.skew = 0
-
+	
+	movement_particle.emitting = linear_velocity.length() > 1
+	
 func get_movement_speed() -> float:
 	return movement_speed * movement_speed_multiplier + movement_speed_modifier
 
