@@ -37,7 +37,7 @@ theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="Control/vBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 32
 text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -52,6 +52,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "SCORE:"
 
 [node name="Label7" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
@@ -84,6 +85,7 @@ size_flags_horizontal = 3
 
 [node name="Score" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 22
 text = "00s"
 horizontal_alignment = 2
 

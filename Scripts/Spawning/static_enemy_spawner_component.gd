@@ -14,8 +14,8 @@ var wave_count: int = 0
 @export
 var max_waves: int = 20
 @export
-var _base_melee_spawn_count: float = 5
-var melee_spawn_average: float = 5
+var _base_melee_spawn_count: float = 10
+var melee_spawn_average: float = 10
 @export
 var _base_ranged_spawn_count: float = 0
 var ranged_spawn_average: float = 0
