@@ -3,7 +3,7 @@ class_name ExplodeEffect
 
 var dynamite_scene = load("res://Scenes/Shootables/dynamite.tscn")
 @export
-var chance: float = 1.0
+var chance: float = 0
 @export
 var damage_amount: int = 1
 @export

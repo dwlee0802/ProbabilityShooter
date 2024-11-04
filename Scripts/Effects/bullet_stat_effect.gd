@@ -5,8 +5,11 @@ class_name BulletStatEffect
 var damage_change: int = 0
 @export
 var piercing_change: int = 0
+@export
+var fire: bool = false
 
 func activate(_game_ref, event: Event):
 	if event.subject is Projectile:
 		event.subject.pierce_count += piercing_change
 		event.subject.damage_amount += damage_change
+		event.subject.bullet_data.fire = fire

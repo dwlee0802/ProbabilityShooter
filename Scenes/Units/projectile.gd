@@ -86,10 +86,6 @@ func _on_body_entered(body) -> void:
 			# apply damage
 			body.receive_hit(damage_amount, body.determine_critical_hit(dir, global_position), dir, bullet_data)
 				
-			# apply burn
-			if bullet_data.fire:
-				body.apply_burning()
-				
 			# apply knock-back
 			body.apply_central_impulse(dir.normalized() * knock_back_amount)
 			## give exp to shooter
@@ -102,6 +98,11 @@ func _on_body_entered(body) -> void:
 			new_eff.get_node("CPUParticles2D").emitting = true
 			if body.determine_critical_hit(dir, global_position):
 				new_eff.critical()
+				UpgradesManager.process_event(Event.new(self, global_position, body, Event.EventCode.PROJECTILE_CRIT))
+		
+			# apply burn
+			if bullet_data.fire:
+				body.apply_burning()
 				
 			get_tree().root.add_child(new_eff)
 			

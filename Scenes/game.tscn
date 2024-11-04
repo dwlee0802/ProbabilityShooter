@@ -33,7 +33,9 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("3_2unjj")
+_base_ranged_spawn_count = 5.0
 waves_per_mutation = 2
+_base_avg_health = 1.5
 _base_move_speed_range = Vector2i(300, 500)
 
 [node name="MutationTimer" type="Timer" parent="."]
@@ -66,7 +68,9 @@ collision_mask = 1162
 movement_speed = 800.0
 starting_equipments = [ExtResource("10_gp80q")]
 level_per_upgrade = 3
+upgrades_ready_count = 1
 crystal_color = Color(0.498039, 1, 0.831373, 1)
+level_up_debug_amount = 100
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
 zoom = Vector2(0.1, 0.1)

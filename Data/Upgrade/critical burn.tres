@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://irj4keohmtf0"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/bullet_stat_effect.gd" id="1_18me0"]
+[ext_resource type="Texture2D" uid="uid://cbek80y6du32w" path="res://Art/Icons/Upgrades/fire_icon.png" id="2_ofp7a"]
+[ext_resource type="Script" path="res://Scripts/upgrade.gd" id="3_q656m"]
+
+[sub_resource type="Resource" id="Resource_atq7a"]
+script = ExtResource("1_18me0")
+damage_change = 0
+piercing_change = 0
+fire = true
+
+[resource]
+script = ExtResource("3_q656m")
+condition_event_code = 4
+effect = SubResource("Resource_atq7a")
+upgrade_name = "Critical Burn"
+icon = ExtResource("2_ofp7a")
+color = Color(1, 0.768627, 0.513726, 1)
+description = "Critical hits have a 15% chance to apply Burn"
+disabled = true

@@ -1,0 +1,477 @@
+[gd_scene load_steps=33 format=3 uid="uid://cshd7nhp3tmsg"]
+
+[ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_cde47"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_l5oj8"]
+[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="3_1km1x"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="4_1mrkh"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="5_3l4uu"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="6_1ti3w"]
+[ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="7_uetgb"]
+[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://Misc/glow_sprite.tres" id="8_y5dct"]
+[ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="9_ljyvn"]
+[ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="10_q3006"]
+[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="11_12vhg"]
+[ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="12_wdr2c"]
+[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="13_n6cbq"]
+
+[sub_resource type="Gradient" id="Gradient_qaaq8"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_icdny"]
+gradient = SubResource("Gradient_qaaq8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.793578, 0.165138)
+
+[sub_resource type="Curve" id="Curve_vgdqa"]
+_data = [Vector2(0, 0.307692), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fra30"]
+offsets = PackedFloat32Array(0, 0.553333)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Animation" id="Animation_eonp3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitEffect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_mtwn4"]
+resource_name = "hit_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HitEffect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m6kw4"]
+_data = {
+"RESET": SubResource("Animation_eonp3"),
+"hit_animation": SubResource("Animation_mtwn4")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_pskk5"]
+polygon = PackedVector2Array(-49.4118, -81, -65.114, -51.0266, -64.2281, -30.9649, -52.7113, -13.5199, -38.5368, -2.18063, -62.4562, 99.0004, 64.2281, 98.1282, 39.4228, -2.18063, 54.4831, -13.5199, 65.114, -32.7094, 65.9999, -50.1544, 52.9412, -80.28, 20.8188, -95.5114, -0.442943, -98.1281, -19.0469, -95.5114)
+
+[sub_resource type="Animation" id="Animation_q6pqu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dhf52"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_smdqx"]
+_data = {
+"RESET": SubResource("Animation_q6pqu"),
+"death": SubResource("Animation_dhf52")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72c86"]
+size = Vector2(197, 287)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jfxjo"]
+radius = 31.0
+
+[sub_resource type="Gradient" id="Gradient_ygy2d"]
+colors = PackedColorArray(0, 0, 0, 0.8, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ygdkf"]
+offsets = PackedFloat32Array(0.00666667, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 0)
+
+[sub_resource type="Animation" id="Animation_m1y4x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_20i8v"]
+resource_name = "hit_line_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3j8tj"]
+_data = {
+"RESET": SubResource("Animation_m1y4x"),
+"hit_line_animation": SubResource("Animation_20i8v")
+}
+
+[sub_resource type="Gradient" id="Gradient_rcr3r"]
+colors = PackedColorArray(1, 1, 1, 0.584314, 0, 0, 0, 0)
+
+[node name="EnemyUnit" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 139
+mass = 0.5
+gravity_scale = 0.0
+lock_rotation = true
+linear_damp = 1.0
+script = ExtResource("1_cde47")
+projectile = ExtResource("2_l5oj8")
+attack_range = 0.0
+projectile_speed = 3000.0
+projectile_damage = 1
+attack_cooldown = 3.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+simplify_path = true
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_1km1x")
+starting_state = NodePath("Move")
+
+[node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_state")]
+script = ExtResource("4_1mrkh")
+attack_state = NodePath("../Attack")
+
+[node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
+script = ExtResource("5_3l4uu")
+move_state = NodePath("../Move")
+
+[node name="DropShadow" type="Sprite2D" parent="."]
+position = Vector2(-1, 126)
+scale = Vector2(6, 1.251)
+texture = SubResource("GradientTexture2D_icdny")
+
+[node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
+position = Vector2(1, 102)
+amount = 3
+texture = ExtResource("6_1ti3w")
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, -100)
+linear_accel_min = 100.0
+linear_accel_max = 100.0
+scale_amount_min = 0.18
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_vgdqa")
+color = Color(1, 1, 1, 0.211765)
+color_ramp = SubResource("Gradient_fra30")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.831373, 0, 0, 1)
+position = Vector2(0, -13.5)
+scale = Vector2(1.41667, 1.38889)
+texture = ExtResource("7_uetgb")
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(-15.5294, -45.72)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("6_1ti3w")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/Sprite2D"]
+position = Vector2(600, 0)
+texture = ExtResource("6_1ti3w")
+
+[node name="HitEffect" type="Sprite2D" parent="Sprite2D"]
+visible = false
+texture = ExtResource("7_uetgb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/HitEffect"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_m6kw4")
+}
+speed_scale = 2.0
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+occluder = SubResource("OccluderPolygon2D_pskk5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_smdqx")
+}
+speed_scale = 1.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -9.5)
+shape = SubResource("RectangleShape2D_72c86")
+
+[node name="AutohealTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AutohealParticles" type="CPUParticles2D" parent="."]
+position = Vector2(-3, 7)
+emitting = false
+texture = ExtResource("6_1ti3w")
+emission_shape = 1
+emission_sphere_radius = 60.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+damping_min = 0.5
+damping_max = 0.5
+scale_amount_min = 0.01
+scale_amount_max = 0.1
+color = Color(0.713726, 1, 0, 0.603922)
+
+[node name="HealthLabel" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -14.0
+offset_right = 6.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "1234w"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DamagePopupTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="CritArea" type="Area2D" parent="."]
+position = Vector2(1, 1)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="CritArea"]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("6_1ti3w")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CritArea"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_1ti3w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CritArea"]
+shape = SubResource("CircleShape2D_jfxjo")
+
+[node name="BurningEffect" type="Node2D" parent="."]
+visible = false
+position = Vector2(2, 55)
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="BurningEffect"]
+position = Vector2(-3, 7)
+amount = 20
+lifetime = 2.0
+texture = ExtResource("6_1ti3w")
+direction = Vector2(0, -1)
+spread = 80.0
+gravity = Vector2(0, -500)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+damping_min = 0.5
+damping_max = 0.5
+scale_amount_min = 0.01
+scale_amount_max = 0.15
+color = Color(0.151276, 0.151276, 0.151276, 0.470588)
+color_ramp = SubResource("Gradient_ygy2d")
+
+[node name="FireParticles" type="CPUParticles2D" parent="BurningEffect"]
+position = Vector2(-3, 7)
+amount = 10
+lifetime = 0.8
+explosiveness = 0.1
+randomness = 0.1
+texture = ExtResource("6_1ti3w")
+direction = Vector2(0, -1)
+gravity = Vector2(0, -100)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+damping_min = 0.5
+damping_max = 1.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_ygdkf")
+
+[node name="PointLight2D" type="PointLight2D" parent="BurningEffect"]
+color = Color(1, 0.529412, 0, 1)
+energy = 5.0
+texture = ExtResource("8_y5dct")
+texture_scale = 10.0
+
+[node name="HitLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HitLine"]
+libraries = {
+"": SubResource("AnimationLibrary_3j8tj")
+}
+
+[node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_ljyvn")
+volume_db = -5.0
+pitch_scale = 0.5
+max_distance = 10000.0
+
+[node name="CritSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_q3006")
+volume_db = -5.0
+pitch_scale = 0.5
+max_distance = 10000.0
+
+[node name="HealthBar" parent="." instance=ExtResource("11_12vhg")]
+visible = false
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = 144.0
+offset_right = 138.0
+offset_bottom = 169.0
+grow_vertical = 0
+
+[node name="ArmorBar" parent="." instance=ExtResource("11_12vhg")]
+visible = false
+anchors_preset = 7
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -122.0
+offset_top = 108.0
+offset_right = 138.0
+offset_bottom = 133.0
+grow_vertical = 0
+bar_color = Color(0, 0.539768, 0.955463, 1)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+
+[node name="BleedTimer" type="Timer" parent="."]
+
+[node name="StateLabel" type="Label" parent="."]
+visible = false
+offset_left = -58.0
+offset_top = -158.0
+offset_right = 61.0
+offset_bottom = -135.0
+text = "State: Idle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShieldHitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_wdr2c")
+pitch_scale = 0.95
+
+[node name="ShieldParticle" type="CPUParticles2D" parent="."]
+position = Vector2(2, -52)
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource("6_1ti3w")
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 300)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+color_ramp = SubResource("Gradient_rcr3r")
+
+[node name="HealthHearts" parent="." instance=ExtResource("13_n6cbq")]
+offset_left = -173.0
+offset_top = -308.0
+offset_right = 177.0
+offset_bottom = -176.0

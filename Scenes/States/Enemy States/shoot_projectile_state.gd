@@ -24,6 +24,10 @@ func exit() -> void:
 	attack_timer.stop()
 	
 func process_frame(_delta: float) -> State:
+	if parent.is_dead():
+		if !attack_timer.is_stopped():
+			attack_timer.stop()
+			
 	return null
 	
 func process_input(_event: InputEvent) -> State:

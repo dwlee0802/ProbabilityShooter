@@ -50,7 +50,7 @@ var burning: bool = false
 var burn_timer: Timer
 static var burn_damage_ratio: float = 0.05
 static var burn_damage_amount: float = 4.0
-static var burn_damage_cooldown: float = 0.5
+static var burn_damage_cooldown: float = 0.75
 @onready
 var burn_effect: Node2D = $BurningEffect
 
@@ -178,7 +178,14 @@ func apply_burning() -> void:
 	burn_timer.start(EnemyUnit.burn_damage_cooldown)
 	burn_effect.visible = true
 	burn_timer.timeout.connect(receive_hit.bind(max(int(max_health_points * EnemyUnit.burn_damage_ratio), 1)))
-	
+	burn_timer.timeout.connect(check_burn_finish)
+
+func check_burn_finish():
+	if randf() < 0.25:
+		burning = false
+		burn_timer.stop()
+		burn_effect.visible = false
+		
 func _ready():
 	state_machine.init(self)
 	
