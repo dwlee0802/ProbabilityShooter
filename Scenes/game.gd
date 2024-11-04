@@ -4,7 +4,7 @@ class_name Game
 @onready
 var user_interface: UserInterface = $UserInterface
 @onready
-var game_over_screen: GameOverScreen = $GameOverScreen
+var end_screen: GameOverScreen = $EndScreen
 @onready
 var game_paused_screen = $PauseScreen
 
@@ -135,7 +135,7 @@ func _ready():
 	spawner_component.on_wave_timer_timeout()
 	#spawn_wave()
 	
-	game_over_screen.restart_button.pressed.connect(start)
+	end_screen.restart_button.pressed.connect(start)
 
 	user_interface.charge_bar.set_max(player_unit.max_charge)
 	on_charge_changed()
@@ -207,9 +207,8 @@ func _process(_delta):
 		user_interface.wave_time_label.get_node("AnimationPlayer").play("wave_impending")
 		
 	# check victory
-	if spawner_component.is_max_waves_reached() and is_all_enemies_killed():
-		victory()
-	
+	if !end_screen.visible and spawner_component.is_max_waves_reached() and is_all_enemies_killed():
+		game_finished(true)
 	
 	# update minimap
 	if InputManager.selected_unit:
@@ -333,31 +332,26 @@ func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.received_hit.connect(player_unit.add_charge_on_hit)
 	newEnemy.critical_hit.connect(player_unit.add_experience.bind(25))
 	newEnemy.bullet_hit.connect(player_unit.add_experience.bind(10))
-	
-func game_over() -> void:
-	if no_game_over:
-		return
-		
-	print("***GAME OVER***")
-	#spawner_component.spawn_timer.stop()
-	mutation_timer.stop()
-	user_interface.mutation_roulette.stop_roulette()
-	set_safezone_active_status(false)
-	#remove_objects()
-	user_interface.visible = false
-	game_over_screen.set_game_over_stats(stats_component)
-	game_over_screen.visible = true
 
-func victory() -> void:
+func game_finished(victory: bool) -> void:
+	# already called
+	if end_screen.visible == true:
+		return
+		
 	if no_game_over:
 		return
 		
-	print("***VICTORY***")
-	
 	user_interface.visible = false
-	game_over_screen.set_game_over_stats(stats_component)
-	game_over_screen.visible = true
+	stats_component.score = score_component.total_score
+	end_screen.set_game_over_stats(stats_component)
+	end_screen.visible = true
 	
+	end_screen.set_title(victory)
+	if victory:
+		print("***VICTORY***")
+	else:
+		print("***GAME OVER***")
+
 func remove_objects() -> void:
 	# remove all remaining enemy units
 	call_deferred("remove_child", enemies)
@@ -397,7 +391,7 @@ func start() -> void:
 	stats_component.reset_stats()
 	
 	user_interface.visible = true
-	game_over_screen.visible = false
+	end_screen.visible = false
 	
 	score_component.reset()
 	
@@ -480,7 +474,7 @@ func bind_selected_unit_signals() -> void:
 		else:
 			user_interface.level_up_menu.visible = false
 			
-		InputManager.selected_unit.knocked_out.connect(game_over)
+		InputManager.selected_unit.knocked_out.connect(game_finished.bind(false))
 		InputManager.selected_unit.was_attacked.connect(on_core_hit)
 		unit.health_changed.connect(on_core_hit)
 		unit.healed.connect(on_player_heal)
@@ -493,6 +487,9 @@ func on_experience_changed() -> void:
 		user_interface.show_vignette_effect(0.5, Color.ROYAL_BLUE)
 
 func on_upgrade() -> void:
+	if end_screen.visible:
+		return
+		
 	if !user_interface.level_up_menu.visible:
 		player_unit.upgrade_options = get_upgrade_options()
 		user_interface.show_upgrade_menu()

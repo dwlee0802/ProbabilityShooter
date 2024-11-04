@@ -33,8 +33,10 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("3_2unjj")
-max_waves = 30
+wave_cooldown = 5.0
+max_waves = 5
 _base_melee_spawn_count = 10.0
+_base_move_speed_range = Vector2i(300, 500)
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
@@ -67,8 +69,7 @@ movement_speed = 800.0
 starting_equipments = [ExtResource("10_gp80q")]
 level_per_upgrade = 3
 crystal_color = Color(0.498039, 1, 0.831373, 1)
-invinsible = true
-level_up_debug_amount = 100
+level_up_debug = true
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
 zoom = Vector2(0.1, 0.1)
@@ -133,14 +134,14 @@ mouse_filter = 2
 texture = ExtResource("8_tcb7a")
 expand_mode = 1
 
-[node name="GameOverScreen" parent="." instance=ExtResource("14_jbor4")]
+[node name="EndScreen" parent="." instance=ExtResource("14_jbor4")]
 visible = false
 script = ExtResource("15_8b1o7")
 
-[node name="Crosshair" type="Node2D" parent="GameOverScreen"]
+[node name="Crosshair" type="Node2D" parent="EndScreen"]
 script = ExtResource("10_7h2qa")
 
-[node name="Crosshair" type="TextureRect" parent="GameOverScreen/Crosshair"]
+[node name="Crosshair" type="TextureRect" parent="EndScreen/Crosshair"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -156,7 +157,7 @@ mouse_filter = 2
 texture = ExtResource("11_jdxks")
 expand_mode = 1
 
-[node name="Crosshair2" type="TextureRect" parent="GameOverScreen/Crosshair/Crosshair"]
+[node name="Crosshair2" type="TextureRect" parent="EndScreen/Crosshair/Crosshair"]
 self_modulate = Color(1, 1, 1, 0.0705882)
 custom_minimum_size = Vector2(12, 12)
 layout_mode = 1

@@ -2,6 +2,8 @@ extends Node
 class_name StatisticsComponent
 
 @export
+var score: int = 0
+@export
 var survival_time: float = 0
 
 @export_category("Combat")

@@ -37,7 +37,7 @@ theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="Control/vBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -51,6 +51,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
+layout_mode = 2
+text = "SCORE:"
+
+[node name="Label7" type="Label" parent="Control/vBoxContainer/StatsContainer/LabelLabels"]
 layout_mode = 2
 text = "SURVIVAL TIME:"
 
@@ -77,6 +81,11 @@ text = "RELOADS: "
 [node name="StatLabels" type="VBoxContainer" parent="Control/vBoxContainer/StatsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Score" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
+layout_mode = 2
+text = "00s"
+horizontal_alignment = 2
 
 [node name="SurvivalTime" type="Label" parent="Control/vBoxContainer/StatsContainer/StatLabels"]
 layout_mode = 2

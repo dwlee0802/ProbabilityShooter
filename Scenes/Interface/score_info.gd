@@ -31,7 +31,7 @@ func on_score_changed(immediate: bool = false):
 	
 	score_tween.tween_property(self, "displayed_score", _score_component.total_score, 0.2)
 	
-	score_label.text = "SCORE: " + str(displayed_score)
+	score_label.text = "SCORE: " + str(int(displayed_score))
 
 func on_multiplier_changed():
 	multiplier_label.text = "BONUS: " + str(int(_score_component.get_multiplier_bonus() * 100)) + "%"

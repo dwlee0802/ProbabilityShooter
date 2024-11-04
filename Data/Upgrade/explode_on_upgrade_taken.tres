@@ -16,4 +16,4 @@ effect = SubResource("Resource_xbu5t")
 upgrade_name = "Explode on Upgrade taken"
 color = Color(1, 1, 1, 1)
 description = "Explode at player location when player gains an upgrade."
-disabled = false
+disabled = true
