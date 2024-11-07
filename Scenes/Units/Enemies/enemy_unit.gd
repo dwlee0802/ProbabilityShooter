@@ -159,6 +159,11 @@ func apply_ranged() -> void:
 	$Sprite2D.self_modulate = Color.ORANGE
 	color = Color.ORANGE
 
+func apply_sniper() -> void:
+	attack_range = 8000
+	$Sprite2D.self_modulate = Color.WEB_PURPLE
+	color = Color.WEB_PURPLE
+	
 func apply_shield() -> void:
 	$Sprite2D.material = shield_material
 	shield = true

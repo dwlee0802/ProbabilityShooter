@@ -4,7 +4,16 @@ class_name EnemySpawnerComponent
 ## Component to take care of spawning enemies
 
 var game_ref: Game
+
 var enemy_unit_scene: PackedScene = preload("res://Scenes/Units/enemy_unit.tscn")
+
+@export
+var melee_unit: PackedScene
+@export
+var ranged_unit: PackedScene
+@export
+var sniper_unit: PackedScene
+
 var wave_timer: Timer
 @export
 var wave_cooldown: float = 20
@@ -98,8 +107,7 @@ func on_wave_timer_timeout() -> void:
 	for i in range(int(randfn(melee_spawn_average, 1.2))):
 		melee.append(spawn_enemy_unit())
 	for i in range(int(randfn(ranged_spawn_average, 1.2))):
-		ranged.append(spawn_enemy_unit())
-		ranged.back().apply_ranged()
+		ranged.append(spawn_enemy_unit(sniper_unit))
 	
 	print("melee: " + str(melee))
 	print("ranged: " + str(ranged))
@@ -117,22 +125,13 @@ func apply_mutation(mutation: Mutation) -> void:
 		return
 	mutation.apply(self)
 	
-func spawn_enemy_unit() -> EnemyUnit:
-	var unit: EnemyUnit = enemy_unit_scene.instantiate()
+func spawn_enemy_unit(scene: PackedScene = melee_unit) -> EnemyUnit:
+	var unit: EnemyUnit = scene.instantiate()
 	# change stats
 	unit.on_spawn(
 		randi_range(move_speed_range.x, move_speed_range.y),
 		max(1, int(randfn(avg_health, 1.4)))
 	)
-	
-	if randf() < heavy_chance:
-		unit.apply_heavy()
-	if randf() < fast_chance:
-		unit.apply_quick()
-	if randf() < ranged_chance:
-		unit.apply_ranged()
-	if randf() < shield_chance:
-		unit.apply_shield()
 	
 	game_ref.add_enemy(unit)
 	

@@ -1,18 +1,18 @@
-[gd_scene load_steps=36 format=3 uid="uid://bml325a55htb3"]
+[gd_scene load_steps=36 format=3 uid="uid://c8op5j1sig6g1"]
 
-[ext_resource type="Script" path="res://Scenes/Units/Enemies/enemy_unit.gd" id="1_gjxg1"]
-[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_a2d0g"]
-[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_e0gvr"]
-[ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="3_0jrip"]
-[ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="4_652yl"]
-[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="4_s1jtq"]
-[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_e5dnx"]
-[ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="6_lfusx"]
-[ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="6_yhwah"]
-[ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="7_lmjx8"]
-[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://Misc/glow_sprite.tres" id="8_ito6i"]
-[ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="13_h80fs"]
-[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="13_q5bwl"]
+[ext_resource type="Script" path="res://Scenes/Units/Enemies/enemy_unit.gd" id="1_e5wg4"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_wyupm"]
+[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="3_v4u16"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="4_4lvqi"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="5_lssqq"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="6_jfw3e"]
+[ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="7_3o886"]
+[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://Misc/glow_sprite.tres" id="8_k5i3c"]
+[ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="9_2vvtq"]
+[ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="10_sjd5i"]
+[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="11_xfmbe"]
+[ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="12_oregs"]
+[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="13_0yxbj"]
 
 [sub_resource type="Gradient" id="Gradient_qaaq8"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -241,8 +241,8 @@ mass = 0.5
 gravity_scale = 0.0
 lock_rotation = true
 linear_damp = 1.0
-script = ExtResource("1_gjxg1")
-projectile = ExtResource("2_a2d0g")
+script = ExtResource("1_e5wg4")
+projectile = ExtResource("2_wyupm")
 attack_range = 0.0
 projectile_speed = 4000.0
 projectile_damage = 1
@@ -252,15 +252,15 @@ attack_cooldown = 3.0
 simplify_path = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("2_e0gvr")
+script = ExtResource("3_v4u16")
 starting_state = NodePath("Move")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_state")]
-script = ExtResource("3_0jrip")
+script = ExtResource("4_4lvqi")
 attack_state = NodePath("../Attack")
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
-script = ExtResource("4_652yl")
+script = ExtResource("5_lssqq")
 move_state = NodePath("../Move")
 
 [node name="DropShadow" type="Sprite2D" parent="."]
@@ -271,7 +271,7 @@ texture = SubResource("GradientTexture2D_icdny")
 [node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
 position = Vector2(1, 102)
 amount = 3
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 particle_flag_align_y = true
 direction = Vector2(0, -1)
 spread = 0.0
@@ -299,20 +299,20 @@ speed_scale = 2.0
 self_modulate = Color(0.831373, 0, 0, 1)
 position = Vector2(0, -13.5)
 scale = Vector2(1.41667, 1.38889)
-texture = ExtResource("6_lfusx")
+texture = ExtResource("7_3o886")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
 position = Vector2(-15.5294, -45.72)
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/Sprite2D"]
 position = Vector2(600, 0)
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 
 [node name="HitEffect" type="Sprite2D" parent="Sprite2D"]
 visible = false
-texture = ExtResource("6_lfusx")
+texture = ExtResource("7_3o886")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/HitEffect"]
 root_node = NodePath("../..")
@@ -341,7 +341,7 @@ one_shot = true
 [node name="AutohealParticles" type="CPUParticles2D" parent="."]
 position = Vector2(-3, 7)
 emitting = false
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 emission_shape = 1
 emission_sphere_radius = 60.0
 direction = Vector2(0, -1)
@@ -386,11 +386,11 @@ monitoring = false
 [node name="Sprite2D3" type="Sprite2D" parent="CritArea"]
 self_modulate = Color(0, 0, 0, 1)
 scale = Vector2(0.12, 0.12)
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CritArea"]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CritArea"]
 shape = SubResource("CircleShape2D_jfxjo")
@@ -403,7 +403,7 @@ position = Vector2(2, 55)
 position = Vector2(-3, 7)
 amount = 20
 lifetime = 2.0
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 direction = Vector2(0, -1)
 spread = 80.0
 gravity = Vector2(0, -500)
@@ -422,7 +422,7 @@ amount = 10
 lifetime = 0.8
 explosiveness = 0.1
 randomness = 0.1
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 direction = Vector2(0, -1)
 gravity = Vector2(0, -100)
 initial_velocity_min = 50.0
@@ -436,7 +436,7 @@ color_ramp = SubResource("Gradient_ygdkf")
 [node name="PointLight2D" type="PointLight2D" parent="BurningEffect"]
 color = Color(1, 0.529412, 0, 1)
 energy = 5.0
-texture = ExtResource("8_ito6i")
+texture = ExtResource("8_k5i3c")
 texture_scale = 10.0
 
 [node name="HitLine" type="Line2D" parent="."]
@@ -448,18 +448,18 @@ libraries = {
 }
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_yhwah")
+stream = ExtResource("9_2vvtq")
 volume_db = -5.0
 pitch_scale = 0.5
 max_distance = 10000.0
 
 [node name="CritSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_lmjx8")
+stream = ExtResource("10_sjd5i")
 volume_db = -5.0
 pitch_scale = 0.5
 max_distance = 10000.0
 
-[node name="HealthBar" parent="." instance=ExtResource("4_s1jtq")]
+[node name="HealthBar" parent="." instance=ExtResource("11_xfmbe")]
 visible = false
 anchors_preset = 7
 anchor_top = 1.0
@@ -470,7 +470,7 @@ offset_right = 138.0
 offset_bottom = 169.0
 grow_vertical = 0
 
-[node name="ArmorBar" parent="." instance=ExtResource("4_s1jtq")]
+[node name="ArmorBar" parent="." instance=ExtResource("11_xfmbe")]
 visible = false
 anchors_preset = 7
 anchor_top = 1.0
@@ -498,7 +498,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ShieldHitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("13_h80fs")
+stream = ExtResource("12_oregs")
 pitch_scale = 0.95
 
 [node name="ShieldParticle" type="CPUParticles2D" parent="."]
@@ -508,7 +508,7 @@ amount = 16
 lifetime = 2.0
 one_shot = true
 explosiveness = 0.9
-texture = ExtResource("5_e5dnx")
+texture = ExtResource("6_jfw3e")
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 300)
@@ -518,7 +518,7 @@ scale_amount_min = 0.1
 scale_amount_max = 0.2
 color_ramp = SubResource("Gradient_rcr3r")
 
-[node name="HealthHearts" parent="." instance=ExtResource("13_q5bwl")]
+[node name="HealthHearts" parent="." instance=ExtResource("13_0yxbj")]
 offset_left = -173.0
 offset_top = -308.0
 offset_right = 177.0

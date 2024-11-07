@@ -32,6 +32,7 @@ func process_frame(_delta: float) -> State:
 	if parent.is_dead():
 		if !attack_timer.is_stopped():
 			attack_timer.stop()
+		parent.attack_line.visible = false
 	
 	if attack_timer.time_left < 0.6:
 		parent.attack_line.get_node("AnimationPlayer").play("attack_blink")

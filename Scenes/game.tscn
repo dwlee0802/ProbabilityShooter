@@ -1,11 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=22 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="Script" path="res://Scripts/Spawning/static_enemy_spawner_component.gd" id="3_2unjj"]
+[ext_resource type="PackedScene" uid="uid://c8op5j1sig6g1" path="res://Scenes/Units/Enemies/melee_enemy_unit.tscn" id="4_2a371"]
+[ext_resource type="PackedScene" uid="uid://ci5puy12rowpx" path="res://Scenes/Units/Enemies/ranged_enemy_unit.tscn" id="5_5fil0"]
 [ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
+[ext_resource type="PackedScene" uid="uid://do55tseni0rpp" path="res://Scenes/Units/Enemies/sniper_enemy_unit.tscn" id="6_aqm0h"]
 [ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
@@ -33,6 +36,9 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("3_2unjj")
+melee_unit = ExtResource("4_2a371")
+ranged_unit = ExtResource("5_5fil0")
+sniper_unit = ExtResource("6_aqm0h")
 _base_ranged_spawn_count = 5.0
 waves_per_mutation = 2
 _base_avg_health = 1.5
@@ -70,7 +76,6 @@ health_points = 3.0
 max_health_points = 3
 starting_equipments = [ExtResource("10_gp80q")]
 level_per_upgrade = 3
-upgrades_ready_count = 1
 crystal_color = Color(0.498039, 1, 0.831373, 1)
 level_up_debug_amount = 100
 

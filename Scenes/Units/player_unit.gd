@@ -497,7 +497,7 @@ func is_unconscious() -> bool:
 func _on_body_entered(body) -> void:
 	if body is EnemyUnit:
 		receive_hit(1)
-		body.die()
+		#body.die()
 
 func disable_enemy_collision():
 	$CollisionShape2D.call_deferred("set_disabled", true)

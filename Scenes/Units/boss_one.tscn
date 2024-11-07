@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://cshd7nhp3tmsg"]
 
-[ext_resource type="Script" path="res://Scenes/Units/enemy_unit.gd" id="1_cde47"]
+[ext_resource type="Script" path="res://Scenes/Units/Enemies/enemy_unit.gd" id="1_cde47"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_l5oj8"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="3_1km1x"]
 [ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="4_1mrkh"]
