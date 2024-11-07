@@ -12,6 +12,7 @@ func launch(direction: Vector2, _speed: float, amount: int, _knock_back: float =
 	# set size of collision shape
 	collision_shape.shape.size = Vector2(100000, 128)
 	collision_shape.position = Vector2(collision_shape.shape.size.x/2, 0)
+	
 	# set sprite
 	var sprite: Sprite2D = $Sprite2D
 	sprite.scale = Vector2(collision_shape.shape.size.x/32/4, 4)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=23 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://do55tseni0rpp" path="res://Scenes/Units/Enemies/sniper_enemy_unit.tscn" id="6_aqm0h"]
 [ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
+[ext_resource type="PackedScene" uid="uid://bv1kjcxwlinqr" path="res://Scenes/Units/Enemies/spray_enemy_unit.tscn" id="7_bsan6"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="8_tcb7a"]
 [ext_resource type="Script" path="res://Scenes/Interface/simple_crosshair.gd" id="10_7h2qa"]
@@ -39,9 +40,9 @@ script = ExtResource("3_2unjj")
 melee_unit = ExtResource("4_2a371")
 ranged_unit = ExtResource("5_5fil0")
 sniper_unit = ExtResource("6_aqm0h")
-_base_melee_spawn_count = 5.0
-_base_ranged_spawn_count = 5.0
-_base_sniper_spawn_count = 5.0
+sprayer_unit = ExtResource("7_bsan6")
+_base_melee_spawn_count = 0.0
+_base_sprayer_spawn_count = 10.0
 waves_per_mutation = 2
 _base_avg_health = 1.5
 _base_move_speed_range = Vector2i(300, 500)
