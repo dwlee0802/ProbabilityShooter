@@ -15,4 +15,5 @@ ranged_spawn_chance_bonus = 0.0
 shield_spawn_chance_bonus = 0.0
 melee_avg_bonus = 0.0
 ranged_avg_bonus = 0.0
-sniper_avg_bonus = 1.0
+sniper_avg_bonus = 0.5
+sprayer_avg_bonus = 0.0

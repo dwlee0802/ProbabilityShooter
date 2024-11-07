@@ -5,8 +5,12 @@ var spray_cooldown: float = 2
 
 var spray_timer: Timer
 
+var parent
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	parent = get_parent()
+	
 	spray_timer = Timer.new()
 	spray_timer.autostart = false
 	spray_timer.one_shot = false
@@ -14,13 +18,17 @@ func _ready() -> void:
 	add_child(spray_timer)
 	spray_timer.start(spray_cooldown)
 	spray_timer.timeout.connect(spray_projectiles)
-
+	
+func _process(delta: float) -> void:
+	if parent is EnemyUnit:
+		if parent.is_dead():
+			spray_timer.stop()
+			
 func spray_projectiles(count: int = 6):
 	for i in range(count):
 		shoot_projectile(Vector2.UP.rotated(TAU / count * i))
 		
 func shoot_projectile(dir: Vector2) -> void:
-	var parent: EnemyUnit = get_parent()
 	if parent == null:
 		return
 		

@@ -285,6 +285,7 @@ color = Color(1, 1, 1, 0.211765)
 color_ramp = SubResource("Gradient_fra30")
 
 [node name="AttackLine" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(0, 0, 1000, 200)
 default_color = Color(1, 0, 0, 1)
 

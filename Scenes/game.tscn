@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=24 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
 [ext_resource type="AudioStream" uid="uid://cqkumjurcllup" path="res://Sound/click1.ogg" id="18_7elte"]
 [ext_resource type="Script" path="res://Scenes/score_component.gd" id="18_ro7nv"]
+[ext_resource type="Script" path="res://Scenes/run_data_component.gd" id="23_b7ohg"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -41,8 +42,6 @@ melee_unit = ExtResource("4_2a371")
 ranged_unit = ExtResource("5_5fil0")
 sniper_unit = ExtResource("6_aqm0h")
 sprayer_unit = ExtResource("7_bsan6")
-_base_melee_spawn_count = 0.0
-_base_sprayer_spawn_count = 10.0
 waves_per_mutation = 2
 _base_avg_health = 1.5
 _base_move_speed_range = Vector2i(300, 500)
@@ -201,3 +200,6 @@ script = ExtResource("15_ophms")
 [node name="ScoreComponent" type="Node" parent="."]
 script = ExtResource("18_ro7nv")
 multiplier_decay_time = 5.0
+
+[node name="RunHistoryComponent" type="Node" parent="."]
+script = ExtResource("23_b7ohg")

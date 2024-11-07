@@ -16,6 +16,9 @@ var player_unit: PlayerUnit
 var stats_component: StatisticsComponent = $StatisticsComponent
 
 @onready
+var history_component: RunHistoryComponent = $RunHistoryComponent
+
+@onready
 var projectiles: Node2D = $Projectiles
 @onready
 var casings: Node2D = $Casings
@@ -345,8 +348,13 @@ func game_finished(victory: bool) -> void:
 	if !spawner_component.wave_timer.is_stopped():
 		spawner_component.wave_timer.stop()
 	
-	user_interface.visible = false
 	stats_component.score = score_component.total_score
+	stats_component.reached_wave = spawner_component.wave_count
+	
+	history_component.save_run_data(stats_component.export_data())
+	
+	user_interface.visible = false
+	
 	end_screen.set_game_over_stats(stats_component)
 	end_screen.visible = true
 	

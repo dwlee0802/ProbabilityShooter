@@ -5,6 +5,8 @@ class_name StatisticsComponent
 var score: int = 0
 @export
 var survival_time: float = 0
+@export
+var reached_wave: int = 0
 
 @export_category("Combat")
 @export
@@ -55,6 +57,17 @@ func reset_stats() -> void:
 	total_exp_gained = 0
 	level_reached = 1
 
+func export_data() -> Dictionary:
+	var data_dict: Dictionary = {
+		"duration": survival_time,
+		"wave": reached_wave,
+		"kills": kill_count,
+		"timestamp": Time.get_datetime_string_from_system(),
+		"level": level_reached
+	}
+	
+	return data_dict
+	
 func add_exp_gained(amount: int) -> void:
 	total_exp_gained += amount
 	

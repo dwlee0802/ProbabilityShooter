@@ -7,6 +7,7 @@
 script = ExtResource("1_o700w")
 damage_change = 1
 piercing_change = 0
+fire = false
 
 [resource]
 script = ExtResource("2_ghjpr")
