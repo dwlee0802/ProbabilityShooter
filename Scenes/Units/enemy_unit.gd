@@ -18,6 +18,9 @@ var color: Color = Color.DARK_RED
 var target_position: Vector2
 var follow_player: bool = true
 
+@onready
+var attack_line: Line2D = $AttackLine
+
 var health_points: float = 100
 var max_health_points: float = 100
 var armor_points: float = 10

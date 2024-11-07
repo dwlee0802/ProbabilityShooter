@@ -66,6 +66,8 @@ texture = ExtResource("8_tcb7a")
 [node name="PlayerUnit" parent="." instance=ExtResource("2_jg501")]
 collision_mask = 1162
 movement_speed = 800.0
+health_points = 3.0
+max_health_points = 3
 starting_equipments = [ExtResource("10_gp80q")]
 level_per_upgrade = 3
 upgrades_ready_count = 1

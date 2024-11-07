@@ -18,16 +18,24 @@ func enter() -> void:
 	parent.state_label.text = "State: Attack"
 	
 	attack_timer.start(parent.attack_cooldown)
+	
+	parent.attack_line.set_point_position(1, parent.target_position - parent.global_position)
+	parent.attack_line.visible = true
 
 func exit() -> void:
 	super()
 	attack_timer.stop()
 	
+	parent.attack_line.visible = false
+	
 func process_frame(_delta: float) -> State:
 	if parent.is_dead():
 		if !attack_timer.is_stopped():
 			attack_timer.stop()
-			
+	
+	if attack_timer.time_left < 0.6:
+		parent.attack_line.get_node("AnimationPlayer").play("attack_blink")
+		
 	return null
 	
 func process_input(_event: InputEvent) -> State:
@@ -37,6 +45,8 @@ func process_physics(_delta: float) -> State:
 	# change to move state if out of range from target
 	if !parent.player_inside_range():
 		return move_state
+	
+	parent.attack_line.set_point_position(1, parent.target_position - parent.global_position)
 	
 	return null
 

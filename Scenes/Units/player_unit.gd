@@ -496,7 +496,7 @@ func is_unconscious() -> bool:
 	
 func _on_body_entered(body) -> void:
 	if body is EnemyUnit:
-		receive_hit(body.health_points)
+		receive_hit(1)
 		body.die()
 
 func disable_enemy_collision():
