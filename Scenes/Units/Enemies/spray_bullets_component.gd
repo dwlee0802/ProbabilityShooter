@@ -19,7 +19,7 @@ func _ready() -> void:
 	spray_timer.start(spray_cooldown)
 	spray_timer.timeout.connect(spray_projectiles)
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if parent is EnemyUnit:
 		if parent.is_dead():
 			spray_timer.stop()

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://c10pooi05t0kj"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_px1en"]
+
+[resource]
+script = ExtResource("1_px1en")
+mutation_name = "More Sprayer"
+description = "Increase the average number of ranged enemies spawned by 0.5"
+color = Color(0.931721, 0.681254, 0.66783, 1)
+disabled = false
+health_avg_bonus = 0.0
+heavy_spawn_chance_bonus = 0.0
+fast_spawn_chance_bonus = 0.0
+ranged_spawn_chance_bonus = 0.0
+shield_spawn_chance_bonus = 0.0
+melee_avg_bonus = 0.0
+ranged_avg_bonus = 0.0
+sniper_avg_bonus = 0.0
+sprayer_avg_bonus = 1.0
