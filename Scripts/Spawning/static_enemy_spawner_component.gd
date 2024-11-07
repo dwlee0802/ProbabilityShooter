@@ -28,6 +28,9 @@ var melee_spawn_average: float = 10
 @export
 var _base_ranged_spawn_count: float = 0
 var ranged_spawn_average: float = 0
+@export
+var _base_sniper_spawn_count: float = 0
+var sniper_spawn_average: float = 0
 
 @export_category("Mutation Setting")
 @export
@@ -107,6 +110,8 @@ func on_wave_timer_timeout() -> void:
 	for i in range(int(randfn(melee_spawn_average, 1.2))):
 		melee.append(spawn_enemy_unit())
 	for i in range(int(randfn(ranged_spawn_average, 1.2))):
+		ranged.append(spawn_enemy_unit(ranged_unit))
+	for i in range(int(randfn(sniper_spawn_average, 1.2))):
 		ranged.append(spawn_enemy_unit(sniper_unit))
 	
 	print("melee: " + str(melee))
