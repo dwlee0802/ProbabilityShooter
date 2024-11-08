@@ -13,7 +13,7 @@ func save_run_data(run_data: Dictionary) -> void:
 	# check best run
 	if save_data["run history"][save_data["best index"]].score <= run_data["score"]:
 		save_data["best index"] = save_data["run history"].size() - 1
-		print("New Best Score: " + str(run_data["score"]) + " at index: " + str(save_data["run history"].size() - 1))
+		print("New Best Score: " + str(save_data["run history"][save_data["best index"]].score) + " at index: " + str(save_data["best index"]))
 	
 	# JSON provides a static method to serialized JSON string.
 	var json_string = JSON.stringify(save_data)
