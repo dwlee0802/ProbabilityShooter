@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=64 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -586,6 +586,43 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_sr1p8"),
 "blink": SubResource("Animation_gp32v")
+}
+
+[sub_resource type="Animation" id="Animation_tifxi"]
+resource_name = "new_highscore"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(3.86375, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 0.521569, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ox3im"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iuuxc"]
+_data = {
+"RESET": SubResource("Animation_ox3im"),
+"new_highscore": SubResource("Animation_tifxi")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hw11b"]
@@ -1707,6 +1744,11 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 15
 text = "HIGHSCORE: 0"
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HealthScoreContainer/ScoreInfo/HighscoreLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_iuuxc")
+}
 
 [node name="MultiplierLabel" type="Label" parent="HealthScoreContainer/ScoreInfo"]
 layout_mode = 1

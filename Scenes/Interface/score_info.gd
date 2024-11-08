@@ -12,6 +12,8 @@ var score_tween: Tween = null
 var highscore_label: Label = $HighscoreLabel
 var displayed_highscore: float = 0
 var highscore_tween: Tween = null
+@onready
+var new_highscore_effect: AnimationPlayer = $HighscoreLabel/AnimationPlayer
 
 @onready
 var multiplier_label: Label = $MultiplierLabel
@@ -24,6 +26,7 @@ func set_score_component(component: ScoreComponent):
 	_score_component.score_changed.connect(on_score_changed)
 	displayed_highscore = component.highscore
 	highscore_label.text = "HIGHSCORE: " + str(component.highscore)
+	component.new_highscore_reached.connect(new_highscore_effect.play.bind("new_highscore"))
 	
 func on_score_changed(immediate: bool = false):
 	if immediate:

@@ -7,6 +7,7 @@ var total_score: int = 0
 @export
 var kill_score_amount: int = 100
 var highscore: int = 0
+var new_highscore: bool = false
 
 @export_category("Multiplier")
 @export
@@ -18,7 +19,7 @@ var multiplier_decay_time: float = 10
 var score_tween: Tween = null
 
 signal score_changed
-
+signal new_highscore_reached
 
 func _ready() -> void:
 	pass
@@ -29,6 +30,10 @@ func on_kill() -> int:
 	var amount: int = int(kill_score_amount * (1.0 + get_multiplier_bonus()))
 	total_score += amount
 	if total_score > highscore:
+		if new_highscore == false:
+			new_highscore = true
+			new_highscore_reached.emit()
+			
 		highscore = total_score
 	score_changed.emit()
 	
