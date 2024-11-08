@@ -59,6 +59,7 @@ func reset_stats() -> void:
 
 func export_data() -> Dictionary:
 	var data_dict: Dictionary = {
+		"score": score,
 		"duration": survival_time,
 		"wave": reached_wave,
 		"kills": kill_count,

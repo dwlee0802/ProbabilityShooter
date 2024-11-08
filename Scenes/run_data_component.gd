@@ -1,15 +1,22 @@
 extends Node
 class_name RunHistoryComponent
 
+var file_path: String = "user://runs_history.save"
+
+
 ## takes in a dictionary of the data of a run and stores it
 func save_run_data(run_data: Dictionary) -> void:
-	var run_history = get_run_history()
+	var save_data = get_save_data()
+	var save_file = FileAccess.open(file_path, FileAccess.WRITE)
 	
-	var save_file = FileAccess.open("user://runs_history.save", FileAccess.WRITE)
-	run_history.append(run_data)
+	save_data["run history"].append(run_data)
+	# check best run
+	if save_data["run history"][save_data["best index"]].score <= run_data["score"]:
+		save_data["best index"] = save_data["run history"].size() - 1
+		print("New Best Score: " + str(run_data["score"]) + " at index: " + str(save_data["run history"].size() - 1))
 	
 	# JSON provides a static method to serialized JSON string.
-	var json_string = JSON.stringify(run_history)
+	var json_string = JSON.stringify(save_data)
 	print(json_string)
 	
 	# Store the save dictionary as a new line in the save file.
@@ -18,8 +25,15 @@ func save_run_data(run_data: Dictionary) -> void:
 	
 	print("****Saved run data " + run_data["timestamp"] + "****")
 
-func get_run_history() -> Array:
-	var save_file = FileAccess.open("user://runs_history.save", FileAccess.READ)
+# gets previous saved run history
+# returns empty array if file doesn't exist
+func get_save_data() -> Dictionary:
+	var save_file = FileAccess.open(file_path, FileAccess.READ)
+	if !save_file:
+		return {
+			"run history": [],
+			"best index": -1
+		}
 	
 	var json_string: String = save_file.get_as_text()
 	
@@ -28,3 +42,10 @@ func get_run_history() -> Array:
 	save_file.close()
 	
 	return save_data
+
+func get_best_run():
+	var save_data = get_save_data()
+	if save_data["best index"] < 0:
+		return null
+	else:
+		return save_data["run history"][save_data["best index"]]
