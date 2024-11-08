@@ -1697,13 +1697,25 @@ theme_override_font_sizes/font_size = 25
 text = "SCORE: 0"
 vertical_alignment = 1
 
+[node name="HighscoreLabel" type="Label" parent="HealthScoreContainer/ScoreInfo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 63.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 15
+text = "HIGHSCORE: 0"
+vertical_alignment = 1
+
 [node name="MultiplierLabel" type="Label" parent="HealthScoreContainer/ScoreInfo"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -32.0
+offset_top = -10.0
+offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 18

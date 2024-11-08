@@ -3,8 +3,10 @@ class_name ScoreComponent
 
 @export
 var total_score: int = 0
+	
 @export
 var kill_score_amount: int = 100
+var highscore: int = 0
 
 @export_category("Multiplier")
 @export
@@ -26,6 +28,8 @@ func on_kill() -> int:
 	# add score
 	var amount: int = int(kill_score_amount * (1.0 + get_multiplier_bonus()))
 	total_score += amount
+	if total_score > highscore:
+		highscore = total_score
 	score_changed.emit()
 	
 	# increase multiplier

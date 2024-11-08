@@ -116,7 +116,14 @@ func _ready():
 	player_unit = $PlayerUnit
 	player_unit.safe_zone_radius = safe_zone_radius
 	
-	user_interface.score_info_ui.set_score_component($ScoreComponent)
+	## set high score
+	history_component = $RunHistoryComponent
+	score_component = $ScoreComponent
+	if history_component.get_best_run():
+		score_component.highscore = history_component.get_best_run()["score"]
+	else:
+		score_component.highscore = 0
+	user_interface.score_info_ui.set_score_component(score_component)
 	
 	user_interface.player_health_hearts.set_hearts_count(int(player_unit.health_points), Vector2(32,32))
 	bind_selected_unit_signals()
