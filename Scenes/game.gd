@@ -545,14 +545,23 @@ func on_upgrade_timeout():
 	print("upgrade timer timeout. pick random option")
 	user_interface.upgrade_option_selected()
 	var random_option: Upgrade = Game.upgrade_options.pick_random()
-	UpgradesManager.add_upgrade(random_option)
-	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, random_option, Event.EventCode.UPGRADE_TAKEN))
-	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, random_option, Event.EventCode.UPGRADE_SELF_TAKEN))
+	apply_upgrade(random_option)
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(Engine, "time_scale", 1, 0.1)
 	get_tree().paused = false
 
+func apply_upgrade(upgrade: Upgrade) -> void:
+	if !upgrade:
+		return
+		
+	UpgradesManager.add_upgrade(upgrade)
+	## General event that depicts some Upgrade was taken
+	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, upgrade, Event.EventCode.UPGRADE_TAKEN))
+	## Static upgrades are upgrades that is a one time fire upgrade usually a stat boost to player
+	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, upgrade, Event.EventCode.STATIC_UPGRADE_TAKEN))
+	player_unit.upgrades_ready_count -= 1
+		
 func on_upgrade_selected():
 	var tween = get_tree().create_tween()
 	tween.tween_property(Engine, "time_scale", 1, 0.1)
@@ -562,10 +571,7 @@ func on_upgrade_selected():
 	var new_upgrade: Upgrade = user_interface.upgrade_button_group.get_pressed_button().data
 	print("upgrade selected: " + new_upgrade.upgrade_name)
 	
-	UpgradesManager.add_upgrade(new_upgrade)
-	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, new_upgrade, Event.EventCode.UPGRADE_TAKEN))
-	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, new_upgrade, Event.EventCode.UPGRADE_SELF_TAKEN))
-	player_unit.upgrades_ready_count -= 1
+	apply_upgrade(new_upgrade)
 	
 	# if level up is still ready after leveling up, show new options
 	# otherwise, hide menu
