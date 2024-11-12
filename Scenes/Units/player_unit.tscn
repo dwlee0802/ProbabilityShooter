@@ -399,7 +399,7 @@ push_back_strength = 1500.0
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("9_0efpd")
-max_speed = 12000.0
+_base_speed = 12000.0
 acceleration = 12000.0
 dash_strength = 5000.0
 

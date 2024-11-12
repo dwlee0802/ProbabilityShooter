@@ -1,8 +1,11 @@
 extends Node
 class_name WASDMovementComponent
 
-@export
 var max_speed: float = 10000
+@export
+var _base_speed: float = 10000
+var min_speed: float = 8000
+
 @export
 var acceleration: float = 10000
 @export
@@ -26,7 +29,7 @@ func _ready() -> void:
 	dash_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	dash_timer.one_shot = true
 	dash_timer.autostart = false
-	
+
 ## called every frame in physics process
 ## implements top down WASD movement
 ## returns true if input is made by player
@@ -59,9 +62,8 @@ func physics_update(unit: RigidBody2D, delta: float) -> bool:
 		
 	unit.apply_central_impulse(input_dir * acceleration * dash_modifier * run_modifier * delta)
 	
+	print(unit.linear_velocity.length())
 	return input_dir != Vector2.ZERO
-	
-	#print(unit.linear_velocity)
 
 func input_update(unit: RigidBody2D) -> void:
 	if Input.is_action_just_pressed("dash"):
@@ -73,3 +75,11 @@ func input_update(unit: RigidBody2D) -> void:
 		else:
 			pass
 			#print("Dash on cooldown")
+
+func reset_stats() -> void:
+	max_speed = _base_speed
+
+func add_movement_speed(amount: float) -> void:
+	acceleration += amount
+	
+	#print("Movement speed increased by " + str(int(amount)) + ". New speed: " + str(max_speed))

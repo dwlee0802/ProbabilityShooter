@@ -14,10 +14,12 @@ static func process_event(event: Event):
 	if !upgrades.has(event.code):
 		return
 		
-	for upg: Upgrade in upgrades[event.code]:
-		if event.code == Event.EventCode.STATIC_UPGRADE_TAKEN:
-			
-		upg.effect.activate(game_ref, event)
+	if event.code == Event.EventCode.STATIC_UPGRADE_TAKEN:
+		if event.object is Upgrade:
+			event.object.effect.activate(game_ref, event)
+	else:
+		for upg: Upgrade in upgrades[event.code]:
+			upg.effect.activate(game_ref, event)
 
 static func add_upgrade(upgrade: Upgrade):
 	var code = upgrade.condition_event_code

@@ -79,6 +79,7 @@ max_health_points = 3
 starting_equipments = [ExtResource("10_gp80q")]
 level_per_upgrade = 3
 crystal_color = Color(0.498039, 1, 0.831373, 1)
+level_up_debug = true
 level_up_debug_amount = 100
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]

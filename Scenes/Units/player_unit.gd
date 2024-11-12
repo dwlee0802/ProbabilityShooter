@@ -704,7 +704,7 @@ func remove_effect(effect: EffectObject):
 
 #region Stat Change Management
 func add_movement_bonus(amount: float) -> void:
-	movement_speed_bonus += amount
+	movement_component.add_movement_speed(amount)
 func get_movement_speed() -> float:
 	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
 
