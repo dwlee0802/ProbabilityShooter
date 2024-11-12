@@ -62,7 +62,8 @@ func physics_update(unit: RigidBody2D, delta: float) -> bool:
 		
 	unit.apply_central_impulse(input_dir * acceleration * dash_modifier * run_modifier * delta)
 	
-	print(unit.linear_velocity.length())
+	#print(unit.linear_velocity.length())
+	
 	return input_dir != Vector2.ZERO
 
 func input_update(unit: RigidBody2D) -> void:
