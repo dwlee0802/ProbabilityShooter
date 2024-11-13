@@ -256,6 +256,9 @@ func _ready() -> void:
 	weapon_one.activated.connect(knock_back.bind(weapon_one.muzzle_point))
 	weapon_two.activated.connect(knock_back.bind(weapon_two.muzzle_point))
 	
+	weapon_one.activated.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_SHOOT)))
+	weapon_two.activated.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_SHOOT)))
+	
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
 	#print("equipped " + weapon_one.weapon_data.equipment_name)

@@ -120,7 +120,6 @@ func _on_body_entered(body) -> void:
 		queue_free_self()
 		
 	if body is Shootable:
-		body.shooter = origin_unit
 		body.activate()
 	
 	#if bullet_data.explosive:

@@ -1,8 +1,6 @@
 extends Shootable
 class_name Explosive
 
-var shooter
-
 @onready
 var area: Area2D = $Area2D
 

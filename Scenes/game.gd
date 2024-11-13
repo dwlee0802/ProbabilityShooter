@@ -344,6 +344,10 @@ func add_enemy(newEnemy: EnemyUnit) -> void:
 	newEnemy.critical_hit.connect(player_unit.add_experience.bind(25))
 	newEnemy.bullet_hit.connect(player_unit.add_experience.bind(10))
 
+func add_missile(missile: Missile) -> void:
+	missile.game_ref = self
+	call_deferred("add_child", missile)
+	
 func game_finished(victory: bool) -> void:
 	# already called
 	if end_screen.visible == true:

@@ -248,33 +248,33 @@ func update_bullet_generation_info_menu(component = InputManager.selected_unit.b
 	#if gun.vampire > 0:
 		#labels_label.text += "Vampire\n"
 
-func update_enemy_spawn_info(spawner: EnemySpawnerComponent) -> void:
+func update_enemy_spawn_info(_spawner: EnemySpawnerComponent) -> void:
 	# disabled for now
 	return
 	
-	var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")
-	var values_label: Label = enemy_spawn_info.get_node("MarginContainer/Values")
-	
-	labels_label.text = "Spawn Rate:\n"
-	values_label.text = str(DW_ToolBox.TrimDecimalPoints(1/spawner.spawn_cooldown, 1)) + " per second\n"
-	labels_label.text += "Wave(x" + str(spawner.wave_count) + ")" + " Chance:\n"
-	values_label.text += str(int(spawner.wave_chance * 1000)/10.0) + "%\n"
-	labels_label.text += "HP Range:\n"
-	values_label.text += str(spawner.health_range.x) + " - " + str(spawner.health_range.y) + "\n"
-	labels_label.text += "Speed Range:\n"
-	values_label.text += str(spawner.move_speed_range.x) + " - " + str(spawner.move_speed_range.y) + "\n"
-	if spawner.heavy_chance != 0:
-		labels_label.text += "Heavy:\n"
-		values_label.text += str(int(spawner.heavy_chance*1000)/10.0) + "%\n"
-	if spawner.fast_chance != 0:
-		labels_label.text += "Fast:\n"
-		values_label.text += str(int(spawner.fast_chance*1000)/10.0) + "%\n"
-	if spawner.ranged_chance != 0:
-		labels_label.text += "Ranged:\n"
-		values_label.text += str(int(spawner.ranged_chance*1000)/10.0) + "%\n"
-	if spawner.shield_chance != 0:
-		labels_label.text += "Shield:\n"
-		values_label.text += str(int(spawner.shield_chance*1000)/10.0) + "%\n"
+	#var labels_label: Label = enemy_spawn_info.get_node("MarginContainer/Labels")
+	#var values_label: Label = enemy_spawn_info.get_node("MarginContainer/Values")
+	#
+	#labels_label.text = "Spawn Rate:\n"
+	#values_label.text = str(DW_ToolBox.TrimDecimalPoints(1/spawner.spawn_cooldown, 1)) + " per second\n"
+	#labels_label.text += "Wave(x" + str(spawner.wave_count) + ")" + " Chance:\n"
+	#values_label.text += str(int(spawner.wave_chance * 1000)/10.0) + "%\n"
+	#labels_label.text += "HP Range:\n"
+	#values_label.text += str(spawner.health_range.x) + " - " + str(spawner.health_range.y) + "\n"
+	#labels_label.text += "Speed Range:\n"
+	#values_label.text += str(spawner.move_speed_range.x) + " - " + str(spawner.move_speed_range.y) + "\n"
+	#if spawner.heavy_chance != 0:
+		#labels_label.text += "Heavy:\n"
+		#values_label.text += str(int(spawner.heavy_chance*1000)/10.0) + "%\n"
+	#if spawner.fast_chance != 0:
+		#labels_label.text += "Fast:\n"
+		#values_label.text += str(int(spawner.fast_chance*1000)/10.0) + "%\n"
+	#if spawner.ranged_chance != 0:
+		#labels_label.text += "Ranged:\n"
+		#values_label.text += str(int(spawner.ranged_chance*1000)/10.0) + "%\n"
+	#if spawner.shield_chance != 0:
+		#labels_label.text += "Shield:\n"
+		#values_label.text += str(int(spawner.shield_chance*1000)/10.0) + "%\n"
 
 func make_exp_popup(amount: int) -> void:
 	var new_popup = exp_popup.instantiate()
