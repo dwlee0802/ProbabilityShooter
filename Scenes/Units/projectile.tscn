@@ -10,12 +10,12 @@ radius = 20.0
 offsets = PackedFloat32Array(0, 0.566667)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="Gradient" id="Gradient_7dt0m"]
+[sub_resource type="Gradient" id="Gradient_0vhr5"]
 offsets = PackedFloat32Array(0.318182, 0.766234, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_br25l"]
-gradient = SubResource("Gradient_7dt0m")
+gradient = SubResource("Gradient_0vhr5")
 use_hdr = true
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -104,9 +104,12 @@ color = Color(1, 1, 1, 0.0941176)
 color_ramp = SubResource("Gradient_38fun")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+process_priority = -1
+process_physics_priority = -1
 color = Color(1, 1, 0.788235, 1)
+energy = 2.0
 texture = SubResource("GradientTexture2D_br25l")
-texture_scale = 3.0
+texture_scale = 6.0
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 100, 0)
