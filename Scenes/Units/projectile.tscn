@@ -106,10 +106,11 @@ color_ramp = SubResource("Gradient_38fun")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 process_priority = -1
 process_physics_priority = -1
+visible = false
 color = Color(1, 1, 0.788235, 1)
-energy = 2.0
+energy = 1.5
 texture = SubResource("GradientTexture2D_br25l")
-texture_scale = 6.0
+texture_scale = 4.0
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 100, 0)

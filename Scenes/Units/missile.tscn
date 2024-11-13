@@ -8,7 +8,7 @@
 [sub_resource type="Gradient" id="Gradient_bggb6"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_k1hna"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_60e2t"]
 gradient = SubResource("Gradient_bggb6")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
@@ -38,10 +38,11 @@ max_contacts_reported = 1
 script = ExtResource("1_qmmru")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 color = Color(1, 0.701756, 0.443071, 1)
 energy = 6.0
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_k1hna")
+texture = SubResource("GradientTexture2D_60e2t")
 texture_scale = 10.0
 height = 1.0
 
