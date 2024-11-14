@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=64 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -30,6 +30,7 @@
 [ext_resource type="AudioStream" uid="uid://bpx35j7exlob" path="res://Sound/exp_gained_ding.mp3" id="26_mol5q"]
 [ext_resource type="PackedScene" uid="uid://vot0pio4jgj" path="res://Scenes/Interface/crystal_icon.tscn" id="28_e45av"]
 [ext_resource type="AudioStream" uid="uid://c26i1vomvlsk6" path="res://Sound/dash.mp3" id="30_ddhi0"]
+[ext_resource type="AudioStream" uid="uid://b3y3gswtipfqq" path="res://Sound/player_hurt2.mp3" id="31_rt2hf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
@@ -968,6 +969,10 @@ color_initial_ramp = SubResource("Gradient_8r4ee")
 stream = ExtResource("30_ddhi0")
 volume_db = 3.0
 pitch_scale = 2.0
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("31_rt2hf")
+max_polyphony = 5
 
 [node name="PickupArea" type="Area2D" parent="."]
 collision_layer = 0

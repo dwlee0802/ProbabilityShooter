@@ -105,6 +105,7 @@ var enchant_mode: bool = false
 ## sound
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 @onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
+@onready var hurt_sfx: AudioStreamPlayer = $SoundEffects/HurtSound
 
 @onready
 var shade_animation: AnimationPlayer = $UnitSprite/ShadeAnimationPlayer
@@ -441,6 +442,7 @@ func receive_hit(amount: float) -> void:
 	health_bar.change_value(health_points)
 	health_changed.emit()
 	was_attacked.emit()
+	hurt_sfx.play()
 
 func make_unconscious() -> void:
 	if invinsible:
