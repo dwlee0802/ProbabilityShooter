@@ -450,6 +450,8 @@ func start() -> void:
 	set_safezone_active_status(true)
 	player_unit.safe_zone_active = true
 	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
+	
+	user_interface.upgrade_ui.clear_icons()
 
 func place_crystals() -> void:
 	for i in range(crystal_count):
