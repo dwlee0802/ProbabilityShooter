@@ -16,6 +16,8 @@ var explosion_range: float = 100
 
 @onready
 var target_line: Line2D = $Line2D
+@onready
+var target_crosshair: Sprite2D = $TargetSprite
 
 @onready
 var smoke_particles: CPUParticles2D = $SmokeParticle
@@ -33,12 +35,22 @@ func _physics_process(_delta: float) -> void:
 	if target and is_instance_valid(target) and target is EnemyUnit and !target.is_dead():
 		# otherwise apply force towards the target
 		apply_central_impulse(global_position.direction_to(target.global_position) * thrust)
-		target_line.set_point_position(1, target.global_position - global_position)
+		var target_dir: Vector2 = target.global_position - global_position
+		#if target_dir.length() < 200:
+			#target_line.set_point_position(1, target_dir)
+		#else:
+			#target_line.set_point_position(1, target_dir.normalized() * 250)
+		#target_line.visible = true
+		if !target_crosshair.visible:
+			target_crosshair.visible = true
+		target_crosshair.global_position = target.global_position
 	else:
 		var candidates = game_ref.enemies.get_children()
 		if candidates.size() >= 1:
 			target = candidates.pick_random()
 		apply_central_impulse(linear_velocity.normalized() * thrust)
+		#target_line.visible = false
+		target_crosshair.visible = false
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is EnemyUnit:
