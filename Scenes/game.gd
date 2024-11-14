@@ -209,6 +209,8 @@ func _ready():
 	upgrade_timer.timeout.connect(on_upgrade_timeout)
 	user_interface.upgrade_timer = upgrade_timer
 	
+	user_interface.upgrade_ui.clear_icons()
+	
 func _process(_delta):
 	InputManager.camera.scale_health_label(enemies.get_children())
 	
@@ -565,6 +567,8 @@ func apply_upgrade(upgrade: Upgrade) -> void:
 	## Static upgrades are upgrades that is a one time fire upgrade usually a stat boost to player
 	UpgradesManager.process_event(Event.new(player_unit, player_unit.global_position, upgrade, Event.EventCode.STATIC_UPGRADE_TAKEN))
 	player_unit.upgrades_ready_count -= 1
+	
+	user_interface.upgrade_ui.add_upgrade_icon(upgrade)
 		
 func on_upgrade_selected():
 	var tween = get_tree().create_tween()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=66 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -7,6 +7,8 @@
 [ext_resource type="StyleBox" uid="uid://bk8ix2uyn7rqi" path="res://Misc/active_reload_bar_texture.tres" id="5_omcna"]
 [ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://Misc/active_reload_fill_texture.tres" id="6_auke1"]
 [ext_resource type="PackedScene" uid="uid://bla0llv7cm4g2" path="res://Scenes/Interface/minimap.tscn" id="7_a8odi"]
+[ext_resource type="Texture2D" uid="uid://4085uhqlx6l" path="res://Art/Icons/Upgrades/damage_up_icon.png" id="7_abwdc"]
+[ext_resource type="Script" path="res://Scenes/Interface/upgrade_ui.gd" id="7_blvmm"]
 [ext_resource type="Script" path="res://Scenes/Interface/mutation_roulette.gd" id="8_ghxnf"]
 [ext_resource type="PackedScene" uid="uid://ctny8tliuf3cp" path="res://Scenes/Interface/level_up_option.tscn" id="9_s4fln"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="10_acs6f"]
@@ -103,171 +105,6 @@ _data = {
 "RESET": SubResource("Animation_a84oq"),
 "killcount_up": SubResource("Animation_mfhy1"),
 "wave_impending": SubResource("Animation_uuatt")
-}
-
-[sub_resource type="Animation" id="Animation_dcoc7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_vfg1j"]
-resource_name = "core_hit_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.584314, 0, 0, 0.196078), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_n1oks"]
-resource_name = "player_healed"
-
-[sub_resource type="Animation" id="Animation_xulws"]
-resource_name = "shoot_screen_blink"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_upd2j"]
-_data = {
-"RESET": SubResource("Animation_dcoc7"),
-"core_hit_animation": SubResource("Animation_vfg1j"),
-"player_healed": SubResource("Animation_n1oks"),
-"shoot_screen_blink": SubResource("Animation_xulws")
-}
-
-[sub_resource type="Animation" id="Animation_gr37w"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_p2qo0"]
-resource_name = "screen_blink"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6or7e"]
-_data = {
-"RESET": SubResource("Animation_gr37w"),
-"screen_blink": SubResource("Animation_p2qo0")
-}
-
-[sub_resource type="Animation" id="Animation_07f1l"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.584314, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_y300w"]
-resource_name = "danger_zone"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0.584314, 0, 0, 0), Color(0.584314, 0, 0, 0.0588235)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_k820w"]
-_data = {
-"RESET": SubResource("Animation_07f1l"),
-"danger_zone": SubResource("Animation_y300w")
 }
 
 [sub_resource type="InputEventKey" id="InputEventKey_olwgs"]
@@ -612,6 +449,195 @@ _data = {
 "blink": SubResource("Animation_gp32v")
 }
 
+[sub_resource type="Animation" id="Animation_dcoc7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_vfg1j"]
+resource_name = "core_hit_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.584314, 0, 0, 0.196078), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_n1oks"]
+resource_name = "player_healed"
+
+[sub_resource type="Animation" id="Animation_xulws"]
+resource_name = "shoot_screen_blink"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_upd2j"]
+_data = {
+"RESET": SubResource("Animation_dcoc7"),
+"core_hit_animation": SubResource("Animation_vfg1j"),
+"player_healed": SubResource("Animation_n1oks"),
+"shoot_screen_blink": SubResource("Animation_xulws")
+}
+
+[sub_resource type="Animation" id="Animation_gr37w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_p2qo0"]
+resource_name = "screen_blink"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 2.14355, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6or7e"]
+_data = {
+"RESET": SubResource("Animation_gr37w"),
+"screen_blink": SubResource("Animation_p2qo0")
+}
+
+[sub_resource type="Animation" id="Animation_07f1l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.584314, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_y300w"]
+resource_name = "danger_zone"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.584314, 0, 0, 0), Color(0.584314, 0, 0, 0.0588235)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k820w"]
+_data = {
+"RESET": SubResource("Animation_07f1l"),
+"danger_zone": SubResource("Animation_y300w")
+}
+
 [sub_resource type="Animation" id="Animation_ox3im"]
 length = 0.001
 tracks/0/type = "value"
@@ -758,52 +784,6 @@ vertical_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GameState/KillsLabel/KillsLabel"]
 libraries = {
 "": SubResource("AnimationLibrary_a6087")
-}
-
-[node name="CoreHitEffect" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CoreHitEffect"]
-libraries = {
-"": SubResource("AnimationLibrary_upd2j")
-}
-speed_scale = 3.0
-
-[node name="ShootingScreenBlink" type="ColorRect" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(1, 1, 1, 0.00392157)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ShootingScreenBlink"]
-libraries = {
-"": SubResource("AnimationLibrary_6or7e")
-}
-speed_scale = 2.0
-
-[node name="SafeZoneEffect" type="ColorRect" parent="."]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.584314, 0, 0, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SafeZoneEffect"]
-libraries = {
-"": SubResource("AnimationLibrary_k820w")
 }
 
 [node name="TemporaryTutorial" type="Control" parent="."]
@@ -1185,6 +1165,24 @@ grow_vertical = 0
 text = "Enemies: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UpgradeUI" type="HFlowContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.05
+offset_left = -344.0
+offset_bottom = 134.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("7_blvmm")
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeUI"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
 
 [node name="Minimap" parent="." instance=ExtResource("7_a8odi")]
 visible = false
@@ -1725,6 +1723,53 @@ text = "Bullet info 1"
 [node name="Label6" type="Label" parent="HUD/VBoxContainer/VBoxContainer/ExperienceBar/RightBulletInfoMenu/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bullet info 1"
+
+[node name="CoreHitEffect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CoreHitEffect"]
+libraries = {
+"": SubResource("AnimationLibrary_upd2j")
+}
+speed_scale = 3.0
+
+[node name="ShootingScreenBlink" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.00392157)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShootingScreenBlink"]
+libraries = {
+"": SubResource("AnimationLibrary_6or7e")
+}
+speed_scale = 2.0
+
+[node name="SafeZoneEffect" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.584314, 0, 0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SafeZoneEffect"]
+libraries = {
+"": SubResource("AnimationLibrary_k820w")
+}
 
 [node name="HealthScoreContainer" type="VBoxContainer" parent="."]
 anchors_preset = -1

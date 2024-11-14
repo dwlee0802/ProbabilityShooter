@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=4 format=3 uid="uid://bvm8kue3p78ex"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://bvm8kue3p78ex"]
 
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="1_oj06d"]
 [ext_resource type="Script" path="res://Scripts/Effects/missile_effect.gd" id="1_un2v4"]
+[ext_resource type="Texture2D" uid="uid://crbmbwx0xmj5l" path="res://Art/Icons/Upgrades/missile_icon.png" id="2_c6wmj"]
 
 [sub_resource type="Resource" id="Resource_n1h68"]
 script = ExtResource("1_un2v4")
@@ -12,6 +13,7 @@ script = ExtResource("1_oj06d")
 condition_event_code = 8
 effect = SubResource("Resource_n1h68")
 upgrade_name = "Missile"
+icon = ExtResource("2_c6wmj")
 color = Color(1, 0.321569, 0.227451, 1)
 description = "25% Chance to shoot a homing missile when shooting"
 disabled = false

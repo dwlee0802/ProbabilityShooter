@@ -89,6 +89,9 @@ var weapon_two_active_reload: Control = $ExperienceBar/WeaponTwoActiveReloadBar
 var score_info_ui: Control = $HealthScoreContainer/ScoreInfo
 
 @onready
+var upgrade_ui: UpgradeUI = $UpgradeUI
+
+@onready
 var enemy_spawn_info: Control = $EnemySpawnInfo
 
 @onready

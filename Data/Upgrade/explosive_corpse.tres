@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://lo1lw2r3ewq"]
 
 [ext_resource type="Script" path="res://Scripts/Effects/explode_effect.gd" id="1_6giu6"]
-[ext_resource type="Texture2D" uid="uid://dv2b2ejpp4h1b" path="res://Art/Icons/Upgrades/explosive_icon.png" id="2_meedm"]
+[ext_resource type="Texture2D" uid="uid://dypfiu16pjtuk" path="res://Art/Icons/Upgrades/explosion.png" id="2_51nwb"]
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="3_y0gu3"]
 
 [sub_resource type="Resource" id="Resource_5oobg"]
@@ -16,7 +16,7 @@ script = ExtResource("3_y0gu3")
 condition_event_code = 1
 effect = SubResource("Resource_5oobg")
 upgrade_name = "Explosive Corpse"
-icon = ExtResource("2_meedm")
+icon = ExtResource("2_51nwb")
 color = Color(1, 1, 1, 1)
 description = "25% Chance for enemies to explode on death."
 disabled = false
