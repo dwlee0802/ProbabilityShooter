@@ -975,6 +975,7 @@ stream = ExtResource("31_rt2hf")
 max_polyphony = 5
 
 [node name="PickupArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 

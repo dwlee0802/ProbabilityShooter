@@ -35,7 +35,7 @@ func _physics_process(_delta: float) -> void:
 	if target and is_instance_valid(target) and target is EnemyUnit and !target.is_dead():
 		# otherwise apply force towards the target
 		apply_central_impulse(global_position.direction_to(target.global_position) * thrust)
-		var target_dir: Vector2 = target.global_position - global_position
+		var _target_dir: Vector2 = target.global_position - global_position
 		#if target_dir.length() < 200:
 			#target_line.set_point_position(1, target_dir)
 		#else:

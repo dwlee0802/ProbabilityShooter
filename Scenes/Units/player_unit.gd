@@ -31,6 +31,8 @@ var revive_time: float = 5.0
 var aim_speed_modifier: float = 0
 var reload_speed_modifier: float = 0
 
+var hit_knockback: float = 8000
+
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
 @export
@@ -503,6 +505,7 @@ func _on_body_entered(body) -> void:
 	if body is EnemyUnit:
 		receive_hit(1)
 		#body.die()
+		apply_central_impulse(body.global_position.direction_to(global_position) * hit_knockback)
 
 func disable_enemy_collision():
 	$CollisionShape2D.call_deferred("set_disabled", true)
