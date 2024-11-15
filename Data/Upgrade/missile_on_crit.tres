@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Effects/missile_effect.gd" id="1_sc48l"]
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="2_f1f1i"]
-[ext_resource type="Texture2D" uid="uid://crbmbwx0xmj5l" path="res://Art/Icons/Upgrades/missile_icon.png" id="2_la031"]
+[ext_resource type="Texture2D" uid="uid://dh02tge7vcju" path="res://Art/Icons/Upgrades/crit_missile_icon.png" id="2_iyuor"]
 
 [sub_resource type="Resource" id="Resource_n1h68"]
 script = ExtResource("1_sc48l")
@@ -13,7 +13,7 @@ script = ExtResource("2_f1f1i")
 condition_event_code = 4
 effect = SubResource("Resource_n1h68")
 upgrade_name = "Critical Missile"
-icon = ExtResource("2_la031")
+icon = ExtResource("2_iyuor")
 color = Color(1, 0.607843, 0.227451, 1)
 description = "Shoot a homing missile on critical hit"
 disabled = false
