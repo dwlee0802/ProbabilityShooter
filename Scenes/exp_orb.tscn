@@ -50,7 +50,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.966667),
 "transitions": PackedFloat32Array(1.5, 1.5),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -10)]
+"values": [Vector2(0, 0), Vector2(0, -20)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kxm1w"]
@@ -70,7 +70,7 @@ speed = 2000.0
 
 [node name="ExpOrb" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0.654902, 1, 1)
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.115776, 0.115776)
 texture = ExtResource("1_b8a12")
 
 [node name="PointLight2D" type="PointLight2D" parent="ExpOrb"]
