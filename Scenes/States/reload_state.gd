@@ -15,10 +15,13 @@ func enter() -> void:
 	parent.bullets_changed.emit()
 
 func exit() -> void:
+	parent.active_reload_available = true
+	parent.reload_timer.stop()
 	super()
 	
 func process_frame(_delta: float) -> State:
 	if parent.weapon.have_bullets():
+		# stop reload process
 		return ready_state
 		
 	# make hands follow mouse
@@ -39,7 +42,7 @@ func process_input(_event: InputEvent) -> State:
 			
 	return null
 	
-func start_reload_process(_eq_num: int = 0) -> void:
+func start_reload_process() -> void:
 	if parent.reload_timer.is_stopped():
 		print("Start Reload Process")
 		parent.active_reload_available = true
@@ -49,16 +52,10 @@ func start_reload_process(_eq_num: int = 0) -> void:
 		parent.active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + parent.active_reload_length)
 		print("active reload range: " + str(parent.active_reload_range))
 		parent.reload_started.emit()
-
+	
 func reload_action() -> void:
 	print("Reload complete")
-	parent.active_reload_available = true
-	parent.weapon.reload()
-	parent.reload_sfx.stream = parent.weapon.data.reload_sound
-	parent.reload_sfx.play()
-		
-	parent.bullets_changed.emit()
-	parent.reload_complete.emit()
+	parent.reload()
 	
 	var new_casing_eff: Node2D = casings.instantiate()
 	new_casing_eff.set_direction(Vector2.from_angle(parent.rotation + PI))

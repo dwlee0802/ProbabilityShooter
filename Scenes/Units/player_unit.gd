@@ -917,5 +917,5 @@ func knock_back(node: Node2D) -> void:
 	apply_central_impulse(-global_position.direction_to(node.global_position) * 500)
 
 func _on_pickup_area_body_entered(body: Node2D) -> void:
-	if body is Orb:
+	if body is Pickup:
 		body.on_pickup(self)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=26 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://Scenes/score_component.gd" id="18_ro7nv"]
 [ext_resource type="AudioStream" uid="uid://b6mh4idc27ikd" path="res://Sound/action-loop-e-90-bpm-brvhrtz-233462.mp3" id="21_jl7fl"]
 [ext_resource type="Script" path="res://Scenes/run_data_component.gd" id="23_b7ohg"]
+[ext_resource type="PackedScene" uid="uid://cmrmaa2svvqi3" path="res://Scenes/ammo_pack.tscn" id="25_vw8f3"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -82,8 +83,7 @@ max_health_points = 3
 starting_equipments = [ExtResource("10_gp80q")]
 level_per_upgrade = 3
 crystal_color = Color(0.498039, 1, 0.831373, 1)
-level_up_debug = true
-level_up_debug_amount = 100
+invinsible = true
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
 zoom = Vector2(0.1, 0.1)
@@ -200,7 +200,8 @@ volume_db = -5.0
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("21_jl7fl")
-volume_db = -5.0
+volume_db = -10.0
+pitch_scale = 0.9
 autoplay = true
 
 [node name="StatisticsComponent" type="Node" parent="."]
@@ -213,3 +214,6 @@ multiplier_decay_time = 5.0
 
 [node name="RunHistoryComponent" type="Node" parent="."]
 script = ExtResource("23_b7ohg")
+
+[node name="AmmoPack" parent="." instance=ExtResource("25_vw8f3")]
+position = Vector2(564, 359)

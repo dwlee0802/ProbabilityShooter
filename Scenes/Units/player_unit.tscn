@@ -331,6 +331,21 @@ _data = {
 "exp_gained": SubResource("Animation_kuf2v")
 }
 
+[sub_resource type="Animation" id="Animation_nf4vv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_ri0bn"]
 resource_name = "hit_blink"
 length = 0.5
@@ -345,21 +360,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_nf4vv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0wgi7"]
@@ -1021,6 +1021,7 @@ pitch_scale = 2.0
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("31_rt2hf")
+volume_db = -5.0
 max_polyphony = 5
 
 [node name="FootstepComponent" type="Node" parent="SoundEffects"]

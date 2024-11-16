@@ -101,6 +101,7 @@ func have_bullets() -> bool:
 	return current_magazine_count > 0
 	
 func reload() -> void:
+	clear_bullets()
 	current_magazine_count = get_magazine_size()
 	print("reloaded " + data.equipment_name + " " + str(current_magazine_count) + "/" + str(get_magazine_size()))
 	bullets = Gun.bullet_generator.generate_bullets(get_magazine_size())

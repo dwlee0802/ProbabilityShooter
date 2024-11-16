@@ -28,6 +28,10 @@ gdscript/warnings/unused_signal=0
 
 mouse_cursor/custom_image="res://Art/empty_circle.png"
 
+[editor]
+
+script/templates_search_path="res://Scripts/ScriptTemplates"
+
 [editor_plugins]
 
 enabled=PackedStringArray()

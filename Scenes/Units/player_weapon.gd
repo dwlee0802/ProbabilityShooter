@@ -133,6 +133,15 @@ func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 func get_queued_attack_count() -> int:
 	return attack_direction_queue.size()
 
+func reload() -> void:
+	weapon.reload()
+	active_reload_available = true
+	reload_sfx.stream = weapon.data.reload_sound
+	reload_sfx.play()
+	
+	bullets_changed.emit()
+	reload_complete.emit()
+	
 func get_magazine_status() -> String:
 	var queued_count: int = get_queued_attack_count()
 	var output = ""
