@@ -1,5 +1,5 @@
 extends Equipment
-class_name Gun
+class_name Gun_
 
 static var bullet_generator: BulletGenerator
 
@@ -246,14 +246,12 @@ func get_damage_range() -> Vector2i:
 func get_projectile_speed() -> float:
 	return data.projectile_speed + bonus_projectile_speed
 func get_spread() -> float:
-	return max(data.get_spread_in_rad() + bonus_spread, Gun.min_spread)
+	return data.get_spread_in_rad()
 func get_magazine_size() -> int:
 	return max_bullet_count
 func get_projectile_count() -> int:
 	return data.projectile_count + bonus_projectile_count
 func get_reload_time() -> float:
-	if 1 + reload_speed_modifier <= 0:
-		return Gun.max_reload_time
 	return data.reload_time / (1 + reload_speed_modifier)
 func get_aim_time() -> float:
 	if 1 + aim_speed_modifier <= 0:

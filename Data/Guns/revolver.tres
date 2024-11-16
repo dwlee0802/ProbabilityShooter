@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="GunData" load_steps=2 format=3 uid="uid://b7ll2myk1ffpw"]
+
+[ext_resource type="Script" path="res://Scripts/gun_data.gd" id="1_uq3wd"]
+
+[resource]
+script = ExtResource("1_uq3wd")
+equipment_name = "Revolver"
+magazine_size = 5
+aim_time = 2.0
+reload_time = 4.0
+projectile_speed = 10000.0
+knock_back_force = 1000.0
+projectile_count = 1
+spread = 1.0

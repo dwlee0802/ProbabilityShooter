@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=30 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -15,8 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="8_tcb7a"]
 [ext_resource type="Script" path="res://Scenes/Interface/simple_crosshair.gd" id="10_7h2qa"]
-[ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="10_gp80q"]
+[ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_yxtnb"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="11_6erkg"]
 [ext_resource type="Texture2D" uid="uid://drlxsyjqp0lk6" path="res://Art/crosshair054.png" id="11_jdxks"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="12_4xbxh"]
+[ext_resource type="Script" path="res://Scenes/Equipment/gun_data_old.gd" id="13_3bo3l"]
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
@@ -25,6 +28,23 @@
 [ext_resource type="AudioStream" uid="uid://b6mh4idc27ikd" path="res://Sound/action-loop-e-90-bpm-brvhrtz-233462.mp3" id="21_jl7fl"]
 [ext_resource type="Script" path="res://Scenes/run_data_component.gd" id="23_b7ohg"]
 [ext_resource type="PackedScene" uid="uid://cmrmaa2svvqi3" path="res://Scenes/ammo_pack.tscn" id="25_vw8f3"]
+
+[sub_resource type="Resource" id="Resource_sdoah"]
+script = ExtResource("13_3bo3l")
+projectile_scene = ExtResource("11_6erkg")
+aim_time = 2.0
+reload_time = 4.0
+magazine_size = 5
+projectile_speed = 10000.0
+damage_range = Vector2i(0, 0)
+knock_back_force = 1000.0
+projectile_count = 1
+spread = 1.0
+penetration = 0.0
+equipment_name = "Rifle"
+equipment_use_sound = ExtResource("10_yxtnb")
+reload_sound = ExtResource("12_4xbxh")
+is_consumable = false
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_entdd")
@@ -80,7 +100,7 @@ collision_mask = 1162
 movement_speed = 800.0
 health_points = 3.0
 max_health_points = 3
-starting_equipments = [ExtResource("10_gp80q")]
+starting_equipments = [SubResource("Resource_sdoah")]
 level_per_upgrade = 3
 crystal_color = Color(0.498039, 1, 0.831373, 1)
 invinsible = true

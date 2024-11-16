@@ -1,6 +1,5 @@
 extends RefCounted
-class_name NewGun
-## Manages the Bullet objects
+class_name Gun
 
 var data: GunData
 static var bullet_generator: BulletGenerator

@@ -3,12 +3,20 @@ class_name WeaponComponent
 
 @export
 var weapon_data: GunData = null
-var weapon: Gun
+
+var bullet_generator: BulletGenerator
+
+## Bullet Management
+var bullets = []
+
+## Stats
+var magazine_size: int = 5
 
 @onready
 var muzzle_point: Marker2D = $Arm/Node2D/Hand/MuzzlePoint
 @onready
 var muzzle_smoke: CPUParticles2D = $Arm/Node2D/Hand/MuzzlePoint/CPUParticles2D
+## Which action using this weapon is bound to
 @export
 var action_name: String
 
@@ -86,14 +94,17 @@ signal activated
 
 func _ready() -> void:
 	state_machine.init(self)
-	weapon = Gun.new(weapon_data)
-	weapon.bullet_spawn_position = muzzle_point
 	
 	reload_timer = ScalableTimer.new()
 	reload_timer.one_shot = true
 	add_child(reload_timer)
 	
 	update_aim_cone()
+	
+func _physics_process(delta: float) -> void:
+	state_machine.process_physics(delta)
+	
+	point_aim_cone_at(get_local_mouse_position())
 	
 func set_color(color: Color) -> void:
 	weapon_color = color
@@ -106,21 +117,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	if !disabled:
 		state_machine.process_input(event)
 
-func _physics_process(delta: float) -> void:
-	state_machine.process_physics(delta)
-	
-	point_aim_cone_at(get_local_mouse_position())
-
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
 	
 func update_aim_cone() -> void:
-	var spread: float = weapon.get_spread()
+	var spread: float = weapon_data.get_spread_in_rad()
 	aim_cone.polygon = cone_from_angle(spread, 100000)
 	attack_full_cone.polygon = cone_from_angle(spread, 100000)
 	
 func update_attack_cone(progress: float) -> void:
-	attack_cone.polygon = cone_from_angle(weapon.data.get_spread_in_rad() * progress, 100000)
+	attack_cone.polygon = cone_from_angle(weapon_data.get_spread_in_rad() * progress, 100000)
 	
 func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 	# calculate three points of triangle
@@ -133,22 +139,32 @@ func cone_from_angle(angle: float, radius: float) -> PackedVector2Array:
 func get_queued_attack_count() -> int:
 	return attack_direction_queue.size()
 
+func has_bullets() -> bool:
+	return bullets.size() > 0
+	
 func reload() -> void:
-	weapon.reload()
+	clear_bullets()
+	print("reloaded " + weapon_data.equipment_name + " " + str(bullets.size()) + "/" + str(magazine_size))
+	bullets = Gun.bullet_generator.generate_bullets(magazine_size)
+	
 	active_reload_available = true
-	reload_sfx.stream = weapon.data.reload_sound
+	reload_sfx.stream = weapon_data.reload_sound
 	reload_sfx.play()
 	
 	bullets_changed.emit()
 	reload_complete.emit()
+
+func clear_bullets() -> void:
+	print("removed " + str(bullets.size()) + " bullets")
+	bullets.clear()
 	
 func get_magazine_status() -> String:
 	var queued_count: int = get_queued_attack_count()
 	var output = ""
 	
-	output += str(weapon.current_magazine_count - queued_count)
+	output += str(bullets.size() - queued_count)
 	#output += "(" + str(queued_count) + ")"
-	output += " / " + str(weapon.get_magazine_size())
+	output += " / " + str(magazine_size)
 	
 	return output
 

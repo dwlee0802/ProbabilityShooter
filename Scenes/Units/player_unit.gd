@@ -252,20 +252,11 @@ signal teleport_finished
 
 
 func _ready() -> void:
-	# instantiate gun objects
-	#for eq: EquipmentData in starting_equipments:
-		#if eq is RayGunData:
-			#equipments.append(RayGun.new(eq))
-		#elif eq is GrenadeData:
-			#equipments.append(Grenade.new(eq))
-		#elif eq is EffectorData:
-			#equipments.append(Effector.new(eq))
-		#else:
-			#equipments.append(Gun.new(eq))
-			
 	Gun.bullet_generator = bullet_generator_component
-	weapon_one.weapon.reload()
-	weapon_two.weapon.reload()
+	weapon_one.bullet_generator = $BulletGeneratorComponent
+	weapon_two.bullet_generator = $BulletGeneratorComponent
+	weapon_one.reload()
+	weapon_two.reload()
 	
 	weapon_one.activated.connect(knock_back.bind(weapon_one.muzzle_point))
 	weapon_two.activated.connect(knock_back.bind(weapon_two.muzzle_point))
@@ -275,8 +266,8 @@ func _ready() -> void:
 	
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
-	#print("equipped " + weapon_one.weapon_data.equipment_name)
-	#print("equipped " + weapon_two.weapon_data.equipment_name)
+	print("equipped " + weapon_one.weapon_data.equipment_name)
+	print("equipped " + weapon_two.weapon_data.equipment_name)
 	
 	# cone colors
 	aim_cone.color = aim_color

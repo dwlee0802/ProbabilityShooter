@@ -27,7 +27,7 @@ func exit() -> void:
 	aim_timer.stop()
 
 func process_physics(_delta: float) -> State:
-	if parent.weapon.have_bullets():
+	if parent.bullets.size() > 0:
 		if !parent.attack_direction_queue.is_empty() and aim_timer.is_stopped():
 			start_attack_process()
 		return null
@@ -50,13 +50,9 @@ func process_input(_event: InputEvent) -> State:
 		
 	## action queue input
 	if _event.is_action_pressed(parent.action_name):
-		if Input.is_action_pressed("use_item"):
-			return null
-			
-		if parent.weapon.ready:
-			if parent.attack_direction_queue.size() < parent.weapon.current_magazine_count:
-				save_mouse_position()
-				parent.bullets_changed.emit()
+		if parent.attack_direction_queue.size() < parent.bullets.size():
+			save_mouse_position()
+			parent.bullets_changed.emit()
 	
 	return null
 
@@ -82,7 +78,7 @@ func start_attack_process() -> void:
 	
 	# back end
 	aim_timer.stop()
-	aim_timer.start(parent.weapon.bullets.front().aim_time)
+	aim_timer.start(parent.bullets.front().aim_time)
 	
 	# front end
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(parent.attack_direction_queue.front())
@@ -96,16 +92,16 @@ func on_aim_finished() -> void:
 		pass
 	else:
 		var target: Vector2 = parent.attack_direction_queue.pop_front()
-		parent.gunshot_sfx.stream = parent.weapon.data.equipment_use_sound
+		parent.gunshot_sfx.stream = parent.weapon_data.fire_sound
 		parent.gunshot_sfx.play()
 		#print("Attack finished. Current queue count: " + str(parent.attack_direction_queue.size()))
 		if parent.queued_attack_cones.size() > 0:
 			parent.queued_attack_cones.pop_front().queue_free()
 		parent.attack_full_cone.visible = false
 		
-		parent.shot_bullet.emit(parent.weapon.bullets.front().projectile_count)
+		parent.shot_bullet.emit(parent.bullets.front().projectile_count)
 		parent.activated.emit()
-		parent.weapon.on_activation(InputManager.selected_unit, target)
+		parent.on_activation(InputManager.selected_unit, target)
 		InputManager.selected_unit.actioned.emit()
 		parent.muzzle_flash.play("muzzle_flash")
 		parent.muzzle_smoke.emitting = true
@@ -120,5 +116,5 @@ func on_aim_finished() -> void:
 	# if attack direction queue has stuff in it, start next attack process
 	# reload if we are out of bullets
 	if !parent.attack_direction_queue.is_empty():
-		if parent.weapon.have_bullets():
+		if parent.has_bullets():
 			start_attack_process()

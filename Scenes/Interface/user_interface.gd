@@ -186,7 +186,7 @@ func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weap
 	DW_ToolBox.RemoveAllChildren(left_bullet_info_menu_container)
 	DW_ToolBox.RemoveAllChildren(right_bullet_info_menu_container)
 	
-	var bullets = weapon_one.weapon.bullets
+	var bullets = weapon_one.bullets
 		
 	for i in range(bullets.size()):
 		var new_icon: TextureRect = health_icon.instantiate()
@@ -205,7 +205,7 @@ func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weap
 		left_bullet_info_menu_container.add_child(new_label)
 		
 	bullets = []
-	bullets = weapon_two.weapon.bullets
+	bullets = weapon_two.bullets
 		
 	for i in range(bullets.size()):
 		var new_icon: TextureRect = health_icon.instantiate()

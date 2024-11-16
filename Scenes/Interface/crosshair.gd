@@ -56,8 +56,8 @@ func _process(_delta):
 	if first_frame:
 		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
 		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
-		set_magazine_max_count(weapon_one_ui, player_unit.weapon_one.weapon.max_bullet_count)
-		set_magazine_max_count(weapon_two_ui, player_unit.weapon_two.weapon.max_bullet_count)
+		set_magazine_max_count(weapon_one_ui, player_unit.weapon_one.magazine_size)
+		set_magazine_max_count(weapon_two_ui, player_unit.weapon_two.magazine_size)
 		first_frame = false
 		
 	if player_unit.weapon_one != null:
@@ -72,18 +72,15 @@ func _process(_delta):
 		if !player_unit.weapon_two.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
 			player_unit.weapon_two.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
 	
-	if !player_unit.weapon_one.weapon.have_bullets():
+	if !player_unit.weapon_one.has_bullets():
 		update_active_reload_bar(weapon_one_active_reload_bar, player_unit.weapon_one)
-	if !player_unit.weapon_two.weapon.have_bullets():
+	if !player_unit.weapon_two.has_bullets():
 		update_active_reload_bar(weapon_two_active_reload_bar, player_unit.weapon_two)
 		
 func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 	if weapon == null:
 		return
 		
-	# show damage range
-	var current_eq: Equipment = weapon.weapon
-	
 	var mag_label: Label = weapon_ui.get_node("VBoxContainer/MagazineLabel")
 	var mag_container: HBoxContainer = weapon_ui.get_node("VBoxContainer/MagazineContainer")
 	var health_hearts: HealthHearts = weapon_ui.get_node("VBoxContainer/HealthHearts")
@@ -93,11 +90,11 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 	
 	mag_label.add_theme_color_override("font_outline_color", weapon.weapon_color)
 	
-	if current_eq.have_bullets():
+	if weapon.has_bullets():
 		mag_container.visible = true
 		active_reload_bar.visible = false
 		var queued_count: int = weapon.get_queued_attack_count()
-		var unused_bullet_count = current_eq.bullets.size() - queued_count
+		var unused_bullet_count = weapon.bullets.size() - queued_count
 		
 		for i: int in mag_container.get_child_count():
 			#mag_container.get_child(i).visible = i < current_eq.bullets.size() - queued_count
@@ -107,11 +104,11 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 				mag_container.get_child(i).self_modulate = weapon.weapon_color.darkened(0.8)
 				
 		if unused_bullet_count > 0:
-			# dmg label
-			health_hearts.set_hearts_count(current_eq.bullets[queued_count].damage_amount, Vector2(16,16))
-				
+			## dmg label
+			#health_hearts.set_hearts_count(weapon.bullets[queued_count].damage_amount, Vector2(16,16))
+				#
 			# traits label
-			traits_label.text = current_eq.bullets[queued_count].print_traits()
+			traits_label.text = weapon.bullets[queued_count].print_traits()
 		else:
 			health_hearts.set_hearts_count(0, Vector2(16,16))
 			traits_label.text = ""

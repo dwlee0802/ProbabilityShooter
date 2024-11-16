@@ -1,5 +1,5 @@
 extends EquipmentData
-class_name GunData
+class_name GunData_
 
 @export
 var projectile_scene = preload("res://Scenes/Units/projectile.tscn")

@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Scenes/Units/stat_component.gd" id="4_7ymnv"]
 [ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="4_61t70"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="4_asvwh"]
-[ext_resource type="Resource" uid="uid://bdcy44ox5wdf6" path="res://Data/Guns/rifle.tres" id="4_s5eeb"]
 [ext_resource type="Script" path="res://Scripts/wasd_movement_component.gd" id="9_0efpd"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="10_2kui5"]
@@ -16,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="11_vvwcf"]
 [ext_resource type="AudioStream" uid="uid://cex2uchs338xi" path="res://Sound/pistol-168180.mp3" id="13_5mmpc"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
+[ext_resource type="Resource" uid="uid://b7ll2myk1ffpw" path="res://Data/Guns/revolver.tres" id="14_uluvt"]
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
 [ext_resource type="Texture2D" uid="uid://vf8d0ug5roo4" path="res://Art/triangle.png" id="15_hpy8o"]
@@ -610,7 +610,7 @@ libraries = {
 [node name="WeaponOne" type="Node2D" parent="."]
 use_parent_material = true
 script = ExtResource("3_d8l28")
-weapon_data = ExtResource("4_s5eeb")
+weapon_data = ExtResource("14_uluvt")
 action_name = "action_one"
 
 [node name="ReloadTimer" type="Timer" parent="WeaponOne"]
@@ -673,7 +673,7 @@ use_parent_material = true
 [node name="WeaponTwo" type="Node2D" parent="."]
 use_parent_material = true
 script = ExtResource("3_d8l28")
-weapon_data = ExtResource("4_s5eeb")
+weapon_data = ExtResource("14_uluvt")
 action_name = "action_two"
 
 [node name="ReloadTimer" type="Timer" parent="WeaponTwo"]
