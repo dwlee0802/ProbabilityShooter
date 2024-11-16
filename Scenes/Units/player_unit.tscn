@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=69 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -31,6 +31,8 @@
 [ext_resource type="PackedScene" uid="uid://vot0pio4jgj" path="res://Scenes/Interface/crystal_icon.tscn" id="28_e45av"]
 [ext_resource type="AudioStream" uid="uid://c26i1vomvlsk6" path="res://Sound/dash.mp3" id="30_ddhi0"]
 [ext_resource type="AudioStream" uid="uid://b3y3gswtipfqq" path="res://Sound/player_hurt2.mp3" id="31_rt2hf"]
+[ext_resource type="Script" path="res://Scenes/Units/footstep_component.gd" id="32_crkq8"]
+[ext_resource type="AudioStream" uid="uid://u8et7ge6fsij" path="res://Sound/footsteps/footstep_wood_000.ogg" id="32_o2oun"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
@@ -1015,6 +1017,13 @@ pitch_scale = 2.0
 [node name="HurtSound" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("31_rt2hf")
 max_polyphony = 5
+
+[node name="FootstepComponent" type="Node" parent="SoundEffects"]
+script = ExtResource("32_crkq8")
+
+[node name="FootstepSound" type="AudioStreamPlayer" parent="SoundEffects/FootstepComponent"]
+stream = ExtResource("32_o2oun")
+volume_db = 20.0
 
 [node name="PickupArea" type="Area2D" parent="."]
 visible = false

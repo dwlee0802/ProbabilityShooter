@@ -15,6 +15,7 @@ var unit_sprite: Sprite2D = $UnitSprite
 var movement_speed: float = 100
 var movement_speed_bonus: float = 0
 var movement_speed_multiplier: float = 1.0
+var is_running: bool = false
 @onready
 var movement_particle: CPUParticles2D = $MovementParticles
 @export
@@ -113,7 +114,8 @@ var enchant_mode: bool = false
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 @onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 @onready var hurt_sfx: AudioStreamPlayer = $SoundEffects/HurtSound
-@onready var footstep_sfx: AudioStreamPlayer = $SoundEffects/FootstepSound
+@onready
+var footstep_component: FootstepComponent = $SoundEffects/FootstepComponent
 
 @onready
 var shade_animation: AnimationPlayer = $UnitSprite/ShadeAnimationPlayer
@@ -318,6 +320,8 @@ func _ready() -> void:
 	
 	set_hit_invincible_time(_base_hit_invincible_time)
 	
+	footstep_component.unit = self
+	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	
@@ -333,14 +337,17 @@ func _physics_process(delta: float) -> void:
 	
 	movement_particle.emitting = linear_velocity.length() > 1
 	
+	is_running = false
 	if linear_velocity.x > 100:
 		unit_sprite.skew = 0.10
 		if Input.is_action_pressed("run"):
 			unit_sprite.skew *= 2
+			is_running = true
 	elif linear_velocity.x < -100:
 		unit_sprite.skew = -0.10
 		if Input.is_action_pressed("run"):
 			unit_sprite.skew *= 2
+			is_running = true
 	else:
 		unit_sprite.skew = 0
 	
