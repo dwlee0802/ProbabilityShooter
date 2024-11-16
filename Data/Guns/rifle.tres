@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data_old.gd" id="1_boncp"]
 [ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_crcsf"]
-[ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/9mm-pistol-shoot-short-reverb-7152.mp3" id="1_xm7ut"]
-[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/1911-reload-6248.mp3" id="3_as02g"]
+[ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/Weapon/pistol_shoot_sound.mp3" id="1_xm7ut"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="3_as02g"]
 
 [resource]
 script = ExtResource("1_boncp")

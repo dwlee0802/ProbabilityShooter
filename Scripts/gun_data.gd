@@ -7,9 +7,9 @@ class_name GunData
 var equipment_name: String
 ## ui image of equipment
 @export
-var fire_sound: Resource
+var fire_sound: AudioStream
 @export
-var reload_sound: Resource
+var reload_sound: AudioStream
 @export
 var projectile_scene = preload("res://Scenes/Units/projectile.tscn")
 

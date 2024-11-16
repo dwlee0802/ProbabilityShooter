@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="GunData" load_steps=2 format=3 uid="uid://b7ll2myk1ffpw"]
+[gd_resource type="Resource" script_class="GunData" load_steps=5 format=3 uid="uid://b7ll2myk1ffpw"]
 
+[ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/Weapon/pistol_shoot_sound.mp3" id="1_dyxmx"]
 [ext_resource type="Script" path="res://Scripts/gun_data.gd" id="1_uq3wd"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_7f5pp"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="3_b0hpe"]
 
 [resource]
 script = ExtResource("1_uq3wd")
 equipment_name = "Revolver"
+fire_sound = ExtResource("1_dyxmx")
+reload_sound = ExtResource("3_b0hpe")
+projectile_scene = ExtResource("2_7f5pp")
 magazine_size = 5
 aim_time = 2.0
 reload_time = 4.0
