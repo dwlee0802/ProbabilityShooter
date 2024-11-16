@@ -20,8 +20,6 @@ var lifetime_limit: float = 1.5
 
 var dynamite_scene = load("res://Scenes/Shootables/dynamite.tscn")
 
-var heal_orb_scene: PackedScene = preload("res://Scenes/health_orb.tscn")
-
 var penetration_probability: float = 0
 
 var bullet_data: Bullet

@@ -104,8 +104,7 @@ var dead_enemy_effect = preload("res://Scenes/dead_enemy_effect.tscn")
 
 static var resource_drop_chance: float = 0.05
 var dropped_item: PackedScene = preload("res://Scenes/Units/dropped_item.tscn")
-var exp_orb: PackedScene = preload("res://Scenes/exp_orb.tscn")
-var health_orb: PackedScene = preload("res://Scenes/health_orb.tscn")
+var exp_orb: PackedScene = preload("res://Scenes/Pickups/exp_orb.tscn")
 
 ## shootables
 static var dynamite_drop_chance: float = 0.1

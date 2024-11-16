@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://lcvrerr2foqf"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/pickup_drop.gd" id="1_kwnjm"]
+[ext_resource type="Texture2D" uid="uid://w3hhbmyb8vbm" path="res://Art/Icons/Upgrades/health_drop.png" id="2_4eiuf"]
+[ext_resource type="Script" path="res://Scripts/upgrade.gd" id="3_fyhe7"]
+
+[sub_resource type="Resource" id="Resource_8jv7e"]
+script = ExtResource("1_kwnjm")
+chance = 0.05
+ammo_pack = false
+health = true
+
+[resource]
+script = ExtResource("3_fyhe7")
+condition_event_code = 1
+effect = SubResource("Resource_8jv7e")
+upgrade_name = "Health Drop"
+icon = ExtResource("2_4eiuf")
+color = Color(1, 0.454474, 0.739607, 1)
+description = "5% Chance for Hearts to be dropped when enemy is killed"
+disabled = false

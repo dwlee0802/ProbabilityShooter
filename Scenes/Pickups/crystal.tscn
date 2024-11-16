@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bbpl7nyq7bgqo"]
 
-[ext_resource type="Script" path="res://Scenes/crystal.gd" id="1_f7rbp"]
+[ext_resource type="Script" path="res://Scenes/Pickups/crystal.gd" id="1_f7rbp"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="2_dhxhd"]
 [ext_resource type="Gradient" uid="uid://3aj3emqol1ln" path="res://Misc/fade_out_gradiant.tres" id="3_f7sf2"]
 

@@ -64,7 +64,7 @@ var safe_zone_sprite: Sprite2D = $Safezone
 
 #region Teleporter System
 ## Teleporter system
-var crystal_scene: PackedScene = preload("res://Scenes/crystal.tscn")
+var crystal_scene: PackedScene
 @export_category("Teleporter Settings")
 @export
 var crystal_count: int = 3
@@ -92,7 +92,7 @@ var score_component: ScoreComponent = $ScoreComponent
 ## shootable objects
 var dynamite_shootable = preload("res://Scenes/Shootables/dynamite.tscn")
 var projectile_scene: PackedScene = preload("res://Scenes/Units/projectile.tscn")
-var exp_orb: PackedScene = preload("res://Scenes/exp_orb.tscn")
+var exp_orb: PackedScene = preload("res://Scenes/Pickups/exp_orb.tscn")
 
 
 static func _static_init():
