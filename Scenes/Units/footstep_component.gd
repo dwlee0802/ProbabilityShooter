@@ -23,7 +23,7 @@ func _ready() -> void:
 	add_child(timer)
 	timer.timeout.connect(on_footstep_timer_timeout)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if timer.is_stopped():
 		if unit.linear_velocity.length() > running_threshold:
 			# restart timer

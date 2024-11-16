@@ -227,7 +227,7 @@ func _process(_delta: float) -> void:
 		
 # returns actual amount of HP decreased of self
 func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: Vector2 = Vector2.ZERO, bullet_data: Bullet = null) -> int:
-	#var new_popup = damage_popup.instantiate()
+	var new_popup = damage_popup.instantiate()
 	last_hit_is_crit = critical
 	
 	if shield:
@@ -236,8 +236,8 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 		
 	if critical:
 		damage_amount *= 2
-		#new_popup.modulate = Color.YELLOW
-		#new_popup.critical()
+		new_popup.modulate = Color.YELLOW
+		new_popup.critical()
 		crit_sound_player.play()
 		if projectile_dir:
 			make_blood_splatter_eff(projectile_dir, 15, 2)
@@ -247,9 +247,9 @@ func receive_hit(damage_amount: float, critical: bool = false, projectile_dir: V
 			make_blood_splatter_eff(projectile_dir, 5)
 		hit_sound_player.play()
 		
-	#new_popup.set_label(str(int(damage_amount)))
-	#new_popup.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
-	#get_tree().root.add_child(new_popup)
+	new_popup.set_label(str(int(damage_amount)))
+	new_popup.global_position = global_position + Vector2(randf_range(-20, 20), randf_range(-20, 20))
+	get_tree().root.add_child(new_popup)
 	
 	var effective_damage: int = min(damage_amount, health_points)
 	received_hit.emit(damage_amount, effective_damage)
@@ -314,13 +314,13 @@ func die():
 	game_ref.resources.call_deferred("add_child", new_exp_orb)
 	
 	# add score and make popup of it
-	var new_popup = damage_popup.instantiate()
-	new_popup.set_label(str(score_component.on_kill()))
-	if last_hit_is_crit:
-		new_popup.critical()
-		new_popup.modulate = Color.YELLOW
-	new_popup.global_position = global_position
-	get_tree().root.add_child(new_popup)
+	#var new_popup = damage_popup.instantiate()
+	#new_popup.set_label(str(score_component.on_kill()))
+	#if last_hit_is_crit:
+		#new_popup.critical()
+		#new_popup.modulate = Color.YELLOW
+	#new_popup.global_position = global_position
+	#get_tree().root.add_child(new_popup)
 	
 	#if randf() < EnemyUnit.resource_drop_chance:
 		#var new_drop: ResourceDrop = resource_drop.instantiate()

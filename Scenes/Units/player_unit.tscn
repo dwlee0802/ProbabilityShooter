@@ -1028,7 +1028,8 @@ script = ExtResource("32_crkq8")
 
 [node name="FootstepSound" type="AudioStreamPlayer" parent="SoundEffects/FootstepComponent"]
 stream = ExtResource("32_o2oun")
-volume_db = 5.0
+volume_db = 9.0
+pitch_scale = 1.5
 
 [node name="PickupArea" type="Area2D" parent="."]
 collision_layer = 0

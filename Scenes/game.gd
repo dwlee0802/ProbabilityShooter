@@ -164,7 +164,7 @@ func _ready():
 	
 	player_unit.experience_changed.connect(on_experience_changed)
 	player_unit.charge_changed.connect(on_charge_changed)
-	player_unit.added_experience.connect(user_interface.make_exp_popup)
+	#player_unit.added_experience.connect(user_interface.make_exp_popup)
 	player_unit.upgrade_ready.connect(on_upgrade)
 	player_unit.was_selected.connect(bind_selected_unit_signals)
 	player_unit.level_increased.connect(on_level_up)

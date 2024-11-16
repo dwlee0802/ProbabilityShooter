@@ -279,10 +279,10 @@ func update_enemy_spawn_info(_spawner: EnemySpawnerComponent) -> void:
 		#labels_label.text += "Shield:\n"
 		#values_label.text += str(int(spawner.shield_chance*1000)/10.0) + "%\n"
 
-func make_exp_popup(amount: int) -> void:
-	var new_popup = exp_popup.instantiate()
-	new_popup.get_node("Label").text = "+" + str(amount)
-	experience_bar.add_child(new_popup)
+#func make_exp_popup(amount: int) -> void:
+	#var new_popup = exp_popup.instantiate()
+	#new_popup.get_node("Label").text = "+" + str(amount)
+	#experience_bar.add_child(new_popup)
 
 func update_reload_marker(node, weapon):
 	var marker: Control = node.get_node("TextureRect")
