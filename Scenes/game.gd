@@ -348,7 +348,10 @@ func add_enemy(newEnemy: EnemyUnit) -> void:
 
 func add_missile(missile: Missile) -> void:
 	missile.game_ref = self
-	call_deferred("add_child", missile)
+	projectiles.call_deferred("add_child", missile)
+
+func add_pickup(pickup: Pickup) -> void:
+	resources.call_deferred("add_child", pickup)
 	
 func game_finished(victory: bool) -> void:
 	# already called

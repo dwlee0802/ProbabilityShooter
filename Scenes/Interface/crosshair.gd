@@ -89,7 +89,7 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 		mag_container.visible = true
 		active_reload_bar.visible = false
 		var unused_bullet_count = weapon.bullets.size()
-		var queued_bullet_count = weapon.queued_bullets.size()
+		var _queued_bullet_count = weapon.queued_bullets.size()
 		
 		for i: int in mag_container.get_child_count():
 			#mag_container.get_child(i).visible = i < current_eq.bullets.size() - queued_count

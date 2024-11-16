@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://cy13usihspqr2"]
+
+[ext_resource type="Script" path="res://Scripts/upgrade.gd" id="1_3ljap"]
+[ext_resource type="Script" path="res://Scripts/Effects/pickup_drop.gd" id="1_dnjvt"]
+[ext_resource type="Texture2D" uid="uid://b5udi3dvxqi3v" path="res://Art/Icons/Upgrades/ammo_drop.png" id="2_qicpm"]
+
+[sub_resource type="Resource" id="Resource_8jv7e"]
+script = ExtResource("1_dnjvt")
+chance = 0.05
+ammo_pack = true
+
+[resource]
+script = ExtResource("1_3ljap")
+condition_event_code = 1
+effect = SubResource("Resource_8jv7e")
+upgrade_name = "Ammo Drop"
+icon = ExtResource("2_qicpm")
+color = Color(1, 1, 1, 1)
+description = "5% Chance for Ammo Packs to be dropped when enemy is killed"
+disabled = false

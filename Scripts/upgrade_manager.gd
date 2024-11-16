@@ -7,7 +7,7 @@ static var upgrades = {}
 static var game_ref
 
 static func _static_init() -> void:
-	add_upgrade(load("res://Data/Upgrade/missile_on_shoot.tres"))
+	add_upgrade(load("res://Data/Upgrade/ammo_drop.tres"))
 	return
 	
 static func process_event(event: Event):
