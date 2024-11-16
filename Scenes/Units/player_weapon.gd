@@ -164,6 +164,15 @@ func clear_bullets() -> void:
 	bullets.clear()
 	queued_bullets.clear()
 
+func fill_bullets() -> void:
+	bullets.clear()
+	bullets = Gun.bullet_generator.generate_bullets(magazine_size)
+	active_reload_available = true
+	reload_sfx.stream = weapon_data.reload_sound
+	reload_sfx.play()
+	bullets_changed.emit()
+	reload_complete.emit()
+	
 func get_magazine_status() -> String:
 	var queued_count: int = get_queued_attack_count()
 	var output = ""
