@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcqi6mydg1owc"]
+[gd_scene load_steps=16 format=3 uid="uid://bcqi6mydg1owc"]
 
 [ext_resource type="Script" path="res://Scenes/pickup.gd" id="1_b7h4n"]
 [ext_resource type="Texture2D" uid="uid://er18xco4hy8s" path="res://Art/Icons/health_icon.png" id="2_n4md0"]
@@ -21,7 +21,7 @@ _data = [Vector2(0.342697, 0.989011), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_i2d0j"]
-colors = PackedColorArray(0, 0.843137, 1, 0.333333, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Animation" id="Animation_62r7v"]
 length = 0.001
@@ -60,6 +60,43 @@ _data = {
 "floating_effect": SubResource("Animation_1j00n")
 }
 
+[sub_resource type="Animation" id="Animation_cgcq8"]
+resource_name = "heart"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.999988, 0.371146, 0.36413, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2g36e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.219608, 0.258824, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_chi5o"]
+_data = {
+"RESET": SubResource("Animation_2g36e"),
+"heart": SubResource("Animation_cgcq8")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jxws5"]
 radius = 41.0488
 
@@ -71,7 +108,7 @@ speed = 2000.0
 
 [node name="ExpOrb" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0.219608, 0.258824, 1)
-scale = Vector2(0.6, 0.6)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_n4md0")
 
 [node name="PointLight2D" type="PointLight2D" parent="ExpOrb"]
@@ -94,7 +131,7 @@ gravity = Vector2(0, -1000)
 scale_amount_min = 0.05
 scale_amount_max = 0.1
 scale_amount_curve = SubResource("Curve_cl3bh")
-color = Color(1, 0, 0, 1)
+color = Color(1, 0.0392157, 0.0235294, 0.207843)
 color_ramp = SubResource("Gradient_i2d0j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ExpOrb"]
@@ -102,6 +139,12 @@ libraries = {
 "": SubResource("AnimationLibrary_kxm1w")
 }
 autoplay = "floating_effect"
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="ExpOrb"]
+libraries = {
+"": SubResource("AnimationLibrary_chi5o")
+}
+speed_scale = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

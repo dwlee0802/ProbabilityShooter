@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=29 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -27,7 +27,6 @@
 [ext_resource type="Script" path="res://Scenes/score_component.gd" id="18_ro7nv"]
 [ext_resource type="AudioStream" uid="uid://b6mh4idc27ikd" path="res://Sound/action-loop-e-90-bpm-brvhrtz-233462.mp3" id="21_jl7fl"]
 [ext_resource type="Script" path="res://Scenes/run_data_component.gd" id="23_b7ohg"]
-[ext_resource type="PackedScene" uid="uid://cmrmaa2svvqi3" path="res://Scenes/Pickups/ammo_pack.tscn" id="25_vw8f3"]
 
 [sub_resource type="Resource" id="Resource_sdoah"]
 script = ExtResource("13_3bo3l")
@@ -103,7 +102,6 @@ max_health_points = 3
 starting_equipments = [SubResource("Resource_sdoah")]
 level_per_upgrade = 3
 crystal_color = Color(0.498039, 1, 0.831373, 1)
-invinsible = true
 level_up_debug = true
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
@@ -235,6 +233,3 @@ multiplier_decay_time = 5.0
 
 [node name="RunHistoryComponent" type="Node" parent="."]
 script = ExtResource("23_b7ohg")
-
-[node name="AmmoPack" parent="." instance=ExtResource("25_vw8f3")]
-position = Vector2(359, 405)

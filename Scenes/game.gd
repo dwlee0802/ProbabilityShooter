@@ -233,14 +233,14 @@ func _process(_delta):
 			color_arr.append(Color.RED)
 		user_interface.minimap.update_markers(InputManager.selected_unit.global_position, points, color_arr)
 		
-		var bullet_points = []
-		var bullet_color_arr = []
-		for bullet: Projectile in projectiles.get_children():
-			bullet_points.append(bullet.global_position)
-			bullet_color_arr.append(Color.WHITE)
-			
-		user_interface.minimap.update_bullet_markers(InputManager.selected_unit.global_position, bullet_points, bullet_color_arr)
-		
+		#var bullet_points = []
+		#var bullet_color_arr = []
+		#for bullet: Projectile in projectiles.get_children():
+			#bullet_points.append(bullet.global_position)
+			#bullet_color_arr.append(Color.WHITE)
+			#
+		#user_interface.minimap.update_bullet_markers(InputManager.selected_unit.global_position, bullet_points, bullet_color_arr)
+		#
 		var shootable_points = []
 		var shootable_color_arr = []
 		for shootable: Shootable in shootables.get_children():
