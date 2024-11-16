@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_8jv7e"]
 script = ExtResource("1_kwnjm")
-chance = 1.0
+chance = 0.05
 ammo_pack = false
 health = true
 
