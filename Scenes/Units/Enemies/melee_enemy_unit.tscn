@@ -296,7 +296,7 @@ libraries = {
 speed_scale = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.831373, 0, 0, 1)
+self_modulate = Color(0.85658, 0.148391, 2.88785e-07, 1)
 position = Vector2(0, -13.5)
 scale = Vector2(1.41667, 1.38889)
 texture = ExtResource("7_3o886")
