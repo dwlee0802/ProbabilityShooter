@@ -85,15 +85,16 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 	
 	mag_label.add_theme_color_override("font_outline_color", weapon.weapon_color)
 	
-	if weapon.has_bullets():
+	if !weapon.magazine_empty():
 		mag_container.visible = true
 		active_reload_bar.visible = false
-		var queued_count: int = weapon.get_queued_attack_count()
-		var unused_bullet_count = weapon.bullets.size() - queued_count
+		var unused_bullet_count = weapon.bullets.size()
+		var queued_bullet_count = weapon.queued_bullets.size()
 		
 		for i: int in mag_container.get_child_count():
 			#mag_container.get_child(i).visible = i < current_eq.bullets.size() - queued_count
 			if i < unused_bullet_count:
+				# available bullet
 				mag_container.get_child(i).self_modulate = weapon.weapon_color
 			else:
 				mag_container.get_child(i).self_modulate = weapon.weapon_color.darkened(0.8)
@@ -103,7 +104,8 @@ func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 			#health_hearts.set_hearts_count(weapon.bullets[queued_count].damage_amount, Vector2(16,16))
 				#
 			# traits label
-			traits_label.text = weapon.bullets[queued_count].print_traits()
+			traits_label.text = weapon.bullets.front().print_traits()
+			pass
 		else:
 			health_hearts.set_hearts_count(0, Vector2(16,16))
 			traits_label.text = ""

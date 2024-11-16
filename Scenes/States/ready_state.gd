@@ -27,7 +27,7 @@ func exit() -> void:
 	aim_timer.stop()
 
 func process_physics(_delta: float) -> State:
-	if parent.bullets.size() > 0:
+	if parent.bullets.size() > 0 or parent.queued_bullets.size() > 0:
 		if !parent.attack_direction_queue.is_empty() and aim_timer.is_stopped():
 			start_attack_process()
 		return null
@@ -50,7 +50,7 @@ func process_input(_event: InputEvent) -> State:
 		
 	## action queue input
 	if _event.is_action_pressed(parent.action_name):
-		if parent.attack_direction_queue.size() < parent.bullets.size():
+		if parent.has_bullets():
 			save_mouse_position()
 			parent.bullets_changed.emit()
 	
@@ -59,8 +59,10 @@ func process_input(_event: InputEvent) -> State:
 # save local mouse position vector to attack dir queue
 func save_mouse_position() -> void:
 	parent.attack_direction_queue.push_back(parent.get_local_mouse_position())
+	parent.queued_bullets.push_back(parent.bullets.pop_front())
 	make_queued_attack_cone(parent.attack_direction_queue.back())
-	#print("Attack queued. Current queue count: " + str(parent.attack_direction_queue.size()))
+	print("Attack queued. Current queue count: " + str(parent.attack_direction_queue.size()))
+	print("Current magazine status: " + str(parent.queued_bullets.size()) + " + " + str(parent.bullets.size()))
 	
 func make_queued_attack_cone(dir: Vector2) -> void:
 	var new_attack_cone: Polygon2D = Polygon2D.new()
@@ -78,7 +80,7 @@ func start_attack_process() -> void:
 	
 	# back end
 	aim_timer.stop()
-	aim_timer.start(parent.bullets.front().aim_time)
+	aim_timer.start(parent.queued_bullets.front().aim_time)
 	
 	# front end
 	parent.attack_full_cone.rotation = Vector2.ZERO.angle_to_point(parent.attack_direction_queue.front())
@@ -99,7 +101,7 @@ func on_aim_finished() -> void:
 			parent.queued_attack_cones.pop_front().queue_free()
 		parent.attack_full_cone.visible = false
 		
-		parent.shot_bullet.emit(parent.bullets.front().projectile_count)
+		parent.shot_bullet.emit(parent.queued_bullets.front().projectile_count)
 		parent.on_activation(target)
 		
 		parent.activated.emit()

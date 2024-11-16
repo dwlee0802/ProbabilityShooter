@@ -24,6 +24,7 @@ var action_name: String
 var state_machine: StateMachine = $StateMachine
 
 var attack_direction_queue = []
+var queued_bullets = []
 var reload_timer: ScalableTimer
 var aim_timer: ScalableTimer
 
@@ -141,6 +142,10 @@ func get_queued_attack_count() -> int:
 
 func has_bullets() -> bool:
 	return bullets.size() > 0
+func has_queued_bullets() -> bool:
+	return !queued_bullets.is_empty()
+func magazine_empty() -> bool:
+	return !has_bullets() and !has_queued_bullets()
 	
 func reload() -> void:
 	clear_bullets()
@@ -157,7 +162,8 @@ func reload() -> void:
 func clear_bullets() -> void:
 	print("removed " + str(bullets.size()) + " bullets")
 	bullets.clear()
-	
+	queued_bullets.clear()
+
 func get_magazine_status() -> String:
 	var queued_count: int = get_queued_attack_count()
 	var output = ""
@@ -169,7 +175,7 @@ func get_magazine_status() -> String:
 	return output
 	
 func on_activation(dir: Vector2) -> void:
-	var current_bullet: Bullet = bullets.pop_front()
+	var current_bullet: Bullet = queued_bullets.pop_front()
 	
 	for i in range(current_bullet.projectile_count):
 		# make new projectile
