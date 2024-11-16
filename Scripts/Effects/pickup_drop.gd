@@ -21,5 +21,5 @@ func activate(game_ref, _event: Event):
 	
 	if ammo_pack:
 		var new_ammo_pack: Pickup = PickupDropEffect.ammo_pack_scene.instantiate()
-		new_ammo_pack.global_position = _event.location
+		new_ammo_pack.global_position = _event.location + DW_ToolBox.RandomVector(-100, 100)
 		game_ref.add_pickup(new_ammo_pack)

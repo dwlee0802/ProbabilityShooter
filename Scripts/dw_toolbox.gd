@@ -69,3 +69,7 @@ static func ImportResources(path: String, filter: Callable = func do_nothing(_ta
 		print("Excluded " + str(disabled_count) + " resource files.")
 		print("******\n")
 	return output
+
+## Returns a random vector that has x and y values inside the range inputted
+static func RandomVector(xmin: float, xmax: float, ymin: float = xmin, ymax: float = xmax) -> Vector2:
+	return Vector2(randf_range(xmin, xmax), randf_range(ymin, ymax))
