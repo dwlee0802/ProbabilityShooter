@@ -507,6 +507,10 @@ func _on_body_entered(body) -> void:
 		#body.die()
 		apply_central_impulse(body.global_position.direction_to(global_position) * hit_knockback)
 
+func on_projectile_hit(proj: Projectile) -> void:
+	if !proj.is_player:
+		receive_hit(1)
+	
 func disable_enemy_collision():
 	$CollisionShape2D.call_deferred("set_disabled", true)
 	print("disabled collision")

@@ -116,7 +116,7 @@ func _on_body_entered(body) -> void:
 			UpgradesManager.process_event(Event.new(self, global_position, body, Event.EventCode.PROJECTILE_KILL))
 			
 	if body is PlayerUnit and !is_player:
-		body.receive_hit(damage_amount)
+		body.on_projectile_hit(self)
 		queue_free_self()
 		
 	if body is Shootable:
