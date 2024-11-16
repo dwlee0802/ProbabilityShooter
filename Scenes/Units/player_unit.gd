@@ -32,8 +32,11 @@ var reload_speed_modifier: float = 0
 var hit_knockback: float = 8000
 
 @export
-var hit_invincibility_time: float = 1
+var _base_hit_invincible_time: float = 0.5
+var hit_invincibility_time: float = 0.5
 var invincible_timer: Timer
+@onready
+var hit_animation: AnimationPlayer = $UnitSprite/AnimationPlayer
 
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
@@ -110,6 +113,7 @@ var enchant_mode: bool = false
 @onready var gunshot_sfx: AudioStreamPlayer2D = $GunshotSoundPlayer
 @onready var reload_sfx: AudioStreamPlayer2D = $ReloadSoundPlayer
 @onready var hurt_sfx: AudioStreamPlayer = $SoundEffects/HurtSound
+@onready var footstep_sfx: AudioStreamPlayer = $SoundEffects/FootstepSound
 
 @onready
 var shade_animation: AnimationPlayer = $UnitSprite/ShadeAnimationPlayer
@@ -312,6 +316,8 @@ func _ready() -> void:
 	invincible_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	add_child(invincible_timer)
 	
+	set_hit_invincible_time(_base_hit_invincible_time)
+	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	
@@ -387,12 +393,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		if !safe_zone_timer.is_stopped():
 			safe_zone_timer.stop()
-	
-	# invincible indicator
-	if invincible_timer.is_stopped():
-		unit_sprite.modulate = Color.WHITE
-	else:
-		unit_sprite.modulate = Color(Color.WHITE, 0.5)
 		
 func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
@@ -453,6 +453,7 @@ func receive_hit(amount: float) -> void:
 	if !invincible_timer.is_stopped():
 		return
 	invincible_timer.start(hit_invincibility_time)
+	hit_animation.play("hit_blink")
 	
 	health_points -= amount
 	health_points = max(health_points, 0)
@@ -464,6 +465,10 @@ func receive_hit(amount: float) -> void:
 	was_attacked.emit()
 	hurt_sfx.play()
 
+func set_hit_invincible_time(new_time: float) -> void:
+	hit_invincibility_time = new_time
+	hit_animation.speed_scale = _base_hit_invincible_time / hit_invincibility_time
+	
 func make_unconscious() -> void:
 	if invinsible:
 		return
