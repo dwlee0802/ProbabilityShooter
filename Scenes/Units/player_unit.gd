@@ -11,6 +11,9 @@ var unit_sprite: Sprite2D = $UnitSprite
 
 #region Unit Stat Variables
 @export_category("Unit Stats")
+@onready
+var stat_component: StatComponent = $StatComponent
+
 @export
 var movement_speed: float = 100
 var movement_speed_bonus: float = 0
@@ -321,6 +324,9 @@ func _ready() -> void:
 	set_hit_invincible_time(_base_hit_invincible_time)
 	
 	footstep_component.unit = self
+	
+	stat_component = $StatComponent
+	stat_component.unit = self
 	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
@@ -750,6 +756,10 @@ func add_movement_bonus(amount: float) -> void:
 func get_movement_speed() -> float:
 	return (movement_speed + movement_speed_bonus) * movement_speed_multiplier
 
+func set_pickup_range(radius: float) -> void:
+	var pickup_area: CircleShape2D = $PickupArea/CollisionShape2D.shape
+	pickup_area.set_radius(radius)
+	
 func add_aim_speed_modifier(amount: float) -> void:
 	aim_speed_modifier += amount
 func get_aim_time() -> float:

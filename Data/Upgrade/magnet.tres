@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://dyffux3sck3w0"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/player_stat_effect.gd" id="1_65yux"]
+[ext_resource type="Script" path="res://Scripts/upgrade.gd" id="1_a2jhc"]
+[ext_resource type="Texture2D" uid="uid://cxhgdtpl6a6kn" path="res://Art/Icons/Upgrades/magnet.png" id="2_bnti7"]
+
+[sub_resource type="Resource" id="Resource_k2q2j"]
+script = ExtResource("1_65yux")
+speed_bonus = 0.0
+pickup_range_bonus = 150.0
+
+[resource]
+script = ExtResource("1_a2jhc")
+condition_event_code = 10
+effect = SubResource("Resource_k2q2j")
+upgrade_name = "Magnet"
+icon = ExtResource("2_bnti7")
+color = Color(0.396889, 0.396889, 0.396889, 1)
+description = "Increase pick up range"
+disabled = false

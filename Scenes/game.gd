@@ -442,6 +442,7 @@ func start() -> void:
 	player_unit.global_position = Vector2.ZERO
 	player_unit.clear_inventory()
 	player_unit.reset_crystals()
+	player_unit.stat_component.reset_stats()
 	
 	UpgradesManager.reset_upgrades()
 	
