@@ -8,7 +8,7 @@ var casings: PackedScene = preload("res://Scenes/Effects/casings.tscn")
 
 func enter() -> void:
 	super()
-	parent.weapon.clear_bullets()
+	parent.clear_bullets()
 	start_reload_process()
 	if !parent.reload_timer.timeout.is_connected(reload_action):
 		parent.reload_timer.timeout.connect(reload_action)
@@ -20,7 +20,7 @@ func exit() -> void:
 	super()
 	
 func process_frame(_delta: float) -> State:
-	if parent.weapon.have_bullets():
+	if parent.has_bullets():
 		# stop reload process
 		return ready_state
 		
@@ -47,7 +47,7 @@ func start_reload_process() -> void:
 		print("Start Reload Process")
 		parent.active_reload_available = true
 		parent.active_reload_failed = false
-		parent.reload_timer.start(parent.weapon.data.reload_time)
+		parent.reload_timer.start(parent.weapon_data.reload_time)
 		var active_reload_start_point: int = randi_range(40, 70)
 		parent.active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + parent.active_reload_length)
 		print("active reload range: " + str(parent.active_reload_range))

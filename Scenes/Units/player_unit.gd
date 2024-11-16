@@ -600,10 +600,10 @@ func reload_action() -> void:
 	print("Reload complete")
 	if weapon_one != null:
 		weapon_one.active_reload_available = true
-		weapon_one.weapon.reload()
+		weapon_one.reload()
 	if weapon_two != null:
 		weapon_two.active_reload_available = true
-		weapon_two.weapon.reload()
+		weapon_two.reload()
 	
 func remove_equipment(num: int) -> void:
 	if num < equipments.size():

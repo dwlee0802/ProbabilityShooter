@@ -28,11 +28,6 @@ var first_frame: bool = true
 
 func _ready() -> void:
 	player_unit = InputManager.selected_unit
-	if player_unit != null:
-		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
-		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
-		set_magazine_max_count(weapon_one_ui, player_unit.weapon_one.weapon.max_bullet_count)
-		set_magazine_max_count(weapon_two_ui, player_unit.weapon_two.weapon.max_bullet_count)
 	
 	_input(null)
 

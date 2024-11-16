@@ -100,8 +100,9 @@ func on_aim_finished() -> void:
 		parent.attack_full_cone.visible = false
 		
 		parent.shot_bullet.emit(parent.bullets.front().projectile_count)
+		parent.on_activation(target)
+		
 		parent.activated.emit()
-		parent.on_activation(InputManager.selected_unit, target)
 		InputManager.selected_unit.actioned.emit()
 		parent.muzzle_flash.play("muzzle_flash")
 		parent.muzzle_smoke.emitting = true

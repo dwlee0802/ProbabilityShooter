@@ -168,36 +168,32 @@ func get_magazine_status() -> String:
 	
 	return output
 	
-func on_activation(unit: Unit, mouse_position: Vector2):
+func on_activation(dir: Vector2) -> void:
 	var current_bullet: Bullet = bullets.pop_front()
 	
 	for i in range(current_bullet.projectile_count):
 		# make new projectile
-		var new_bullet: Projectile = projectile_scene.instantiate()
+		var new_bullet: Projectile = weapon_data.projectile_scene.instantiate()
 			
-		var random_spread_offset: float = randf_range(-get_spread()/2, get_spread()/2)
+		var random_spread_offset: float = randf_range(-weapon_data.get_spread_in_rad()/2, weapon_data.get_spread_in_rad()/2)
 		# set stats
 		# save origin unit to call back for experience gain
-		new_bullet.origin_unit = unit
+		new_bullet.origin_unit = get_parent()
 		new_bullet.launch(
-			mouse_position.normalized().rotated(random_spread_offset * (current_bullet.projectile_count)), 
-			get_projectile_speed(), 
+			dir.normalized().rotated(random_spread_offset * (current_bullet.projectile_count)), 
+			weapon_data.projectile_speed, 
 			int(current_bullet.damage_amount / float(current_bullet.projectile_count)), 
-			data.knock_back_force)
-		new_bullet.global_position = bullet_spawn_position.global_position
+			weapon_data.knock_back_force)
+		new_bullet.global_position = muzzle_point.global_position
 		
 		new_bullet.bullet_data = current_bullet
 		if current_bullet.piercing:
 			new_bullet.pierce_count += 1
 		
 		# add to scene
-		unit.get_tree().root.get_node("Game").projectiles.add_child(new_bullet)
-	
-	current_magazine_count -= 1
+		get_tree().root.get_node("Game").projectiles.add_child(new_bullet)
 	
 	CameraControl.camera.shake_screen(20,200)
-	
-	super.on_activation(unit, mouse_position)
 	
 func point_arm_at(target_pos: Vector2) -> void:
 	var angle: float = Vector2.RIGHT.angle_to_point(target_pos)
