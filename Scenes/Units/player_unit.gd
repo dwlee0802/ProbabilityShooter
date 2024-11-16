@@ -26,12 +26,14 @@ var health_points: float = 500
 var max_health_points: int = 500
 @onready
 var health_bar: DelayedProgressBar = $HealthBar
-@onready
-var revive_time: float = 5.0
 var aim_speed_modifier: float = 0
 var reload_speed_modifier: float = 0
 
 var hit_knockback: float = 8000
+
+@export
+var hit_invincibility_time: float = 1
+var invincible_timer: Timer
 
 var active_reload_length: int = 10
 var active_reload_range: Vector2i = Vector2i.ZERO
@@ -303,6 +305,13 @@ func _ready() -> void:
 	
 	movement_component.dashed.connect(dash_sound.play)
 	
+	# invincible timer
+	invincible_timer = Timer.new()
+	invincible_timer.autostart = false
+	invincible_timer.one_shot = true
+	invincible_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	add_child(invincible_timer)
+	
 func set_shortcut_label(num: int) -> void:
 	$ShortcutLabel.text = str(num)
 	
@@ -378,7 +387,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		if !safe_zone_timer.is_stopped():
 			safe_zone_timer.stop()
-			
+	
+	# invincible indicator
+	if invincible_timer.is_stopped():
+		unit_sprite.modulate = Color.WHITE
+	else:
+		unit_sprite.modulate = Color(Color.WHITE, 0.5)
+		
 func _input(_event: InputEvent) -> void:
 	aim_cone.rotation = Vector2.ZERO.angle_to_point(get_local_mouse_position())
 	
@@ -435,7 +450,10 @@ func _process(_delta: float) -> void:
 func receive_hit(amount: float) -> void:
 	if is_unconscious():
 		return
-		
+	if !invincible_timer.is_stopped():
+		return
+	invincible_timer.start(hit_invincibility_time)
+	
 	health_points -= amount
 	health_points = max(health_points, 0)
 	if health_points <= 0 and !invinsible:
