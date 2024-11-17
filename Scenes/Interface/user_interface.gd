@@ -226,18 +226,18 @@ func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weap
 		new_label.text = str(bullets[i])
 		right_bullet_info_menu_container.add_child(new_label)
 
-func update_bullet_generation_info_menu(component = InputManager.selected_unit.bullet_generator_component) -> void:
-	var labels_label: Label = bullet_generation_info.get_node("MarginContainer/Labels")
-	var values_label: Label = bullet_generation_info.get_node("MarginContainer/Values")
+#func update_bullet_generation_info_menu(component = InputManager.selected_unit.bullet_generator_component) -> void:
+	#var labels_label: Label = bullet_generation_info.get_node("MarginContainer/Labels")
+	#var values_label: Label = bullet_generation_info.get_node("MarginContainer/Values")
+	#
+	#var gun: BulletGenerator = component
 	
-	var gun: BulletGenerator = component
+	#labels_label.text = "Enchant Chance:\n\n"
+	#values_label.text = str(int(gun.trait_chance * 100)) + "%\n"
+	#
+	#labels_label.text += "Active Enchants:\n"
 	
-	labels_label.text = "Enchant Chance:\n\n"
-	values_label.text = str(int(gun.trait_chance * 100)) + "%\n"
-	
-	labels_label.text += "Active Enchants:\n"
-	
-	labels_label.text += gun.print_traits()
+	#labels_label.text += gun.print_traits()
 	
 	return
 	

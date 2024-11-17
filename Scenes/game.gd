@@ -169,7 +169,7 @@ func _ready():
 	player_unit.was_selected.connect(bind_selected_unit_signals)
 	player_unit.level_increased.connect(on_level_up)
 	player_unit.stats_changed.connect(user_interface.update_bullet_menu)
-	player_unit.stats_changed.connect(user_interface.update_bullet_generation_info_menu)
+	#player_unit.stats_changed.connect(user_interface.update_bullet_generation_info_menu)
 	player_unit.was_selected.connect(user_interface.update_bullet_menu)
 	player_unit.actioned.connect(user_interface.update_bullet_menu)
 	player_unit.weapon_one.bullets_changed.connect(user_interface.update_bullet_menu)
@@ -201,7 +201,7 @@ func _ready():
 	set_safezone_active_status(true)
 		
 	user_interface.update_bullet_menu(player_unit.weapon_one, player_unit.weapon_two)
-	user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
+	#user_interface.update_bullet_generation_info_menu(player_unit.bullet_generator_component)
 	
 	UpgradesManager.game_ref = self
 	user_interface.upgrade_confirm_button.pressed.connect(on_upgrade_selected)

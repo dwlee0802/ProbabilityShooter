@@ -120,15 +120,14 @@ func _on_body_entered(body) -> void:
 	if body is Shootable:
 		body.activate()
 	
-	#if bullet_data.explosive:
-		#var new_dynamite: Shootable = dynamite_scene.instantiate()
-		#new_dynamite.get_node("CollisionShape2D").disabled = true
-		#get_tree().root.call_deferred("add_child", new_dynamite)
-		#new_dynamite.global_position = global_position
-		#new_dynamite.radius = 500
-		#new_dynamite.damage_amount = damage_amount
-		#new_dynamite.call_deferred("activate")
-		#new_dynamite.shooter = origin_unit
+	if bullet_data.explosive:
+		var new_dynamite: Shootable = dynamite_scene.instantiate()
+		new_dynamite.get_node("CollisionShape2D").disabled = true
+		get_tree().root.call_deferred("add_child", new_dynamite)
+		new_dynamite.global_position = global_position
+		new_dynamite.radius = 500
+		new_dynamite.damage_amount = damage_amount
+		new_dynamite.call_deferred("activate")
 	
 	if pierce_count > 0:
 		pierce_count -= 1

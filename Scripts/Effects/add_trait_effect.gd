@@ -3,19 +3,16 @@ class_name AddTraitEffect
 
 @export_category("Enable Bullet Traits")
 @export
-var piercing: bool = false
+var piercing_chance_bonus: float = 0
 @export
-var explosive: bool = false
+var explosive_chance_bonus: float = 0
 @export
-var buckshot: bool = false
+var quickshot_chance_bonus: float = 0
 @export
-var quickshot: bool = false
+var fire_chance_bonus: float = 0
 @export
-var fire: bool = false
-@export
-var double_damage: bool = false
-@export
-var vampire: bool = false
+var vampire_chance_bonus: float = 0
+
 
 func activate(_game_ref: Game, event: Event):
 	if event.subject is PlayerUnit:

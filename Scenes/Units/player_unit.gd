@@ -666,13 +666,13 @@ func add_item(item: ItemData) -> void:
 		items[item] = 1
 		item.on_enter(self, items[item])
 		
-	if bullet_generator_component.items.find_key(item):
-		item.on_exit(self, bullet_generator_component.items[item])
-		bullet_generator_component.items[item] += 1
-		item.on_enter(self, bullet_generator_component.items[item])
-	else:
-		bullet_generator_component.items[item] = 1
-		item.on_enter(self, bullet_generator_component.items[item])
+	#if bullet_generator_component.items.find_key(item):
+		#item.on_exit(self, bullet_generator_component.items[item])
+		#bullet_generator_component.items[item] += 1
+		#item.on_enter(self, bullet_generator_component.items[item])
+	#else:
+		#bullet_generator_component.items[item] = 1
+		#item.on_enter(self, bullet_generator_component.items[item])
 	
 	picked_up_item.emit(item)
 	stats_changed.emit()
@@ -820,7 +820,7 @@ func level_up() -> void:
 	print("level up to " + str(current_level))
 	level_increased.emit()
 	
-	bullet_generator_component.add_trait_chance_bonus(trait_chance_increase_per_level)
+	#bullet_generator_component.add_trait_chance_bonus(trait_chance_increase_per_level)
 	stats_changed.emit()
 	level_up_sound.play()
 	push_back()

@@ -1,19 +1,10 @@
 extends Node
-class_name _BulletGenerator
+class_name BulletGenerator
 
 ## Holds stats related to bullet generation
 
-## dictionary<ItemData data, int level> to store items this unit got
-var items = {}
-@export
-var _base_trait_chance: float = 0.1
-var trait_chance: float = 0.1
-
 #region Random Bullets System
 ## probabilities of bullets spawning with types
-@export
-var _base_damage_range: Vector2i = Vector2i(1,1)
-var damage_range: Vector2i = Vector2i(25,125)
 @export
 var _base_piercing_chance: float = 0
 var piercing_chance: float = 0
@@ -29,47 +20,55 @@ var quickshot_chance: float = 0
 @export
 var _base_fire_chance: float = 0
 var fire_chance: float = 0
+@export
+var _base_vampire_chance: float = 0
+var vampire_chance: float = 0
 #endregion
 
 
 func _ready() -> void:
 	reset_stats()
 	
+func reset_stats() -> void:
+	piercing_chance = _base_piercing_chance
+	explosive_chance = _base_explosive_chance
+	fire_chance = _base_fire_chance
+	vampire_chance = _base_vampire_chance
+	
+	buckshot_chance = _base_buckshot_chance
+	quickshot_chance = _base_quickshot_chance
+	
+func generate_bullet() -> Bullet:
+	var bullet: Bullet = Bullet.new()
+	if randf() < piercing_chance:
+		bullet.piercing = true
+	if randf() < fire_chance:
+		bullet.fire = true
+	if randf() < vampire_chance:
+		bullet.vampire = true
+	if randf() < explosive_chance:
+		bullet.explosive = true
+	
+	print("Get bullet result: " + str(bullet))
+	return bullet
+	
 ## Generates and returns count number of bullets
-func generate_bullets(count: int):
-	var output = []
-	var sample: Bullet = get_bullet()
-
-	for i in range(count):
-		var new_bullet: Bullet = Bullet.new()
-		new_bullet.damage_amount = sample.damage_amount
-		new_bullet.piercing = sample.piercing
-		new_bullet.explosive = sample.explosive
-		new_bullet.quickshot = sample.quickshot
-		new_bullet.fire = sample.fire
-		new_bullet.vampire = sample.vampire
-		new_bullet.double_damage = sample.double_damage
-		
-		new_bullet.aim_time = sample.aim_time
-		new_bullet.projectile_count = sample.projectile_count
-			
-		output.append(new_bullet)
-		
-	return output
-
-func generate_bullets_from_sample(sample_bullet: Bullet, count: int):
+func generate_bullets(count: int) -> Array:
+	var sample: Bullet = generate_bullet()
+	return duplicate_bullet(sample, count)
+	
+## Returns a list of Bullets that are duplicates of input bullet
+func duplicate_bullet(sample_bullet: Bullet, count: int):
 	var output = []
 	var sample: Bullet = sample_bullet
 
 	for i in range(count):
 		var new_bullet: Bullet = Bullet.new()
-		new_bullet.damage_amount = sample.damage_amount
 		new_bullet.piercing = sample.piercing
 		new_bullet.explosive = sample.explosive
 		new_bullet.quickshot = sample.quickshot
 		new_bullet.fire = sample.fire
 		new_bullet.vampire = sample.vampire
-		new_bullet.double_damage = sample.double_damage
 		
 		new_bullet.aim_time = sample.aim_time
 		new_bullet.projectile_count = sample.projectile_count
@@ -77,31 +76,6 @@ func generate_bullets_from_sample(sample_bullet: Bullet, count: int):
 		output.append(new_bullet)
 		
 	return output
-	
-func get_bullet() -> Bullet:
-	var sample: Bullet = Bullet.new()
-	var traits = items.keys().duplicate()
-	
-	while trait_chance > randf() and traits.size() > 0:
-		# add random trait
-		if items.keys().is_empty():
-			break
-		traits.shuffle()
-		var random_trait = traits.pop_front()
-		if random_trait.piercing_chance > 0:
-			sample.piercing = true
-		if random_trait.fire_chance > 0:
-			sample.fire = true
-		if random_trait.explosive_chance > 0:
-			sample.explosive = true
-		if random_trait.double_damage:
-			sample.damage_amount *= 2
-		if random_trait.vampire:
-			sample.vampire = true
-		sample.double_damage = random_trait.double_damage
-	
-	print("Get bullet result: " + str(sample))
-	return sample
 
 ## Returns a Bullet with the input item applied
 func apply_item(bullet: Bullet, item: ItemData):
@@ -125,35 +99,15 @@ func apply_item(bullet: Bullet, item: ItemData):
 	sample.double_damage = random_trait.double_damage
 	
 	return bullet
-	
-func reset_stats() -> void:
-	trait_chance = _base_trait_chance
-	
-	damage_range = _base_damage_range
-	piercing_chance = _base_piercing_chance
-	explosive_chance = _base_explosive_chance
-	buckshot_chance = _base_buckshot_chance
-	quickshot_chance = _base_quickshot_chance
-	fire_chance = _base_fire_chance
-	
-	items.clear()
 
+func apply_upgrade(effect: AddTraitEffect) -> void:
+	add_piercing_chance_bonus(effect.piercing_chance_bonus)
+	add_explosive_chance_bonus(effect.explosive_chance_bonus)
+	add_fire_chance_bonus(effect.fire_chance_bonus)
+	add_quickshot_chance_bonus(effect.quickshot_chance_bonus)
+	add_vampire_chance_bonus(effect.vampire_chance_bonus)
+	
 ## Bullet Generation chance modifiers
-func add_bonus_damage(bonus: Vector2i) -> void:
-	damage_range += bonus
-	if damage_range.x < 0:
-		damage_range.x = 0
-	if damage_range.y < 0:
-		damage_range.y = 0
-	if bonus != Vector2i.ZERO:
-		print("Increased damage range by " + str(bonus))
-		
-func add_trait_chance_bonus(amount: float) -> void:
-	trait_chance += amount
-	trait_chance = max(trait_chance, 0)
-	if amount != 0:
-		print("Changed trait chance by " + str(amount))
-		
 func add_piercing_chance_bonus(amount: float) -> void:
 	piercing_chance += amount
 	piercing_chance = max(piercing_chance, 0)
@@ -183,10 +137,9 @@ func add_fire_chance_bonus(amount: float) -> void:
 	fire_chance = max(fire_chance, 0)
 	if amount != 0:
 		print("Changed fire chance by " + str(amount))
-	
-func print_traits() -> String:
-	var output = ""
-	for key: ItemData in items.keys():
-		output += key.item_name + "\n"
 		
-	return output
+func add_vampire_chance_bonus(amount: float) -> void:
+	vampire_chance += amount
+	vampire_chance = max(vampire_chance, 0)
+	if amount != 0:
+		print("Changed vampire chance by " + str(amount))

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
 [ext_resource type="Script" path="res://Scenes/States/ready_state.gd" id="3_6cqsg"]
 [ext_resource type="Script" path="res://Scenes/Units/player_weapon.gd" id="3_d8l28"]
-[ext_resource type="Script" path="res://Scenes/Units/trait_bullet_generator_component.gd" id="3_nippd"]
+[ext_resource type="Script" path="res://Scenes/Units/bullet_generator_component.gd" id="3_dla1s"]
 [ext_resource type="Script" path="res://Scenes/Units/stat_component.gd" id="4_7ymnv"]
 [ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="4_61t70"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="4_asvwh"]
@@ -452,7 +452,8 @@ dash_strength = 5000.0
 dash_cooldown = 0.3
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
-script = ExtResource("3_nippd")
+script = ExtResource("3_dla1s")
+_base_explosive_chance = 1.0
 
 [node name="StatComponent" type="Node" parent="."]
 script = ExtResource("4_7ymnv")
