@@ -14,8 +14,9 @@ const reload_time_modifier_max = 4
 @export
 var _base_aim_time_modifier: float = 1
 var aim_time_modifier: float = 1
-const aim_time_modifier_min = 0.25
-const aim_time_modifier_max = 4
+const aim_time_modifier_min = 0.2
+const aim_time_modifier_max = 3
+
 
 func reset_stats() -> void:
 	reload_time_modifier = _base_reload_time_modifier
