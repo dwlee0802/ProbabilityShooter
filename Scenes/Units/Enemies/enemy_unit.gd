@@ -313,6 +313,7 @@ func die():
 	game_ref.resources.call_deferred("add_child", new_exp_orb)
 	
 	# add score and make popup of it
+	score_component.on_kill()
 	#var new_popup = damage_popup.instantiate()
 	#new_popup.set_label(str(score_component.on_kill()))
 	#if last_hit_is_crit:

@@ -91,6 +91,7 @@ func reset_stats() -> void:
 	ranged_spawn_average = _base_ranged_spawn_count
 	sniper_spawn_average = _base_sniper_spawn_count
 	sprayer_spawn_average = _base_sprayer_spawn_count
+	ghost_spawn_average = _base_ghost_spawn_count
 	
 	avg_health = _base_avg_health
 	move_speed_range = _base_move_speed_range
