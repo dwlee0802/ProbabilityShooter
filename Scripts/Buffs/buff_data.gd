@@ -14,3 +14,5 @@ var duration: float = 0
 @export_category("Stat Changes")
 @export
 var change_color: Color = Color.WHITE
+@export
+var aim_time_modifier_bonus: float = 0

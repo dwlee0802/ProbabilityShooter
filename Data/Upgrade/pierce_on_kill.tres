@@ -18,4 +18,4 @@ upgrade_name = "Pierce on Kill"
 icon = ExtResource("2_qmyri")
 color = Color(1, 1, 1, 1)
 description = "Bullet pierces enemy if it kills it."
-disabled = false
+disabled = true

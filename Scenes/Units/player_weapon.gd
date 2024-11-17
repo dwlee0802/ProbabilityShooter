@@ -285,3 +285,9 @@ func inside_active_reload_range() -> int:
 		return ActiveReloadResult.GOOD
 	else:
 		return ActiveReloadResult.FAIL
+
+func get_reload_time() -> float:
+	return weapon_data.reload_time * get_parent().stat_component.reload_time_modifier
+	
+func get_aim_time_modifier() -> float:
+	return get_parent().stat_component.aim_time_modifier

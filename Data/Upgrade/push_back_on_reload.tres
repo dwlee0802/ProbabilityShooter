@@ -14,4 +14,4 @@ effect = SubResource("Resource_hwtl0")
 upgrade_name = "Push back reload"
 color = Color(1, 1, 1, 1)
 description = "Push back enemies on reloading."
-disabled = false
+disabled = true

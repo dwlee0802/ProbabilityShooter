@@ -926,7 +926,7 @@ func _on_pickup_area_body_entered(body: Node2D) -> void:
 # check if it already exists
 func add_buff(buff: Buff) -> void:
 	if buffs.has(buff.buff_data.name) and buffs[buff.buff_data.name] != null:
-		buffs[buff.buff_data.name].add_duration(buff.buff_data.duration)
+		buffs[buff.buff_data.name].reset_duration()
 		buff.queue_free()
 	else:
 		buffs[buff.buff_data.name] = buff

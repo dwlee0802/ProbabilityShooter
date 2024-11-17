@@ -25,6 +25,9 @@ func _init(_unit, _data) -> void:
 	
 func enter() -> void:
 	unit.modulate = buff_data.change_color
+	if unit is PlayerUnit:
+		unit.stat_component.add_aim_time_modifier(buff_data.aim_time_modifier_bonus)
+		
 	timer.start(buff_data.duration)
 	print("buff applied")
 
@@ -33,9 +36,17 @@ func add_duration(time: float) -> void:
 	timer.stop()
 	timer.start(remaining + time)
 	expired = false
+
+func reset_duration() -> void:
+	timer.stop()
+	timer.start(buff_data.duration)
+	expired = false
 	
 func exit() -> void:
 	unit.modulate = Color.WHITE
+	if unit is PlayerUnit:
+		unit.stat_component.add_aim_time_modifier(-buff_data.aim_time_modifier_bonus)
+		
 	expired = true
 	print("buff removed")
 	finished.emit()

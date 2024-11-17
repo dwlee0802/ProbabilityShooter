@@ -44,13 +44,13 @@ func process_input(_event: InputEvent) -> State:
 	
 func start_reload_process() -> void:
 	if parent.reload_timer.is_stopped():
-		print("Start Reload Process")
+		print("Start Reload Process " + "(" + str(parent.get_reload_time()) + ")")
 		parent.active_reload_available = true
 		parent.active_reload_failed = false
-		parent.reload_timer.start(parent.weapon_data.reload_time)
+		parent.reload_timer.start(parent.get_reload_time())
 		var active_reload_start_point: int = randi_range(40, 70)
 		parent.active_reload_range = Vector2i(active_reload_start_point, active_reload_start_point + parent.active_reload_length)
-		print("active reload range: " + str(parent.active_reload_range))
+		#print("active reload range: " + str(parent.active_reload_range))
 		parent.reload_started.emit()
 	
 func reload_action() -> void:

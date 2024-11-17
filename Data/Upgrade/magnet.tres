@@ -17,4 +17,4 @@ upgrade_name = "Magnet"
 icon = ExtResource("2_bnti7")
 color = Color(0.396889, 0.396889, 0.396889, 1)
 description = "Increase pick up range"
-disabled = false
+disabled = true
