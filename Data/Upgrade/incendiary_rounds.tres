@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://cx152jywyuvle"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/add_trait_effect.gd" id="1_d5gkp"]
+[ext_resource type="Texture2D" uid="uid://cbek80y6du32w" path="res://Art/Icons/Upgrades/fire_icon.png" id="2_u1rkh"]
+[ext_resource type="Script" path="res://Scripts/upgrade.gd" id="3_x3a3t"]
+
+[sub_resource type="Resource" id="Resource_fqvfb"]
+script = ExtResource("1_d5gkp")
+piercing_chance_bonus = 0.0
+explosive_chance_bonus = 0.0
+quickshot_chance_bonus = 0.0
+fire_chance_bonus = 0.05
+vampire_chance_bonus = 0.0
+
+[resource]
+script = ExtResource("3_x3a3t")
+condition_event_code = 11
+effect = SubResource("Resource_fqvfb")
+upgrade_name = "Incendiary Rounds"
+icon = ExtResource("2_u1rkh")
+color = Color(1, 1, 1, 1)
+description = "5% Chance on reload for bullets to be incendiary rounds which apply burn to target"
+disabled = false
