@@ -8,6 +8,7 @@
 script = ExtResource("1_dnjvt")
 chance = 0.05
 ammo_pack = true
+health = false
 
 [resource]
 script = ExtResource("1_3ljap")

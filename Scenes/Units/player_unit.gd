@@ -119,6 +119,8 @@ var enchant_mode: bool = false
 @onready var hurt_sfx: AudioStreamPlayer = $SoundEffects/HurtSound
 @onready
 var footstep_component: FootstepComponent = $SoundEffects/FootstepComponent
+@onready
+var heal_sfx: AudioStreamPlayer = $SoundEffects/HealSound
 
 @onready
 var shade_animation: AnimationPlayer = $UnitSprite/ShadeAnimationPlayer
@@ -501,6 +503,8 @@ func add_health(amount: float) -> void:
 	health_points = min(max_health_points, health_points)
 	health_bar.change_value(health_points)
 	healed.emit()
+	heal_sfx.play()
+	$HealParticles.emitting = true
 
 func reset_health() -> void:
 	weapon_one.process_mode = Node.PROCESS_MODE_INHERIT

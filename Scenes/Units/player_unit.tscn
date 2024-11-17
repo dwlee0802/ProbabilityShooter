@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=73 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -31,9 +31,11 @@
 [ext_resource type="AudioStream" uid="uid://bpx35j7exlob" path="res://Sound/exp_gained_ding.mp3" id="26_mol5q"]
 [ext_resource type="PackedScene" uid="uid://vot0pio4jgj" path="res://Scenes/Interface/crystal_icon.tscn" id="28_e45av"]
 [ext_resource type="AudioStream" uid="uid://c26i1vomvlsk6" path="res://Sound/dash.mp3" id="30_ddhi0"]
+[ext_resource type="Texture2D" uid="uid://er18xco4hy8s" path="res://Art/Icons/health_icon.png" id="31_kxesk"]
 [ext_resource type="AudioStream" uid="uid://b3y3gswtipfqq" path="res://Sound/player_hurt2.mp3" id="31_rt2hf"]
 [ext_resource type="Script" path="res://Scenes/Units/footstep_component.gd" id="32_crkq8"]
 [ext_resource type="AudioStream" uid="uid://u8et7ge6fsij" path="res://Sound/footsteps/footstep_wood_000.ogg" id="32_o2oun"]
+[ext_resource type="AudioStream" uid="uid://bljqlrv5jwod2" path="res://Sound/heal_sound.mp3" id="35_dmejk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
@@ -410,11 +412,15 @@ _data = [Vector2(0.662921, 2), 0.0, 0.0, 0, 0, Vector2(1, 2), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_p5sa2"]
-offsets = PackedFloat32Array(0, 0.533333, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.34, 1)
+colors = PackedColorArray(0.494118, 0.494118, 0, 0, 1, 0.6, 0.607843, 1, 1, 1, 1, 0)
 
 [sub_resource type="Gradient" id="Gradient_8r4ee"]
 colors = PackedColorArray(0.674815, 0.674815, 0.674814, 1, 0.442911, 0.442911, 0.442911, 1)
+
+[sub_resource type="Curve" id="Curve_nt7iv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e4cp"]
 radius = 500.0
@@ -1012,6 +1018,29 @@ color = Color(1, 1, 1, 0.568627)
 color_ramp = SubResource("Gradient_p5sa2")
 color_initial_ramp = SubResource("Gradient_8r4ee")
 
+[node name="HealParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 0.5
+randomness = 0.1
+lifetime_randomness = 0.2
+texture = ExtResource("31_kxesk")
+emission_shape = 1
+emission_sphere_radius = 128.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+linear_accel_min = 1.0
+linear_accel_max = 1.0
+scale_amount_min = 0.7
+scale_amount_curve = SubResource("Curve_nt7iv")
+color = Color(1, 1, 1, 0.568627)
+color_ramp = SubResource("Gradient_p5sa2")
+color_initial_ramp = SubResource("Gradient_8r4ee")
+
 [node name="SoundEffects" type="Node" parent="."]
 
 [node name="DashSound" type="AudioStreamPlayer" parent="SoundEffects"]
@@ -1031,6 +1060,10 @@ script = ExtResource("32_crkq8")
 stream = ExtResource("32_o2oun")
 volume_db = 6.0
 pitch_scale = 2.0
+
+[node name="HealSound" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("35_dmejk")
+volume_db = -5.0
 
 [node name="PickupArea" type="Area2D" parent="."]
 collision_layer = 0
