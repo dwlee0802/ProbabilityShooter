@@ -329,6 +329,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 		return
 
 func _physics_process(delta: float) -> void:
+	print(global_position)
 	if is_unconscious():
 		return
 		
@@ -491,6 +492,7 @@ func make_unconscious() -> void:
 	weapon_two.process_mode = Node.PROCESS_MODE_DISABLED
 	aim_cone.visible = false
 	
+	set_deferred("freeze", true)
 	teleport_timer.stop()
 	
 func add_health(amount: float) -> void:
