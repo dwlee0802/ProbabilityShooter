@@ -291,3 +291,6 @@ func get_reload_time() -> float:
 	
 func get_aim_time_modifier() -> float:
 	return get_parent().stat_component.aim_time_modifier
+
+func get_projectile_speed() -> float:
+	return weapon_data.projectile_speed * get_parent().stat_component.projectile_speed_modifier

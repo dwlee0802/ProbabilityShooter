@@ -24,6 +24,7 @@ func _init(_unit, _data) -> void:
 	add_child(timer)
 	
 func enter() -> void:
+	# apply changes to stats
 	unit.modulate = buff_data.change_color
 	if unit is PlayerUnit:
 		unit.stat_component.add_aim_time_modifier(buff_data.aim_time_modifier_bonus)
@@ -43,6 +44,7 @@ func reset_duration() -> void:
 	expired = false
 	
 func exit() -> void:
+	# undo changes to stats
 	unit.modulate = Color.WHITE
 	if unit is PlayerUnit:
 		unit.stat_component.add_aim_time_modifier(-buff_data.aim_time_modifier_bonus)

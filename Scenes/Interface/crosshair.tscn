@@ -166,6 +166,7 @@ offset_right = 26.0
 offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(26, 23)
 mouse_filter = 2
 texture = ExtResource("4_betbx")
 expand_mode = 1
