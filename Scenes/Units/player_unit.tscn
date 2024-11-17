@@ -449,6 +449,7 @@ script = ExtResource("9_0efpd")
 _base_speed = 12000.0
 acceleration = 12000.0
 dash_strength = 5000.0
+dash_cooldown = 0.3
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_nippd")

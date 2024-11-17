@@ -312,6 +312,7 @@ func _ready() -> void:
 	weapon_two.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
 	
 	movement_component.dashed.connect(dash_sound.play)
+	movement_component.dashed.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_DASH)))
 	
 	# invincible timer
 	invincible_timer = Timer.new()
@@ -925,19 +926,14 @@ func _on_pickup_area_body_entered(body: Node2D) -> void:
 # check if it already exists
 func add_buff(buff: Buff) -> void:
 	if buffs.has(buff.buff_data.name) and buffs[buff.buff_data.name] != null:
-		print("meow1111111111111111")
 		buffs[buff.buff_data.name].add_duration(buff.buff_data.duration)
 		buff.queue_free()
 	else:
-		print("meow2222222222222222222")
 		buffs[buff.buff_data.name] = buff
 		buffs_node.add_child(buff)
 		buff.enter()
 		buff.finished.connect(remove_buff.bind(buff))
 		buff_entered.emit(buff)
-		
-	print(buffs)
-	print_orphan_nodes()
 
 func remove_buff(buff: Buff) -> void:
 	if buffs.has(buff.buff_data.name):
