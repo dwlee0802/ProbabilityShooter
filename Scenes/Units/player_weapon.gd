@@ -196,7 +196,7 @@ func on_activation(dir: Vector2) -> void:
 		new_bullet.origin_unit = get_parent()
 		new_bullet.launch(
 			dir.normalized().rotated(random_spread_offset * (current_bullet.projectile_count)), 
-			weapon_data.projectile_speed, 
+			get_projectile_speed(), 
 			int(current_bullet.damage_amount / float(current_bullet.projectile_count)), 
 			weapon_data.knock_back_force)
 		new_bullet.global_position = muzzle_point.global_position
