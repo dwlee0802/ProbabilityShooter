@@ -19,5 +19,5 @@ effect = SubResource("Resource_fqvfb")
 upgrade_name = "Explosive Rounds"
 icon = ExtResource("2_viqhs")
 color = Color(1, 1, 1, 1)
-description = "5% Chance on reload for bullets to be explosive rounds which explode on hit"
+description = "10% Chance on reload for bullets to be explosive rounds which explode on hit"
 disabled = false

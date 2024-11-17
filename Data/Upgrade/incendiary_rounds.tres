@@ -19,5 +19,5 @@ effect = SubResource("Resource_fqvfb")
 upgrade_name = "Incendiary Rounds"
 icon = ExtResource("2_u1rkh")
 color = Color(1, 1, 1, 1)
-description = "5% Chance on reload for bullets to be incendiary rounds which apply burn to target"
+description = "10% Chance on reload for bullets to be incendiary rounds which apply burn to target"
 disabled = false
