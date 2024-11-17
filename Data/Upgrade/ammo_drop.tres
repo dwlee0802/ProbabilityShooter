@@ -18,4 +18,4 @@ upgrade_name = "Ammo Drop"
 icon = ExtResource("2_qicpm")
 color = Color(1, 1, 1, 1)
 description = "5% Chance for Ammo Packs to be dropped when enemy is killed"
-disabled = true
+disabled = false

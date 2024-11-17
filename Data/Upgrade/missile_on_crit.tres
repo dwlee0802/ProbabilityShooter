@@ -16,4 +16,4 @@ upgrade_name = "Critical Missile"
 icon = ExtResource("2_iyuor")
 color = Color(1, 0.607843, 0.227451, 1)
 description = "50% to shoot a homing missile on critical hit"
-disabled = true
+disabled = false
