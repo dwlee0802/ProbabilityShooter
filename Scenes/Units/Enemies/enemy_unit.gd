@@ -208,7 +208,7 @@ func _ready():
 	movement_particle.preprocess = randf_range(0, 1)
 		
 func _process(_delta: float) -> void:
-	target_position = InputManager.selected_unit.global_position
+	target_position = game_ref.player_unit.global_position
 	nav.target_position = target_position
 	
 	state_machine.process_frame(_delta)

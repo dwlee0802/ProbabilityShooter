@@ -22,6 +22,3 @@ func activate(game_ref, event: Event):
 	new_dynamite.damage_amount = damage_amount
 	
 	new_dynamite.call_deferred("activate")
-	
-	if event.subject is PlayerUnit:
-		new_dynamite.shooter = event.subject

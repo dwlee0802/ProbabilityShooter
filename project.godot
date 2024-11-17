@@ -164,6 +164,7 @@ use_teleport={
 2d_physics/layer_9="Projectile"
 2d_physics/layer_10="Casings"
 2d_physics/layer_11="Pit"
+2d_physics/layer_12="Enemy2"
 
 [physics]
 

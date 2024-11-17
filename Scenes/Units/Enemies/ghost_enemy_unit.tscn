@@ -1,18 +1,22 @@
-[gd_scene load_steps=36 format=3 uid="uid://c8op5j1sig6g1"]
+[gd_scene load_steps=41 format=3 uid="uid://dgt50h4pb370g"]
 
-[ext_resource type="Script" path="res://Scenes/Units/Enemies/enemy_unit.gd" id="1_e5wg4"]
-[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_wyupm"]
-[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="3_v4u16"]
-[ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="4_4lvqi"]
-[ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="5_lssqq"]
-[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="6_jfw3e"]
-[ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="7_3o886"]
-[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://Misc/glow_sprite.tres" id="8_k5i3c"]
-[ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="9_2vvtq"]
-[ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="10_sjd5i"]
-[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="11_xfmbe"]
-[ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="12_oregs"]
-[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="13_0yxbj"]
+[ext_resource type="Script" path="res://Scenes/Units/Enemies/enemy_unit.gd" id="1_ig8j8"]
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="2_kug51"]
+[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="3_akeq8"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/move_into_range_state.gd" id="4_8otp7"]
+[ext_resource type="Script" path="res://Scenes/States/Enemy States/shoot_projectile_state.gd" id="5_l05b2"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="6_56bpw"]
+[ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="7_36crw"]
+[ext_resource type="Texture2D" uid="uid://cpichrnm7gnjb" path="res://Misc/glow_sprite.tres" id="8_2nfj0"]
+[ext_resource type="AudioStream" uid="uid://sda3m8sqnq5m" path="res://Sound/SFX_Hit06.ogg" id="9_q530l"]
+[ext_resource type="AudioStream" uid="uid://bm4tay4w713h4" path="res://Sound/SFX_crit.ogg" id="10_pewgh"]
+[ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="11_brdnm"]
+[ext_resource type="AudioStream" uid="uid://3u13pbj02hgc" path="res://Sound/shield_down.ogg" id="12_exeg7"]
+[ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="13_47lmm"]
+[ext_resource type="Script" path="res://Scenes/Units/Enemies/ability_component.gd" id="14_iwsjb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72c86"]
+size = Vector2(197, 287)
 
 [sub_resource type="Gradient" id="Gradient_qaaq8"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -182,9 +186,6 @@ _data = {
 "death": SubResource("Animation_dhf52")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_72c86"]
-size = Vector2(197, 287)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfxjo"]
 radius = 31.0
 
@@ -234,33 +235,90 @@ _data = {
 [sub_resource type="Gradient" id="Gradient_rcr3r"]
 colors = PackedColorArray(1, 1, 1, 0.584314, 0, 0, 0, 0)
 
-[node name="EnemyUnit" type="RigidBody2D"]
+[sub_resource type="Animation" id="Animation_nswok"]
+resource_name = "ghost"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.609831, 0.635876, 0.680371, 1), Color(0.804339, 0.818623, 0.844768, 0.0862745)]
+}
+
+[sub_resource type="Animation" id="Animation_j4636"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.609831, 0.635876, 0.680371, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ym1ue"]
+resource_name = "unghost"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.804339, 0.818623, 0.844768, 0.0862745), Color(0.609831, 0.635876, 0.680371, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_esv47"]
+_data = {
+"RESET": SubResource("Animation_j4636"),
+"ghost": SubResource("Animation_nswok"),
+"unghost": SubResource("Animation_ym1ue")
+}
+
+[node name="GhostEnemyUnit" type="RigidBody2D"]
 collision_layer = 2056
 collision_mask = 2187
 mass = 0.5
 gravity_scale = 0.0
 lock_rotation = true
 linear_damp = 1.0
-script = ExtResource("1_e5wg4")
-projectile = ExtResource("2_wyupm")
+script = ExtResource("1_ig8j8")
+projectile = ExtResource("2_kug51")
 attack_range = 0.0
 projectile_speed = 4000.0
 projectile_damage = 1
 attack_cooldown = 3.0
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-0.5, -9.5)
+shape = SubResource("RectangleShape2D_72c86")
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 simplify_path = true
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("3_v4u16")
+script = ExtResource("3_akeq8")
 starting_state = NodePath("Move")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("attack_state")]
-script = ExtResource("4_4lvqi")
+script = ExtResource("4_8otp7")
 attack_state = NodePath("../Attack")
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("move_state")]
-script = ExtResource("5_lssqq")
+script = ExtResource("5_l05b2")
 move_state = NodePath("../Move")
 
 [node name="DropShadow" type="Sprite2D" parent="."]
@@ -271,7 +329,7 @@ texture = SubResource("GradientTexture2D_icdny")
 [node name="MovementTrailEffect" type="CPUParticles2D" parent="."]
 position = Vector2(1, 102)
 amount = 3
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 particle_flag_align_y = true
 direction = Vector2(0, -1)
 spread = 0.0
@@ -296,23 +354,23 @@ libraries = {
 speed_scale = 2.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.85658, 0.148391, 2.88785e-07, 1)
+self_modulate = Color(0.609831, 0.635876, 0.680371, 1)
 position = Vector2(0, -13.5)
 scale = Vector2(1.41667, 1.38889)
-texture = ExtResource("7_3o886")
+texture = ExtResource("7_36crw")
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
 position = Vector2(-15.5294, -45.72)
 scale = Vector2(0.05, 0.05)
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Sprite2D/Sprite2D"]
 position = Vector2(600, 0)
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 
 [node name="HitEffect" type="Sprite2D" parent="Sprite2D"]
 visible = false
-texture = ExtResource("7_3o886")
+texture = ExtResource("7_36crw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/HitEffect"]
 root_node = NodePath("../..")
@@ -322,6 +380,7 @@ libraries = {
 speed_scale = 2.0
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite2D"]
+visible = false
 occluder = SubResource("OccluderPolygon2D_pskk5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
@@ -330,11 +389,6 @@ libraries = {
 }
 speed_scale = 1.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-0.5, -9.5)
-shape = SubResource("RectangleShape2D_72c86")
-
 [node name="AutohealTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
@@ -342,7 +396,7 @@ one_shot = true
 [node name="AutohealParticles" type="CPUParticles2D" parent="."]
 position = Vector2(-3, 7)
 emitting = false
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 emission_shape = 1
 emission_sphere_radius = 60.0
 direction = Vector2(0, -1)
@@ -387,11 +441,11 @@ monitoring = false
 [node name="Sprite2D3" type="Sprite2D" parent="CritArea"]
 self_modulate = Color(0, 0, 0, 1)
 scale = Vector2(0.12, 0.12)
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 
 [node name="Sprite2D2" type="Sprite2D" parent="CritArea"]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CritArea"]
 shape = SubResource("CircleShape2D_jfxjo")
@@ -404,7 +458,7 @@ position = Vector2(2, 55)
 position = Vector2(-3, 7)
 amount = 20
 lifetime = 2.0
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 direction = Vector2(0, -1)
 spread = 80.0
 gravity = Vector2(0, -500)
@@ -423,7 +477,7 @@ amount = 10
 lifetime = 0.8
 explosiveness = 0.1
 randomness = 0.1
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 direction = Vector2(0, -1)
 gravity = Vector2(0, -100)
 initial_velocity_min = 50.0
@@ -437,7 +491,7 @@ color_ramp = SubResource("Gradient_ygdkf")
 [node name="PointLight2D" type="PointLight2D" parent="BurningEffect"]
 color = Color(1, 0.529412, 0, 1)
 energy = 5.0
-texture = ExtResource("8_k5i3c")
+texture = ExtResource("8_2nfj0")
 texture_scale = 10.0
 
 [node name="HitLine" type="Line2D" parent="."]
@@ -450,18 +504,18 @@ libraries = {
 }
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_2vvtq")
+stream = ExtResource("9_q530l")
 volume_db = -5.0
 pitch_scale = 0.5
 max_distance = 10000.0
 
 [node name="CritSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_sjd5i")
+stream = ExtResource("10_pewgh")
 volume_db = -5.0
 pitch_scale = 0.5
 max_distance = 10000.0
 
-[node name="HealthBar" parent="." instance=ExtResource("11_xfmbe")]
+[node name="HealthBar" parent="." instance=ExtResource("11_brdnm")]
 visible = false
 anchors_preset = 7
 anchor_top = 1.0
@@ -472,7 +526,7 @@ offset_right = 138.0
 offset_bottom = 169.0
 grow_vertical = 0
 
-[node name="ArmorBar" parent="." instance=ExtResource("11_xfmbe")]
+[node name="ArmorBar" parent="." instance=ExtResource("11_brdnm")]
 visible = false
 anchors_preset = 7
 anchor_top = 1.0
@@ -500,7 +554,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ShieldHitSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("12_oregs")
+stream = ExtResource("12_exeg7")
 pitch_scale = 0.95
 
 [node name="ShieldParticle" type="CPUParticles2D" parent="."]
@@ -510,7 +564,7 @@ amount = 16
 lifetime = 2.0
 one_shot = true
 explosiveness = 0.9
-texture = ExtResource("6_jfw3e")
+texture = ExtResource("6_56bpw")
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 300)
@@ -520,8 +574,18 @@ scale_amount_min = 0.1
 scale_amount_max = 0.2
 color_ramp = SubResource("Gradient_rcr3r")
 
-[node name="HealthHearts" parent="." instance=ExtResource("13_0yxbj")]
+[node name="HealthHearts" parent="." instance=ExtResource("13_47lmm")]
 offset_left = -173.0
 offset_top = -308.0
 offset_right = 177.0
 offset_bottom = -176.0
+
+[node name="AbilityComponent" type="Node" parent="."]
+script = ExtResource("14_iwsjb")
+
+[node name="GhostAnimationPlayer" type="AnimationPlayer" parent="AbilityComponent"]
+root_node = NodePath("../../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_esv47")
+}
+speed_scale = 4.0
