@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://chv1j4r2l7atm"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_mwrt4"]
+
+[resource]
+script = ExtResource("1_mwrt4")
+mutation_name = "More Ghost"
+description = "Increase the average number of ghost enemies spawned by 0.5"
+color = Color(0.718244, 0.761511, 0.794224, 1)
+disabled = false
+health_avg_bonus = 0.0
+heavy_spawn_chance_bonus = 0.0
+fast_spawn_chance_bonus = 0.0
+ranged_spawn_chance_bonus = 0.0
+shield_spawn_chance_bonus = 0.0
+melee_avg_bonus = 0.0
+ranged_avg_bonus = 0.0
+sniper_avg_bonus = 0.0
+sprayer_avg_bonus = 0.0
+ghost_avg_bonus = 0.5

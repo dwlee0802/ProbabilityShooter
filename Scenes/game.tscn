@@ -1,10 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=30 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="Script" path="res://Scripts/Spawning/static_enemy_spawner_component.gd" id="3_2unjj"]
+[ext_resource type="PackedScene" uid="uid://c8op5j1sig6g1" path="res://Scenes/Units/Enemies/melee_enemy_unit.tscn" id="4_2a371"]
 [ext_resource type="PackedScene" uid="uid://dgt50h4pb370g" path="res://Scenes/Units/Enemies/ghost_enemy_unit.tscn" id="4_4foiw"]
 [ext_resource type="PackedScene" uid="uid://ci5puy12rowpx" path="res://Scenes/Units/Enemies/ranged_enemy_unit.tscn" id="5_5fil0"]
 [ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
@@ -59,10 +60,11 @@ script = ExtResource("2_webe7")
 
 [node name="EnemySpawnerComponent" type="Node" parent="."]
 script = ExtResource("3_2unjj")
-melee_unit = ExtResource("4_4foiw")
+melee_unit = ExtResource("4_2a371")
 ranged_unit = ExtResource("5_5fil0")
 sniper_unit = ExtResource("6_aqm0h")
 sprayer_unit = ExtResource("7_bsan6")
+ghost_unit = ExtResource("4_4foiw")
 _base_ranged_spawn_count = 0.25
 _base_sprayer_spawn_count = 0.25
 waves_per_mutation = 2

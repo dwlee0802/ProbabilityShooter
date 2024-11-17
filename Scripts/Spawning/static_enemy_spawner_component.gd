@@ -15,6 +15,8 @@ var ranged_unit: PackedScene
 var sniper_unit: PackedScene
 @export
 var sprayer_unit: PackedScene
+@export
+var ghost_unit: PackedScene
 
 var wave_timer: Timer
 @export
@@ -36,6 +38,9 @@ var sniper_spawn_average: float = 0
 @export
 var _base_sprayer_spawn_count: float = 0
 var sprayer_spawn_average: float = 0
+@export
+var _base_ghost_spawn_count: float = 0
+var ghost_spawn_average: float = 0
 
 @export_category("Mutation Setting")
 @export
@@ -122,6 +127,8 @@ func on_wave_timer_timeout() -> void:
 		ranged.append(spawn_enemy_unit(sniper_unit))
 	for i in range(int(randfn(sprayer_spawn_average, 1.2))):
 		ranged.append(spawn_enemy_unit(sprayer_unit))
+	for i in range(int(randfn(ghost_spawn_average, 1.2))):
+		ranged.append(spawn_enemy_unit(ghost_unit))
 	
 	print("melee: " + str(melee))
 	print("ranged: " + str(ranged))

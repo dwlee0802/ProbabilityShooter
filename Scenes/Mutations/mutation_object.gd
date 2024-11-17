@@ -41,6 +41,8 @@ var ranged_avg_bonus: float = 0
 var sniper_avg_bonus: float = 0
 @export
 var sprayer_avg_bonus: float = 0
+@export
+var ghost_avg_bonus: float = 0
 
 
 func apply(spawner: EnemySpawnerComponent):
