@@ -9,7 +9,7 @@ script = ExtResource("1_d5gkp")
 piercing_chance_bonus = 0.0
 explosive_chance_bonus = 0.0
 quickshot_chance_bonus = 0.0
-fire_chance_bonus = 0.05
+fire_chance_bonus = 0.1
 vampire_chance_bonus = 0.0
 
 [resource]

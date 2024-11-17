@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_fqvfb"]
 script = ExtResource("1_6com1")
 piercing_chance_bonus = 0.0
-explosive_chance_bonus = 0.05
+explosive_chance_bonus = 0.1
 quickshot_chance_bonus = 0.0
 fire_chance_bonus = 0.0
 vampire_chance_bonus = 0.0

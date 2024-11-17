@@ -453,7 +453,6 @@ dash_cooldown = 0.3
 
 [node name="BulletGeneratorComponent" type="Node" parent="."]
 script = ExtResource("3_dla1s")
-_base_explosive_chance = 1.0
 
 [node name="StatComponent" type="Node" parent="."]
 script = ExtResource("4_7ymnv")
