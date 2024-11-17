@@ -17,6 +17,7 @@ func _init(_unit, _data) -> void:
 	buff_data = _data
 	
 	timer = Timer.new()
+	timer.name = "buff timer"
 	timer.autostart = false
 	timer.one_shot = true
 	timer.timeout.connect(exit)

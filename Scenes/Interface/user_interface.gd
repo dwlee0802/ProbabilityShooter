@@ -192,8 +192,8 @@ func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weap
 	var bullets = weapon_one.bullets
 		
 	for i in range(bullets.size()):
-		var new_icon: TextureRect = health_icon.instantiate()
-		new_icon.custom_minimum_size = Vector2(16,16)
+		#var new_icon: TextureRect = health_icon.instantiate()
+		#new_icon.custom_minimum_size = Vector2(16,16)
 		var new_label: RichTextLabel = RichTextLabel.new()
 		new_label.fit_content = true
 		new_label.scroll_active = false
@@ -211,8 +211,8 @@ func update_bullet_menu(weapon_one = InputManager.selected_unit.weapon_one, weap
 	bullets = weapon_two.bullets
 		
 	for i in range(bullets.size()):
-		var new_icon: TextureRect = health_icon.instantiate()
-		new_icon.custom_minimum_size = Vector2(16,16)
+		#var new_icon: TextureRect = health_icon.instantiate()
+		#new_icon.custom_minimum_size = Vector2(16,16)
 		var new_label: RichTextLabel = RichTextLabel.new()
 		new_label.fit_content = true
 		new_label.scroll_active = false
