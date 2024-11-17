@@ -178,6 +178,7 @@ func _ready():
 		user_interface.update_reload_marker.bind(user_interface.weapon_one_active_reload, player_unit.weapon_one))
 	player_unit.weapon_two.reload_started.connect(
 		user_interface.update_reload_marker.bind(user_interface.weapon_two_active_reload, player_unit.weapon_two))
+	player_unit.buff_entered.connect(user_interface.buff_icon_container.add_buff_icon)
 	
 	player_unit.weapon_one.activated.connect(user_interface.screen_blink.play.bind("screen_blink"))
 	player_unit.weapon_two.activated.connect(user_interface.screen_blink.play.bind("screen_blink"))
@@ -448,6 +449,7 @@ func start() -> void:
 	player_unit.clear_inventory()
 	player_unit.reset_crystals()
 	player_unit.stat_component.reset_stats()
+	player_unit.clear_buffs()
 	
 	UpgradesManager.reset_upgrades()
 	

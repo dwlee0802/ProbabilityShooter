@@ -203,6 +203,11 @@ var safe_zone_damage: int = 1
 var safe_zone_time_limit: float = 1
 #endregion
 
+## Buff system
+var buffs = {}
+@onready
+var buffs_node: Node = $Buffs
+
 ## WASD Movement Component Node
 @onready
 var movement_component: WASDMovementComponent = $MovementComponent
@@ -250,6 +255,7 @@ signal used_ability
 signal upgrade_ready
 signal teleport_started
 signal teleport_finished
+signal buff_entered(buff)
 #endregion
 
 
@@ -329,7 +335,6 @@ func _unhandled_input(_event: InputEvent) -> void:
 		return
 
 func _physics_process(delta: float) -> void:
-	print(global_position)
 	if is_unconscious():
 		return
 		
@@ -916,3 +921,20 @@ func knock_back(node: Node2D) -> void:
 func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body is Pickup:
 		body.on_pickup(self)
+
+# check if it already exists
+func add_buff(buff: Buff) -> void:
+	if buffs.find_key(buff.buff_data.name):
+		buffs[buff.buff_data.name].add_duration(buff.buff_data.duration)
+		buff.queue_free()
+	else:
+		buffs[buff.buff_data.name] = buff
+		buffs_node.add_child(buff)
+		buff.enter()
+		buff_entered.emit(buff)
+	
+	print(buffs)
+
+func clear_buffs() -> void:
+	buffs.clear()
+	DW_ToolBox.RemoveAllChildren(buffs_node)

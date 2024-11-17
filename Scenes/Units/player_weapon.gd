@@ -8,6 +8,8 @@ var bullet_generator: BulletGenerator
 
 ## Bullet Management
 var bullets = []
+var attack_direction_queue = []
+var queued_bullets = []
 
 ## Stats
 var magazine_size: int = 5
@@ -23,8 +25,6 @@ var action_name: String
 @onready
 var state_machine: StateMachine = $StateMachine
 
-var attack_direction_queue = []
-var queued_bullets = []
 var reload_timer: ScalableTimer
 var aim_timer: ScalableTimer
 

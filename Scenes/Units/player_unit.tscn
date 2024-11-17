@@ -1072,6 +1072,8 @@ collision_mask = 32
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource("CircleShape2D_8e4cp")
 
+[node name="Buffs" type="Node" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_changed"]
 [connection signal="area_exited" from="InteractionArea" to="." method="_on_interaction_area_changed"]

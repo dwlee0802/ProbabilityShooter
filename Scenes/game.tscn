@@ -103,8 +103,10 @@ health_points = 3.0
 max_health_points = 3
 starting_equipments = [SubResource("Resource_sdoah")]
 level_per_upgrade = 3
+charge = 45.0
 crystal_color = Color(0.498039, 1, 0.831373, 1)
 level_up_debug = true
+level_up_debug_amount = 200
 
 [node name="Camera2D" type="Camera2D" parent="PlayerUnit"]
 zoom = Vector2(0.1, 0.1)

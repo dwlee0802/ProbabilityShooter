@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dcn2if5g8chpm"]
+[gd_scene load_steps=67 format=3 uid="uid://dcn2if5g8chpm"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/user_interface.gd" id="1_vjhkg"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="3_038ea"]
@@ -16,6 +16,7 @@
 [ext_resource type="Shader" path="res://Scenes/Interface/speed_lines.gdshader" id="12_pt44d"]
 [ext_resource type="PackedScene" uid="uid://c165q4palne8m" path="res://Scenes/Interface/item_slot.tscn" id="13_a1l6i"]
 [ext_resource type="Script" path="res://Scenes/Interface/score_info.gd" id="14_04ef1"]
+[ext_resource type="Script" path="res://Scenes/Interface/buff_icon_container.gd" id="17_jg7t6"]
 
 [sub_resource type="Animation" id="Animation_a84oq"]
 length = 0.001
@@ -1486,19 +1487,6 @@ mouse_filter = 2
 theme_override_constants/separation = 12
 alignment = 2
 
-[node name="AbilityFullLabel" type="Label" parent="HUD/VBoxContainer"]
-visible = false
-modulate = Color(1, 1, 0.729412, 1)
-layout_mode = 2
-text = "PRESS Q TO ACTIVATE ABILITY"
-horizontal_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/VBoxContainer/AbilityFullLabel"]
-libraries = {
-"": SubResource("AnimationLibrary_xf3oi")
-}
-autoplay = "blink"
-
 [node name="InventorySlots" type="HBoxContainer" parent="HUD/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -1549,6 +1537,21 @@ libraries = {
 "": SubResource("AnimationLibrary_5l3br")
 }
 autoplay = "full_blink"
+
+[node name="AbilityFullLabel" type="Label" parent="HUD/VBoxContainer/VBoxContainer/EnergyBar"]
+modulate = Color(1, 1, 0.729412, 1)
+layout_mode = 2
+offset_top = -33.0
+offset_right = 360.0
+offset_bottom = -12.0
+text = "PRESS Q TO ACTIVATE ABILITY"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/VBoxContainer/VBoxContainer/EnergyBar/AbilityFullLabel"]
+libraries = {
+"": SubResource("AnimationLibrary_xf3oi")
+}
+autoplay = "blink"
 
 [node name="ExperienceBar" parent="HUD/VBoxContainer/VBoxContainer" instance=ExtResource("3_038ea")]
 custom_minimum_size = Vector2(10, 10)
@@ -1847,5 +1850,56 @@ theme_override_styles/background = SubResource("StyleBoxFlat_hw11b")
 theme_override_styles/fill = SubResource("StyleBoxFlat_yighv")
 value = 67.0
 show_percentage = false
+
+[node name="BuffIconContainer" type="HFlowContainer" parent="HealthScoreContainer/ScoreInfo"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+offset_left = -0.039999
+offset_top = 114.08
+offset_right = 301.96
+offset_bottom = 154.08
+script = ExtResource("17_jg7t6")
+
+[node name="TextureRect" type="TextureRect" parent="HealthScoreContainer/ScoreInfo/BuffIconContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="HealthScoreContainer/ScoreInfo/BuffIconContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="HealthScoreContainer/ScoreInfo/BuffIconContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="HealthScoreContainer/ScoreInfo/BuffIconContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="HealthScoreContainer/ScoreInfo/BuffIconContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="HealthScoreContainer/ScoreInfo/BuffIconContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="HealthScoreContainer/ScoreInfo/BuffIconContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("7_abwdc")
+expand_mode = 1
 
 [connection signal="pressed" from="TemporaryTutorial/Button" to="TemporaryTutorial" method="_on_button_pressed"]

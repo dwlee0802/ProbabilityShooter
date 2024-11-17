@@ -9,7 +9,7 @@ var experience_label: Label = $HUD/VBoxContainer/VBoxContainer/ExperienceBar/Exp
 @onready
 var charge_bar: DelayedProgressBar = $HUD/VBoxContainer/VBoxContainer/EnergyBar
 @onready
-var ability_full_label: Label = $HUD/VBoxContainer/AbilityFullLabel
+var ability_full_label: Label = $HUD/VBoxContainer/VBoxContainer/EnergyBar/AbilityFullLabel
 @onready
 var charge_bar_label: Label = $HUD/VBoxContainer/VBoxContainer/EnergyBar/EnergyLabel
 @onready
@@ -101,6 +101,9 @@ var mutation_roulette: Roulette = $MutationRoulette
 var vignette_overlay: TextureRect = $VignetteOverlay
 
 var upgrade_timer: Timer
+
+@onready
+var buff_icon_container: BuffIconContainer = $HealthScoreContainer/ScoreInfo/BuffIconContainer
 
 
 func _ready():
