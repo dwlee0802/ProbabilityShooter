@@ -13,6 +13,10 @@ var quit_button: Button = $Control/vBoxContainer/VBoxContainer/HBoxContainer/Qui
 @onready
 var score_label: Label = $Control/vBoxContainer/StatsContainer/StatLabels/Score
 @onready
+var highscore_label: Label = $Control/vBoxContainer/StatsContainer/StatLabels/Highscore
+@onready
+var wave_label: Label = $Control/vBoxContainer/StatsContainer/StatLabels/Wave
+@onready
 var survival_time_label: Label = $Control/vBoxContainer/StatsContainer/StatLabels/SurvivalTime
 @onready
 var kill_count_label: Label = $Control/vBoxContainer/StatsContainer/StatLabels/KillCount
@@ -36,8 +40,10 @@ func on_game_over():
 func on_game_quit():
 	get_tree().quit()
 
-func set_game_over_stats(stats_component: StatisticsComponent) -> void:
+func set_game_over_stats(stats_component: StatisticsComponent, score_component: ScoreComponent) -> void:
 	score_label.text = str(stats_component.score)
+	highscore_label.text = str(score_component.highscore)
+	wave_label.text = str(stats_component.reached_wave) + "/" + str(stats_component.total_waves)
 	survival_time_label.text = str(int(stats_component.survival_time)) + "s"
 	kill_count_label.text = str(int(stats_component.kill_count)) + " kills"
 	level_label.text = "Lv. " + str(stats_component.level_reached) + " (" + str(stats_component.total_exp_gained) + " EXP)"

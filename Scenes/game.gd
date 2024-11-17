@@ -366,12 +366,13 @@ func game_finished(victory: bool) -> void:
 	
 	stats_component.score = score_component.total_score
 	stats_component.reached_wave = spawner_component.wave_count
+	stats_component.total_waves = spawner_component.max_waves
 	
 	history_component.save_run_data(stats_component.export_data())
 	
 	user_interface.visible = false
 	
-	end_screen.set_game_over_stats(stats_component)
+	end_screen.set_game_over_stats(stats_component, score_component)
 	end_screen.visible = true
 	
 	end_screen.set_title(victory)

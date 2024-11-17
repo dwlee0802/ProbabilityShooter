@@ -7,6 +7,7 @@ var score: int = 0
 var survival_time: float = 0
 @export
 var reached_wave: int = 0
+var total_waves: int = 0
 
 @export_category("Combat")
 @export

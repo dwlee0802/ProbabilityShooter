@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_n1h68"]
 script = ExtResource("1_sc48l")
-chance = 1.0
+chance = 0.5
 
 [resource]
 script = ExtResource("2_f1f1i")
@@ -15,5 +15,5 @@ effect = SubResource("Resource_n1h68")
 upgrade_name = "Critical Missile"
 icon = ExtResource("2_iyuor")
 color = Color(1, 0.607843, 0.227451, 1)
-description = "Shoot a homing missile on critical hit"
+description = "50% to shoot a homing missile on critical hit"
 disabled = false
