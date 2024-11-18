@@ -129,7 +129,7 @@ func _on_body_entered(body) -> void:
 		new_dynamite.damage_amount = damage_amount
 		new_dynamite.call_deferred("activate")
 	
-	if pierce_count > 0:
+	if pierce_count > 0 or bullet_data.piercing:
 		pierce_count -= 1
 		return
 	else:

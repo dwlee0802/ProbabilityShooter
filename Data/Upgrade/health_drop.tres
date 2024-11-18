@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_8jv7e"]
 script = ExtResource("1_kwnjm")
-chance = 0.05
+chance = 0.03
 ammo_pack = false
 health = true
 
@@ -17,5 +17,5 @@ effect = SubResource("Resource_8jv7e")
 upgrade_name = "Health Drop"
 icon = ExtResource("2_4eiuf")
 color = Color(1, 0.454474, 0.739607, 1)
-description = "5% Chance for Hearts to be dropped when enemy is killed"
-disabled = true
+description = "3% Chance for Hearts to be dropped when enemy is killed"
+disabled = false

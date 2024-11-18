@@ -16,4 +16,4 @@ upgrade_name = "Missile"
 icon = ExtResource("2_c6wmj")
 color = Color(1, 0.321569, 0.227451, 1)
 description = "20% Chance to shoot a homing missile when shooting"
-disabled = true
+disabled = false

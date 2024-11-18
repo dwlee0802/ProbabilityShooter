@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=5 format=3 uid="uid://bpothvpqyiiej"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/add_trait_effect.gd" id="1_nsqr2"]
+[ext_resource type="Texture2D" uid="uid://iy2v3i1171jy" path="res://Art/Icons/Upgrades/piercing_rounds.png" id="2_t3qd8"]
+[ext_resource type="Script" path="res://Scripts/upgrade.gd" id="3_3o3jf"]
+
+[sub_resource type="Resource" id="Resource_fqvfb"]
+script = ExtResource("1_nsqr2")
+piercing_chance_bonus = 0.1
+explosive_chance_bonus = 0.0
+quickshot_chance_bonus = 0.0
+fire_chance_bonus = 0.0
+vampire_chance_bonus = 0.0
+
+[resource]
+script = ExtResource("3_3o3jf")
+condition_event_code = 11
+effect = SubResource("Resource_fqvfb")
+upgrade_name = "Piercing Rounds"
+icon = ExtResource("2_t3qd8")
+color = Color(1, 1, 1, 1)
+description = "10% Chance on reload for bullets to be piercing rounds"
+disabled = false

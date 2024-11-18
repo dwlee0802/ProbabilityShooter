@@ -416,7 +416,8 @@ func _input(_event: InputEvent) -> void:
 		ability_start_particles.emitting = true
 		ability_start_line_particles.emitting = true
 		ability_use_sound.play()
-		reload_action()
+		weapon_one.fill_bullets()
+		weapon_two.fill_bullets()
 		push_back()
 		
 	if Input.is_action_just_pressed("interact") and interaction_target != null:

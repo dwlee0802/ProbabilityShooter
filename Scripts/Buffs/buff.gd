@@ -30,7 +30,6 @@ func enter() -> void:
 		unit.stat_component.add_aim_time_modifier(buff_data.aim_time_modifier_bonus)
 		
 	timer.start(buff_data.duration)
-	print("buff applied")
 
 func add_duration(time: float) -> void:
 	var remaining: float = timer.time_left
@@ -50,5 +49,4 @@ func exit() -> void:
 		unit.stat_component.add_aim_time_modifier(-buff_data.aim_time_modifier_bonus)
 		
 	expired = true
-	print("buff removed")
 	finished.emit()

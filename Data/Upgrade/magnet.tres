@@ -8,6 +8,7 @@
 script = ExtResource("1_65yux")
 speed_bonus = 0.0
 pickup_range_bonus = 150.0
+projectile_speed_modifier_bonus = 0.0
 
 [resource]
 script = ExtResource("1_a2jhc")
@@ -16,5 +17,5 @@ effect = SubResource("Resource_k2q2j")
 upgrade_name = "Magnet"
 icon = ExtResource("2_bnti7")
 color = Color(0.396889, 0.396889, 0.396889, 1)
-description = "Increase pick up range"
-disabled = true
+description = "Increase pick up range by 150"
+disabled = false

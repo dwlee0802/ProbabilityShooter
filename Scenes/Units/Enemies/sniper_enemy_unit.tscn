@@ -244,9 +244,9 @@ linear_damp = 1.0
 script = ExtResource("1_wa5di")
 projectile = ExtResource("2_1h0uy")
 attack_range = 3000.0
-projectile_speed = 4000.0
+projectile_speed = 3000.0
 projectile_damage = 1
-attack_cooldown = 3.0
+attack_cooldown = 4.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 simplify_path = true
