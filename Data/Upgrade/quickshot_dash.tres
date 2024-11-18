@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=6 format=3 uid="uid://ctc5ut1hj6x8o"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=7 format=3 uid="uid://ctc5ut1hj6x8o"]
 
 [ext_resource type="Script" path="res://Scripts/Buffs/buff_data.gd" id="1_fkxm8"]
 [ext_resource type="Script" path="res://Scripts/upgrade.gd" id="1_lbc43"]
 [ext_resource type="Script" path="res://Scripts/Effects/apply_buff.gd" id="2_ylgsd"]
+[ext_resource type="Texture2D" uid="uid://dr1buindtr70c" path="res://Art/Icons/Upgrades/Quickdraw.png" id="3_o7u6a"]
 
 [sub_resource type="Resource" id="Resource_bwpmw"]
 script = ExtResource("1_fkxm8")
 name = "Quicker Aim"
 description = "Aim 200% faster"
-duration = 0.75
+duration = 0.5
 change_color = Color(1, 1, 1, 1)
 aim_time_modifier_bonus = -0.75
 
@@ -21,6 +22,7 @@ script = ExtResource("1_lbc43")
 condition_event_code = 9
 effect = SubResource("Resource_b5ce5")
 upgrade_name = "Quickdraw"
+icon = ExtResource("3_o7u6a")
 color = Color(1, 1, 1, 1)
 description = "Shoot twice as fast after dashing"
 disabled = false
