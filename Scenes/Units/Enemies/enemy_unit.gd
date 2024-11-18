@@ -300,17 +300,24 @@ func update_health_label(value: int) -> void:
 func die():
 	UpgradesManager.process_event(Event.new(self, global_position, null, Event.EventCode.ENEMY_DIED))
 	
+	var orb_count: int = 1
+	
 	var new_effect: CPUParticles2D = death_effect.instantiate()
 	new_effect.global_position = global_position
 	if !last_hit_is_crit:
 		new_effect.get_node("CPUParticles2D").amount = 5
 		new_effect.get_node("CPUParticles2D").initial_velocity_max -= 1000
+	else:
+		## 50% chance to drop two orbs
+		if randf() < 0.5:
+			orb_count = 2
 		
 	get_tree().root.add_child(new_effect)
 	
-	var new_exp_orb: Node2D = exp_orb.instantiate()
-	new_exp_orb.global_position = global_position
-	game_ref.resources.call_deferred("add_child", new_exp_orb)
+	for i in range(orb_count):
+		var new_exp_orb: Node2D = exp_orb.instantiate()
+		new_exp_orb.global_position = global_position + DW_ToolBox.RandomVector(-100, 100, -100, 100)
+		game_ref.resources.call_deferred("add_child", new_exp_orb)
 	
 	# add score and make popup of it
 	score_component.on_kill()
