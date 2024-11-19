@@ -6,6 +6,8 @@ var weapon_data: GunData = null
 
 var bullet_generator: BulletGenerator
 
+var selected: bool = false
+
 ## Bullet Management
 var bullets = []
 var attack_direction_queue = []
@@ -117,7 +119,7 @@ func set_color(color: Color) -> void:
 	attack_full_cone.color = background_color
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if !disabled:
+	if selected:
 		state_machine.process_input(event)
 
 func _process(delta: float) -> void:

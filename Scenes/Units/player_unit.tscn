@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=74 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://dn2ndnkqbgbvo" path="res://Sound/Weapon/pistol_shoot_sound.mp3" id="10_2kui5"]
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="11_vvwcf"]
+[ext_resource type="PackedScene" uid="uid://nh47oxk8doku" path="res://Scenes/Equipment/melee_weapon.tscn" id="13_2p1cc"]
 [ext_resource type="AudioStream" uid="uid://cex2uchs338xi" path="res://Sound/Weapon/rifle_shoot_sound.mp3" id="13_5mmpc"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
 [ext_resource type="Resource" uid="uid://b7ll2myk1ffpw" path="res://Data/Guns/revolver.tres" id="14_uluvt"]
@@ -36,9 +37,11 @@
 [ext_resource type="Script" path="res://Scenes/Units/footstep_component.gd" id="32_crkq8"]
 [ext_resource type="AudioStream" uid="uid://u8et7ge6fsij" path="res://Sound/footsteps/footstep_wood_000.ogg" id="32_o2oun"]
 [ext_resource type="AudioStream" uid="uid://bljqlrv5jwod2" path="res://Sound/heal_sound.mp3" id="35_dmejk"]
-[ext_resource type="Script" path="res://Scenes/Units/melee_component.gd" id="37_4uy4g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lbeb"]
+size = Vector2(92, 182)
 
 [sub_resource type="Gradient" id="Gradient_pinb0"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -371,9 +374,6 @@ _data = {
 "hit_blink": SubResource("Animation_ri0bn")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lbeb"]
-size = Vector2(92, 182)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjobb"]
 resource_local_to_scene = true
 radius = 128.0
@@ -426,9 +426,6 @@ point_count = 2
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e4cp"]
 radius = 500.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_efjyk"]
-radius = 500.0
-
 [node name="PlayerUnit" type="RigidBody2D"]
 material = SubResource("ShaderMaterial_v6k2i")
 collision_layer = 2
@@ -447,6 +444,11 @@ attack_color = Color(1, 0, 0, 0.392157)
 queued_color = Color(1, 0.647059, 0, 0.196078)
 background_color = Color(0, 0, 0, 0.196078)
 push_back_strength = 1500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_2lbeb")
+debug_color = Color(0, 0.6, 0.701961, 0.0784314)
 
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("9_0efpd")
@@ -618,6 +620,8 @@ libraries = {
 "": SubResource("AnimationLibrary_0wgi7")
 }
 
+[node name="MeleeWeapon" parent="." instance=ExtResource("13_2p1cc")]
+
 [node name="WeaponOne" type="Node2D" parent="."]
 use_parent_material = true
 script = ExtResource("3_d8l28")
@@ -743,9 +747,67 @@ pitch_scale = 1.2
 [node name="Arm" parent="WeaponTwo" instance=ExtResource("16_lckao")]
 use_parent_material = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_2lbeb")
-debug_color = Color(0, 0.6, 0.701961, 0.0784314)
+[node name="HeavyWeapon" type="Node2D" parent="."]
+use_parent_material = true
+script = ExtResource("3_d8l28")
+weapon_data = ExtResource("14_uluvt")
+action_name = "action_one"
+
+[node name="ReloadTimer" type="Timer" parent="HeavyWeapon"]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[node name="StateMachine" type="Node" parent="HeavyWeapon" node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_us0md")
+starting_state = NodePath("Ready")
+
+[node name="Ready" type="Node" parent="HeavyWeapon/StateMachine" node_paths=PackedStringArray("reload_state")]
+script = ExtResource("3_6cqsg")
+reload_state = NodePath("../Reload")
+action_name = "action_two"
+
+[node name="Reload" type="Node" parent="HeavyWeapon/StateMachine" node_paths=PackedStringArray("ready_state")]
+script = ExtResource("4_61t70")
+ready_state = NodePath("../Ready")
+
+[node name="AimCone" type="Polygon2D" parent="HeavyWeapon"]
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="QueuedCones" type="Node2D" parent="HeavyWeapon"]
+
+[node name="AttackFullCone" type="Polygon2D" parent="HeavyWeapon"]
+visible = false
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="AttackCone" type="Polygon2D" parent="HeavyWeapon/AttackFullCone"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
+
+[node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="HeavyWeapon"]
+stream = ExtResource("13_5mmpc")
+max_distance = 20000.0
+max_polyphony = 10
+
+[node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="HeavyWeapon"]
+stream = ExtResource("11_vvwcf")
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="HeavyWeapon"]
+stream = ExtResource("11_7sg32")
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="ActiveReloadSound" type="AudioStreamPlayer" parent="HeavyWeapon"]
+stream = ExtResource("15_1vmhr")
+volume_db = -7.0
+pitch_scale = 1.2
+
+[node name="Arm" parent="HeavyWeapon" instance=ExtResource("16_lckao")]
+use_parent_material = true
 
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0
@@ -1079,16 +1141,6 @@ collision_mask = 32
 shape = SubResource("CircleShape2D_8e4cp")
 
 [node name="Buffs" type="Node" parent="."]
-
-[node name="MeleeArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
-script = ExtResource("37_4uy4g")
-radius = 300.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
-shape = SubResource("CircleShape2D_efjyk")
-debug_color = Color(0.811765, 0.396078, 0.282353, 0.211765)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_changed"]

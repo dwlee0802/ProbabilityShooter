@@ -33,7 +33,7 @@ var health_bar: DelayedProgressBar = $HealthBar
 var aim_speed_modifier: float = 0
 var reload_speed_modifier: float = 0
 
-var hit_knockback: float = 8000
+var hit_knockback: float = 4000
 
 @export
 var _base_hit_invincible_time: float = 0.5
@@ -73,6 +73,12 @@ var starting_item: ItemData = null
 var weapon_one: WeaponComponent = $WeaponOne
 @onready
 var weapon_two: WeaponComponent = $WeaponTwo
+@onready
+var heavy_weapon = $HeavyWeapon
+@onready
+var melee_weapon = $MeleeWeapon
+enum WeaponType {MELEE, DEFAULT, HEAVY, NONE}
+var selected_weapon: WeaponType = WeaponType.NONE
 
 @onready
 var bullet_generator_component: BulletGenerator = $BulletGeneratorComponent
@@ -256,6 +262,7 @@ signal upgrade_ready
 signal teleport_started
 signal teleport_finished
 signal buff_entered(buff)
+signal weapon_changed
 #endregion
 
 
@@ -328,16 +335,23 @@ func _ready() -> void:
 	stat_component = $StatComponent
 	stat_component.unit = self
 	
-func set_shortcut_label(num: int) -> void:
-	$ShortcutLabel.text = str(num)
-	
 func _unhandled_input(_event: InputEvent) -> void:
 	if is_unconscious():
 		return
+	
+	if Input.is_action_just_pressed("select_melee"):
+		select_weapon(PlayerUnit.WeaponType.MELEE)
+	if Input.is_action_just_pressed("select_default"):
+		select_weapon(PlayerUnit.WeaponType.DEFAULT)
+	if Input.is_action_just_pressed("select_heavy"):
+		select_weapon(PlayerUnit.WeaponType.HEAVY)
 
 func _physics_process(delta: float) -> void:
 	if is_unconscious():
 		return
+	
+	if selected_weapon == PlayerUnit.WeaponType.NONE:
+		select_weapon(PlayerUnit.WeaponType.DEFAULT)
 		
 	movement_component.physics_update(self, delta)
 	
@@ -597,6 +611,35 @@ func set_current_equipment(num: int) -> void:
 	equipment_changed.emit()
 	print("current equipment: " + get_current_equipment().data.equipment_name)
 
+func select_weapon(num: WeaponType) -> void:
+	if melee_weapon:	
+		melee_weapon.selected = false
+	if weapon_one:
+		weapon_one.selected = false
+	if weapon_two:
+		weapon_two.selected = false
+	if heavy_weapon:
+		heavy_weapon.selected = false
+	
+	match num:
+		PlayerUnit.WeaponType.MELEE:
+			if melee_weapon:
+				melee_weapon.selected = true
+			print("Select melee weapon")
+		PlayerUnit.WeaponType.DEFAULT:
+			if weapon_one:
+				weapon_one.selected = true
+			if weapon_two:
+				weapon_two.selected = true
+			print("Select default weapon")
+		PlayerUnit.WeaponType.HEAVY:
+			if heavy_weapon:
+				heavy_weapon.selected = true
+			print("Select heavy weapon")
+			
+	selected_weapon = num
+	weapon_changed.emit()
+	
 #func start_reload_process(_eq_num: int = 0) -> void:
 	#if action_one_reload_timer.is_stopped():
 		#print("Start Reload Process")

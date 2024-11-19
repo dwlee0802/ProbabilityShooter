@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://nh47oxk8doku"]
+
+[ext_resource type="Script" path="res://Scenes/Equipment/melee_component.gd" id="1_peuu4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qipk6"]
+radius = 500.0
+
+[node name="MeleeWeapon" type="Area2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_peuu4")
+melee_cooldown = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qipk6")
+debug_color = Color(0.86518, 0.34013, 0.28753, 0.42)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
