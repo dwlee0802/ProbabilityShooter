@@ -168,8 +168,6 @@ func show_mutation_info(item: Mutation):
 
 ## show upgrade menu and populate it with upgrade options
 func show_upgrade_menu() -> void:
-	get_tree().paused = true
-	
 	for i in range(upgrade_options.size()):
 		upgrade_options[i].set_data(InputManager.selected_unit.upgrade_options[i])
 	

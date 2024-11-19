@@ -34,7 +34,7 @@ script/templates_search_path="res://Scripts/ScriptTemplates"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/radial_progress/plugin.cfg")
 
 [gui]
 

@@ -116,6 +116,8 @@ func _ready():
 	player_unit = $PlayerUnit
 	player_unit.safe_zone_radius = safe_zone_radius
 	
+	player_unit.melee_weapon.game_ref = self
+	
 	## set high score
 	history_component = $RunHistoryComponent
 	score_component = $ScoreComponent
@@ -521,9 +523,10 @@ func on_upgrade() -> void:
 		user_interface.show_upgrade_menu()
 		upgrade_timer.start(15)
 		
-		var tween = get_tree().create_tween()
-		tween.tween_property(Engine, "time_scale", 0, 0.1)
+		#var tween = get_tree().create_tween()
+		#tween.tween_property(Engine, "time_scale", 0, 0.1)
 		get_tree().paused = true
+		
 	
 func on_charge_changed() -> void:
 	user_interface.charge_bar.change_value(player_unit.charge)
@@ -535,7 +538,6 @@ func on_level_up() -> void:
 		user_interface.experience_bar.change_value(player_unit.experience_gained, true)
 		user_interface.experience_label.text = "LV " + str(player_unit.current_level) + "  " + str(player_unit.experience_gained) + "/" + str(player_unit.required_exp_amount(player_unit.current_level))
 		player_unit.upgrade_options = get_upgrade_options()
-		get_tree().paused = false
 		player_unit.level_up_animation.play("level_up")
 		
 		stats_component.level_reached += 1
@@ -563,8 +565,6 @@ func on_upgrade_timeout():
 	var random_option: Upgrade = Game.upgrade_options.pick_random()
 	apply_upgrade(random_option)
 	
-	var tween = get_tree().create_tween()
-	tween.tween_property(Engine, "time_scale", 1, 0.1)
 	get_tree().paused = false
 
 func apply_upgrade(upgrade: Upgrade) -> void:

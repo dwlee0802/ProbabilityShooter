@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8d4g0epnu685"]
+[gd_scene load_steps=20 format=3 uid="uid://b8d4g0epnu685"]
 
 [ext_resource type="Script" path="res://Scenes/Interface/crosshair.gd" id="1_4pkdk"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="2_hrpk1"]
@@ -86,6 +86,14 @@ _data = {
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evi6y"]
 texture = ExtResource("5_18m8i")
 modulate_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h8ixg"]
+texture = ExtResource("5_18m8i")
+modulate_color = Color(1, 0.329412, 0.2, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ywdm"]
+texture = ExtResource("5_18m8i")
+modulate_color = Color(1, 0.827106, 0.552675, 1)
 
 [node name="Crosshair" type="Node2D"]
 process_mode = 3
@@ -187,8 +195,10 @@ texture = ExtResource("5_48mbm")
 expand_mode = 1
 
 [node name="WeaponOne" parent="." instance=ExtResource("6_jhrcy")]
+visible = false
 
 [node name="WeaponTwo" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -334,3 +344,60 @@ offset_left = -2.0
 offset_top = -2.0
 offset_right = 14.0
 offset_bottom = 102.0
+
+[node name="MeleeWeapon" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HeavyAttackCooldown" type="ProgressBar" parent="MeleeWeapon"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = -30.0
+offset_right = 21.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_evi6y")
+theme_override_styles/fill = SubResource("StyleBoxTexture_h8ixg")
+value = 30.0
+fill_mode = 3
+show_percentage = false
+
+[node name="LightAttackCooldown" type="ProgressBar" parent="MeleeWeapon"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -30.0
+offset_right = -9.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxTexture_evi6y")
+theme_override_styles/fill = SubResource("StyleBoxTexture_5ywdm")
+value = 30.0
+fill_mode = 3
+show_percentage = false

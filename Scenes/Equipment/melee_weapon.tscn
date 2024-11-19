@@ -13,15 +13,20 @@ radius = 250.0
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("1_peuu4")
-melee_cooldown = 2.0
+light_attack_action_name = "action_one"
+heavy_attack_action_name = "action_two"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qipk6")
 debug_color = Color(0.86518, 0.34013, 0.28753, 0.42)
 
-[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+[node name="LightAttackSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_evkho")
-pitch_scale = 1.5
+volume_db = -2.0
+pitch_scale = 1.6
+
+[node name="HeavyAttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_evkho")
 
 [node name="CritArea" type="Area2D" parent="."]
 collision_layer = 0

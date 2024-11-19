@@ -501,6 +501,8 @@ func make_unconscious() -> void:
 	if invinsible:
 		return
 		
+	select_weapon(PlayerUnit.WeaponType.NONE)
+	
 	ability_on = false
 	charge = 0
 	charge_changed.emit()
