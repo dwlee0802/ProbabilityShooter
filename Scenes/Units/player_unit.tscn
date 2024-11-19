@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=75 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" path="res://Scenes/Units/footstep_component.gd" id="32_crkq8"]
 [ext_resource type="AudioStream" uid="uid://u8et7ge6fsij" path="res://Sound/footsteps/footstep_wood_000.ogg" id="32_o2oun"]
 [ext_resource type="AudioStream" uid="uid://bljqlrv5jwod2" path="res://Sound/heal_sound.mp3" id="35_dmejk"]
+[ext_resource type="Script" path="res://Scenes/Units/melee_component.gd" id="37_4uy4g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6k2i"]
 
@@ -423,6 +424,9 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8e4cp"]
+radius = 500.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efjyk"]
 radius = 500.0
 
 [node name="PlayerUnit" type="RigidBody2D"]
@@ -1067,6 +1071,7 @@ stream = ExtResource("35_dmejk")
 volume_db = -5.0
 
 [node name="PickupArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 32
 
@@ -1074,6 +1079,16 @@ collision_mask = 32
 shape = SubResource("CircleShape2D_8e4cp")
 
 [node name="Buffs" type="Node" parent="."]
+
+[node name="MeleeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("37_4uy4g")
+radius = 300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeArea"]
+shape = SubResource("CircleShape2D_efjyk")
+debug_color = Color(0.811765, 0.396078, 0.282353, 0.211765)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="InteractionArea" to="." method="_on_interaction_area_changed"]
