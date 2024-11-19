@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://nh47oxk8doku"]
+[gd_scene load_steps=5 format=3 uid="uid://nh47oxk8doku"]
 
 [ext_resource type="Script" path="res://Scenes/Equipment/melee_component.gd" id="1_peuu4"]
+[ext_resource type="AudioStream" uid="uid://bcgsymrk656io" path="res://Sound/Weapon/melee_slash_sound.mp3" id="2_evkho"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qipk6"]
 radius = 500.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_06qmn"]
+radius = 250.0
 
 [node name="MeleeWeapon" type="Area2D"]
 collision_layer = 0
@@ -15,4 +19,14 @@ melee_cooldown = 2.0
 shape = SubResource("CircleShape2D_qipk6")
 debug_color = Color(0.86518, 0.34013, 0.28753, 0.42)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AttackSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_evkho")
+pitch_scale = 1.5
+
+[node name="CritArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CritArea"]
+shape = SubResource("CircleShape2D_06qmn")
+debug_color = Color(1, 1, 0, 0.419608)

@@ -621,6 +621,8 @@ libraries = {
 }
 
 [node name="MeleeWeapon" parent="." instance=ExtResource("13_2p1cc")]
+auto = false
+action_name = "action_one"
 
 [node name="WeaponOne" type="Node2D" parent="."]
 use_parent_material = true
