@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://drlxsyjqp0lk6" path="res://Art/crosshair054.png" id="4_betbx"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="5_18m8i"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="5_48mbm"]
-[ext_resource type="StyleBox" uid="uid://bpitlcvldc7h1" path="res://Misc/active_reload_fill_texture.tres" id="6_dknah"]
 [ext_resource type="PackedScene" uid="uid://d1ijv8y3qg1sq" path="res://Scenes/weapon_one_crosshair_ui.tscn" id="6_jhrcy"]
 [ext_resource type="PackedScene" uid="uid://doej7gtbi2v0d" path="res://Scenes/Interface/health_hearts.tscn" id="8_q62xh"]
 [ext_resource type="PackedScene" uid="uid://dycsomj5nnq3e" path="res://Scenes/Interface/mag_bullet_icon.tscn" id="8_s7svq"]
@@ -86,6 +85,9 @@ _data = {
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evi6y"]
 texture = ExtResource("5_18m8i")
 modulate_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q1ncn"]
+texture = ExtResource("5_18m8i")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h8ixg"]
 texture = ExtResource("5_18m8i")
@@ -195,10 +197,8 @@ texture = ExtResource("5_48mbm")
 expand_mode = 1
 
 [node name="WeaponOne" parent="." instance=ExtResource("6_jhrcy")]
-visible = false
 
 [node name="WeaponTwo" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -305,7 +305,7 @@ offset_bottom = 30.0
 grow_vertical = 0
 mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxTexture_evi6y")
-theme_override_styles/fill = ExtResource("6_dknah")
+theme_override_styles/fill = SubResource("StyleBoxTexture_q1ncn")
 value = 30.0
 fill_mode = 3
 show_percentage = false
@@ -346,6 +346,7 @@ offset_right = 14.0
 offset_bottom = 102.0
 
 [node name="MeleeWeapon" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
