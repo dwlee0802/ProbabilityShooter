@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=75 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="11_vvwcf"]
 [ext_resource type="PackedScene" uid="uid://nh47oxk8doku" path="res://Scenes/Equipment/melee_weapon.tscn" id="13_2p1cc"]
 [ext_resource type="AudioStream" uid="uid://cex2uchs338xi" path="res://Sound/Weapon/rifle_shoot_sound.mp3" id="13_5mmpc"]
+[ext_resource type="PackedScene" uid="uid://crj6r34sefvv1" path="res://Scenes/Equipment/ranged_weapon.tscn" id="13_ik2b4"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
 [ext_resource type="Resource" uid="uid://b7ll2myk1ffpw" path="res://Data/Guns/revolver.tres" id="14_uluvt"]
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
@@ -591,130 +592,10 @@ libraries = {
 "": SubResource("AnimationLibrary_0wgi7")
 }
 
-[node name="WeaponOne" type="Node2D" parent="."]
-use_parent_material = true
-script = ExtResource("3_d8l28")
-weapon_data = ExtResource("14_uluvt")
-action_name = "action_one"
+[node name="WeaponOne" parent="." instance=ExtResource("13_ik2b4")]
 
-[node name="ReloadTimer" type="Timer" parent="WeaponOne"]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
-
-[node name="StateMachine" type="Node" parent="WeaponOne" node_paths=PackedStringArray("starting_state")]
-script = ExtResource("2_us0md")
-starting_state = NodePath("Ready")
-
-[node name="Ready" type="Node" parent="WeaponOne/StateMachine" node_paths=PackedStringArray("reload_state")]
-script = ExtResource("3_6cqsg")
-reload_state = NodePath("../Reload")
-action_name = "action_one"
-
-[node name="Reload" type="Node" parent="WeaponOne/StateMachine" node_paths=PackedStringArray("ready_state")]
-script = ExtResource("4_61t70")
-ready_state = NodePath("../Ready")
-
-[node name="AimCone" type="Polygon2D" parent="WeaponOne"]
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
-
-[node name="QueuedCones" type="Node2D" parent="WeaponOne"]
-
-[node name="AttackFullCone" type="Polygon2D" parent="WeaponOne"]
-visible = false
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
-
-[node name="AttackCone" type="Polygon2D" parent="WeaponOne/AttackFullCone"]
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
-
-[node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponOne"]
-stream = ExtResource("13_5mmpc")
-max_distance = 20000.0
-max_polyphony = 10
-
-[node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponOne"]
-stream = ExtResource("11_vvwcf")
-max_distance = 10000.0
-max_polyphony = 10
-
-[node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="WeaponOne"]
-stream = ExtResource("11_7sg32")
-pitch_scale = 0.8
-max_distance = 10000.0
-max_polyphony = 10
-
-[node name="ActiveReloadSound" type="AudioStreamPlayer" parent="WeaponOne"]
-stream = ExtResource("15_1vmhr")
-volume_db = -7.0
-pitch_scale = 1.2
-
-[node name="Arm" parent="WeaponOne" instance=ExtResource("16_lckao")]
-use_parent_material = true
-
-[node name="WeaponTwo" type="Node2D" parent="."]
-use_parent_material = true
-script = ExtResource("3_d8l28")
-weapon_data = ExtResource("14_uluvt")
+[node name="WeaponTwo" parent="." instance=ExtResource("13_ik2b4")]
 action_name = "action_two"
-
-[node name="ReloadTimer" type="Timer" parent="WeaponTwo"]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
-
-[node name="StateMachine" type="Node" parent="WeaponTwo" node_paths=PackedStringArray("starting_state")]
-script = ExtResource("2_us0md")
-starting_state = NodePath("Ready")
-
-[node name="Ready" type="Node" parent="WeaponTwo/StateMachine" node_paths=PackedStringArray("reload_state")]
-script = ExtResource("3_6cqsg")
-reload_state = NodePath("../Reload")
-action_name = "action_two"
-
-[node name="Reload" type="Node" parent="WeaponTwo/StateMachine" node_paths=PackedStringArray("ready_state")]
-script = ExtResource("4_61t70")
-ready_state = NodePath("../Ready")
-
-[node name="AimCone" type="Polygon2D" parent="WeaponTwo"]
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
-
-[node name="QueuedCones" type="Node2D" parent="WeaponTwo"]
-
-[node name="AttackFullCone" type="Polygon2D" parent="WeaponTwo"]
-visible = false
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
-
-[node name="AttackCone" type="Polygon2D" parent="WeaponTwo/AttackFullCone"]
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
-
-[node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
-stream = ExtResource("13_5mmpc")
-max_distance = 20000.0
-max_polyphony = 10
-
-[node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
-stream = ExtResource("11_vvwcf")
-max_distance = 10000.0
-max_polyphony = 10
-
-[node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="WeaponTwo"]
-stream = ExtResource("11_7sg32")
-max_distance = 10000.0
-max_polyphony = 10
-
-[node name="ActiveReloadSound" type="AudioStreamPlayer" parent="WeaponTwo"]
-stream = ExtResource("15_1vmhr")
-volume_db = -7.0
-pitch_scale = 1.2
-
-[node name="Arm" parent="WeaponTwo" instance=ExtResource("16_lckao")]
-use_parent_material = true
 
 [node name="HeavyWeapon" type="Node2D" parent="."]
 use_parent_material = true
