@@ -5,6 +5,8 @@ var other_state: State
 
 
 func enter() -> void:
+	# show shop screen
+	parent.shop_screen.visible = true
 	return
 
 func exit() -> void:

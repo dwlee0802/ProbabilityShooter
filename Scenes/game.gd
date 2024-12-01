@@ -10,6 +10,8 @@ var user_interface: UserInterface = $UserInterface
 var end_screen: GameOverScreen = $EndScreen
 @onready
 var game_paused_screen = $PauseScreen
+@onready
+var shop_screen = $ShopScreen
 
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 

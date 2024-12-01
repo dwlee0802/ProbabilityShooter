@@ -20,7 +20,7 @@ var ghost_unit: PackedScene
 
 var wave_timer: Timer
 @export
-var wave_cooldown: float = 20
+var wave_cooldown: float = 10
 
 @export_category("Wave Stats")
 var wave_count: int = 0
@@ -80,7 +80,7 @@ func _ready() -> void:
 	wave_timer = Timer.new()
 	add_child(wave_timer)
 	wave_timer.autostart = false
-	wave_timer.one_shot = false
+	wave_timer.one_shot = true
 	wave_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
 	wave_timer.timeout.connect(on_wave_timer_timeout)
 	
@@ -114,9 +114,6 @@ func on_wave_timer_timeout() -> void:
 		max_wave_reached.emit()
 		return
 		
-	if wave_timer.is_stopped():
-		wave_timer.start(wave_cooldown)
-	
 	var melee = []
 	var ranged = []
 	
@@ -131,8 +128,8 @@ func on_wave_timer_timeout() -> void:
 	for i in range(int(randfn(ghost_spawn_average, 1.2))):
 		ranged.append(spawn_enemy_unit(ghost_unit))
 	
-	print("melee: " + str(melee))
-	print("ranged: " + str(ranged))
+	#print("melee: " + str(melee))
+	#print("ranged: " + str(ranged))
 	
 	if wave_count % waves_per_mutation == 0:
 		# apply mutation

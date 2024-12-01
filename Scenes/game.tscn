@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=37 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" path="res://Scenes/score_component.gd" id="18_ro7nv"]
 [ext_resource type="AudioStream" uid="uid://b6mh4idc27ikd" path="res://Sound/action-loop-e-90-bpm-brvhrtz-233462.mp3" id="21_jl7fl"]
 [ext_resource type="Script" path="res://Scenes/run_data_component.gd" id="23_b7ohg"]
+[ext_resource type="PackedScene" uid="uid://bebeg3ncof7vl" path="res://Scenes/Interface/shop_screen.tscn" id="26_d0nj6"]
 
 [sub_resource type="Resource" id="Resource_sdoah"]
 script = ExtResource("13_3bo3l")
@@ -69,8 +70,9 @@ starting_state = NodePath("Opening")
 script = ExtResource("3_a2i7t")
 wave_state = NodePath("../Wave")
 
-[node name="Wave" type="Node" parent="StateMachine"]
+[node name="Wave" type="Node" parent="StateMachine" node_paths=PackedStringArray("shop_state")]
 script = ExtResource("4_ll1tv")
+shop_state = NodePath("../Shop")
 
 [node name="Shop" type="Node" parent="StateMachine"]
 script = ExtResource("5_hgln2")
@@ -239,6 +241,9 @@ process_mode = 3
 
 [node name="Crosshair" parent="UserInterface" instance=ExtResource("7_xccla")]
 position = Vector2(718, 279)
+
+[node name="ShopScreen" parent="." instance=ExtResource("26_d0nj6")]
+visible = false
 
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3

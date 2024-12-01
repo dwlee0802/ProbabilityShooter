@@ -27,6 +27,9 @@ func enter() -> void:
 	starting_ui.get_node("Label").visible = true
 	countdown_label.visible = false
 	
+	# reset wave stats
+	parent.spawner_component.reset_stats()
+	
 	return
 
 func exit() -> void:
@@ -43,7 +46,7 @@ func process_input(_event: InputEvent) -> State:
 		starting_ui.get_node("Label").visible = false
 		countdown_label.visible = true
 		countdown_label.text = "Starting in " + str(int(time_til_game_start) + 1)
-		
+
 	return null
 
 func process_frame(_delta: float) -> State:
