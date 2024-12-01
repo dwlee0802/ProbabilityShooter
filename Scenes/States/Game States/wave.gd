@@ -10,6 +10,7 @@ var paused_state: State
 
 func enter() -> void:
 	# spawn wave
+	print("Start wave!")
 	parent.spawner_component.on_wave_timer_timeout()
 	return
 
