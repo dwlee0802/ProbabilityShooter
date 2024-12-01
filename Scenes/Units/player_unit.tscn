@@ -1,12 +1,8 @@
-[gd_scene load_steps=75 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=68 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
-[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_us0md"]
-[ext_resource type="Script" path="res://Scenes/States/ready_state.gd" id="3_6cqsg"]
-[ext_resource type="Script" path="res://Scenes/Units/player_weapon.gd" id="3_d8l28"]
 [ext_resource type="Script" path="res://Scenes/Units/bullet_generator_component.gd" id="3_dla1s"]
 [ext_resource type="Script" path="res://Scenes/Units/stat_component.gd" id="4_7ymnv"]
-[ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="4_61t70"]
 [ext_resource type="Script" path="res://addons/radial_progress/RadialProgress.gd" id="4_asvwh"]
 [ext_resource type="Script" path="res://Scripts/wasd_movement_component.gd" id="9_0efpd"]
 [ext_resource type="PackedScene" uid="uid://ya6n76mrdy5b" path="res://Scenes/Interface/health_bar.tscn" id="9_hb35g"]
@@ -14,15 +10,12 @@
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="11_7sg32"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="11_vvwcf"]
 [ext_resource type="PackedScene" uid="uid://nh47oxk8doku" path="res://Scenes/Equipment/melee_weapon.tscn" id="13_2p1cc"]
-[ext_resource type="AudioStream" uid="uid://cex2uchs338xi" path="res://Sound/Weapon/rifle_shoot_sound.mp3" id="13_5mmpc"]
 [ext_resource type="PackedScene" uid="uid://crj6r34sefvv1" path="res://Scenes/Equipment/ranged_weapon.tscn" id="13_ik2b4"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
-[ext_resource type="Resource" uid="uid://b7ll2myk1ffpw" path="res://Data/Guns/revolver.tres" id="14_uluvt"]
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
 [ext_resource type="Texture2D" uid="uid://vf8d0ug5roo4" path="res://Art/triangle.png" id="15_hpy8o"]
 [ext_resource type="Texture2D" uid="uid://c2ecsu8asley" path="res://Art/arrow.png" id="15_kw6ct"]
-[ext_resource type="PackedScene" uid="uid://b7damp7si178x" path="res://Scenes/player_arm.tscn" id="16_lckao"]
 [ext_resource type="AudioStream" uid="uid://dmwgkp55r6ywh" path="res://Sound/level_up.mp3" id="16_x7mtf"]
 [ext_resource type="Shader" path="res://Scenes/Units/distortion.gdshader" id="19_sjlwd"]
 [ext_resource type="Texture2D" uid="uid://cii37ffppbca" path="res://Art/32x32_white_square.png" id="21_y6ius"]
@@ -593,71 +586,14 @@ libraries = {
 }
 
 [node name="WeaponOne" parent="." instance=ExtResource("13_ik2b4")]
+aim_time = 0.1
 
 [node name="WeaponTwo" parent="." instance=ExtResource("13_ik2b4")]
 action_name = "action_two"
+aim_time = 0.1
 
-[node name="HeavyWeapon" type="Node2D" parent="."]
-use_parent_material = true
-script = ExtResource("3_d8l28")
-weapon_data = ExtResource("14_uluvt")
-action_name = "action_one"
-
-[node name="ReloadTimer" type="Timer" parent="HeavyWeapon"]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
-
-[node name="StateMachine" type="Node" parent="HeavyWeapon" node_paths=PackedStringArray("starting_state")]
-script = ExtResource("2_us0md")
-starting_state = NodePath("Ready")
-
-[node name="Ready" type="Node" parent="HeavyWeapon/StateMachine" node_paths=PackedStringArray("reload_state")]
-script = ExtResource("3_6cqsg")
-reload_state = NodePath("../Reload")
-action_name = "action_two"
-
-[node name="Reload" type="Node" parent="HeavyWeapon/StateMachine" node_paths=PackedStringArray("ready_state")]
-script = ExtResource("4_61t70")
-ready_state = NodePath("../Ready")
-
-[node name="AimCone" type="Polygon2D" parent="HeavyWeapon"]
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
-
-[node name="QueuedCones" type="Node2D" parent="HeavyWeapon"]
-
-[node name="AttackFullCone" type="Polygon2D" parent="HeavyWeapon"]
-visible = false
-color = Color(1, 1, 1, 0.196078)
-polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
-
-[node name="AttackCone" type="Polygon2D" parent="HeavyWeapon/AttackFullCone"]
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
-
-[node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="HeavyWeapon"]
-stream = ExtResource("13_5mmpc")
-max_distance = 20000.0
-max_polyphony = 10
-
-[node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="HeavyWeapon"]
-stream = ExtResource("11_vvwcf")
-max_distance = 10000.0
-max_polyphony = 10
-
-[node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="HeavyWeapon"]
-stream = ExtResource("11_7sg32")
-max_distance = 10000.0
-max_polyphony = 10
-
-[node name="ActiveReloadSound" type="AudioStreamPlayer" parent="HeavyWeapon"]
-stream = ExtResource("15_1vmhr")
-volume_db = -7.0
-pitch_scale = 1.2
-
-[node name="Arm" parent="HeavyWeapon" instance=ExtResource("16_lckao")]
-use_parent_material = true
+[node name="HeavyWeapon" parent="." instance=ExtResource("13_ik2b4")]
+aim_time = 1.5
 
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0

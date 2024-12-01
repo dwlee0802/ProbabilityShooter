@@ -9,6 +9,8 @@ var selected: bool = false:
 		queue_redraw()
 @export
 var auto: bool = true
+@export
+var disabled: bool = false
 
 ## Which action using this weapon is bound to
 @export
@@ -80,6 +82,9 @@ func _draw() -> void:
 		#draw_arc(Vector2.ZERO, crit_radius, mouse_angle - light_attack_angle/2, mouse_angle + light_attack_angle/2, 32, Color(Color.DARK_ORANGE, 1 - light_cooldown_ratio ), 50, true)
 			
 func _physics_process(_delta: float) -> void:
+	if disabled:
+		return
+		
 	if auto and selected:
 		if heavy_attack_cooldown_timer.is_stopped():
 			# melee attack
@@ -90,6 +95,9 @@ func _physics_process(_delta: float) -> void:
 	queue_redraw()
 
 func _unhandled_input(_event: InputEvent) -> void:
+	if disabled:
+		return
+		
 	if !auto and selected:
 		if Input.is_action_pressed(light_attack_action_name):
 			activate_light()

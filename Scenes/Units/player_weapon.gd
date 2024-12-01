@@ -24,6 +24,8 @@ var muzzle_smoke: CPUParticles2D = $Arm/Node2D/Hand/MuzzlePoint/CPUParticles2D
 @export
 var action_name: String
 
+@export
+var aim_time: float = 1
 const projectile_max_speed: float = 10000
 
 @onready

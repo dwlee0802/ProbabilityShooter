@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://crj6r34sefvv1"]
+
+[ext_resource type="Script" path="res://Scenes/Units/player_weapon.gd" id="1_kenks"]
+[ext_resource type="Resource" uid="uid://b7ll2myk1ffpw" path="res://Data/Guns/revolver.tres" id="2_5kh6c"]
+[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="3_yyo2d"]
+[ext_resource type="Script" path="res://Scenes/States/ready_state.gd" id="4_tlxwp"]
+[ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="5_ixgc2"]
+[ext_resource type="AudioStream" uid="uid://cex2uchs338xi" path="res://Sound/Weapon/rifle_shoot_sound.mp3" id="6_anh1b"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="7_vkcsn"]
+[ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="8_b2n2x"]
+[ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="9_dbpce"]
+[ext_resource type="PackedScene" uid="uid://b7damp7si178x" path="res://Scenes/player_arm.tscn" id="10_ex3b8"]
+
+[node name="WeaponOne" type="Node2D"]
+use_parent_material = true
+script = ExtResource("1_kenks")
+weapon_data = ExtResource("2_5kh6c")
+action_name = "action_one"
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("3_yyo2d")
+starting_state = NodePath("Ready")
+
+[node name="Ready" type="Node" parent="StateMachine" node_paths=PackedStringArray("reload_state")]
+script = ExtResource("4_tlxwp")
+reload_state = NodePath("../Reload")
+action_name = "action_one"
+
+[node name="Reload" type="Node" parent="StateMachine" node_paths=PackedStringArray("ready_state")]
+script = ExtResource("5_ixgc2")
+ready_state = NodePath("../Ready")
+
+[node name="AimCone" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="QueuedCones" type="Node2D" parent="."]
+
+[node name="AttackFullCone" type="Polygon2D" parent="."]
+visible = false
+color = Color(1, 1, 1, 0.196078)
+polygon = PackedVector2Array(0, 0, 100, 10, 100, -10)
+
+[node name="AttackCone" type="Polygon2D" parent="AttackFullCone"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
+
+[node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_anh1b")
+max_distance = 20000.0
+max_polyphony = 10
+
+[node name="ReloadSoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_vkcsn")
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="AttackNotReadySoundPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_b2n2x")
+pitch_scale = 0.8
+max_distance = 10000.0
+max_polyphony = 10
+
+[node name="ActiveReloadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_dbpce")
+volume_db = -7.0
+pitch_scale = 1.2
+
+[node name="Arm" parent="." instance=ExtResource("10_ex3b8")]
+use_parent_material = true
