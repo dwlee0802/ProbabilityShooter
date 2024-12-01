@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=31 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
 [ext_resource type="PackedScene" uid="uid://cxvs0ubbipl35" path="res://Scenes/Units/player_unit.tscn" id="2_jg501"]
+[ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_t8uvu"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="Script" path="res://Scripts/Spawning/static_enemy_spawner_component.gd" id="3_2unjj"]
 [ext_resource type="PackedScene" uid="uid://c8op5j1sig6g1" path="res://Scenes/Units/Enemies/melee_enemy_unit.tscn" id="4_2a371"]
@@ -54,6 +55,10 @@ safe_zone_radius = 2500.0
 weapon_one_color = Color(0, 0.556863, 0.8, 1)
 weapon_two_color = Color(1, 0.6, 0.0980392, 1)
 upgrade_select_time_limit = 30.0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_t8uvu")
+starting_state = NodePath("")
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
