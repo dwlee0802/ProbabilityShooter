@@ -2,6 +2,9 @@ extends Node2D
 class_name Game
 
 @onready
+var state_machine: StateMachine = $StateMachine
+
+@onready
 var user_interface: UserInterface = $UserInterface
 @onready
 var end_screen: GameOverScreen = $EndScreen
@@ -104,6 +107,8 @@ static func _static_init():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	state_machine.init(self)
+	
 	projectile_scene.instantiate().queue_free()
 	exp_orb.instantiate().queue_free()
 	dynamite_shootable.instantiate().queue_free()
@@ -144,8 +149,8 @@ func _ready():
 	
 	# spawn first wave
 	spawner_component = $EnemySpawnerComponent
-	spawner_component.wave_started.connect(on_wave_start)
-	spawner_component.on_wave_timer_timeout()
+	#spawner_component.wave_started.connect(on_wave_start)
+	#spawner_component.on_wave_timer_timeout()
 	#spawn_wave()
 	
 	end_screen.restart_button.pressed.connect(start)
@@ -215,7 +220,9 @@ func _ready():
 	user_interface.upgrade_ui.clear_icons()
 	
 func _process(_delta):
-	InputManager.camera.scale_health_label(enemies.get_children())
+	state_machine.process_frame(_delta)
+	
+	#InputManager.camera.scale_health_label(enemies.get_children())
 	
 	user_interface.game_time_label.text = str(DW_ToolBox.TrimDecimalPoints(stats_component.survival_time, 0)) + " s"
 	user_interface.wave_time_label.text = "NEXT WAVE IN: " + str(int(spawner_component.wave_timer.time_left) + 1) + "s"
@@ -227,32 +234,32 @@ func _process(_delta):
 		game_finished(true)
 	
 	# update minimap
-	if InputManager.selected_unit:
-		var points: PackedVector2Array = PackedVector2Array()
-		var color_arr: PackedColorArray = PackedColorArray()
-		
-		for enemy: EnemyUnit in enemies.get_children():
-			points.append(enemy.global_position)
-			color_arr.append(Color.RED)
-		user_interface.minimap.update_markers(InputManager.selected_unit.global_position, points, color_arr)
-		
-		#var bullet_points = []
-		#var bullet_color_arr = []
-		#for bullet: Projectile in projectiles.get_children():
-			#bullet_points.append(bullet.global_position)
-			#bullet_color_arr.append(Color.WHITE)
-			#
-		#user_interface.minimap.update_bullet_markers(InputManager.selected_unit.global_position, bullet_points, bullet_color_arr)
+	#if InputManager.selected_unit:
+		#var points: PackedVector2Array = PackedVector2Array()
+		#var color_arr: PackedColorArray = PackedColorArray()
 		#
-		var shootable_points = []
-		var shootable_color_arr = []
-		for shootable: Shootable in shootables.get_children():
-			shootable_points.append(shootable.global_position)
-			shootable_color_arr.append(Color.ORANGE)
-			
-		user_interface.minimap.update_shootable_markers(InputManager.selected_unit.global_position, shootable_points, shootable_color_arr)
-	else:
-		user_interface.minimap.update_markers(InputManager.selected_unit.global_position, [], [])
+		#for enemy: EnemyUnit in enemies.get_children():
+			#points.append(enemy.global_position)
+			#color_arr.append(Color.RED)
+		#user_interface.minimap.update_markers(InputManager.selected_unit.global_position, points, color_arr)
+		#
+		##var bullet_points = []
+		##var bullet_color_arr = []
+		##for bullet: Projectile in projectiles.get_children():
+			##bullet_points.append(bullet.global_position)
+			##bullet_color_arr.append(Color.WHITE)
+			##
+		##user_interface.minimap.update_bullet_markers(InputManager.selected_unit.global_position, bullet_points, bullet_color_arr)
+		##
+		#var shootable_points = []
+		#var shootable_color_arr = []
+		#for shootable: Shootable in shootables.get_children():
+			#shootable_points.append(shootable.global_position)
+			#shootable_color_arr.append(Color.ORANGE)
+			#
+		#user_interface.minimap.update_shootable_markers(InputManager.selected_unit.global_position, shootable_points, shootable_color_arr)
+	#else:
+		#user_interface.minimap.update_markers(InputManager.selected_unit.global_position, [], [])
 		
 	## Mutation timer
 	if !mutation_timer.is_stopped():
@@ -310,6 +317,12 @@ func _process(_delta):
 	user_interface.ability_full_label.visible = player_unit.is_ability_ready()
 	user_interface.ability_screen_effect.visible = player_unit.ability_on
 
+func _input(event: InputEvent) -> void:
+	state_machine.process_input(event)
+
+func _physics_process(delta: float) -> void:
+	state_machine.process_physics(delta)
+	
 func place_shootables() -> void:
 	for i in range(10):
 		var new_shootable: Shootable = dynamite_shootable.instantiate()
@@ -419,6 +432,7 @@ func remove_objects() -> void:
 	
 func start() -> void:
 	print("***START GAME***")
+	state_machine.init(self)
 	
 	stats_component.reset_stats()
 	

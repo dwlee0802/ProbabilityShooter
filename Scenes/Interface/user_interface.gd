@@ -18,6 +18,9 @@ var charge_bar_shade: ColorRect = $HUD/VBoxContainer/VBoxContainer/EnergyBar/Col
 var ability_screen_effect: Control = $SpeedEffect
 
 @onready
+var waiting_start_ui: Control = $WaitingStartUI
+
+@onready
 var wave_label: Label = $GameState/WaveLabel
 @onready
 var wave_time_label: Label = $GameState/NextWaveTimeLabel/NextWaveTimeLabel

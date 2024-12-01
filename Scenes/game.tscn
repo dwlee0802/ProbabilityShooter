@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=36 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -6,13 +6,18 @@
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="2_t8uvu"]
 [ext_resource type="Script" path="res://Scenes/Interface/input_manager.gd" id="2_webe7"]
 [ext_resource type="Script" path="res://Scripts/Spawning/static_enemy_spawner_component.gd" id="3_2unjj"]
+[ext_resource type="Script" path="res://Scenes/States/Game States/opening.gd" id="3_a2i7t"]
 [ext_resource type="PackedScene" uid="uid://c8op5j1sig6g1" path="res://Scenes/Units/Enemies/melee_enemy_unit.tscn" id="4_2a371"]
 [ext_resource type="PackedScene" uid="uid://dgt50h4pb370g" path="res://Scenes/Units/Enemies/ghost_enemy_unit.tscn" id="4_4foiw"]
+[ext_resource type="Script" path="res://Scenes/States/Game States/wave.gd" id="4_ll1tv"]
 [ext_resource type="PackedScene" uid="uid://ci5puy12rowpx" path="res://Scenes/Units/Enemies/ranged_enemy_unit.tscn" id="5_5fil0"]
+[ext_resource type="Script" path="res://Scenes/States/Game States/shop.gd" id="5_hgln2"]
 [ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
+[ext_resource type="Script" path="res://Scenes/States/Game States/finished.gd" id="6_0xoih"]
 [ext_resource type="PackedScene" uid="uid://do55tseni0rpp" path="res://Scenes/Units/Enemies/sniper_enemy_unit.tscn" id="6_aqm0h"]
 [ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
+[ext_resource type="Script" path="res://Scenes/States/Game States/paused.gd" id="7_4fi4r"]
 [ext_resource type="PackedScene" uid="uid://bv1kjcxwlinqr" path="res://Scenes/Units/Enemies/spray_enemy_unit.tscn" id="7_bsan6"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="8_tcb7a"]
@@ -58,7 +63,23 @@ upgrade_select_time_limit = 30.0
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_t8uvu")
-starting_state = NodePath("")
+starting_state = NodePath("Opening")
+
+[node name="Opening" type="Node" parent="StateMachine" node_paths=PackedStringArray("wave_state")]
+script = ExtResource("3_a2i7t")
+wave_state = NodePath("../Wave")
+
+[node name="Wave" type="Node" parent="StateMachine"]
+script = ExtResource("4_ll1tv")
+
+[node name="Shop" type="Node" parent="StateMachine"]
+script = ExtResource("5_hgln2")
+
+[node name="Finished" type="Node" parent="StateMachine"]
+script = ExtResource("6_0xoih")
+
+[node name="Paused" type="Node" parent="StateMachine"]
+script = ExtResource("7_4fi4r")
 
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
