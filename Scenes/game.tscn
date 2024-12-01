@@ -243,7 +243,6 @@ process_mode = 3
 position = Vector2(718, 279)
 
 [node name="ShopScreen" parent="." instance=ExtResource("26_d0nj6")]
-visible = false
 
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3

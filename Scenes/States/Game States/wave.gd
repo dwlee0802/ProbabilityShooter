@@ -25,6 +25,7 @@ func process_frame(_delta: float) -> State:
 
 func process_physics(_delta: float) -> State:
 	if parent.is_all_enemies_killed():
+		print("Wave complete!")
 		if parent.spawner_component.is_max_waves_reached():
 			return finished_state
 		else:

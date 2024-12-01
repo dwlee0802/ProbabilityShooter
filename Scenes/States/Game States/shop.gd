@@ -6,7 +6,7 @@ var other_state: State
 
 func enter() -> void:
 	# show shop screen
-	parent.shop_screen.visible = true
+	parent.shop_screen.on_wave_finished()
 	return
 
 func exit() -> void:
