@@ -382,7 +382,7 @@ func on_player_knocked_out() -> void:
 func on_restart_pressed() -> void:
 	player_unit.freeze = false
 	loading_screen.visible = true
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.5).timeout
 	loading_screen.visible = false
 	state_machine.change_state($StateMachine/Opening)
 	
