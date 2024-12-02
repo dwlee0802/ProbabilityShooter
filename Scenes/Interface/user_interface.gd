@@ -21,6 +21,9 @@ var ability_screen_effect: Control = $SpeedEffect
 var waiting_start_ui: Control = $WaitingStartUI
 
 @onready
+var wave_start_ui: WaveStartUI = $WaveStartUI
+
+@onready
 var wave_label: Label = $GameState/WaveLabel
 @onready
 var wave_time_label: Label = $GameState/NextWaveTimeLabel/NextWaveTimeLabel
