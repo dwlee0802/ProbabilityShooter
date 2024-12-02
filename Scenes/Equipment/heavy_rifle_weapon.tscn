@@ -49,7 +49,7 @@ polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_onc63")
 volume_db = 5.0
-pitch_scale = 1.5
+pitch_scale = 1.25
 max_distance = 20000.0
 max_polyphony = 10
 
