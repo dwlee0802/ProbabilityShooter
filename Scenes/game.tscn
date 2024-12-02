@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://do55tseni0rpp" path="res://Scenes/Units/Enemies/sniper_enemy_unit.tscn" id="6_aqm0h"]
 [ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
-[ext_resource type="Script" path="res://Scenes/States/Game States/paused.gd" id="7_4fi4r"]
 [ext_resource type="PackedScene" uid="uid://bv1kjcxwlinqr" path="res://Scenes/Units/Enemies/spray_enemy_unit.tscn" id="7_bsan6"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="8_tcb7a"]
@@ -27,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://drlxsyjqp0lk6" path="res://Art/crosshair054.png" id="11_jdxks"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="12_4xbxh"]
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data_old.gd" id="13_3bo3l"]
+[ext_resource type="Script" path="res://Scenes/pause_component.gd" id="14_gwgne"]
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
 [ext_resource type="Script" path="res://Scenes/Units/statistics_component.gd" id="15_ophms"]
@@ -83,9 +83,6 @@ wave_state = NodePath("../Wave")
 script = ExtResource("6_0xoih")
 opening_state = NodePath("../Opening")
 
-[node name="Paused" type="Node" parent="StateMachine"]
-script = ExtResource("7_4fi4r")
-
 [node name="InputManager" type="Node" parent="."]
 script = ExtResource("2_webe7")
 
@@ -102,6 +99,10 @@ _base_sprayer_spawn_count = 0.25
 waves_per_mutation = 2
 _base_avg_health = 1.5
 _base_move_speed_range = Vector2i(300, 500)
+
+[node name="PauseComponent" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("14_gwgne")
 
 [node name="MutationTimer" type="Timer" parent="."]
 one_shot = true
@@ -163,45 +164,6 @@ one_shot = true
 
 [node name="GameDurationTimer" type="Timer" parent="."]
 
-[node name="PauseScreen" parent="." instance=ExtResource("5_m4kpe")]
-process_mode = 3
-visible = false
-script = ExtResource("6_ljvbn")
-
-[node name="Crosshair" type="Node2D" parent="PauseScreen"]
-script = ExtResource("10_7h2qa")
-
-[node name="Crosshair" type="TextureRect" parent="PauseScreen/Crosshair"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -26.0
-offset_top = -23.0
-offset_right = 26.0
-offset_bottom = 23.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("11_jdxks")
-expand_mode = 1
-
-[node name="Crosshair2" type="TextureRect" parent="PauseScreen/Crosshair/Crosshair"]
-self_modulate = Color(1, 1, 1, 0.0705882)
-custom_minimum_size = Vector2(12, 12)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_tcb7a")
-expand_mode = 1
-
 [node name="EndScreen" parent="." instance=ExtResource("14_jbor4")]
 visible = false
 script = ExtResource("15_8b1o7")
@@ -258,6 +220,45 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="PauseScreen" parent="." instance=ExtResource("5_m4kpe")]
+process_mode = 3
+visible = false
+script = ExtResource("6_ljvbn")
+
+[node name="Crosshair" type="Node2D" parent="PauseScreen"]
+script = ExtResource("10_7h2qa")
+
+[node name="Crosshair" type="TextureRect" parent="PauseScreen/Crosshair"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -23.0
+offset_right = 26.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_jdxks")
+expand_mode = 1
+
+[node name="Crosshair2" type="TextureRect" parent="PauseScreen/Crosshair/Crosshair"]
+self_modulate = Color(1, 1, 1, 0.0705882)
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_tcb7a")
+expand_mode = 1
 
 [node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3

@@ -121,6 +121,8 @@ func _ready():
 	# delegate front end management to input manager
 	$InputManager.game = self
 	
+	$PauseComponent.game_ref = self
+	
 	set_safezone_sprite(safe_zone_radius)
 	
 	player_unit.safe_zone_radius = safe_zone_radius
@@ -158,6 +160,8 @@ func _ready():
 	#spawn_wave()
 	
 	end_screen.restart_button.pressed.connect(on_restart_pressed)
+	game_paused_screen.restart_button.pressed.connect(on_restart_pressed)
+	game_paused_screen.restart_button.pressed.connect($PauseComponent.unpause)
 
 	user_interface.charge_bar.set_max(player_unit.max_charge)
 	on_charge_changed()
@@ -278,18 +282,6 @@ func _process(_delta):
 	if Input.is_action_just_pressed("select_roulette"):
 		if !mutation_timer.is_stopped() and mutation_timer.time_left > 3.0:
 			mutation_timer.start(mutation_timer.time_left - 1.0)
-	
-	## Pause Menu
-	if Input.is_action_just_pressed("pause_game"):
-		if get_tree().paused == true:
-			# unpause game
-			get_tree().paused = false
-			game_paused_screen.visible = false
-			user_interface.visible = true
-		else:
-			get_tree().paused = true
-			game_paused_screen.visible = true
-			user_interface.visible = false
 			
 	## Click sound
 	if Input.is_action_just_pressed("action_one") or Input.is_action_just_pressed("action_two"):
@@ -385,6 +377,7 @@ func on_restart_pressed() -> void:
 	await get_tree().create_timer(0.5).timeout
 	loading_screen.visible = false
 	state_machine.change_state($StateMachine/Opening)
+	on_wave_start()
 	
 func game_finished(victory: bool) -> void:
 	# already called
@@ -447,53 +440,6 @@ func remove_objects() -> void:
 	
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	
-#func start() -> void:
-	#print("***START GAME***")
-	#state_machine.init(self)
-	#
-	#stats_component.reset_stats()
-	#
-	#user_interface.visible = true
-	#end_screen.visible = false
-	#
-	#score_component.reset()
-	#
-	## remove leftover resources
-	#remove_objects()
-	#
-	#spawner_component.reset_stats()
-	#
-	## spawn first wave
-	## reset enemy stats 
-	#spawner_component.reset_stats()
-	#spawner_component.on_wave_timer_timeout()
-	#
-	## start mutation
-	##mutation_timer.start(mutation_cooldown)
-	##user_interface.mutation_roulette.mutation_time_label.visible = true
-#
-	## reset unit stats
-	#player_unit.reset_health()
-	#player_unit.reset_items()
-	#player_unit.reset_exp()
-	#player_unit.reload_action()
-	#player_unit.global_position = Vector2.ZERO
-	#player_unit.freeze = false
-	#player_unit.clear_inventory()
-	#player_unit.reset_crystals()
-	#player_unit.stat_component.reset_stats()
-	#player_unit.clear_buffs()
-	#
-	#UpgradesManager.reset_upgrades()
-	#
-	#place_shootables()
-	#
-	#set_safezone_active_status(true)
-	#player_unit.safe_zone_active = true
-	#user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
-	#
-	#user_interface.upgrade_ui.clear_icons()
-
 func place_crystals() -> void:
 	for i in range(crystal_count):
 		var new_crystal: Crystal = crystal_scene.instantiate()

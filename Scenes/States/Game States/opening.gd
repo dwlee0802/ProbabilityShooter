@@ -30,6 +30,7 @@ func enter() -> void:
 	# reset wave stats
 	parent.spawner_component.reset_stats()
 	parent.stats_component.reset_stats()
+	parent.on_wave_start()
 	
 	parent.user_interface.visible = true
 	parent.end_screen.visible = false
