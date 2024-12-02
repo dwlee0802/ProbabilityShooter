@@ -596,6 +596,9 @@ action_name = "action_two"
 aim_time = 0.1
 
 [node name="HeavyWeapon" parent="." instance=ExtResource("14_pf478")]
+all_bullets_penetrate = true
+aim_time = 0.5
+weapon_color = Color(0.839216, 0, 0.129412, 1)
 
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0

@@ -347,7 +347,11 @@ offset_top = -2.0
 offset_right = 14.0
 offset_bottom = 102.0
 
+[node name="HeavyWeapon" parent="." instance=ExtResource("6_jhrcy")]
+visible = false
+
 [node name="MeleeWeapon" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

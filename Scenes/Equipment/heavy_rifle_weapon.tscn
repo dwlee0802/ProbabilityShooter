@@ -1,21 +1,21 @@
 [gd_scene load_steps=12 format=3 uid="uid://buhnmxb66p4n"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_weapon.gd" id="1_6gdy7"]
-[ext_resource type="Resource" uid="uid://b7ll2myk1ffpw" path="res://Data/Guns/revolver.tres" id="2_5laqe"]
+[ext_resource type="Resource" uid="uid://c8nyhu4rrbv0m" path="res://Data/Guns/heavy_rifle.tres" id="2_cog1h"]
 [ext_resource type="Script" path="res://Scenes/Units/state_machine.gd" id="3_jvmdg"]
 [ext_resource type="Script" path="res://Scenes/States/ready_state.gd" id="4_15eq6"]
 [ext_resource type="Script" path="res://Scenes/States/reload_state.gd" id="5_x6gt4"]
-[ext_resource type="AudioStream" uid="uid://cex2uchs338xi" path="res://Sound/Weapon/rifle_shoot_sound.mp3" id="6_14xos"]
+[ext_resource type="AudioStream" uid="uid://cyn4rqwjue8kt" path="res://Sound/Weapon/rifle-gunshot-99749.mp3" id="6_onc63"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="7_b5by1"]
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="8_j33cm"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="9_mxof0"]
 [ext_resource type="PackedScene" uid="uid://b7damp7si178x" path="res://Scenes/player_arm.tscn" id="10_4qd73"]
 [ext_resource type="Texture2D" uid="uid://brpifc7yfqttt" path="res://Art/rifle_hand.png" id="11_aqxd5"]
 
-[node name="WeaponOne" type="Node2D"]
+[node name="HeavyWeapon" type="Node2D"]
 use_parent_material = true
 script = ExtResource("1_6gdy7")
-weapon_data = ExtResource("2_5laqe")
+weapon_data = ExtResource("2_cog1h")
 action_name = "action_one"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
@@ -47,7 +47,9 @@ color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 100, 5, 100, -4)
 
 [node name="GunshotSoundPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_14xos")
+stream = ExtResource("6_onc63")
+volume_db = 5.0
+pitch_scale = 1.5
 max_distance = 20000.0
 max_polyphony = 10
 
@@ -70,12 +72,21 @@ pitch_scale = 1.2
 [node name="Arm" parent="." instance=ExtResource("10_4qd73")]
 use_parent_material = true
 
+[node name="Node2D" parent="Arm" index="0"]
+position = Vector2(12, -4)
+
 [node name="Hand" parent="Arm/Node2D" index="0"]
-position = Vector2(121, -6)
-scale = Vector2(0.4, 0.4)
+position = Vector2(100, 25)
+scale = Vector2(0.366488, 0.556757)
 texture = ExtResource("11_aqxd5")
 
 [node name="MuzzlePoint" parent="Arm/Node2D/Hand" index="0"]
-position = Vector2(440, -52)
+position = Vector2(466.591, -53.8835)
+
+[node name="MuzzleFlash" parent="Arm" index="2"]
+position = Vector2(284, -33)
+
+[node name="MuzzleFlashSprite" parent="Arm" index="3"]
+position = Vector2(69, -38)
 
 [editable path="Arm"]

@@ -13,6 +13,9 @@ var bullets = []
 var attack_direction_queue = []
 var queued_bullets = []
 
+@export
+var all_bullets_penetrate: bool = false
+
 ## Stats
 var magazine_size: int = 5
 
@@ -48,6 +51,7 @@ var aim_cone: Polygon2D = $AimCone
 @onready
 var queued_cones: Node2D = $QueuedCones
 
+@export
 var weapon_color: Color = Color.HOT_PINK
 
 @export
@@ -191,6 +195,8 @@ func get_magazine_status() -> String:
 	
 func on_activation(dir: Vector2) -> void:
 	var current_bullet: Bullet = queued_bullets.pop_front()
+	current_bullet.piercing = all_bullets_penetrate
+	current_bullet.damage_amount = weapon_data.damage_amount
 	
 	for i in range(current_bullet.projectile_count):
 		# make new projectile

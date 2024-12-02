@@ -17,4 +17,4 @@ reload_time = 6.0
 projectile_speed = 10000.0
 knock_back_force = 1000.0
 projectile_count = 1
-spread = 1.0
+spread = 5.0

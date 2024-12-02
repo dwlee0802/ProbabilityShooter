@@ -13,6 +13,11 @@ var weapon_two_ui: Control = $WeaponTwo
 var weapon_two_active_reload_bar: ProgressBar = $WeaponTwo/ActiveReloadBar
 
 @onready
+var heavy_weapon_ui: Control = $HeavyWeapon
+@onready
+var heavy_weapon_active_reload_bar: ProgressBar = $HeavyWeapon/ActiveReloadBar
+
+@onready
 var melee_ui: Control = $MeleeWeapon
 @onready
 var light_attack_cooldown: ProgressBar = $MeleeWeapon/LightAttackCooldown
@@ -45,6 +50,7 @@ func _input(event: InputEvent) -> void:
 	if player_unit != null:
 		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
 		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
+		update_weapon_info_label(heavy_weapon_ui, player_unit.heavy_weapon)
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -61,8 +67,10 @@ func _process(_delta):
 	if first_frame:
 		update_weapon_info_label(weapon_one_ui, player_unit.weapon_one)
 		update_weapon_info_label(weapon_two_ui, player_unit.weapon_two)
+		update_weapon_info_label(heavy_weapon_ui, player_unit.heavy_weapon)
 		set_magazine_max_count(weapon_one_ui, player_unit.weapon_one.magazine_size)
 		set_magazine_max_count(weapon_two_ui, player_unit.weapon_two.magazine_size)
+		set_magazine_max_count(heavy_weapon_ui, player_unit.heavy_weapon.magazine_size)
 		first_frame = false
 		
 	if player_unit.weapon_one != null:
@@ -77,6 +85,12 @@ func _process(_delta):
 		if !player_unit.weapon_two.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
 			player_unit.weapon_two.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
 	
+	if player_unit.heavy_weapon != null:
+		if !player_unit.heavy_weapon.reload_started.is_connected(active_reload_component.update_reload_marker):
+			player_unit.heavy_weapon.reload_started.connect(active_reload_component.update_reload_marker.bind(heavy_weapon_ui.get_node("ActiveReloadBar"), player_unit.heavy_weapon))
+		if !player_unit.heavy_weapon.reload_complete.is_connected(reload_finished_animation.play.bind("reload_finished")):
+			player_unit.heavy_weapon.reload_complete.connect(reload_finished_animation.play.bind("reload_finished"))
+	
 	if player_unit.selected_weapon == PlayerUnit.WeaponType.MELEE:
 		update_melee_cooldown(heavy_attack_cooldown, player_unit.melee_weapon.heavy_attack_cooldown_timer)
 		update_melee_cooldown(light_attack_cooldown, player_unit.melee_weapon.light_attack_cooldown_timer)
@@ -85,6 +99,8 @@ func _process(_delta):
 		update_active_reload_bar(weapon_one_active_reload_bar, player_unit.weapon_one)
 	if !player_unit.weapon_two.has_bullets():
 		update_active_reload_bar(weapon_two_active_reload_bar, player_unit.weapon_two)
+	if !player_unit.heavy_weapon.has_bullets():
+		update_active_reload_bar(heavy_weapon_active_reload_bar, player_unit.heavy_weapon)
 		
 func update_weapon_info_label(weapon_ui, weapon: WeaponComponent) -> void:
 	if weapon == null:
@@ -171,9 +187,12 @@ func on_player_weapon_changed() -> void:
 	melee_ui.visible = false
 	weapon_one_ui.visible = false
 	weapon_two_ui.visible = false
+	heavy_weapon_ui.visible = false
 	
 	if player_unit.selected_weapon == PlayerUnit.WeaponType.MELEE:
 		melee_ui.visible = true
 	if player_unit.selected_weapon == PlayerUnit.WeaponType.DEFAULT:
 		weapon_one_ui.visible = true
 		weapon_two_ui.visible = true
+	if player_unit.selected_weapon == PlayerUnit.WeaponType.HEAVY:
+		heavy_weapon_ui.visible = true

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="GunData" load_steps=5 format=3 uid="uid://c8nyhu4rrbv0m"]
+
+[ext_resource type="PackedScene" uid="uid://d4dvwh48btf1b" path="res://Scenes/Units/projectile.tscn" id="1_0knko"]
+[ext_resource type="AudioStream" uid="uid://ce3pfmptgdosj" path="res://Sound/Weapon/sniper-rifle-5989.mp3" id="1_ehum4"]
+[ext_resource type="Script" path="res://Scripts/gun_data.gd" id="2_qlv67"]
+[ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="3_ujhqq"]
+
+[resource]
+script = ExtResource("2_qlv67")
+equipment_name = "Rifle"
+fire_sound = ExtResource("1_ehum4")
+reload_sound = ExtResource("3_ujhqq")
+projectile_scene = ExtResource("1_0knko")
+damage_amount = 2
+magazine_size = 6
+aim_time = 0.0
+reload_time = 5.0
+projectile_speed = 12000.0
+knock_back_force = 2000.0
+projectile_count = 1
+spread = 1.0

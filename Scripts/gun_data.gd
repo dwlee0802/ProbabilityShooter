@@ -15,6 +15,8 @@ var projectile_scene = preload("res://Scenes/Units/projectile.tscn")
 
 @export_category("Stats")
 @export
+var damage_amount: int = 1
+@export
 var magazine_size: int = 5
 ## How long it takes for the action to fire after use
 @export

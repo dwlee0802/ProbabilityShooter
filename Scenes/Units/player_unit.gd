@@ -616,27 +616,35 @@ func set_current_equipment(num: int) -> void:
 func select_weapon(num: WeaponType) -> void:
 	if melee_weapon:	
 		melee_weapon.selected = false
+		melee_weapon.visible = false
 	if weapon_one:
 		weapon_one.selected = false
+		weapon_one.visible = false
 	if weapon_two:
 		weapon_two.selected = false
+		weapon_two.visible = false
 	if heavy_weapon:
 		heavy_weapon.selected = false
+		heavy_weapon.visible = false
 	
 	match num:
 		PlayerUnit.WeaponType.MELEE:
 			if melee_weapon:
 				melee_weapon.selected = true
+				melee_weapon.visible = true
 			print("Select melee weapon")
 		PlayerUnit.WeaponType.DEFAULT:
 			if weapon_one:
 				weapon_one.selected = true
+				weapon_one.visible = true
 			if weapon_two:
 				weapon_two.selected = true
+				weapon_two.visible = true
 			print("Select default weapon")
 		PlayerUnit.WeaponType.HEAVY:
 			if heavy_weapon:
 				heavy_weapon.selected = true
+				heavy_weapon.visible = true
 			print("Select heavy weapon")
 			
 	selected_weapon = num
@@ -662,6 +670,9 @@ func reload_action() -> void:
 	if weapon_two != null:
 		weapon_two.active_reload_available = true
 		weapon_two.reload()
+	if heavy_weapon != null:
+		heavy_weapon.active_reload_available = true
+		heavy_weapon.reload()
 	
 func remove_equipment(num: int) -> void:
 	if num < equipments.size():
