@@ -166,6 +166,8 @@ func _ready():
 	
 	player_unit.inventory_changed.connect(user_interface.update_inventory_slots.bind(player_unit.inventory))
 	
+	player_unit.knocked_out.connect(on_player_knocked_out)
+	
 	# teleporting related signals
 	player_unit.teleport_started.connect(set_safezone_active_status.bind(true))
 	player_unit.teleport_finished.connect(on_teleport_finished)
@@ -232,8 +234,8 @@ func _process(_delta):
 		user_interface.wave_time_label.get_node("AnimationPlayer").play("wave_impending")
 		
 	# check victory
-	if !end_screen.visible and spawner_component.is_max_waves_reached() and is_all_enemies_killed():
-		game_finished(true)
+	#if !end_screen.visible and spawner_component.is_max_waves_reached() and is_all_enemies_killed():
+		#game_finished(true)
 	
 	# update minimap
 	#if InputManager.selected_unit:
@@ -370,6 +372,10 @@ func add_missile(missile: Missile) -> void:
 
 func add_pickup(pickup: Pickup) -> void:
 	resources.call_deferred("add_child", pickup)
+
+# force change to finish state if player is knocked out
+func on_player_knocked_out() -> void:
+	state_machine.change_state($StateMachine/Finished)
 	
 func game_finished(victory: bool) -> void:
 	# already called
@@ -518,7 +524,6 @@ func bind_selected_unit_signals() -> void:
 		else:
 			user_interface.level_up_menu.visible = false
 			
-		InputManager.selected_unit.knocked_out.connect(game_finished.bind(false))
 		InputManager.selected_unit.was_attacked.connect(on_core_hit)
 		unit.health_changed.connect(on_core_hit)
 		unit.healed.connect(on_player_heal)
