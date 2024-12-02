@@ -38,6 +38,9 @@ var projectile_count: int = 1
 ## Inaccuracy of shooting
 @export
 var spread: float = 0
+## Force of the recoil on player unit
+@export
+var recoil_force: float = 500
 
 func get_spread_in_rad() -> float:
 	return spread / 180.0 * PI

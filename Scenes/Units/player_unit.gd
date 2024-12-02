@@ -272,17 +272,20 @@ func _ready() -> void:
 	weapon_two.bullet_generator = $BulletGeneratorComponent
 	weapon_one.reload()
 	weapon_two.reload()
+	heavy_weapon.reload()
 	
 	weapon_one.activated.connect(knock_back.bind(weapon_one.muzzle_point))
 	weapon_two.activated.connect(knock_back.bind(weapon_two.muzzle_point))
+	heavy_weapon.activated.connect(knock_back.bind(heavy_weapon.muzzle_point))
 	
 	weapon_one.activated.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_SHOOT)))
 	weapon_two.activated.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_SHOOT)))
+	heavy_weapon.activated.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_SHOOT)))
 	
 	equipment_changed.connect(update_aim_cone)
 	update_aim_cone()
-	print("equipped " + weapon_one.weapon_data.equipment_name)
-	print("equipped " + weapon_two.weapon_data.equipment_name)
+	#print("equipped " + weapon_one.weapon_data.equipment_name, weapon_one.weapon_data.recoil_force)
+	#print("equipped " + weapon_two.weapon_data.equipment_name, weapon_two.weapon_data.recoil_force)
 	
 	# cone colors
 	aim_cone.color = aim_color
@@ -317,6 +320,7 @@ func _ready() -> void:
 	
 	weapon_one.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
 	weapon_two.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
+	heavy_weapon.reload_complete.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_RELOAD)))
 	
 	movement_component.dashed.connect(dash_sound.play)
 	movement_component.dashed.connect(UpgradesManager.process_event.bind(Event.new(self, global_position, null, Event.EventCode.PLAYER_DASH)))
@@ -973,8 +977,8 @@ func set_eye_colors(left: Color = Color.BLACK, right: Color = Color.BLACK):
 	$UnitSprite/LeftEye.self_modulate = left
 	$UnitSprite/RightEye.self_modulate = right
 
-func knock_back(node: Node2D) -> void:
-	apply_central_impulse(-global_position.direction_to(node.global_position) * 500)
+func knock_back(node: Node2D, force: float = 500) -> void:
+	apply_central_impulse(-global_position.direction_to(node.global_position) * force)
 
 func _on_pickup_area_body_entered(body: Node2D) -> void:
 	if body is Pickup:

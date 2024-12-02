@@ -84,9 +84,9 @@ texture = ExtResource("11_aqxd5")
 position = Vector2(466.591, -53.8835)
 
 [node name="MuzzleFlash" parent="Arm" index="2"]
-position = Vector2(284, -33)
+position = Vector2(284, -10)
 
 [node name="MuzzleFlashSprite" parent="Arm" index="3"]
-position = Vector2(69, -38)
+position = Vector2(67, -13)
 
 [editable path="Arm"]

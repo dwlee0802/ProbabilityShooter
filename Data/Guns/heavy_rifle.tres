@@ -19,3 +19,4 @@ projectile_speed = 12000.0
 knock_back_force = 2000.0
 projectile_count = 1
 spread = 1.0
+recoil_force = 2000.0

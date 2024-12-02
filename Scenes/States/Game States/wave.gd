@@ -13,6 +13,9 @@ func enter() -> void:
 	print("Start wave!")
 	parent.spawner_component.on_wave_timer_timeout()
 	parent.user_interface.wave_start_ui.wave_start(parent.spawner_component.wave_count)
+	
+	parent.player_unit.reload_action()
+	
 	return
 
 func exit() -> void:
