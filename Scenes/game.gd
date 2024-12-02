@@ -12,6 +12,8 @@ var end_screen: GameOverScreen = $EndScreen
 var game_paused_screen = $PauseScreen
 @onready
 var shop_screen = $ShopScreen
+@onready
+var loading_screen = $LoadingScreen
 
 var enemy_scene = preload("res://Scenes/Units/enemy_unit.tscn")
 
@@ -109,6 +111,7 @@ static func _static_init():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player_unit = $PlayerUnit
 	state_machine.init(self)
 	
 	projectile_scene.instantiate().queue_free()
@@ -120,7 +123,6 @@ func _ready():
 	
 	set_safezone_sprite(safe_zone_radius)
 	
-	player_unit = $PlayerUnit
 	player_unit.safe_zone_radius = safe_zone_radius
 	
 	player_unit.melee_weapon.game_ref = self
@@ -155,7 +157,7 @@ func _ready():
 	#spawner_component.on_wave_timer_timeout()
 	#spawn_wave()
 	
-	end_screen.restart_button.pressed.connect(start)
+	end_screen.restart_button.pressed.connect(on_restart_pressed)
 
 	user_interface.charge_bar.set_max(player_unit.max_charge)
 	on_charge_changed()
@@ -376,6 +378,13 @@ func add_pickup(pickup: Pickup) -> void:
 # force change to finish state if player is knocked out
 func on_player_knocked_out() -> void:
 	state_machine.change_state($StateMachine/Finished)
+
+func on_restart_pressed() -> void:
+	player_unit.freeze = false
+	loading_screen.visible = true
+	await get_tree().create_timer(0.2).timeout
+	loading_screen.visible = false
+	state_machine.change_state($StateMachine/Opening)
 	
 func game_finished(victory: bool) -> void:
 	# already called
@@ -438,52 +447,52 @@ func remove_objects() -> void:
 	
 	DW_ToolBox.RemoveAllChildren(blood_splatter)
 	
-func start() -> void:
-	print("***START GAME***")
-	state_machine.init(self)
-	
-	stats_component.reset_stats()
-	
-	user_interface.visible = true
-	end_screen.visible = false
-	
-	score_component.reset()
-	
-	# remove leftover resources
-	remove_objects()
-	
-	spawner_component.reset_stats()
-	
-	# spawn first wave
-	# reset enemy stats 
-	spawner_component.reset_stats()
-	spawner_component.on_wave_timer_timeout()
-	
-	# start mutation
-	#mutation_timer.start(mutation_cooldown)
-	#user_interface.mutation_roulette.mutation_time_label.visible = true
-
-	# reset unit stats
-	player_unit.reset_health()
-	player_unit.reset_items()
-	player_unit.reset_exp()
-	player_unit.reload_action()
-	player_unit.global_position = Vector2.ZERO
-	player_unit.freeze = false
-	player_unit.clear_inventory()
-	player_unit.reset_crystals()
-	player_unit.stat_component.reset_stats()
-	player_unit.clear_buffs()
-	
-	UpgradesManager.reset_upgrades()
-	
-	place_shootables()
-	
-	set_safezone_active_status(true)
-	player_unit.safe_zone_active = true
-	user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
-	
-	user_interface.upgrade_ui.clear_icons()
+#func start() -> void:
+	#print("***START GAME***")
+	#state_machine.init(self)
+	#
+	#stats_component.reset_stats()
+	#
+	#user_interface.visible = true
+	#end_screen.visible = false
+	#
+	#score_component.reset()
+	#
+	## remove leftover resources
+	#remove_objects()
+	#
+	#spawner_component.reset_stats()
+	#
+	## spawn first wave
+	## reset enemy stats 
+	#spawner_component.reset_stats()
+	#spawner_component.on_wave_timer_timeout()
+	#
+	## start mutation
+	##mutation_timer.start(mutation_cooldown)
+	##user_interface.mutation_roulette.mutation_time_label.visible = true
+#
+	## reset unit stats
+	#player_unit.reset_health()
+	#player_unit.reset_items()
+	#player_unit.reset_exp()
+	#player_unit.reload_action()
+	#player_unit.global_position = Vector2.ZERO
+	#player_unit.freeze = false
+	#player_unit.clear_inventory()
+	#player_unit.reset_crystals()
+	#player_unit.stat_component.reset_stats()
+	#player_unit.clear_buffs()
+	#
+	#UpgradesManager.reset_upgrades()
+	#
+	#place_shootables()
+	#
+	#set_safezone_active_status(true)
+	#player_unit.safe_zone_active = true
+	#user_interface.kill_count_label.text = str(int(stats_component.kill_count)) + " Kills"
+	#
+	#user_interface.upgrade_ui.clear_icons()
 
 func place_crystals() -> void:
 	for i in range(crystal_count):

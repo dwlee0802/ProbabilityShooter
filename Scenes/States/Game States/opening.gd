@@ -29,6 +29,38 @@ func enter() -> void:
 	
 	# reset wave stats
 	parent.spawner_component.reset_stats()
+	parent.stats_component.reset_stats()
+	
+	parent.user_interface.visible = true
+	parent.end_screen.visible = false
+	
+	parent.score_component.reset()
+	
+	# remove leftover resources
+	parent.remove_objects()
+	
+	# reset unit stats
+	var player_unit: PlayerUnit = parent.player_unit
+	player_unit.reset_health()
+	player_unit.reset_items()
+	player_unit.reset_exp()
+	player_unit.reload_action()
+	player_unit.global_position = Vector2.ZERO
+	player_unit.freeze = false
+	player_unit.clear_inventory()
+	player_unit.reset_crystals()
+	player_unit.stat_component.reset_stats()
+	player_unit.clear_buffs()
+	
+	UpgradesManager.reset_upgrades()
+	
+	parent.place_shootables()
+	
+	parent.set_safezone_active_status(true)
+	player_unit.safe_zone_active = true
+	parent.user_interface.kill_count_label.text = str(int(parent.stats_component.kill_count)) + " Kills"
+	
+	parent.user_interface.upgrade_ui.clear_icons()
 	
 	return
 
