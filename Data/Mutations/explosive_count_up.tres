@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Mutation" load_steps=2 format=3 uid="uid://x56mj1hjhopy"]
+
+[ext_resource type="Script" path="res://Scenes/Mutations/mutation_object.gd" id="1_5v6wn"]
+
+[resource]
+script = ExtResource("1_5v6wn")
+mutation_name = "More Explosive"
+description = "Increase the average number of explosive enemies spawned by 1"
+color = Color(0.545098, 0.890196, 0, 1)
+disabled = false
+health_avg_bonus = 0.0
+heavy_spawn_chance_bonus = 0.0
+fast_spawn_chance_bonus = 0.0
+ranged_spawn_chance_bonus = 0.0
+shield_spawn_chance_bonus = 0.0
+melee_avg_bonus = 0.0
+ranged_avg_bonus = 0.0
+sniper_avg_bonus = 0.0
+sprayer_avg_bonus = 0.0
+ghost_avg_bonus = 0.0
+explosive_avg_bonus = 1.0
