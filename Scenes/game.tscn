@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=36 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://cnrxipa3477gt" path="res://Scenes/Interface/pause_screen.tscn" id="5_m4kpe"]
 [ext_resource type="Script" path="res://Scenes/States/Game States/finished.gd" id="6_0xoih"]
 [ext_resource type="PackedScene" uid="uid://do55tseni0rpp" path="res://Scenes/Units/Enemies/sniper_enemy_unit.tscn" id="6_aqm0h"]
-[ext_resource type="Script" path="res://Scenes/Interface/pause_screen.gd" id="6_ljvbn"]
 [ext_resource type="PackedScene" uid="uid://dcn2if5g8chpm" path="res://Scenes/Interface/user_interface.tscn" id="6_tejxs"]
 [ext_resource type="PackedScene" uid="uid://bv1kjcxwlinqr" path="res://Scenes/Units/Enemies/spray_enemy_unit.tscn" id="7_bsan6"]
 [ext_resource type="PackedScene" uid="uid://b8d4g0epnu685" path="res://Scenes/Interface/crosshair.tscn" id="7_xccla"]
@@ -224,7 +223,6 @@ color = Color(0, 0, 0, 1)
 [node name="PauseScreen" parent="." instance=ExtResource("5_m4kpe")]
 process_mode = 3
 visible = false
-script = ExtResource("6_ljvbn")
 
 [node name="Crosshair" type="Node2D" parent="PauseScreen"]
 script = ExtResource("10_7h2qa")

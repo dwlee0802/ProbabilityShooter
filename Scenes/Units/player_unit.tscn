@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cxvs0ubbipl35"]
+[gd_scene load_steps=69 format=3 uid="uid://cxvs0ubbipl35"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_unit.gd" id="1_b776y"]
 [ext_resource type="Script" path="res://Scenes/Units/bullet_generator_component.gd" id="3_dla1s"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://nh47oxk8doku" path="res://Scenes/Equipment/melee_weapon.tscn" id="13_2p1cc"]
 [ext_resource type="PackedScene" uid="uid://crj6r34sefvv1" path="res://Scenes/Equipment/ranged_weapon.tscn" id="13_ik2b4"]
 [ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="13_n3hms"]
+[ext_resource type="PackedScene" uid="uid://buhnmxb66p4n" path="res://Scenes/Equipment/heavy_rifle_weapon.tscn" id="14_pf478"]
 [ext_resource type="Texture2D" uid="uid://bju7p854bmw3d" path="res://Art/placeholder_unit.png" id="14_wx8vp"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="15_1vmhr"]
 [ext_resource type="Texture2D" uid="uid://vf8d0ug5roo4" path="res://Art/triangle.png" id="15_hpy8o"]
@@ -586,14 +587,15 @@ libraries = {
 }
 
 [node name="WeaponOne" parent="." instance=ExtResource("13_ik2b4")]
+visible = false
 aim_time = 0.1
 
 [node name="WeaponTwo" parent="." instance=ExtResource("13_ik2b4")]
+visible = false
 action_name = "action_two"
 aim_time = 0.1
 
-[node name="HeavyWeapon" parent="." instance=ExtResource("13_ik2b4")]
-aim_time = 1.5
+[node name="HeavyWeapon" parent="." instance=ExtResource("14_pf478")]
 
 [node name="ActionOneReloadTimer" type="Timer" parent="."]
 process_callback = 0
