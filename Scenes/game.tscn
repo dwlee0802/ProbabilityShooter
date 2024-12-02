@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dxjkqbl8aq56s"]
+[gd_scene load_steps=37 format=3 uid="uid://dxjkqbl8aq56s"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_entdd"]
 [ext_resource type="Script" path="res://Scenes/Interface/CameraControl.gd" id="2_iduqg"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://drlxsyjqp0lk6" path="res://Art/crosshair054.png" id="11_jdxks"]
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="12_4xbxh"]
 [ext_resource type="Script" path="res://Scenes/Equipment/gun_data_old.gd" id="13_3bo3l"]
+[ext_resource type="PackedScene" uid="uid://dyb0pbgw34xkf" path="res://Scenes/Units/Enemies/explosive_enemy_unit.tscn" id="14_6erlo"]
 [ext_resource type="Script" path="res://Scenes/pause_component.gd" id="14_gwgne"]
 [ext_resource type="PackedScene" uid="uid://cib6lvb1733vn" path="res://Scenes/Interface/game_over_screen.tscn" id="14_jbor4"]
 [ext_resource type="Script" path="res://Scenes/Interface/game_over_screen.gd" id="15_8b1o7"]
@@ -92,9 +93,11 @@ ranged_unit = ExtResource("5_5fil0")
 sniper_unit = ExtResource("6_aqm0h")
 sprayer_unit = ExtResource("7_bsan6")
 ghost_unit = ExtResource("4_4foiw")
+explosive_unit = ExtResource("14_6erlo")
 max_waves = 10
 _base_ranged_spawn_count = 0.25
 _base_sprayer_spawn_count = 0.25
+_base_explosive_spawn_count = 5.0
 waves_per_mutation = 2
 _base_avg_health = 1.5
 _base_move_speed_range = Vector2i(300, 500)

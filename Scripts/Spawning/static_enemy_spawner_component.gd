@@ -17,6 +17,8 @@ var sniper_unit: PackedScene
 var sprayer_unit: PackedScene
 @export
 var ghost_unit: PackedScene
+@export
+var explosive_unit: PackedScene
 
 var wave_timer: Timer
 @export
@@ -41,6 +43,9 @@ var sprayer_spawn_average: float = 0
 @export
 var _base_ghost_spawn_count: float = 0
 var ghost_spawn_average: float = 0
+@export
+var _base_explosive_spawn_count: float = 0
+var explosive_spawn_average: float = 0
 
 @export_category("Mutation Setting")
 @export
@@ -92,6 +97,7 @@ func reset_stats() -> void:
 	sniper_spawn_average = _base_sniper_spawn_count
 	sprayer_spawn_average = _base_sprayer_spawn_count
 	ghost_spawn_average = _base_ghost_spawn_count
+	explosive_spawn_average = _base_explosive_spawn_count
 	
 	avg_health = _base_avg_health
 	move_speed_range = _base_move_speed_range
@@ -127,6 +133,8 @@ func on_wave_timer_timeout() -> void:
 		ranged.append(spawn_enemy_unit(sprayer_unit))
 	for i in range(int(randfn(ghost_spawn_average, 1.2))):
 		ranged.append(spawn_enemy_unit(ghost_unit))
+	for i in range(int(randfn(explosive_spawn_average, 1.2))):
+		ranged.append(spawn_enemy_unit(explosive_unit))
 	
 	#print("melee: " + str(melee))
 	#print("ranged: " + str(ranged))
