@@ -43,6 +43,8 @@ var sniper_avg_bonus: float = 0
 var sprayer_avg_bonus: float = 0
 @export
 var ghost_avg_bonus: float = 0
+@export
+var explosive_avg_bonus: float = 0
 
 
 func apply(spawner: EnemySpawnerComponent):
@@ -51,6 +53,7 @@ func apply(spawner: EnemySpawnerComponent):
 	spawner.ranged_spawn_average += ranged_avg_bonus
 	spawner.sniper_spawn_average += sniper_avg_bonus
 	spawner.sprayer_spawn_average += sprayer_avg_bonus
+	spawner.explosive_spawn_average += explosive_avg_bonus
 	print("Applied Mutation: " + _to_string())
 
 func _to_string() -> String:
