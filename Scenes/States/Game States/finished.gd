@@ -1,10 +1,13 @@
 extends State
 
 @export
-var other_state: State
+var opening_state: State
 
 
 func enter() -> void:
+	# game finished. stop spawning enemies
+	if !parent.spawner_component.wave_timer.is_stopped():
+		parent.spawner_component.wave_timer.stop()
 	return
 
 func exit() -> void:

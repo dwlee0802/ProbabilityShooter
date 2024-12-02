@@ -851,9 +851,9 @@ func add_experience(amount: int) -> void:
 	
 	if is_level_up_ready():
 		level_up()
-		if current_level % level_per_upgrade == 0:
-			upgrades_ready_count += 1
-			upgrade_ready.emit()
+		#if current_level % level_per_upgrade == 0:
+			#upgrades_ready_count += 1
+			#upgrade_ready.emit()
 
 func exp_orb_effect() -> void:
 	shade_animation.play("RESET")
@@ -864,7 +864,7 @@ func level_up() -> void:
 	experience_gained -= required_exp_amount(current_level)
 	current_level += 1
 	print("level up to " + str(current_level))
-	level_increased.emit()
+	#level_increased.emit()
 	
 	#bullet_generator_component.add_trait_chance_bonus(trait_chance_increase_per_level)
 	stats_changed.emit()

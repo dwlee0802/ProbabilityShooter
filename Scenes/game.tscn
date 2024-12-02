@@ -78,8 +78,9 @@ shop_state = NodePath("../Shop")
 script = ExtResource("5_hgln2")
 wave_state = NodePath("../Wave")
 
-[node name="Finished" type="Node" parent="StateMachine"]
+[node name="Finished" type="Node" parent="StateMachine" node_paths=PackedStringArray("opening_state")]
 script = ExtResource("6_0xoih")
+opening_state = NodePath("../Opening")
 
 [node name="Paused" type="Node" parent="StateMachine"]
 script = ExtResource("7_4fi4r")
