@@ -102,7 +102,8 @@ func on_aim_finished() -> void:
 			parent.queued_attack_cones.pop_front().queue_free()
 		parent.attack_full_cone.visible = false
 		
-		parent.shot_bullet.emit(parent.queued_bullets.front().projectile_count)
+		if parent.queued_bullets.size() > 0:
+			parent.shot_bullet.emit(parent.queued_bullets.front().projectile_count)
 		parent.on_activation(target)
 		
 		parent.activated.emit()

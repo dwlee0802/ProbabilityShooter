@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://buhnmxb66p4n"]
+[gd_scene load_steps=24 format=3 uid="uid://buhnmxb66p4n"]
 
 [ext_resource type="Script" path="res://Scenes/Units/player_weapon.gd" id="1_6gdy7"]
 [ext_resource type="Resource" uid="uid://c8nyhu4rrbv0m" path="res://Data/Guns/heavy_rifle.tres" id="2_cog1h"]
@@ -9,8 +9,205 @@
 [ext_resource type="AudioStream" uid="uid://b1uowvayrvgkd" path="res://Sound/Weapon/reload_sound.mp3" id="7_b5by1"]
 [ext_resource type="AudioStream" uid="uid://bkfdqtp4ekaaf" path="res://Sound/rifle-clip-empty-98832.mp3" id="8_j33cm"]
 [ext_resource type="AudioStream" uid="uid://cm401tc48yjmd" path="res://Sound/UI/confirmation_002.ogg" id="9_mxof0"]
-[ext_resource type="PackedScene" uid="uid://b7damp7si178x" path="res://Scenes/player_arm.tscn" id="10_4qd73"]
 [ext_resource type="Texture2D" uid="uid://brpifc7yfqttt" path="res://Art/rifle_hand.png" id="11_aqxd5"]
+[ext_resource type="Texture2D" uid="uid://2qor4oid4mn7" path="res://Art/128x128_white_circle.png" id="11_ugipi"]
+
+[sub_resource type="Curve" id="Curve_rwao4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_buiho"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_pi8xm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Hand:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/Hand:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dmtba"]
+resource_name = "recoil_left"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.2),
+"transitions": PackedFloat32Array(0.125, 2.63902, 1),
+"update": 0,
+"values": [0.0, 0.523599, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Hand:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(100, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sv1of"]
+resource_name = "recoil_right"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.2),
+"transitions": PackedFloat32Array(0.125, 2.63902, 1),
+"update": 0,
+"values": [0.0, -0.523599, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Hand:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-100, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5kwfb"]
+resource_name = "reload"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Hand:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.12, 0.18, 0.24, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 0.0, 3.14159, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p1hbk"]
+_data = {
+"RESET": SubResource("Animation_pi8xm"),
+"recoil_left": SubResource("Animation_dmtba"),
+"recoil_right": SubResource("Animation_sv1of"),
+"reload": SubResource("Animation_5kwfb")
+}
+
+[sub_resource type="Gradient" id="Gradient_fv5sn"]
+offsets = PackedFloat32Array(0, 0.136364, 0.415584, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.313726, 1, 1, 1, 0.156863, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_undft"]
+gradient = SubResource("Gradient_fv5sn")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.848624, 0.825688)
+
+[sub_resource type="Animation" id="Animation_fwgh5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MuzzleFlashSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8a01f"]
+resource_name = "muzzle_flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../MuzzleFlashSprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(0.717647, 1, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pjojk"]
+_data = {
+"RESET": SubResource("Animation_fwgh5"),
+"muzzle_flash": SubResource("Animation_8a01f")
+}
 
 [node name="HeavyWeapon" type="Node2D"]
 use_parent_material = true
@@ -69,24 +266,60 @@ stream = ExtResource("9_mxof0")
 volume_db = -7.0
 pitch_scale = 1.2
 
-[node name="Arm" parent="." instance=ExtResource("10_4qd73")]
+[node name="Arm" type="Node2D" parent="."]
 use_parent_material = true
 
-[node name="Node2D" parent="Arm" index="0"]
+[node name="Node2D" type="Node2D" parent="Arm"]
 position = Vector2(12, -4)
 
-[node name="Hand" parent="Arm/Node2D" index="0"]
+[node name="Hand" type="Sprite2D" parent="Arm/Node2D"]
+self_modulate = Color(0.564962, 0.564962, 0.564961, 1)
 position = Vector2(100, 25)
 scale = Vector2(0.366488, 0.556757)
 texture = ExtResource("11_aqxd5")
 
-[node name="MuzzlePoint" parent="Arm/Node2D/Hand" index="0"]
+[node name="MuzzlePoint" type="Marker2D" parent="Arm/Node2D/Hand"]
 position = Vector2(466.591, -53.8835)
+scale = Vector2(4, 4)
 
-[node name="MuzzleFlash" parent="Arm" index="2"]
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Arm/Node2D/Hand/MuzzlePoint"]
+position = Vector2(7, 0)
+emitting = false
+amount = 100
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.1
+lifetime_randomness = 0.1
+texture = ExtResource("11_ugipi")
+gravity = Vector2(0, -900)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_rwao4")
+color = Color(0.298039, 0.298039, 0.298039, 0.0196078)
+color_ramp = SubResource("Gradient_buiho")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Arm"]
+libraries = {
+"": SubResource("AnimationLibrary_p1hbk")
+}
+
+[node name="MuzzleFlash" type="PointLight2D" parent="Arm"]
 position = Vector2(284, -10)
+color = Color(1, 1, 1, 0)
+energy = 2.0
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_undft")
+texture_scale = 30.0
 
-[node name="MuzzleFlashSprite" parent="Arm" index="3"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Arm/MuzzleFlash"]
+libraries = {
+"": SubResource("AnimationLibrary_pjojk")
+}
+speed_scale = 0.85
+
+[node name="MuzzleFlashSprite" type="Polygon2D" parent="Arm"]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(67, -13)
-
-[editable path="Arm"]
+polygon = PackedVector2Array(213, 1, 221, -15, 229, -121, 236, -14, 236, -72, 242, -15, 252, -35, 249, -22, 373, -21, 261, -14, 448, -10, 275, 0, 390, 5, 263, 12, 349, 19, 255, 22, 257, 35, 245, 20, 243, 72, 237, 20, 234, 104, 224, 19, 213, 10)
