@@ -131,6 +131,9 @@ func on_wave_timer_timeout() -> void:
 	#print("melee: " + str(melee))
 	#print("ranged: " + str(ranged))
 	
+	avg_health += 0.25
+	print("Enemy average HP increased to " + str(DW_ToolBox.TrimDecimalPoints(avg_health, 2)))
+	
 	if wave_count % waves_per_mutation == 0:
 		# apply mutation
 		apply_mutation(next_mutation)
