@@ -1993,6 +1993,7 @@ theme_override_constants/margin_bottom = 10
 [node name="Label" type="Label" parent="WaitingStartUI"]
 visible = false
 layout_mode = 2
+mouse_filter = 0
 theme_override_font_sizes/font_size = 25
 text = "Press Mouse Button to Start"
 horizontal_alignment = 1
@@ -2007,6 +2008,7 @@ autoplay = "blink"
 [node name="StartingLabel" type="Label" parent="WaitingStartUI"]
 visible = false
 layout_mode = 2
+mouse_filter = 0
 theme_override_font_sizes/font_size = 25
 text = "Starting in 3.."
 horizontal_alignment = 1
